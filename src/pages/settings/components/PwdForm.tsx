@@ -1,5 +1,5 @@
-import type { UpdateUserPasswordParams } from '@/services/user';
-import { reqUpdateUserPassword } from '@/services/user';
+import type { UpdateUserPasswordParams } from '@/services';
+import { reqUpdateUserPassword } from '@/services';
 import { logout, regPassword } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormText } from '@ant-design/pro-components';

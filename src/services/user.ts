@@ -1,4 +1,4 @@
-import type { CurrentUser } from '@/services/login';
+import type { CurrentUser } from '@/services';
 import { request } from '@/utils';
 
 export type UpdateUserProfileParams = Partial<

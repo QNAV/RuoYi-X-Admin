@@ -1,7 +1,7 @@
 import { SexMap } from '@/constants';
 import PwdForm from '@/pages/settings/components/PwdForm';
-import type { UpdateUserProfileParams } from '@/services/user';
-import { reqUpdateUserProfile, uploadAvatarPath } from '@/services/user';
+import type { UpdateUserProfileParams } from '@/services';
+import { reqUpdateUserProfile, uploadAvatarPath } from '@/services';
 import type { InitialState } from '@/types';
 import { getToken, regEmail, regPhone } from '@/utils';
 import { useModel } from '@@/plugin-model';
