@@ -1,9 +1,10 @@
 import { LogoutIcon, SettingsIcon } from '@/components';
 import { reqGetUserInfo, reqGetUserRoutes } from '@/services';
 import type { InitialState } from '@/types';
-import { checkToken } from '@/utils';
+import { checkToken, getUserMenus } from '@/utils';
 import { GithubOutlined } from '@ant-design/icons';
 import type { ProLayoutProps } from '@ant-design/pro-layout/es/ProLayout';
+import type { MenuDataItem } from '@ant-design/pro-layout/es/typings';
 import { history } from '@umijs/max';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
@@ -49,7 +50,7 @@ export const dataflowProvider = (container: ReactNode) => {
 export const layout = ({ initialState }: { initialState: InitialState }): ProLayoutProps => {
   if (!initialState) return {};
 
-  const { userInfo } = initialState;
+  const { userInfo, userRoutes } = initialState;
 
   return {
     avatarProps: {
@@ -67,5 +68,14 @@ export const layout = ({ initialState }: { initialState: InitialState }): ProLay
     rightContentRender: false,
     onMenuHeaderClick: () => history.push('/'),
     actionsRender: () => [<SettingsIcon key="LogoutIcon" />, <LogoutIcon key="LogoutIcon" />],
+    postMenuData: (menusData: MenuDataItem[] = []) => {
+      const menus = getUserMenus(userRoutes);
+
+      if (menus.length === 0) {
+        return menusData;
+      }
+
+      return [...menusData, ...menus];
+    },
   };
 };

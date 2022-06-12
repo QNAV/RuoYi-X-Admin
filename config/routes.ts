@@ -42,13 +42,13 @@ export interface Route extends MenuDataItem {
 
 const routes: Route[] = [
   {
-    exact: true,
+    name: '首页',
     path: '/',
     component: '@/pages/home',
+    hideInMenu: true,
   },
   {
     name: '登录',
-    exact: true,
     path: '/login',
     component: '@/pages/login',
     headerRender: false,
@@ -59,10 +59,13 @@ const routes: Route[] = [
   },
   {
     name: '个人中心',
-    exact: true,
     path: '/settings',
     component: '@/pages/settings',
     hideInMenu: true,
+  },
+  {
+    path: '403',
+    component: '@/pages/403',
   },
   {
     path: '*',
