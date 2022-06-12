@@ -1,0 +1,52 @@
+{
+  "private": true,
+  "scripts": {
+    "ANALYZE": "cross-env ANALYZE=1 max build",
+    "build": "cross-env UMI_ENV=prod max build",
+    "clean": "rimraf dist .mfsu src/.umi src/.umi-production pnpm-lock.yaml node_modules",
+    "postinstall": "max setup",
+    "prepare": "husky install",
+    "start": "cross-env UMI_ENV=local max dev"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css,less}": [
+      "max lint"
+    ]
+  },
+  "dependencies": {
+    "@ant-design/charts": "^1.3.6",
+    "@ant-design/icons": "^4.7.0",
+    "@ant-design/pro-components": "^1.1.5",
+    "@ant-design/pro-layout": "next",
+    "@umijs/max": "next",
+    "ahooks": "^3.4.1",
+    "antd": "^4.21.0",
+    "axios": "next",
+    "classnames": "^2.3.1",
+    "dayjs": "^1.11.3",
+    "lodash-es": "^4.17.21",
+    "query-string": "^7.1.1",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-query": "beta"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
+    "@types/lodash-es": "^4.17.6",
+    "@types/react": "^18.0.12",
+    "@types/react-dom": "^18.0.5",
+    "@umijs/lint": "next",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.17.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.1",
+    "prettier": "^2.6.2",
+    "prettier-plugin-organize-imports": "^2.3.4",
+    "prettier-plugin-packagejson": "^2.2.18",
+    "rimraf": "^3.0.2",
+    "stylelint": "^14.9.1",
+    "tailwindcss": "^3.1.2",
+    "typescript": "^4.7.3"
+  }
+}
