@@ -90,7 +90,7 @@ const LoginPage: FC = () => {
         onFinish={submit}
         activityConfig={{
           action: (
-            <GithubOutlined className="text-4xl cursor-pointer" onClick={() => window.open(GITHUB_URL, '_blank')} />
+            <GithubOutlined className="text-2xl cursor-pointer" onClick={() => window.open(GITHUB_URL, '_blank')} />
           ),
         }}
       >

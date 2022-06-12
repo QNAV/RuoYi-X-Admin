@@ -1,12 +1,17 @@
-import { Spin } from 'antd';
-import type { CSSProperties, FC } from 'react';
+import Nprogress from 'nprogress';
+import type { FC } from 'react';
+import { useEffect } from 'react';
 
-const style: CSSProperties = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
+const Loading: FC = () => {
+  useEffect(() => {
+    Nprogress.start();
+
+    return () => {
+      Nprogress.done();
+    };
+  }, []);
+
+  return null;
 };
-
-const Loading: FC = () => <Spin size="large" style={style} />;
 
 export default Loading;

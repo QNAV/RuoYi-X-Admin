@@ -57,7 +57,13 @@ export const layout = ({ initialState }: { initialState: InitialState }): ProLay
       size: 'small',
       title: userInfo.user.nickName,
     },
-    links: [<GithubOutlined key="GithubOutlined" onClick={() => window.open(GITHUB_URL, '_blank')} />],
+    links: [
+      <GithubOutlined
+        key="GithubOutlined"
+        style={{ fontSize: '18px' }}
+        onClick={() => window.open(GITHUB_URL, '_blank')}
+      />,
+    ],
     rightContentRender: false,
     onMenuHeaderClick: () => history.push('/'),
     actionsRender: () => [<SettingsIcon key="LogoutIcon" />, <LogoutIcon key="LogoutIcon" />],

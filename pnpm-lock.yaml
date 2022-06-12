@@ -8,6 +8,7 @@ specifiers:
   '@commitlint/cli': ^17.0.2
   '@commitlint/config-conventional': ^17.0.2
   '@types/lodash-es': ^4.17.6
+  '@types/nprogress': ^0.2.0
   '@types/react': ^18.0.12
   '@types/react-dom': ^18.0.5
   '@umijs/lint': next
@@ -22,6 +23,7 @@ specifiers:
   husky: ^8.0.1
   lint-staged: ^13.0.1
   lodash-es: ^4.17.21
+  nprogress: ^0.2.0
   prettier: ^2.6.2
   prettier-plugin-organize-imports: ^2.3.4
   prettier-plugin-packagejson: ^2.2.18
@@ -46,6 +48,7 @@ dependencies:
   classnames: 2.3.1
   dayjs: 1.11.3
   lodash-es: 4.17.21
+  nprogress: 0.2.0
   query-string: 7.1.1
   react: 18.1.0
   react-dom: 18.1.0_react@18.1.0
@@ -55,6 +58,7 @@ devDependencies:
   '@commitlint/cli': 17.0.2
   '@commitlint/config-conventional': 17.0.2
   '@types/lodash-es': 4.17.6
+  '@types/nprogress': 0.2.0
   '@types/react': 18.0.12
   '@types/react-dom': 18.0.5
   '@umijs/lint': 4.0.0-rc.22_zoui2zldok3fb55clv2q3vuizi
@@ -2874,6 +2878,10 @@ packages:
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
+
+  /@types/nprogress/0.2.0:
+    resolution: {integrity: sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==}
+    dev: true
 
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
@@ -7941,6 +7949,10 @@ packages:
     dependencies:
       path-key: 4.0.0
     dev: true
+
+  /nprogress/0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
 
   /nth-check/2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
