@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[436],{29462:function(E,n,t){t.r(n);var s=t(33918),a=t(8230),o=t(92748),u=t(62086),e=function(){return(0,u.jsx)(a.ZP,{status:"404",title:"404",subTitle:"Sorry, the page you visited does not exist.",extra:(0,u.jsx)(o.Z,{type:"primary",onClick:function(){return s.m8.push("/")},children:"Back Home"})})};n.default=e}}]);
