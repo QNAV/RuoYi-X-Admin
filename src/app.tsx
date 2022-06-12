@@ -2,6 +2,7 @@ import { LogoutIcon, SettingsIcon } from '@/components';
 import { reqGetUserInfo, reqGetUserRoutes } from '@/services';
 import type { InitialState } from '@/types';
 import { checkToken } from '@/utils';
+import { GithubOutlined } from '@ant-design/icons';
 import type { ProLayoutProps } from '@ant-design/pro-layout/es/ProLayout';
 import { history } from '@umijs/max';
 import dayjs from 'dayjs';
@@ -56,6 +57,7 @@ export const layout = ({ initialState }: { initialState: InitialState }): ProLay
       size: 'small',
       title: userInfo.user.nickName,
     },
+    links: [<GithubOutlined key="GithubOutlined" onClick={() => window.open(GITHUB_URL, '_blank')} />],
     rightContentRender: false,
     onMenuHeaderClick: () => history.push('/'),
     actionsRender: () => [<SettingsIcon key="LogoutIcon" />, <LogoutIcon key="LogoutIcon" />],

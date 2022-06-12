@@ -5,7 +5,7 @@ export default defineConfig({
   npmClient: 'pnpm',
   tailwindcss: {},
   layout: {
-    title: '若依后台管理系统',
+    title: 'RuoYi X Umi',
   },
   antd: {},
   model: {},
@@ -14,6 +14,7 @@ export default defineConfig({
   access: {},
   define: {
     LOGIN_PATH_NAME: '/login',
+    GITHUB_URL: 'https://github.com/QNAV/RuoYi-X-Umi',
   },
   routes,
 });

@@ -4,7 +4,13 @@ import { reqGetCaptchaImage, reqLoginByPwd, reqLoginBySms } from '@/services';
 import { regPhone, setToken, StorageType } from '@/utils';
 import { useNavigate } from '@@/exports';
 import { useModel } from '@@/plugin-model';
-import { LockOutlined, MobileOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  GithubOutlined,
+  LockOutlined,
+  MobileOutlined,
+  SafetyCertificateOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { LoginFormPage, ProFormCaptcha, ProFormCheckbox, ProFormGroup, ProFormText } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
 import { Image, message, Skeleton, Tabs } from 'antd';
@@ -78,10 +84,15 @@ const LoginPage: FC = () => {
       <LoginFormPage<FormData>
         backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
         logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
-        title="RuoYi"
+        title="RuoYi X Umi"
         subTitle="若依后台管理系统"
         actions={<Actions />}
         onFinish={submit}
+        activityConfig={{
+          action: (
+            <GithubOutlined className="text-4xl cursor-pointer" onClick={() => window.open(GITHUB_URL, '_blank')} />
+          ),
+        }}
       >
         <Tabs activeKey={loginType} onChange={(activeKey) => setLoginType(activeKey as LoginType)}>
           <Tabs.TabPane key={LoginType.USERNAME} tab="账号密码登录" />

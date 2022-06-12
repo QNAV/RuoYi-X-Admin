@@ -4,6 +4,7 @@ module.exports = {
     API_HOST: true,
     TOKEN_KEY: true,
     LOGIN_PATH_NAME: true,
+    GITHUB_URL: true,
   },
   rules: {
     '@typescript-eslint/consistent-type-imports': 'error',
