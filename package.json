@@ -3,6 +3,7 @@
   "scripts": {
     "ANALYZE": "cross-env ANALYZE=1 max build",
     "build": "cross-env UMI_ENV=prod max build",
+    "build:gh": "cross-env UMI_ENV=gh max build",
     "clean": "rimraf dist .mfsu src/.umi src/.umi-production pnpm-lock.yaml node_modules",
     "postinstall": "max setup",
     "prepare": "husky install",
