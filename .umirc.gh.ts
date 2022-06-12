@@ -7,6 +7,7 @@ export default defineConfig({
   },
   publicPath: '/RuoYi-X-Umi/',
   base: '/RuoYi-X-Umi/',
+  LOGIN_PATH_NAME: '/RuoYi-X-Umi/login',
   headScripts: [
     `(function () {
   let redirect = sessionStorage.redirect;
