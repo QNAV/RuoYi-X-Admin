@@ -21,7 +21,7 @@
     "@ant-design/pro-layout": "next",
     "@umijs/max": "next",
     "ahooks": "^3.4.1",
-    "antd": "^4.21.0",
+    "antd": "^4.21.1",
     "axios": "next",
     "classnames": "^2.3.1",
     "dayjs": "^1.11.3",
