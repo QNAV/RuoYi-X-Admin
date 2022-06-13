@@ -1,8 +1,8 @@
 import { LogoutIcon, SettingsIcon } from '@/components';
+import { GithubIcon } from '@/components/GithubIcon';
 import { reqGetUserInfo, reqGetUserRoutes } from '@/services';
 import type { InitialState } from '@/types';
 import { checkToken, getUserMenus } from '@/utils';
-import { GithubOutlined } from '@ant-design/icons';
 import type { ProLayoutProps } from '@ant-design/pro-layout/es/ProLayout';
 import type { MenuDataItem } from '@ant-design/pro-layout/es/typings';
 import { history } from '@umijs/max';
@@ -58,13 +58,7 @@ export const layout = ({ initialState }: { initialState: InitialState }): ProLay
       size: 'small',
       title: userInfo.user.nickName,
     },
-    links: [
-      <GithubOutlined
-        key="GithubOutlined"
-        style={{ fontSize: '18px' }}
-        onClick={() => window.open(GITHUB_URL, '_blank')}
-      />,
-    ],
+    links: [<GithubIcon key="GithubIcon" />],
     rightContentRender: false,
     onMenuHeaderClick: () => history.push('/'),
     actionsRender: () => [<SettingsIcon key="LogoutIcon" />, <LogoutIcon key="LogoutIcon" />],

@@ -14,7 +14,6 @@ export default defineConfig({
   access: {},
   define: {
     LOGIN_PATH_NAME: '/login',
-    GITHUB_URL: 'https://github.com/QNAV/RuoYi-X-Umi',
   },
   routes,
 });

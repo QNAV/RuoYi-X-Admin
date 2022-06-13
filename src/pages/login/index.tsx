@@ -1,16 +1,11 @@
+import { GithubIcon } from '@/components/GithubIcon';
 import Actions from '@/pages/login/components/Actions';
 import type { LoginByPwdParams, LoginBySmsParams, LoginResponse } from '@/services';
 import { reqGetCaptchaImage, reqLoginByPwd, reqLoginBySms } from '@/services';
 import { regPhone, setToken, StorageType } from '@/utils';
 import { useNavigate } from '@@/exports';
 import { useModel } from '@@/plugin-model';
-import {
-  GithubOutlined,
-  LockOutlined,
-  MobileOutlined,
-  SafetyCertificateOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { LockOutlined, MobileOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginFormPage, ProFormCaptcha, ProFormCheckbox, ProFormGroup, ProFormText } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
 import { Image, message, Skeleton, Tabs } from 'antd';
@@ -89,9 +84,7 @@ const LoginPage: FC = () => {
         actions={<Actions />}
         onFinish={submit}
         activityConfig={{
-          action: (
-            <GithubOutlined className="text-2xl cursor-pointer" onClick={() => window.open(GITHUB_URL, '_blank')} />
-          ),
+          action: <GithubIcon />,
         }}
       >
         <Tabs activeKey={loginType} onChange={(activeKey) => setLoginType(activeKey as LoginType)}>
