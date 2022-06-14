@@ -40,7 +40,7 @@ export interface Route extends MenuDataItem {
   routes?: Route[];
 }
 
-const routes: Route[] = [
+const publicRoutes: Route[] = [
   {
     name: '首页',
     path: '/',
@@ -49,7 +49,7 @@ const routes: Route[] = [
   },
   {
     name: '登录',
-    path: '/login',
+    path: 'login',
     component: '@/pages/login',
     headerRender: false,
     footerRender: false,
@@ -59,7 +59,7 @@ const routes: Route[] = [
   },
   {
     name: '个人中心',
-    path: '/settings',
+    path: 'settings',
     component: '@/pages/settings',
     hideInMenu: true,
   },
@@ -73,4 +73,145 @@ const routes: Route[] = [
   },
 ];
 
-export default routes;
+const routes: Route[] = [
+  {
+    name: 'system',
+    path: '/system',
+    routes: [
+      {
+        name: 'user',
+        path: 'user',
+        component: '@/pages/system/user',
+        access: '/system/user',
+      },
+      {
+        name: 'menu',
+        path: 'menu',
+        component: '@/pages/system/menu',
+        access: '/system/menu',
+      },
+      {
+        name: 'role',
+        path: 'role',
+        component: '@/pages/system/role',
+        access: '/system/role',
+      },
+      {
+        name: 'dept',
+        path: 'dept',
+        component: '@/pages/system/dept',
+        access: '/system/dept',
+      },
+      {
+        name: 'post',
+        path: 'post',
+        component: '@/pages/system/post',
+        access: '/system/post',
+      },
+      {
+        name: 'dict',
+        path: 'dict',
+        component: '@/pages/system/dict',
+        access: '/system/dict',
+      },
+      {
+        name: 'config',
+        path: 'config',
+        component: '@/pages/system/config',
+        access: '/system/config',
+      },
+      {
+        name: 'notice',
+        path: 'notice',
+        component: '@/pages/system/notice',
+        access: '/system/notice',
+      },
+      {
+        name: 'log',
+        path: 'log',
+        routes: [
+          {
+            name: 'operlog',
+            path: 'operlog',
+            component: '@/pages/monitor/operlog',
+            access: '/system/log/operlog',
+          },
+          {
+            name: 'loginInfo',
+            path: 'logininfor',
+            component: '@/pages/monitor/logininfor',
+            access: '/system/log/logininfor',
+          },
+        ],
+      },
+      {
+        name: 'oss',
+        path: 'oss',
+        component: '@/pages/system/oss',
+        access: '/system/oss',
+      },
+    ],
+  },
+  {
+    name: 'monitor',
+    path: 'monitor',
+    routes: [
+      {
+        name: 'online',
+        path: 'online',
+        component: '@/pages/monitor/online',
+        access: '/monitor/online',
+      },
+      {
+        name: 'Xxljob',
+        path: 'Xxljob',
+        component: '@/pages/monitor/job',
+        access: '/monitor/XxlJob',
+      },
+      {
+        name: 'druid',
+        path: 'druid',
+        component: '@/pages/monitor/druid',
+        access: '/monitor/druid',
+      },
+      {
+        name: 'Admin',
+        path: 'Admin',
+        component: '@/pages/monitor/admin',
+        access: '/monitor/Admin',
+      },
+      {
+        name: 'cache',
+        path: 'cache',
+        component: '@/pages/monitor/cache',
+        access: '/monitor/cache',
+      },
+    ],
+  },
+  {
+    name: 'tool',
+    path: 'tool',
+    routes: [
+      {
+        name: 'gen',
+        path: 'gen',
+        component: '@/pages/tool/gen',
+        access: '/tool/gen',
+      },
+      {
+        name: 'build',
+        path: 'build',
+        component: '@/pages/tool/build',
+        access: '/tool/build',
+      },
+      {
+        name: 'swagger',
+        path: 'swagger',
+        component: '@/pages/tool/swagger',
+        access: '/tool/swagger',
+      },
+    ],
+  },
+];
+
+export default [...routes, ...publicRoutes];

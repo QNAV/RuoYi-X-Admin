@@ -30,12 +30,14 @@ export const getUserMenus = (userRoutes: UserRoute[], parentPath: string = ''): 
 
     let children: MenuDataItem[] = [];
 
+    const curRoutePath = parentPath ? `${parentPath}/${path}` : path;
+
     if (item.children && item.children.length > 0) {
-      children = getUserMenus(item.children, path);
+      children = getUserMenus(item.children, curRoutePath);
     }
 
     menus.push({
-      path: parentPath ? `${parentPath}/${path}` : path,
+      path: curRoutePath,
       name: title,
       ...(icon ? { icon: <Icon name={icon} /> } : {}),
       ...(children.length > 0 ? { children } : {}),

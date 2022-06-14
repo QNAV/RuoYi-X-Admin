@@ -4,7 +4,6 @@ import { reqGetUserInfo, reqGetUserRoutes } from '@/services';
 import type { InitialState } from '@/types';
 import { checkToken, getUserMenus } from '@/utils';
 import type { ProLayoutProps } from '@ant-design/pro-layout/es/ProLayout';
-import type { MenuDataItem } from '@ant-design/pro-layout/es/typings';
 import { history } from '@umijs/max';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
@@ -62,14 +61,9 @@ export const layout = ({ initialState }: { initialState: InitialState }): ProLay
     rightContentRender: false,
     onMenuHeaderClick: () => history.push('/'),
     actionsRender: () => [<SettingsIcon key="LogoutIcon" />, <LogoutIcon key="LogoutIcon" />],
-    postMenuData: (menusData: MenuDataItem[] = []) => {
-      const menus = getUserMenus(userRoutes);
-
-      if (menus.length === 0) {
-        return menusData;
-      }
-
-      return [...menusData, ...menus];
+    postMenuData: () => {
+      console.log(getUserMenus(userRoutes));
+      return getUserMenus(userRoutes);
     },
   };
 };
