@@ -1,3 +1,5 @@
+import { PageContainer } from '@ant-design/pro-layout';
+
 export default function () {
-  return <h1>TODO</h1>;
+  return <PageContainer>TODO</PageContainer>;
 }
