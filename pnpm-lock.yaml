@@ -13,7 +13,7 @@ specifiers:
   '@types/react-dom': ^18.0.5
   '@umijs/lint': next
   '@umijs/max': next
-  ahooks: ^3.4.1
+  ahooks: ^3.5.0
   antd: ^4.21.2
   axios: next
   classnames: ^2.3.1
@@ -25,7 +25,7 @@ specifiers:
   lodash-es: ^4.17.21
   nprogress: ^0.2.0
   prettier: ^2.7.1
-  prettier-plugin-organize-imports: ^2.3.4
+  prettier-plugin-organize-imports: ^3.0.0
   prettier-plugin-packagejson: ^2.2.18
   query-string: ^7.1.1
   react: ^18.2.0
@@ -42,7 +42,7 @@ dependencies:
   '@ant-design/pro-components': 1.1.6_biqbaboplfbrettd7655fr4n2y
   '@ant-design/pro-layout': 7.0.1-beta.20_rxsw7c4pgdxyip25t6xpgs5iie
   '@umijs/max': 4.0.0-rc.24_7qwcqhu6izgqvs7gi7ygo4ynpy
-  ahooks: 3.4.1_react@18.2.0
+  ahooks: 3.5.0_react@18.2.0
   antd: 4.21.2_biqbaboplfbrettd7655fr4n2y
   axios: 1.0.0-alpha.1
   classnames: 2.3.1
@@ -67,7 +67,7 @@ devDependencies:
   husky: 8.0.1
   lint-staged: 13.0.1
   prettier: 2.7.1
-  prettier-plugin-organize-imports: 2.3.4_znad3sgqcpzyslsdeuw235p7my
+  prettier-plugin-organize-imports: 3.0.0_znad3sgqcpzyslsdeuw235p7my
   prettier-plugin-packagejson: 2.2.18_prettier@2.7.1
   rimraf: 3.0.2
   stylelint: 14.9.1
@@ -3685,8 +3685,8 @@ packages:
     resolution: {integrity: sha512-V7uUvAwnimu6eh/PED4mCDjE7tokeZQLKlxg9lCTMPhN+NjsSbtdacByVlR1oluXQzD3MOw55wylDmQo4+S9ZQ==}
     dev: false
 
-  /ahooks/3.4.1_react@18.2.0:
-    resolution: {integrity: sha512-PMxCDO6JsFdNrAyN3cW1J/2qt/vy2EJ/9KhxGOxj41hJhQddjgaBJjZKf/FrrnZmL+3yGPioZtbC4C7q7ru3yA==}
+  /ahooks/3.5.0_react@18.2.0:
+    resolution: {integrity: sha512-GPTsObGggpQJqlRukVgifxk2b5Rz/fEbfmvsQXGIa3AEDpOJqy76ldkWOyhUd0D6ngeaGNBKJx5xS6/b/bZIwA==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -9098,6 +9098,17 @@ packages:
     dependencies:
       prettier: 2.7.1
       typescript: 4.7.3
+    dev: false
+
+  /prettier-plugin-organize-imports/3.0.0_znad3sgqcpzyslsdeuw235p7my:
+    resolution: {integrity: sha512-juSCJs5TMOqGGPaN/A/1xzWFzRPH2LG1LPLCr64dzKaVnPafJdtgDNmDVlU+8A4LbQzVJg0DTvgA8swBuIUhlg==}
+    peerDependencies:
+      prettier: '>=2.0'
+      typescript: '>=2.9'
+    dependencies:
+      prettier: 2.7.1
+      typescript: 4.7.3
+    dev: true
 
   /prettier-plugin-packagejson/2.2.18_prettier@2.7.1:
     resolution: {integrity: sha512-iBjQ3IY6IayFrQHhXvg+YvKprPUUiIJ04Vr9+EbeQPfwGajznArIqrN33c5bi4JcIvmLHGROIMOm9aYakJj/CA==}
