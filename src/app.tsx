@@ -68,7 +68,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState }: { initialState: In
     onMenuHeaderClick: () => history.push('/'),
     actionsRender: () => [<SettingsIcon key="LogoutIcon" />, <LogoutIcon key="LogoutIcon" />],
     postMenuData: () => {
-      console.log(getUserMenus(userRoutes));
       return getUserMenus(userRoutes);
     },
   };

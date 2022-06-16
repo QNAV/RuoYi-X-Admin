@@ -14,6 +14,7 @@ export default defineConfig({
   access: {},
   define: {
     LOGIN_PATH_NAME: '/login',
+    MODAL_CONFIRM_TITLE: '操作确认',
   },
   routes,
 });

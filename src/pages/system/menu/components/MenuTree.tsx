@@ -1,13 +1,14 @@
 import { Icon } from '@/components';
 import { MapEnableDisableStatus, MenuType } from '@/constants';
-import { useQueryMenuList } from '@/pages/system/menu/model';
+import { selectedKeysAtom, useDeleteMenu, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
 import type { GetMenuListParams, MenuDataItem } from '@/services/system';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';
-import { Button, Tag, Tree } from 'antd';
+import { Button, Dropdown, Empty, Menu, Tag, Tree } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 enum MenuTypeColor {
   M = 'blue',
@@ -44,14 +45,17 @@ const TreeTitle: FC = () => (
 
 const MenuTree = () => {
   const [searchParams, setSearchParams] = useState<GetMenuListParams>({});
-  const [selectedKeys, setSelectedKeys] = useState<TreeProps['selectedKeys']>([]);
+  const [selectedKeys, setSelectedKeys] = useRecoilState(selectedKeysAtom);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
+
+  const showCreateModal = useSetRecoilState(visibleCreateModalAtom);
 
   const { data: menuData, refetch } = useQueryMenuList(searchParams);
 
+  const { mutate } = useDeleteMenu();
+
   const onSelect: TreeProps<MenuDataItem>['onSelect'] = (selectedKeys) => {
     setSelectedKeys(selectedKeys);
-    setExpandedKeys(menuData?.parentIds);
   };
 
   const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === menuData?.parentIds?.length;
@@ -87,21 +91,50 @@ const MenuTree = () => {
         </LightFilter>
       </div>
 
-      <Tree<MenuDataItem>
-        blockNode
-        selectedKeys={selectedKeys}
-        onSelect={onSelect}
-        expandedKeys={expandedKeys}
-        titleRender={titleRender}
-        onExpand={setExpandedKeys}
-        showLine={{ showLeafIcon: false }}
-        fieldNames={{
-          title: 'menuName',
-          key: 'menuId',
-          children: 'children',
-        }}
-        treeData={menuData?.treeData}
-      />
+      <Dropdown
+        overlay={
+          <Menu
+            items={[
+              {
+                label: '新建',
+                key: 'create',
+                onClick: () => showCreateModal(true),
+              },
+              {
+                label: '删除',
+                key: 'delete',
+                danger: true,
+                disabled: selectedKeys.length === 0,
+                onClick: () => mutate(Number(selectedKeys?.[0])),
+              },
+            ]}
+          />
+        }
+        trigger={['contextMenu']}
+      >
+        {menuData?.treeData.length ? (
+          <Tree<MenuDataItem>
+            blockNode
+            selectedKeys={selectedKeys}
+            onSelect={onSelect}
+            expandedKeys={expandedKeys}
+            titleRender={titleRender}
+            onExpand={setExpandedKeys}
+            showLine={{ showLeafIcon: false }}
+            fieldNames={{
+              title: 'menuName',
+              key: 'menuId',
+              children: 'children',
+            }}
+            treeData={menuData?.treeData}
+            onRightClick={(e) => {
+              setSelectedKeys([e.node.key]);
+            }}
+          />
+        ) : (
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        )}
+      </Dropdown>
     </div>
   );
 };

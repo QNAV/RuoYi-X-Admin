@@ -30,6 +30,16 @@ export enum EnableDisableStatus {
   DISABLE = '1',
 }
 export const MapEnableDisableStatus: MapValueEnum<EnableDisableStatus> = new Map([
-  [EnableDisableStatus.ENABLE, { text: '启用' }],
-  [EnableDisableStatus.DISABLE, { text: '禁用' }],
+  [EnableDisableStatus.ENABLE, { text: '启用', status: 'Success' }],
+  [EnableDisableStatus.DISABLE, { text: '禁用', status: 'Error' }],
+]);
+
+// 是/否
+export enum YesNoStatus {
+  YES = '0',
+  NO = '1',
+}
+export const MapYesNoStatus: MapValueEnum<YesNoStatus> = new Map([
+  [YesNoStatus.YES, { text: '是', status: 'Success' }],
+  [YesNoStatus.NO, { text: '否', status: 'Error' }],
 ]);
