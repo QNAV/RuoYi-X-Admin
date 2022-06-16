@@ -3,13 +3,15 @@ import { GithubIcon } from '@/components/GithubIcon';
 import { reqGetUserInfo, reqGetUserRoutes } from '@/services';
 import type { InitialState } from '@/types';
 import { checkToken, getUserMenus } from '@/utils';
-import type { ProLayoutProps } from '@ant-design/pro-layout/es/ProLayout';
+import type { RunTimeLayoutConfig } from '@@/plugin-layout';
 import { history } from '@umijs/max';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import type { ReactNode } from 'react';
 import { createElement } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import type { RecoilRootProps } from 'recoil';
+import { RecoilRoot } from 'recoil';
 
 dayjs.locale('zh-cn');
 
@@ -42,11 +44,15 @@ export const getInitialState = async (): Promise<InitialState | undefined> => {
   };
 };
 
+export const rootContainer = (container: ReactNode, opts: RecoilRootProps) => {
+  return createElement(RecoilRoot, opts, container);
+};
+
 export const dataflowProvider = (container: ReactNode) => {
   return createElement(QueryClientProvider, { client: queryClient }, container);
 };
 
-export const layout = ({ initialState }: { initialState: InitialState }): ProLayoutProps => {
+export const layout: RunTimeLayoutConfig = ({ initialState }: { initialState: InitialState }) => {
   if (!initialState) return {};
 
   const { userInfo, userRoutes } = initialState;
