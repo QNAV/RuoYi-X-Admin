@@ -35,7 +35,7 @@ export interface Route extends MenuDataItem {
   // 配置路由跳转
   redirect?: string;
   // 配置路由的高阶组件封装
-  wrappers?: string;
+  wrappers?: string[];
   // 子路由
   routes?: Route[];
 }
@@ -77,7 +77,8 @@ const routes: Route[] = [
       {
         path: 'user',
         component: '@/pages/system/user',
-        access: '/system/user',
+        access: '/system/user11',
+        wrappers: ['@/wrappers/routeAuth'],
       },
       {
         path: 'menu',

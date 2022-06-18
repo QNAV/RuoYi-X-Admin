@@ -2,7 +2,7 @@ import { LogoutIcon, SettingsIcon } from '@/components';
 import { GithubIcon } from '@/components/GithubIcon';
 import { reqGetUserInfo, reqGetUserRoutes } from '@/services';
 import type { InitialState } from '@/types';
-import { checkToken, getUserMenus } from '@/utils';
+import { checkToken, convertUserRoutesToMenus } from '@/utils';
 import type { RunTimeLayoutConfig } from '@@/plugin-layout';
 import { history } from '@umijs/max';
 import dayjs from 'dayjs';
@@ -67,6 +67,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState }: { initialState: In
     rightContentRender: false,
     onMenuHeaderClick: () => history.push('/'),
     actionsRender: () => [<SettingsIcon key="LogoutIcon" />, <LogoutIcon key="LogoutIcon" />],
-    postMenuData: () => getUserMenus(userRoutes),
+    menuDataRender: () => convertUserRoutesToMenus(userRoutes),
   };
 };

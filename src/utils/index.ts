@@ -1,3 +1,4 @@
+export * from './is';
 export * from './permissions';
 export * from './regExp';
 export * from './request';

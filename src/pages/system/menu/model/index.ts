@@ -1,5 +1,5 @@
-import type { GetMenuListParams, MenuData } from '@/services/system';
-import { reqDeleteMenu, reqGetMenuList } from '@/services/system';
+import type { GetMenuListParams, MenuData } from '@/services';
+import { reqDeleteMenu, reqGetMenuList } from '@/services';
 import { getParentIds, parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { message, Modal } from 'antd';
 import type { Key } from 'react';

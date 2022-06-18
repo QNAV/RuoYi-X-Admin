@@ -1,5 +1,6 @@
 import { Icon } from '@/components';
 import type { UserRoute } from '@/services';
+import { isHttpUrl } from '@/utils/is';
 import type { MenuDataItem } from '@ant-design/pro-layout';
 
 export const rootKey = '*:*:*';
@@ -15,32 +16,30 @@ export const getUserRoutesPermissions = (routes: UserRoute[], parentPath: string
     return { ...acc, [curRoutePath]: true, ...getUserRoutesPermissions(cur?.children ?? [], curRoutePath) };
   }, {});
 
-export const getUserMenus = (userRoutes: UserRoute[], parentPath: string = ''): MenuDataItem[] => {
+export const convertUserRoutesToMenus = (userRoutes: UserRoute[], parentPath: string = ''): MenuDataItem[] => {
   const menus: MenuDataItem[] = [];
 
   userRoutes.forEach((item) => {
-    if (item.hidden) {
-      return;
-    }
-
     const {
       path,
+      hidden,
       meta: { title, icon },
     } = item;
 
     let children: MenuDataItem[] = [];
 
-    const curRoutePath = parentPath ? `${parentPath}/${path}` : path;
+    const curRoutePath = parentPath && !isHttpUrl(path) ? `${parentPath}/${path}` : path;
 
     if (item.children && item.children.length > 0) {
-      children = getUserMenus(item.children, curRoutePath);
+      children = convertUserRoutesToMenus(item.children, curRoutePath);
     }
 
     menus.push({
       path: curRoutePath,
       name: title,
-      ...(icon ? { icon: <Icon name={icon} /> } : {}),
-      ...(children.length > 0 ? { children } : {}),
+      hideInMenu: hidden,
+      icon: <Icon name={icon} />,
+      children,
     });
   });
 
