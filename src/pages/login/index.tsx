@@ -3,8 +3,6 @@ import Actions from '@/pages/login/components/Actions';
 import type { LoginByPwdParams, LoginBySmsParams, LoginResponse } from '@/services';
 import { reqGetCaptchaImage, reqLoginByPwd, reqLoginBySms } from '@/services';
 import { regPhone, setToken, StorageType } from '@/utils';
-import { useNavigate } from '@@/exports';
-import { useModel } from '@@/plugin-model';
 import { LockOutlined, MobileOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginFormPage, ProFormCaptcha, ProFormCheckbox, ProFormGroup, ProFormText } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
@@ -23,24 +21,14 @@ enum LoginType {
 }
 
 const LoginPage: FC = () => {
-  const navigate = useNavigate();
-  const { refresh } = useModel('@@initialState');
   const [loginType, setLoginType] = useState<LoginType>(LoginType.USERNAME);
 
   const { data: getCaptchaImageRes, loading, run: getCaptchaImage } = useRequest(reqGetCaptchaImage);
 
-  const showError = () => {
-    const searchObj = qs.parse(window.location.search) as {
-      code?: string;
-      msg?: string;
-      redirect?: string;
-    };
-
-    if (searchObj?.msg) {
-      message.error(searchObj.msg);
-
-      navigate(LOGIN_PATH_NAME, { replace: true });
-    }
+  const searchObj = qs.parse(window.location.search) as {
+    code?: string;
+    msg?: string;
+    redirect?: string;
   };
 
   const submit = async (e: FormData) => {
@@ -60,9 +48,7 @@ const LoginPage: FC = () => {
 
       setToken(autoLogin ? StorageType.LOCAL_STORAGE : StorageType.SESSION_STORAGE, `Bearer ${loginRes.token}`);
 
-      await refresh();
-
-      navigate('/');
+      window.location.href = searchObj?.redirect ?? '/';
     } catch (error) {
       if (loginType === LoginType.USERNAME) {
         getCaptchaImage();
@@ -71,7 +57,9 @@ const LoginPage: FC = () => {
   };
 
   useEffect(() => {
-    showError();
+    if (searchObj?.msg) {
+      message.error(searchObj.msg);
+    }
   }, []);
 
   return (

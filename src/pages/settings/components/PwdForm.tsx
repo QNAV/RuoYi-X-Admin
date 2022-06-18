@@ -16,8 +16,9 @@ const PwdForm: FC = () => {
     onSuccess: () => {
       message.success('密码修改成功，即将自动跳转至登录页面');
 
-      const timer = setTimeout(async () => {
+      const timer = setTimeout(() => {
         logout();
+
         clearTimeout(timer);
       }, 1500);
     },

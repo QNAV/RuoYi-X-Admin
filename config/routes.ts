@@ -42,13 +42,11 @@ export interface Route extends MenuDataItem {
 
 const publicRoutes: Route[] = [
   {
-    name: '首页',
     path: '/',
     component: '@/pages/home',
     hideInMenu: true,
   },
   {
-    name: '登录',
     path: 'login',
     component: '@/pages/login',
     headerRender: false,
@@ -58,7 +56,6 @@ const publicRoutes: Route[] = [
     hideInMenu: true,
   },
   {
-    name: '个人中心',
     path: 'settings',
     component: '@/pages/settings',
     hideInMenu: true,
@@ -75,53 +72,44 @@ const publicRoutes: Route[] = [
 
 const routes: Route[] = [
   {
-    name: 'system',
     path: '/system',
     routes: [
       {
-        name: 'user',
         path: 'user',
         component: '@/pages/system/user',
         access: '/system/user',
       },
       {
-        name: 'menu',
         path: 'menu',
         component: '@/pages/system/menu',
         access: '/system/menu',
       },
       {
-        name: 'role',
         path: 'role',
         component: '@/pages/system/role',
         access: '/system/role',
       },
       {
-        name: 'dept',
         path: 'dept',
         component: '@/pages/system/dept',
         access: '/system/dept',
       },
       {
-        name: 'post',
         path: 'post',
         component: '@/pages/system/post',
         access: '/system/post',
       },
       {
-        name: 'dict',
         path: 'dict',
         component: '@/pages/system/dict',
         access: '/system/dict',
       },
       {
-        name: 'config',
         path: 'config',
         component: '@/pages/system/config',
         access: '/system/config',
       },
       {
-        name: 'notice',
         path: 'notice',
         component: '@/pages/system/notice',
         access: '/system/notice',
@@ -131,13 +119,11 @@ const routes: Route[] = [
         path: 'log',
         routes: [
           {
-            name: 'operlog',
             path: 'operlog',
             component: '@/pages/monitor/operlog',
             access: '/system/log/operlog',
           },
           {
-            name: 'loginInfo',
             path: 'logininfor',
             component: '@/pages/monitor/logininfor',
             access: '/system/log/logininfor',
@@ -145,7 +131,6 @@ const routes: Route[] = [
         ],
       },
       {
-        name: 'oss',
         path: 'oss',
         component: '@/pages/system/oss',
         access: '/system/oss',
@@ -157,31 +142,26 @@ const routes: Route[] = [
     path: 'monitor',
     routes: [
       {
-        name: 'online',
         path: 'online',
         component: '@/pages/monitor/online',
         access: '/monitor/online',
       },
       {
-        name: 'Xxljob',
         path: 'Xxljob',
         component: '@/pages/monitor/job',
         access: '/monitor/XxlJob',
       },
       {
-        name: 'druid',
         path: 'druid',
         component: '@/pages/monitor/druid',
         access: '/monitor/druid',
       },
       {
-        name: 'Admin',
         path: 'Admin',
         component: '@/pages/monitor/admin',
         access: '/monitor/Admin',
       },
       {
-        name: 'cache',
         path: 'cache',
         component: '@/pages/monitor/cache',
         access: '/monitor/cache',
@@ -189,23 +169,19 @@ const routes: Route[] = [
     ],
   },
   {
-    name: 'tool',
     path: 'tool',
     routes: [
       {
-        name: 'gen',
         path: 'gen',
         component: '@/pages/tool/gen',
         access: '/tool/gen',
       },
       {
-        name: 'build',
         path: 'build',
         component: '@/pages/tool/build',
         access: '/tool/build',
       },
       {
-        name: 'swagger',
         path: 'swagger',
         component: '@/pages/tool/swagger',
         access: '/tool/swagger',

@@ -1,5 +1,4 @@
 import { reqLogout } from '@/services';
-import { history } from '@@/core/history';
 
 export enum StorageType {
   LOCAL_STORAGE,
@@ -28,5 +27,5 @@ export const checkToken = () => !!getToken();
 export const logout = async () => {
   await reqLogout();
   clearToken();
-  history.push(LOGIN_PATH_NAME);
+  window.location.href = LOGIN_PATH_NAME;
 };
