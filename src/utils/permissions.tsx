@@ -1,6 +1,6 @@
 import { Icon } from '@/components';
 import type { UserRoute } from '@/services';
-import { isHttpUrl } from '@/utils/is';
+import { isHttpUrl } from '@/utils';
 import type { MenuDataItem } from '@ant-design/pro-layout';
 
 export const rootKey = '*:*:*';

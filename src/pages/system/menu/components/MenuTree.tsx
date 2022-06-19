@@ -1,7 +1,7 @@
 import { Icon } from '@/components';
 import { MapEnableDisableStatus, MenuType } from '@/constants';
 import { selectedKeysAtom, useDeleteMenu, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
-import type { GetMenuListParams, MenuDataItem } from '@/services/system';
+import type { GetMenuListParams, MenuDataItem } from '@/services';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';

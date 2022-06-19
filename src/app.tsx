@@ -1,5 +1,4 @@
-import { LogoutIcon, SettingsIcon } from '@/components';
-import { GithubIcon } from '@/components/GithubIcon';
+import { GithubIcon, LogoutIcon, SettingsIcon } from '@/components';
 import { reqGetUserInfo, reqGetUserRoutes } from '@/services';
 import type { InitialState } from '@/types';
 import { checkToken, convertUserRoutesToMenus } from '@/utils';

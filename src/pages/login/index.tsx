@@ -1,4 +1,4 @@
-import { GithubIcon } from '@/components/GithubIcon';
+import { GithubIcon } from '@/components';
 import Actions from '@/pages/login/components/Actions';
 import type { LoginByPwdParams, LoginBySmsParams, LoginResponse } from '@/services';
 import { reqGetCaptchaImage, reqLoginByPwd, reqLoginBySms } from '@/services';

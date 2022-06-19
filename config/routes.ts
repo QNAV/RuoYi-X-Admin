@@ -40,10 +40,15 @@ export interface Route extends MenuDataItem {
   routes?: Route[];
 }
 
-const publicRoutes: Route[] = [
+const routes: Route[] = [
   {
     path: '/',
     component: '@/pages/home',
+    hideInMenu: true,
+  },
+  {
+    path: 'settings',
+    component: '@/pages/settings',
     hideInMenu: true,
   },
   {
@@ -56,29 +61,12 @@ const publicRoutes: Route[] = [
     hideInMenu: true,
   },
   {
-    path: 'settings',
-    component: '@/pages/settings',
-    hideInMenu: true,
-  },
-  {
-    path: '403',
-    component: '@/pages/403',
-  },
-  {
-    path: '*',
-    component: '@/pages/404',
-  },
-];
-
-const routes: Route[] = [
-  {
     path: '/system',
     routes: [
       {
         path: 'user',
         component: '@/pages/system/user',
-        access: '/system/user11',
-        wrappers: ['@/wrappers/routeAuth'],
+        access: '/system/user',
       },
       {
         path: 'menu',
@@ -189,6 +177,14 @@ const routes: Route[] = [
       },
     ],
   },
+  {
+    path: '403',
+    component: '@/pages/403',
+  },
+  {
+    path: '*',
+    component: '@/pages/404',
+  },
 ];
 
-export default [...routes, ...publicRoutes];
+export default routes;
