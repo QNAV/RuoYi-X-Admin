@@ -11,18 +11,27 @@ import { useRef } from 'react';
 const PwdForm: FC = () => {
   const formRef = useRef<ProFormInstance<UpdateUserPasswordParams>>();
 
-  const { run, loading } = useRequest(reqUpdateUserPassword, {
-    manual: true,
-    onSuccess: () => {
-      message.success('密码修改成功，即将自动跳转至登录页面');
+  const { run, loading } = useRequest(
+    async () => {
+      const values = await formRef?.current?.validateFields();
 
-      const timer = setTimeout(() => {
-        logout();
+      if (!values) return;
 
-        clearTimeout(timer);
-      }, 1500);
+      await reqUpdateUserPassword(values);
     },
-  });
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('密码修改成功，即将自动跳转至登录页面');
+
+        const timer = setTimeout(() => {
+          logout();
+
+          clearTimeout(timer);
+        }, 1500);
+      },
+    },
+  );
 
   return (
     <ProForm formRef={formRef} submitter={false}>
@@ -64,17 +73,7 @@ const PwdForm: FC = () => {
         ]}
       />
 
-      <Button
-        type="primary"
-        loading={loading}
-        onClick={async () => {
-          const values = await formRef?.current?.validateFields();
-
-          if (!values) return;
-
-          run(values);
-        }}
-      >
+      <Button type="primary" loading={loading} onClick={run}>
         更新密码
       </Button>
     </ProForm>
