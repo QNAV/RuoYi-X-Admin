@@ -44,12 +44,10 @@ const routes: Route[] = [
   {
     path: '/',
     component: '@/pages/home',
-    hideInMenu: true,
   },
   {
     path: 'settings',
     component: '@/pages/settings',
-    hideInMenu: true,
   },
   {
     path: 'login',
@@ -57,8 +55,6 @@ const routes: Route[] = [
     headerRender: false,
     footerRender: false,
     menuRender: false,
-    menuHeaderRender: false,
-    hideInMenu: true,
   },
   {
     path: '/system',
@@ -69,14 +65,14 @@ const routes: Route[] = [
         access: '/system/user',
       },
       {
-        path: 'menu',
-        component: '@/pages/system/menu',
-        access: '/system/menu',
-      },
-      {
         path: 'role',
         component: '@/pages/system/role',
         access: '/system/role',
+      },
+      {
+        path: 'menu',
+        component: '@/pages/system/menu',
+        access: '/system/menu',
       },
       {
         path: 'dept',
@@ -136,14 +132,14 @@ const routes: Route[] = [
         access: '/monitor/online',
       },
       {
-        path: 'Xxljob',
-        component: '@/pages/monitor/job',
-        access: '/monitor/XxlJob',
-      },
-      {
         path: 'druid',
         component: '@/pages/monitor/druid',
         access: '/monitor/druid',
+      },
+      {
+        path: 'cache',
+        component: '@/pages/monitor/cache',
+        access: '/monitor/cache',
       },
       {
         path: 'Admin',
@@ -151,9 +147,9 @@ const routes: Route[] = [
         access: '/monitor/Admin',
       },
       {
-        path: 'cache',
-        component: '@/pages/monitor/cache',
-        access: '/monitor/cache',
+        path: 'Xxljob',
+        component: '@/pages/monitor/job',
+        access: '/monitor/XxlJob',
       },
     ],
   },
@@ -161,19 +157,34 @@ const routes: Route[] = [
     path: 'tool',
     routes: [
       {
-        path: 'gen',
-        component: '@/pages/tool/gen',
-        access: '/tool/gen',
-      },
-      {
         path: 'build',
         component: '@/pages/tool/build',
         access: '/tool/build',
       },
       {
+        path: 'gen',
+        component: '@/pages/tool/gen',
+        access: '/tool/gen',
+      },
+      {
         path: 'swagger',
         component: '@/pages/tool/swagger',
         access: '/tool/swagger',
+      },
+    ],
+  },
+  {
+    path: 'demo',
+    routes: [
+      {
+        path: 'demo',
+        component: '@/pages/demo/demo',
+        access: '/demo/demo',
+      },
+      {
+        path: 'tree',
+        component: '@/pages/demo/tree',
+        access: '/demo/tree',
       },
     ],
   },
