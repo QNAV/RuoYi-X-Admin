@@ -6,7 +6,7 @@ import { regPhone, setToken, StorageType } from '@/utils';
 import { LockOutlined, MobileOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginFormPage, ProFormCaptcha, ProFormCheckbox, ProFormGroup, ProFormText } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
-import { Image, message, Skeleton, Tabs } from 'antd';
+import { Image, message, Tabs } from 'antd';
 import qs from 'query-string';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -20,16 +20,16 @@ enum LoginType {
   USERNAME = 'USERNAME',
 }
 
+const searchObj = qs.parse(window.location.search) as {
+  code?: string;
+  msg?: string;
+  redirect?: string;
+};
+
 const LoginPage: FC = () => {
   const [loginType, setLoginType] = useState<LoginType>(LoginType.USERNAME);
 
-  const { data: getCaptchaImageRes, loading, run: getCaptchaImage } = useRequest(reqGetCaptchaImage);
-
-  const searchObj = qs.parse(window.location.search) as {
-    code?: string;
-    msg?: string;
-    redirect?: string;
-  };
+  const { data: getCaptchaImageRes, run: getCaptchaImage } = useRequest(reqGetCaptchaImage);
 
   const submit = async (e: FormData) => {
     try {
@@ -128,18 +128,14 @@ const LoginPage: FC = () => {
                 ]}
               />
 
-              <div className="h-[40px] w-[135px] cursor-pointer  border border-solid border-gray-300">
-                {loading ? (
-                  <Skeleton.Button active block size="large" />
-                ) : (
-                  <Image
-                    src={`data:image/png;base64,${getCaptchaImageRes?.img}`}
-                    preview={false}
-                    className="h-[40px] w-[135px]"
-                    alt="验证码"
-                    onClick={getCaptchaImage}
-                  />
-                )}
+              <div className="h-[40px] w-[135px] cursor-pointer border border-solid border-gray-300">
+                <Image
+                  src={`data:image/png;base64,${getCaptchaImageRes?.img}`}
+                  preview={false}
+                  className="h-[40px] w-[135px]"
+                  alt="图片验证码"
+                  onClick={getCaptchaImage}
+                />
               </div>
             </ProFormGroup>
           </>
