@@ -1,6 +1,6 @@
 import { Icon } from '@/components';
 import { MapEnableDisableStatus, MenuType } from '@/constants';
-import { selectedKeysAtom, useDeleteMenu, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
+import { selectedMenuIdAtom, useDeleteMenu, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
 import type { GetMenuListParams, MenuDataItem } from '@/services';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
@@ -8,7 +8,7 @@ import type { TreeProps } from 'antd';
 import { Button, Dropdown, Empty, Menu, Tag, Tree } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 enum MenuTypeColor {
   M = 'blue',
@@ -45,8 +45,12 @@ const TreeTitle: FC = () => (
 
 const MenuTree = () => {
   const [searchParams, setSearchParams] = useState<GetMenuListParams>({});
-  const [selectedKeys, setSelectedKeys] = useRecoilState(selectedKeysAtom);
+
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
+
+  const [selectedMenuId, setSelectedMenuId] = useRecoilState(selectedMenuIdAtom);
+  const resetSelectedMenuId = useResetRecoilState(selectedMenuIdAtom);
 
   const showCreateModal = useSetRecoilState(visibleCreateModalAtom);
 
@@ -55,7 +59,7 @@ const MenuTree = () => {
   const { mutate } = useDeleteMenu();
 
   const onSelect: TreeProps<MenuDataItem>['onSelect'] = (selectedKeys) => {
-    setSelectedKeys(selectedKeys);
+    setSelectedKeys(selectedKeys as string[]);
   };
 
   const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === menuData?.parentIds?.length;
@@ -63,6 +67,14 @@ const MenuTree = () => {
   useEffect(() => {
     refetch();
   }, [searchParams]);
+
+  useEffect(() => {
+    if (selectedKeys?.[0]) {
+      setSelectedMenuId(selectedKeys[0]);
+    } else {
+      resetSelectedMenuId();
+    }
+  }, [selectedKeys]);
 
   return (
     <div>
@@ -101,11 +113,19 @@ const MenuTree = () => {
                 onClick: () => showCreateModal(true),
               },
               {
+                label: '在根目录新建',
+                key: 'create',
+                onClick: () => {
+                  resetSelectedMenuId();
+                  showCreateModal(true);
+                },
+              },
+              {
                 label: '删除',
                 key: 'delete',
                 danger: true,
                 disabled: selectedKeys.length === 0,
-                onClick: () => mutate(Number(selectedKeys?.[0])),
+                onClick: () => mutate(selectedMenuId),
               },
             ]}
           />
@@ -127,9 +147,7 @@ const MenuTree = () => {
               children: 'children',
             }}
             treeData={menuData?.treeData}
-            onRightClick={(e) => {
-              setSelectedKeys([e.node.key]);
-            }}
+            onRightClick={(e) => setSelectedKeys([e.node.key] as string[])}
           />
         ) : (
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />

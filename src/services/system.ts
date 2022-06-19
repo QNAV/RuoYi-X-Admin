@@ -1,5 +1,6 @@
 import type { MenuType } from '@/constants';
 import { request } from '@/utils';
+import type { Key } from 'react';
 
 export interface GetMenuListParams {
   menuId?: string;
@@ -34,9 +35,9 @@ export interface MenuDataItem {
   updateTime: string;
   params: Record<any, any>;
   parentName?: any;
-  parentId: number;
+  parentId: string;
   children: MenuDataItem[];
-  menuId: number;
+  menuId: string;
   menuName: string;
   orderNum: number;
   path: string;
@@ -61,21 +62,9 @@ export interface CreateMenuData {
    */
   component?: string;
   /**
-   * 创建者
-   */
-  createBy?: string;
-  /**
-   * 创建时间
-   */
-  createTime?: Date;
-  /**
    * 菜单图标
    */
   icon?: string;
-  /**
-   * 是否缓存（0缓存 1不缓存）
-   */
-  isCache?: string;
   /**
    * 是否为外链（0是 1否）
    */
@@ -83,7 +72,7 @@ export interface CreateMenuData {
   /**
    * 菜单ID
    */
-  menuId?: number;
+  menuId?: string;
   /**
    * 菜单名称
    */
@@ -99,11 +88,11 @@ export interface CreateMenuData {
   /**
    * 请求参数
    */
-  params?: { [key: string]: any };
+  params?: Record<string, Key>;
   /**
    * 父菜单ID
    */
-  parentId?: number;
+  parentId?: string;
   /**
    * 父菜单名称
    */
@@ -133,14 +122,6 @@ export interface CreateMenuData {
    */
   status?: string;
   /**
-   * 更新者
-   */
-  updateBy?: string;
-  /**
-   * 更新时间
-   */
-  updateTime?: Date;
-  /**
    * 显示状态（0显示 1隐藏）
    */
   visible?: string;
@@ -149,10 +130,18 @@ export interface CreateMenuData {
 export type MenuData = MenuDataItem[];
 
 // 查询菜单列表
-export const reqGetMenuList = (params?: GetMenuListParams) => request<MenuData>({ url: '/system/menu/list', params });
+export const reqGetMenuList = (params?: GetMenuListParams) =>
+  request<MenuData>({ url: '/system/menu/list', params }).then((res) =>
+    res.map((item) => {
+      item.parentId = item.parentId.toString();
+      item.menuId = item.menuId.toString();
+
+      return item;
+    }),
+  );
 
 // 删除菜单
-export const reqDeleteMenu = (menuId: number) => request({ url: `/system/menu/${menuId}`, method: 'DELETE' });
+export const reqDeleteMenu = (menuId: string) => request({ url: `/system/menu/${menuId}`, method: 'DELETE' });
 
 // 新增菜单
 export const reqCreateMenu = (data: CreateMenuData) => request({ url: '/system/menu', method: 'POST', data });
@@ -161,4 +150,4 @@ export const reqCreateMenu = (data: CreateMenuData) => request({ url: '/system/m
 export const reqUpdateMenu = (data: CreateMenuData) => request({ url: '/system/menu', method: 'PUT', data });
 
 // 查询菜单详情
-export const reqGetMenuDetail = (menuId: number) => request<MenuDataItem>({ url: `/system/menu/${menuId}` });
+export const reqGetMenuDetail = (menuId: string) => request<MenuDataItem>({ url: `/system/menu/${menuId}` });

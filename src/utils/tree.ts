@@ -64,8 +64,8 @@ export const sortByOrderNum = (data: MenuData): MenuData => {
 };
 
 // 获取 tree 的所有父菜单 id
-export const getParentIds = (data: MenuData): number[] => {
-  const parentIds: Set<number> = new Set();
+export const getParentIds = (data: MenuData): string[] => {
+  const parentIds: Set<string> = new Set();
 
   data.forEach((item) => {
     if (item.parentId) {

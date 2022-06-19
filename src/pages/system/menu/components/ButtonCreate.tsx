@@ -6,7 +6,7 @@ import {
   MenuType,
   YesNoStatus,
 } from '@/constants';
-import { selectedKeysAtom, useRefreshMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
+import { selectedMenuIdAtom, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
 import type { CreateMenuData, GetMenuListParams, MenuDataItem } from '@/services';
 import { reqCreateMenu, reqGetMenuList } from '@/services';
 import { parseSimpleTreeData, sortByOrderNum } from '@/utils';
@@ -29,19 +29,19 @@ import { useEffect, useRef } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 export interface OptionsParentId {
-  menuId: number;
+  menuId: string;
   menuName: string;
   children?: OptionsParentId[];
 }
 
-const getSelectedParentIds = (data: Record<number, MenuDataItem>, menuId: number): number[] => {
-  const parentIds: number[] = [0];
+const getSelectedParentIds = (data: Record<string, MenuDataItem>, menuId: string): string[] => {
+  const parentIds: string[] = ['0'];
 
-  if (!menuId) {
-    return [0];
+  if (menuId === '0') {
+    return parentIds;
   }
 
-  const findParentId = (id: number) => {
+  const findParentId = (id: string) => {
     if (!data?.[id]) {
       return;
     }
@@ -69,7 +69,7 @@ const getOptions = (data?: MenuDataItem[]): OptionsParentId[] => {
       });
   };
 
-  return [{ menuId: 0, menuName: '根节点', children: data ? formatOptions(data) : [] }];
+  return [{ menuId: '0', menuName: '根目录', children: data ? formatOptions(data) : [] }];
 };
 
 const ButtonCreate: FC = () => {
@@ -77,10 +77,9 @@ const ButtonCreate: FC = () => {
 
   const [visible, setVisible] = useRecoilState(visibleCreateModalAtom);
 
-  const refreshMenuList = useRefreshMenuList();
+  const { refetch } = useQueryMenuList();
 
-  const selectedKeys = useRecoilValue(selectedKeysAtom);
-  const selectedParentId = Number(selectedKeys?.[0] ?? '0');
+  const selectedMenuId = useRecoilValue(selectedMenuIdAtom);
 
   const { data, refresh } = useRequest(async (params: GetMenuListParams) => {
     const data = await reqGetMenuList(params);
@@ -101,9 +100,9 @@ const ButtonCreate: FC = () => {
 
   useEffect(() => {
     if (formRef?.current?.setFieldsValue && data?.map) {
-      formRef?.current?.setFieldsValue({ parentId: getSelectedParentIds(data?.map, selectedParentId) });
+      formRef?.current?.setFieldsValue({ parentId: getSelectedParentIds(data?.map, selectedMenuId) });
     }
-  }, [selectedParentId, data?.map, formRef?.current]);
+  }, [selectedMenuId, data?.map, formRef?.current]);
 
   return (
     <>
@@ -116,24 +115,24 @@ const ButtonCreate: FC = () => {
           onFinish={async (e) => {
             await reqCreateMenu(e);
 
-            await refreshMenuList();
-
-            message.success('新建成功');
+            await refetch();
 
             setVisible(false);
 
             refresh();
 
             formRef?.current?.resetFields();
+
+            message.success('新建成功');
           }}
           formRef={formRef}
         >
           <ProFormCascader
             name="parentId"
             label="父级菜单"
-            initialValue={getSelectedParentIds(data?.map ?? {}, selectedParentId)}
+            initialValue={getSelectedParentIds(data?.map ?? {}, selectedMenuId)}
             fieldProps={{
-              options: data?.options ?? [],
+              options: data?.options,
               fieldNames: { label: 'menuName', value: 'menuId', children: 'children' },
               changeOnSelect: true,
             }}
@@ -223,14 +222,14 @@ const ButtonCreate: FC = () => {
 
                   {menuType === MenuType.C && (
                     <>
+                      {/* // TODO 后续添加*/}
+                      {/*<ProFormText*/}
+                      {/*  name="component"*/}
+                      {/*  label="组件路径"*/}
+                      {/*  tooltip="访问的组件路径，如：`system/user/index`，默认在`/src/pages`目录下"*/}
+                      {/*/>*/}
                       <ProFormText
-                        name="component"
-                        label="组件路径"
-                        tooltip="访问的组件路径，如：`system/user/index`，默认在`/src/pages`目录下"
-                      />
-
-                      <ProFormText
-                        name="params"
+                        name="queryParam"
                         label="路由参数"
                         tooltip={'访问路由的默认传递参数，如：{"id": 1, "name": "ry"}'}
                       />

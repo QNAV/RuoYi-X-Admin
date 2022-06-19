@@ -2,18 +2,18 @@ import type { GetMenuListParams, MenuData } from '@/services';
 import { reqDeleteMenu, reqGetMenuList } from '@/services';
 import { getParentIds, parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { message, Modal } from 'antd';
-import type { Key } from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { atom, useResetRecoilState } from 'recoil';
 
 const key = 'systemMenu';
 
 const queryKey = [key, 'list'];
 
-export const selectedKeysAtom = atom<Key[]>({ key: `${key}SelectedKeys`, default: [] });
+export const selectedMenuIdAtom = atom<string>({ key: `${key}SelectedMenuId`, default: '0' });
 
 export const visibleCreateModalAtom = atom<boolean>({ key: `${key}VisibleCreateModal`, default: false });
 
+// 查询菜单列表
 export const useQueryMenuList = (params?: GetMenuListParams) => {
   return useQuery(
     queryKey,
@@ -40,26 +40,19 @@ export const useQueryMenuList = (params?: GetMenuListParams) => {
   );
 };
 
-// 刷新菜单列表
-export const useRefreshMenuList = () => {
-  const queryClient = useQueryClient();
-
-  return () => queryClient.invalidateQueries(queryKey);
-};
-
 // 删除菜单
 export const useDeleteMenu = () => {
-  const refreshMenuList = useRefreshMenuList();
-  const resetSelectedKeys = useResetRecoilState(selectedKeysAtom);
+  const { refetch } = useQueryMenuList();
+  const resetSelectedKeys = useResetRecoilState(selectedMenuIdAtom);
 
-  return useMutation(async (menuId: number) => {
+  return useMutation(async (menuId: string) => {
     Modal.confirm({
       title: MODAL_CONFIRM_TITLE,
       content: '确定删除该菜单吗？',
       onOk: async () => {
         await reqDeleteMenu(menuId);
 
-        await refreshMenuList();
+        await refetch();
 
         resetSelectedKeys();
 

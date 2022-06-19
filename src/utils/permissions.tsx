@@ -2,6 +2,7 @@ import { Icon } from '@/components';
 import type { UserRoute } from '@/services';
 import { isHttpUrl } from '@/utils';
 import type { MenuDataItem } from '@ant-design/pro-layout';
+import qs from 'query-string';
 
 export const rootKey = '*:*:*';
 
@@ -21,12 +22,15 @@ export const convertUserRoutesToMenus = (userRoutes: UserRoute[], parentPath: st
 
   userRoutes.forEach((item) => {
     const {
+      query,
       path,
       hidden,
       meta: { title, icon },
     } = item;
 
     let children: MenuDataItem[] = [];
+
+    const queryString = query ? `?${qs.stringify(JSON.parse(query))}` : '';
 
     const curRoutePath = parentPath && !isHttpUrl(path) ? `${parentPath}/${path}` : path;
 
@@ -35,7 +39,7 @@ export const convertUserRoutesToMenus = (userRoutes: UserRoute[], parentPath: st
     }
 
     menus.push({
-      path: curRoutePath,
+      path: `${curRoutePath}${queryString}`,
       name: title,
       hideInMenu: hidden,
       icon: <Icon name={icon} />,

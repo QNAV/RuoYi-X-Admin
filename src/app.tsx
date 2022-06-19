@@ -1,8 +1,10 @@
-import { GithubIcon, LogoutIcon, SettingsIcon } from '@/components';
+import { LogoutIcon, SettingsIcon } from '@/components';
 import { reqGetUserInfo, reqGetUserRoutes } from '@/services';
 import type { InitialState } from '@/types';
 import { checkToken, convertUserRoutesToMenus } from '@/utils';
 import type { RunTimeLayoutConfig } from '@@/plugin-layout';
+import { GithubOutlined } from '@ant-design/icons';
+import { DefaultFooter } from '@ant-design/pro-layout';
 import { history } from '@umijs/max';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
@@ -62,10 +64,17 @@ export const layout: RunTimeLayoutConfig = ({ initialState }: { initialState: In
       size: 'small',
       title: userInfo.user.nickName,
     },
-    links: [<GithubIcon key="GithubIcon" />],
     rightContentRender: false,
     onMenuHeaderClick: () => history.push('/'),
     actionsRender: () => [<SettingsIcon key="LogoutIcon" />, <LogoutIcon key="LogoutIcon" />],
     menuDataRender: () => convertUserRoutesToMenus(userRoutes),
+    footerRender: () => (
+      <DefaultFooter
+        links={[
+          { key: 'Github', title: <GithubOutlined />, href: 'https://github.com/QNAV/RuoYi-X-Umi', blankTarget: true },
+        ]}
+        copyright="2022 Sushi Su"
+      />
+    ),
   };
 };

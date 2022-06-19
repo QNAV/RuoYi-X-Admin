@@ -1,5 +1,5 @@
 import { MapEnableDisableStatus, MapMenuType, MapYesNoStatus, MenuType } from '@/constants';
-import { selectedKeysAtom, useRefreshMenuList } from '@/pages/system/menu/model';
+import { selectedMenuIdAtom, useQueryMenuList } from '@/pages/system/menu/model';
 import type { CreateMenuData } from '@/services';
 import { reqGetMenuDetail, reqUpdateMenu } from '@/services';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
@@ -10,7 +10,7 @@ import type { FC } from 'react';
 import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 
-const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl: 3 };
+const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl: 2 };
 
 const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
   return useMemo(() => {
@@ -59,23 +59,24 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
         },
         {
           title: '路由参数',
-          dataIndex: 'params',
-          key: 'params',
+          dataIndex: 'queryParam',
+          key: 'queryParam',
           valueType: 'code',
           tooltip: '访问路由的默认传递参数，如：{"id": 1, "name": "ry"}',
         },
       );
     }
 
-    if (menuType === MenuType.C) {
-      columns.push({
-        title: '组件路径',
-        dataIndex: 'component',
-        key: 'component',
-        valueType: 'text',
-        tooltip: '访问的组件路径，如：`system/user/index`，默认在`/src/pages`目录下',
-      });
-    }
+    // TODO 后续添加
+    // if (menuType === MenuType.C) {
+    //   columns.push({
+    //     title: '组件路径',
+    //     dataIndex: 'component',
+    //     key: 'component',
+    //     valueType: 'text',
+    //     tooltip: '访问的组件路径，如：`system/user/index`，默认在`/src/pages`目录下',
+    //   });
+    // }
 
     if (menuType !== MenuType.M) {
       columns.push({
@@ -92,109 +93,103 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
 };
 
 const MenuDetails: FC = () => {
-  const refreshMenuList = useRefreshMenuList();
+  const selectedMenuId = useRecoilValue(selectedMenuIdAtom);
 
-  const selectedKeys = useRecoilValue(selectedKeysAtom);
-  const menuId = selectedKeys?.[0] ? Number(selectedKeys?.[0]) : 0;
+  const { refetch: reFetchMenuList } = useQueryMenuList();
 
   const { data, refresh } = useRequest(
     async () => {
-      const { params, ...rest } = await reqGetMenuDetail(menuId);
-
-      return { ...rest, params: JSON.stringify(params) };
+      return await reqGetMenuDetail(selectedMenuId);
     },
     {
-      ready: menuId > 0,
-      refreshDeps: [menuId],
+      ready: selectedMenuId !== '0',
+      refreshDeps: [selectedMenuId],
     },
   );
+
+  const { runAsync } = useRequest(reqUpdateMenu, {
+    manual: true,
+    onSuccess: () => {
+      refresh();
+      reFetchMenuList();
+      message.success('保存成功');
+    },
+  });
 
   const columns = useColumns(data?.menuType);
 
   const editable: ProDescriptionsProps['editable'] = {
     onSave: async (key, record) => {
+      const { menuType, orderNum, menuName, menuId } = record;
+
       const newKey = key as keyof CreateMenuData;
 
-      const { menuType, orderNum, menuName } = record;
-
-      let value = record[newKey];
-
-      if (newKey === 'params') {
-        value = JSON.parse(value);
-      }
-
-      await reqUpdateMenu({ menuId, menuType, orderNum, menuName, [newKey]: value });
-
-      message.success('修改成功');
-
-      refresh();
-
-      await refreshMenuList();
+      await runAsync({ menuId, menuType, orderNum, menuName, [newKey]: record[newKey] });
     },
   };
 
-  if (menuId > 0)
-    return (
-      <div>
-        <ProDescriptions
-          columns={[
-            {
-              title: '类型',
-              dataIndex: 'menuType',
-              key: 'menuType',
-              valueType: 'select',
-              valueEnum: MapMenuType,
-              editable: false,
-            },
-            {
-              title: '创建时间',
-              dataIndex: 'createTime',
-              key: 'createTime',
-              valueType: 'dateTime',
-              editable: false,
-            },
-          ]}
-          dataSource={data}
-          column={column}
-        />
+  if (selectedMenuId === '0')
+    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="点击选择左侧菜单项查看详情" />;
 
-        <Divider />
+  return (
+    <div>
+      <ProDescriptions
+        columns={[
+          {
+            title: '类型',
+            dataIndex: 'menuType',
+            key: 'menuType',
+            valueType: 'select',
+            valueEnum: MapMenuType,
+            editable: false,
+          },
+          {
+            title: '创建时间',
+            dataIndex: 'createTime',
+            key: 'createTime',
+            valueType: 'dateTime',
+            editable: false,
+          },
+        ]}
+        dataSource={data}
+        column={column}
+      />
 
-        <ProDescriptions
-          columns={[
-            {
-              title: '名称',
-              dataIndex: 'menuName',
-              key: 'menuName',
-              valueType: 'text',
-            },
-            {
-              title: '显示顺序',
-              dataIndex: 'orderNum',
-              key: 'orderNum',
-              valueType: 'digit',
-              tooltip: '默认数值为0，数值越大排序越靠后，数值相等按照创建时间先后排序',
-            },
-            {
-              title: '备注',
-              dataIndex: 'remark',
-              key: 'remark',
-              valueType: 'textarea',
-              hideInSearch: true,
-            },
-          ]}
-          dataSource={data}
-          editable={editable}
-          column={column}
-        />
+      <Divider />
 
-        <Divider />
+      <ProDescriptions
+        columns={[
+          {
+            title: '名称',
+            dataIndex: 'menuName',
+            key: 'menuName',
+            valueType: 'text',
+          },
+          {
+            title: '显示顺序',
+            dataIndex: 'orderNum',
+            key: 'orderNum',
+            valueType: 'digit',
+            tooltip: '默认数值为0，数值越大排序越靠后，数值相等按照创建时间先后排序',
+          },
+          {
+            title: '备注',
+            dataIndex: 'remark',
+            key: 'remark',
+            valueType: 'textarea',
+            hideInSearch: true,
+          },
+        ]}
+        dataSource={data}
+        editable={editable}
+        column={column}
+      />
 
-        <ProDescriptions columns={columns} dataSource={data} editable={editable} column={column} />
-      </div>
-    );
+      <Divider />
 
-  return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="点击选择左侧菜单项查看详情" />;
+      <ProDescriptions columns={columns} dataSource={data} editable={editable} column={column} />
+    </div>
+  );
 };
 
 export default MenuDetails;

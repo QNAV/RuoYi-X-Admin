@@ -1,4 +1,3 @@
-import { GithubIcon } from '@/components';
 import Actions from '@/pages/login/components/Actions';
 import type { LoginByPwdParams, LoginBySmsParams, LoginResponse } from '@/services';
 import { reqGetCaptchaImage, reqLoginByPwd, reqLoginBySms } from '@/services';
@@ -71,9 +70,6 @@ const LoginPage: FC = () => {
         subTitle="若依后台管理系统"
         actions={<Actions />}
         onFinish={submit}
-        activityConfig={{
-          action: <GithubIcon />,
-        }}
       >
         <Tabs activeKey={loginType} onChange={(activeKey) => setLoginType(activeKey as LoginType)}>
           <Tabs.TabPane key={LoginType.USERNAME} tab="账号密码登录" />
