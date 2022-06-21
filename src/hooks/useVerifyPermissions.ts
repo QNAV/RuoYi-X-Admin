@@ -1,5 +1,5 @@
 import { rootKey } from '@/utils';
-import { useAccess } from '@@/plugin-access';
+import { useAccess } from '@umijs/max';
 import { useCallback } from 'react';
 
 export type VerifyPermissions = (permissions: string | string[], strict: boolean) => boolean;

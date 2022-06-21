@@ -3,10 +3,10 @@ import type { UpdateUserProfileParams } from '@/services';
 import { reqUpdateUserProfile, uploadAvatarPath } from '@/services';
 import type { InitialState } from '@/types';
 import { getToken, regEmail, regPhone } from '@/utils';
-import { useModel } from '@@/plugin-model';
 import { CameraOutlined } from '@ant-design/icons';
 import type { ProDescriptionsItemProps, ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
+import { useModel } from '@umijs/max';
 import { Avatar, Col, Divider, message, Row, Upload } from 'antd';
 import type { FC } from 'react';
 
