@@ -2,7 +2,8 @@ import { clearToken, getToken } from '@/utils';
 import { message, notification } from 'antd';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
-import qs from 'query-string';
+
+import { createSearchParams } from '@umijs/max';
 
 enum ErrorShowType {
   SILENT = 0, // 不提示错误
@@ -35,7 +36,7 @@ interface RequestConfig extends AxiosRequestConfig {
 }
 
 const errorHandler = (res: CustomResponseStructure) => {
-  const { code, msg, showType } = res;
+  const { msg, showType } = res;
 
   switch (showType) {
     case ErrorShowType.SILENT:
@@ -58,9 +59,8 @@ const errorHandler = (res: CustomResponseStructure) => {
     case ErrorShowType.REDIRECT:
       clearToken();
 
-      window.location.href = `${LOGIN_PATH_NAME}?${qs.stringify({
+      window.location.href = `${LOGIN_PATH_NAME}?${createSearchParams({
         redirect: window.location.pathname,
-        code,
         msg,
       })}`;
       break;

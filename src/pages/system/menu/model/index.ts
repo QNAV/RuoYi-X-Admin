@@ -47,7 +47,7 @@ export const useDeleteMenu = () => {
 
   return useMutation(async (menuId: string) => {
     Modal.confirm({
-      title: MODAL_CONFIRM_TITLE,
+      title: '删除菜单',
       content: '确定删除该菜单吗？',
       onOk: async () => {
         await reqDeleteMenu(menuId);

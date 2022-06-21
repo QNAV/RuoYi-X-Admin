@@ -4,9 +4,9 @@ import { reqGetCaptchaImage, reqLoginByPwd, reqLoginBySms } from '@/services';
 import { regPhone, setToken, StorageType } from '@/utils';
 import { LockOutlined, MobileOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginFormPage, ProFormCaptcha, ProFormCheckbox, ProFormGroup, ProFormText } from '@ant-design/pro-components';
+import { useSearchParams } from '@umijs/max';
 import { useRequest } from 'ahooks';
 import { Image, message, Tabs } from 'antd';
-import qs from 'query-string';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
@@ -19,14 +19,12 @@ enum LoginType {
   USERNAME = 'USERNAME',
 }
 
-const searchObj = qs.parse(window.location.search) as {
-  code?: string;
-  msg?: string;
-  redirect?: string;
-};
-
 const LoginPage: FC = () => {
   const [loginType, setLoginType] = useState<LoginType>(LoginType.USERNAME);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const msg = searchParams.get('msg');
+  const redirect = searchParams.get('redirect') || '/';
 
   const { data: getCaptchaImageRes, run: getCaptchaImage } = useRequest(reqGetCaptchaImage);
 
@@ -47,7 +45,7 @@ const LoginPage: FC = () => {
 
       setToken(autoLogin ? StorageType.LOCAL_STORAGE : StorageType.SESSION_STORAGE, `Bearer ${loginRes.token}`);
 
-      window.location.href = searchObj?.redirect ?? '/';
+      window.location.href = redirect;
     } catch (error) {
       if (loginType === LoginType.USERNAME) {
         getCaptchaImage();
@@ -56,8 +54,9 @@ const LoginPage: FC = () => {
   };
 
   useEffect(() => {
-    if (searchObj?.msg) {
-      message.error(searchObj.msg);
+    if (msg) {
+      message.error(searchParams.get('msg'));
+      setSearchParams({ redirect }, { replace: true });
     }
   }, []);
 

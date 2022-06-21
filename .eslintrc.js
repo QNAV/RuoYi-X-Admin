@@ -4,7 +4,6 @@ module.exports = {
     API_HOST: true,
     TOKEN_KEY: true,
     LOGIN_PATH_NAME: true,
-    MODAL_CONFIRM_TITLE: true,
   },
   rules: {
     '@typescript-eslint/consistent-type-imports': 'error',
