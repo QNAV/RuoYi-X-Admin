@@ -1,4 +1,4 @@
-import { Icon } from '@/components';
+import { AntdIcon } from '@/components';
 import type { UserRoute } from '@/services';
 import { isHttpUrl } from '@/utils';
 import type { MenuDataItem } from '@ant-design/pro-layout';
@@ -6,16 +6,22 @@ import qs from 'query-string';
 
 export const rootKey = '*:*:*';
 
-export const getUserPermissions = (keys: string[]) =>
-  keys.reduce<Record<string, boolean>>((acc, cur) => {
-    return { ...acc, [cur]: true };
-  }, {});
+// 检验用户权限
+export const checkPermission = (permKey: string | string[], userPerms: Set<string>, strict = true) => {
+  if (userPerms.has(rootKey)) {
+    return true;
+  }
 
-export const getUserRoutesPermissions = (routes: UserRoute[], parentPath: string = ''): Record<string, boolean> =>
-  routes.reduce<Record<string, boolean>>((acc, cur) => {
-    const curRoutePath = parentPath ? `${parentPath}/${cur.path}` : cur.path;
-    return { ...acc, [curRoutePath]: true, ...getUserRoutesPermissions(cur?.children ?? [], curRoutePath) };
-  }, {});
+  if (typeof permKey === 'string') {
+    return userPerms.has(permKey);
+  }
+
+  if (strict) {
+    return permKey.every((key) => userPerms.has(key));
+  }
+
+  return permKey.some((key) => userPerms.has(key));
+};
 
 export const convertUserRoutesToMenus = (userRoutes: UserRoute[], parentPath: string = ''): MenuDataItem[] => {
   const menus: MenuDataItem[] = [];
@@ -42,7 +48,7 @@ export const convertUserRoutesToMenus = (userRoutes: UserRoute[], parentPath: st
       path: `${curRoutePath}${queryString}`,
       name: title,
       hideInMenu: hidden,
-      icon: <Icon name={icon} />,
+      icon: <AntdIcon name={icon} />,
       children,
     });
   });

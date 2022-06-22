@@ -1,4 +1,4 @@
-import { Icon } from '@/components';
+import { AntdIcon } from '@/components';
 import { MapEnableDisableStatus, MenuType } from '@/constants';
 import { selectedMenuIdAtom, useDeleteMenu, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
 import type { GetMenuListParams, MenuDataItem } from '@/services';
@@ -21,7 +21,7 @@ const titleRender: TreeProps<MenuDataItem>['titleRender'] = (item) => {
     <>
       <Tag color="rgb(148 163 184)">{item.orderNum}</Tag>
 
-      {item.icon && <Icon name={item.icon} className="mr-1" />}
+      <AntdIcon name={item.icon} className="mr-1" />
 
       <Tag color={MenuTypeColor[item.menuType]} style={{ margin: '0 0 2px 0' }}>
         {item.menuName}

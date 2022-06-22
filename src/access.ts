@@ -1,10 +1,11 @@
 import type { InitialState } from '@/types';
-import { getUserPermissions, getUserRoutesPermissions } from '@/utils';
+import { checkPermission } from '@/utils';
 
 const access = (initialState: InitialState) => {
+  const userPermissions = new Set(initialState?.userInfo?.permissions ?? []);
+
   return {
-    ...getUserPermissions(initialState?.userInfo?.permissions ?? []),
-    ...getUserRoutesPermissions(initialState?.userRoutes ?? []),
+    canReadSysMenu: checkPermission('system:menu:list', userPermissions),
   };
 };
 

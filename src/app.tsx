@@ -2,9 +2,9 @@ import { LogoutIcon, SettingsIcon } from '@/components';
 import { reqGetUserInfo, reqGetUserRoutes } from '@/services';
 import type { InitialState } from '@/types';
 import { checkToken, convertUserRoutesToMenus } from '@/utils';
-import type { RunTimeLayoutConfig } from '@@/plugin-layout';
 import { GithubOutlined } from '@ant-design/icons';
 import { DefaultFooter } from '@ant-design/pro-layout';
+import type { ProLayoutProps } from '@ant-design/pro-layout/es/ProLayout';
 import { history } from '@umijs/max';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
@@ -53,7 +53,7 @@ export const dataflowProvider = (container: ReactNode) => {
   return createElement(QueryClientProvider, { client: queryClient }, container);
 };
 
-export const layout: RunTimeLayoutConfig = ({ initialState }: { initialState: InitialState }) => {
+export const layout = ({ initialState }: { initialState: InitialState }): ProLayoutProps => {
   if (!initialState) return {};
 
   const { userInfo, userRoutes } = initialState;

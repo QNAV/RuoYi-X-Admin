@@ -1,4 +1,3 @@
-export * from './Access';
-export * from './Icon';
+export * from './AntdIcon';
 export * from './LogoutIcon';
 export * from './SettingsIcon';
