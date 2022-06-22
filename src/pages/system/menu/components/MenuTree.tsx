@@ -2,10 +2,11 @@ import { AntdIcon } from '@/components';
 import { MapEnableDisableStatus, MenuType } from '@/constants';
 import { selectedMenuIdAtom, useDeleteMenu, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
 import type { GetMenuListParams, MenuDataItem } from '@/services';
-import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
+import { CaretDownOutlined, CaretRightOutlined, CopyOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';
-import { Button, Dropdown, Empty, Menu, Tag, Tree } from 'antd';
+import { Button, Dropdown, Empty, Menu, message, Space, Tag, Tree } from 'antd';
+import copy from 'copy-to-clipboard';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
@@ -27,7 +28,21 @@ const titleRender: TreeProps<MenuDataItem>['titleRender'] = (item) => {
         {item.menuName}
       </Tag>
 
-      {item.perms && <Tag style={{ margin: '0 0 2px 2px' }}>{item.perms}</Tag>}
+      {item.perms && (
+        <Tag style={{ margin: '0 0 2px 2px' }}>
+          <Space size="small">
+            {item.perms}
+            <CopyOutlined
+              style={{ color: '#1890ff' }}
+              onClick={(e) => {
+                copy(item.perms);
+                message.success('复制成功');
+                e.stopPropagation();
+              }}
+            />
+          </Space>
+        </Tag>
+      )}
     </>
   );
 };

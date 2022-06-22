@@ -24,6 +24,7 @@
     "antd": "^4.21.3",
     "axios": "0.27.2",
     "classnames": "^2.3.1",
+    "copy-to-clipboard": "^3.3.1",
     "dayjs": "^1.11.3",
     "lodash-es": "^4.17.21",
     "nprogress": "^0.2.0",
