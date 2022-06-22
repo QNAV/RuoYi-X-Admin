@@ -31,10 +31,10 @@ specifiers:
   react: ^18.2.0
   react-dom: ^18.2.0
   react-query: 4.0.0-beta.23
-  recoil: ^0.7.3
+  recoil: ^0.7.4
   rimraf: ^3.0.2
   stylelint: ^14.9.1
-  tailwindcss: ^3.1.3
+  tailwindcss: ^3.1.4
   typescript: ^4.7.4
 
 dependencies:
@@ -54,7 +54,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-query: 4.0.0-beta.23_biqbaboplfbrettd7655fr4n2y
-  recoil: 0.7.3_biqbaboplfbrettd7655fr4n2y
+  recoil: 0.7.4_biqbaboplfbrettd7655fr4n2y
 
 devDependencies:
   '@commitlint/cli': 17.0.2
@@ -73,7 +73,7 @@ devDependencies:
   prettier-plugin-packagejson: 2.2.18_prettier@2.7.1
   rimraf: 3.0.2
   stylelint: 14.9.1
-  tailwindcss: 3.1.3
+  tailwindcss: 3.1.4
   typescript: 4.7.4
 
 packages:
@@ -208,7 +208,7 @@ packages:
       react: '>=16.8.4'
       react-dom: '>=16.8.4'
     dependencies:
-      '@antv/g2plot': 2.4.19
+      '@antv/g2plot': 2.4.20
       react: 18.2.0
       react-content-loader: 5.1.4_react@18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -709,8 +709,8 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@antv/g2plot/2.4.19:
-    resolution: {integrity: sha512-1dw5X25gFq789CB0/7/CqxCV7qGT3gFiLucBViw1eDf/NbFVpK5tp+yE/ajprErTCPWty3D+qCQLVOsAmakF/A==}
+  /@antv/g2plot/2.4.20:
+    resolution: {integrity: sha512-MHFTe3zdEHy/5VHdG9LmX9jQy9NdZm31olQjhE65eGpxhX5N1ibyo+qO247I9Jazb4sLD5LNWYPtPHofUOUaNg==}
     dependencies:
       '@antv/event-emitter': 0.1.3
       '@antv/g2': 4.2.3
@@ -803,11 +803,11 @@ packages:
       '@antv/util': 2.0.17
     dev: false
 
-  /@antv/l7-component/2.8.46:
-    resolution: {integrity: sha512-cEqfTIxVMwQYFeqKMz5Fjb0SQkHIIFAUNDjycftmLURTYD/G2/68lobM4Zw1sTdKZJ1b3d8qZx7Uyfh5NxWUlA==}
+  /@antv/l7-component/2.8.47:
+    resolution: {integrity: sha512-fUtdRRGQMVZc8KUdo+ZR/epLo/X7BZ/bNu7SJLL4gO3Ua2aRvvbJ99Q8b9PZyO3c258jHVm0sGRXO7BptjiqRg==}
     dependencies:
-      '@antv/l7-core': 2.8.46
-      '@antv/l7-utils': 2.8.46
+      '@antv/l7-core': 2.8.47
+      '@antv/l7-utils': 2.8.47
       '@babel/runtime': 7.18.3
       eventemitter3: 4.0.7
       inversify: 5.1.1
@@ -816,11 +816,11 @@ packages:
       supercluster: 7.1.5
     dev: false
 
-  /@antv/l7-core/2.8.46:
-    resolution: {integrity: sha512-8AZzyRB6y6irnkyOof/Yk90Oy5Qjb5cATemebt3kCRiAOZnI9TFi39bysVoypDKE5RkaZ4nZqpPXSOykeyGouQ==}
+  /@antv/l7-core/2.8.47:
+    resolution: {integrity: sha512-CFFFx7Vg1zB6CqxblpZBFtbOVVQWanlmKB2rkI/b0/lJcD8PurUTVFqppniduZYB8arNXRNhzex+6aZpql7eRQ==}
     dependencies:
       '@antv/async-hook': 2.1.0
-      '@antv/l7-utils': 2.8.46
+      '@antv/l7-utils': 2.8.47
       '@babel/runtime': 7.18.3
       ajv: 6.12.6
       element-resize-event: 3.0.6
@@ -835,12 +835,12 @@ packages:
       viewport-mercator-project: 6.2.3
     dev: false
 
-  /@antv/l7-layers/2.8.46:
-    resolution: {integrity: sha512-xRWPfrrRmD/ZK/Gr+LewnASqAZOJ+451NjEC5jwUevRVa7J9EElXKSz81CWQycvO4jakFdybT0jXih7CvBdG9A==}
+  /@antv/l7-layers/2.8.47:
+    resolution: {integrity: sha512-2JqsFrH+9VuxpS9oSyZGgN/G6X/c+3aAHqm1Bi0jrfXnb8/cNNYifNQwCXR7ngJHsDS9lDCXs1V6fS0Wd45xVw==}
     dependencies:
-      '@antv/l7-core': 2.8.46
-      '@antv/l7-source': 2.8.46
-      '@antv/l7-utils': 2.8.46
+      '@antv/l7-core': 2.8.47
+      '@antv/l7-source': 2.8.47
+      '@antv/l7-utils': 2.8.47
       '@babel/runtime': 7.18.3
       '@mapbox/martini': 0.2.0
       '@turf/meta': 6.5.0
@@ -860,10 +860,10 @@ packages:
       reflect-metadata: 0.1.13
     dev: false
 
-  /@antv/l7-map/2.8.46:
-    resolution: {integrity: sha512-cY+tHG5mbAXMYG9efx0RneQEGKzV9fJBpyQzxryYEartu1qvsUILaJF9OGc2qr3w4I/kz1rXZ1IF6hSnHBAnZg==}
+  /@antv/l7-map/2.8.47:
+    resolution: {integrity: sha512-9yA5BNDgb15XmQQr/ChGGk3Q23pgNY9oxNNdxJnmtRMK59Ead30s7xVn8ZIRqItjp0yGIXUTujxwsTw2hBR3Ow==}
     dependencies:
-      '@antv/l7-utils': 2.8.46
+      '@antv/l7-utils': 2.8.47
       '@babel/runtime': 7.18.3
       '@mapbox/point-geometry': 0.1.0
       '@mapbox/unitbezier': 0.0.0
@@ -871,13 +871,13 @@ packages:
       lodash: 4.17.21
     dev: false
 
-  /@antv/l7-maps/2.8.46:
-    resolution: {integrity: sha512-iy8aeWmQmgpf5ZGWssXdzNC7ix1VvvUc7erYQWZoSdXYJ1QbxEPPu1URy3BY5MLT4iezmxv8mgLoytRYJ29mvg==}
+  /@antv/l7-maps/2.8.47:
+    resolution: {integrity: sha512-UeUbrxOPMckheJhG9G0zS/8stZMsUQIZz5QXpivmrZkF4OwGT4q1tF0hdnzlzrLDu8Y5lg5YQqgquPosf+CX7w==}
     dependencies:
       '@amap/amap-jsapi-loader': 0.0.3
-      '@antv/l7-core': 2.8.46
-      '@antv/l7-map': 2.8.46
-      '@antv/l7-utils': 2.8.46
+      '@antv/l7-core': 2.8.47
+      '@antv/l7-map': 2.8.47
+      '@antv/l7-utils': 2.8.47
       '@babel/runtime': 7.18.3
       '@types/amap-js-api': 1.4.10
       '@types/mapbox-gl': 1.13.3
@@ -888,10 +888,10 @@ packages:
       viewport-mercator-project: 6.2.3
     dev: false
 
-  /@antv/l7-renderer/2.8.46:
-    resolution: {integrity: sha512-GsRhI+subY2VA4DhcE0SgrGbbcu22+5q2yNYSrP//YKfHobhXigSvQIsTR3V2fB8bzk1Y80ootAe1NYaHhxFdg==}
+  /@antv/l7-renderer/2.8.47:
+    resolution: {integrity: sha512-EfaltMTYH6pl8B6r2RAYgD2i3cXzpG/+EYcHJPxKp4sl40FEQGxfP9wPegltsZNkeasCL3+f/vseHttRnuwR8A==}
     dependencies:
-      '@antv/l7-core': 2.8.46
+      '@antv/l7-core': 2.8.47
       '@babel/runtime': 7.18.3
       inversify: 5.1.1
       l7regl: 0.0.20
@@ -899,27 +899,27 @@ packages:
       reflect-metadata: 0.1.13
     dev: false
 
-  /@antv/l7-scene/2.8.46:
-    resolution: {integrity: sha512-24PcHW5DVafhvTY7U0Vi/18cAZUEN1toJlxL35SiNtLNeXuL2NG8q3AgUv502s8YBYXk/aEcPUTv/mwapcDAsg==}
+  /@antv/l7-scene/2.8.47:
+    resolution: {integrity: sha512-StsPRSlVnDNUxFY5ezo31qLkLs3ISewae167lFgQycByAjGSJ06D6dqVVaz8+vtVhO5YHjqrpwykQLmnPY5lAA==}
     dependencies:
-      '@antv/l7-component': 2.8.46
-      '@antv/l7-core': 2.8.46
-      '@antv/l7-layers': 2.8.46
-      '@antv/l7-maps': 2.8.46
-      '@antv/l7-renderer': 2.8.46
-      '@antv/l7-utils': 2.8.46
+      '@antv/l7-component': 2.8.47
+      '@antv/l7-core': 2.8.47
+      '@antv/l7-layers': 2.8.47
+      '@antv/l7-maps': 2.8.47
+      '@antv/l7-renderer': 2.8.47
+      '@antv/l7-utils': 2.8.47
       '@babel/runtime': 7.18.3
       inversify: 5.1.1
       mapbox-gl: 1.13.2
       reflect-metadata: 0.1.13
     dev: false
 
-  /@antv/l7-source/2.8.46:
-    resolution: {integrity: sha512-dvk8dH47cyPVKUmjp6TvQKqwhnm4iiSdUWQ00mgmweqpdKUabtlzQ1YKZlsXAygkeXRgjGCL8MbwWmXfBA9xng==}
+  /@antv/l7-source/2.8.47:
+    resolution: {integrity: sha512-AhV7r8DLdX5/OIpFSmyNhcqVMxUnWnX80M0y/k2BvOVplGkuqra78hhqJObaV2MZ+/zpWG0sY20+3u5J1jrCAw==}
     dependencies:
       '@antv/async-hook': 2.1.0
-      '@antv/l7-core': 2.8.46
-      '@antv/l7-utils': 2.8.46
+      '@antv/l7-core': 2.8.47
+      '@antv/l7-utils': 2.8.47
       '@babel/runtime': 7.18.3
       '@mapbox/geojson-rewind': 0.4.1
       '@turf/helpers': 6.5.0
@@ -934,8 +934,8 @@ packages:
       supercluster: 7.1.5
     dev: false
 
-  /@antv/l7-utils/2.8.46:
-    resolution: {integrity: sha512-7ypllto1DAmwqk/PtRmxpEYzNlEOuVuDXRBjlkmFcTTB0km3cc8i8jI44YHvRnwqrIo4QvIyO4hONPRQOUhliw==}
+  /@antv/l7-utils/2.8.47:
+    resolution: {integrity: sha512-FKABBQIGExOjLAYYa2YXJMOq+5St0bQNrJtLKca0j/43oNcGEDrZtdyGWq31x7PMsCX3UT2gON4a13HVc+BXdA==}
     dependencies:
       '@babel/runtime': 7.18.3
       '@turf/bbox-polygon': 6.5.0
@@ -943,16 +943,16 @@ packages:
       d3-color: 1.4.1
     dev: false
 
-  /@antv/l7/2.8.46:
-    resolution: {integrity: sha512-Rzh0CUKkxSB4ctLujHmmbFoXymx9J47ktmaHbMS4ZB66uhmwp5Q17m+M06VTcwEAZgzfMNmPNBArB6wOtQHgzQ==}
+  /@antv/l7/2.8.47:
+    resolution: {integrity: sha512-mRigtrVOW11jTiT0h4ofcGQLf2Tv6dE16tMraBHe0fXpUgIoOZ+RoyApSbs/9uwsORxpVpArc54pFiYqCtrj3Q==}
     dependencies:
-      '@antv/l7-component': 2.8.46
-      '@antv/l7-core': 2.8.46
-      '@antv/l7-layers': 2.8.46
-      '@antv/l7-maps': 2.8.46
-      '@antv/l7-scene': 2.8.46
-      '@antv/l7-source': 2.8.46
-      '@antv/l7-utils': 2.8.46
+      '@antv/l7-component': 2.8.47
+      '@antv/l7-core': 2.8.47
+      '@antv/l7-layers': 2.8.47
+      '@antv/l7-maps': 2.8.47
+      '@antv/l7-scene': 2.8.47
+      '@antv/l7-source': 2.8.47
+      '@antv/l7-utils': 2.8.47
       '@babel/runtime': 7.18.3
     dev: false
 
@@ -967,7 +967,7 @@ packages:
     resolution: {integrity: sha512-OBu6j6x6tWCCQKebjSXZnwil8cbAjXNbDPSjj4Eo3WAOayIpP3SCiQjZfBR2TGBdXuoYnM1x3jCmSoqUv2rrUQ==}
     dependencies:
       '@antv/event-emitter': 0.1.3
-      '@antv/l7': 2.8.46
+      '@antv/l7': 2.8.47
       '@antv/l7plot-component': 0.0.3
       '@antv/util': 2.0.17
       lodash-es: 4.17.21
@@ -1272,7 +1272,7 @@ packages:
       '@babel/compat-data': 7.18.5
       '@babel/core': 7.17.9
       '@babel/helper-validator-option': 7.16.7
-      browserslist: 4.20.4
+      browserslist: 4.21.0
       semver: 6.3.0
 
   /@babel/helper-compilation-targets/7.18.2_@babel+core@7.18.5:
@@ -1284,7 +1284,7 @@ packages:
       '@babel/compat-data': 7.18.5
       '@babel/core': 7.18.5
       '@babel/helper-validator-option': 7.16.7
-      browserslist: 4.20.4
+      browserslist: 4.21.0
       semver: 6.3.0
     dev: false
 
@@ -3834,8 +3834,8 @@ packages:
       rc-menu: 9.6.0_biqbaboplfbrettd7655fr4n2y
       rc-motion: 2.6.0_biqbaboplfbrettd7655fr4n2y
       rc-notification: 4.6.0_biqbaboplfbrettd7655fr4n2y
-      rc-pagination: 3.1.16_biqbaboplfbrettd7655fr4n2y
-      rc-picker: 2.6.9_biqbaboplfbrettd7655fr4n2y
+      rc-pagination: 3.1.17_biqbaboplfbrettd7655fr4n2y
+      rc-picker: 2.6.10_biqbaboplfbrettd7655fr4n2y
       rc-progress: 3.3.3_biqbaboplfbrettd7655fr4n2y
       rc-rate: 2.9.2_biqbaboplfbrettd7655fr4n2y
       rc-resize-observer: 1.2.0_biqbaboplfbrettd7655fr4n2y
@@ -4004,8 +4004,8 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
     dependencies:
-      browserslist: 4.20.4
-      caniuse-lite: 1.0.30001357
+      browserslist: 4.21.0
+      caniuse-lite: 1.0.30001358
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -4019,8 +4019,8 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
     dependencies:
-      browserslist: 4.20.4
-      caniuse-lite: 1.0.30001357
+      browserslist: 4.21.0
+      caniuse-lite: 1.0.30001358
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -4280,16 +4280,15 @@ packages:
       pako: 1.0.11
     dev: false
 
-  /browserslist/4.20.4:
-    resolution: {integrity: sha512-ok1d+1WpnU24XYN7oC3QWgTyMhY/avPJ/r9T00xxvUOIparA/gc+UPUMaod3i+G6s+nI2nUb9xZ5k794uIwShw==}
+  /browserslist/4.21.0:
+    resolution: {integrity: sha512-UQxE0DIhRB5z/zDz9iA03BOfxaN2+GQdBYH/2WrSIWEUrnpzTPJbhqt+umq6r3acaPRTW1FNTkrcp0PXgtFkvA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001357
-      electron-to-chromium: 1.4.163
-      escalade: 3.1.1
+      caniuse-lite: 1.0.30001358
+      electron-to-chromium: 1.4.165
       node-releases: 2.0.5
-      picocolors: 1.0.0
+      update-browserslist-db: 1.0.3_browserslist@4.21.0
 
   /bser/2.1.1:
     resolution: {integrity: sha512-gQxTNE/GAfIIrmHLUE3oJyp5FO6HRBfhjnw4/wMmA63ZGDJnWBmgY/lyQBpnDUkGmAhbSe39tx2d/iTOAfglwQ==}
@@ -4369,8 +4368,8 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /caniuse-lite/1.0.30001357:
-    resolution: {integrity: sha512-b+KbWHdHePp+ZpNj+RDHFChZmuN+J5EvuQUlee9jOQIUAdhv9uvAZeEtUeLAknXbkiu1uxjQ9NLp1ie894CuWg==}
+  /caniuse-lite/1.0.30001358:
+    resolution: {integrity: sha512-hvp8PSRymk85R20bsDra7ZTCpSVGN/PAz9pSAjPSjKC+rNmnUk5vCRgJwiTT/O4feQ/yu/drvZYpKxxhbFuChw==}
 
   /capture-exit/2.0.0:
     resolution: {integrity: sha512-PiT/hQmTonHhl/HFGN+Lx3JJUznrVYJ3+AQsnthneZbvW7x+f08Tk7yLJTLEOUvBTbduLeeBkxEaYXUOUrRq6g==}
@@ -5347,8 +5346,8 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /electron-to-chromium/1.4.163:
-    resolution: {integrity: sha512-c9q94pUVqIdc8hyr7jZDB4bNEoNF3QJ7y35lnddMD+mXtiv5GsL1bT/RmfW/KEOmvlNg5Oy1qioiy4tA7e864Q==}
+  /electron-to-chromium/1.4.165:
+    resolution: {integrity: sha512-DKQW1lqUSAYQvn9dnpK7mWaDpWbNOXQLXhfCi7Iwx0BKxdZOxkKcCyKw1l3ihWWW5iWSxKKbhEUoNRoHvl/hbA==}
 
   /element-resize-event/3.0.6:
     resolution: {integrity: sha512-sSeXY9rNDp86bJODW68pxLcy3A5FrPZfIgOrJHzqgYzX513Zq6/ytdBigp7KeJEpZZopBBSiO1cVuiRkZpNxLw==}
@@ -8887,7 +8886,7 @@ packages:
       '@csstools/postcss-stepped-value-functions': 1.0.0
       '@csstools/postcss-unset-value': 1.0.1
       autoprefixer: 10.4.7
-      browserslist: 4.20.4
+      browserslist: 4.21.0
       css-blank-pseudo: 3.0.3
       css-has-pseudo: 3.0.4
       css-prefers-color-scheme: 6.0.3
@@ -8940,7 +8939,7 @@ packages:
       '@csstools/postcss-stepped-value-functions': 1.0.0_postcss@8.4.14
       '@csstools/postcss-unset-value': 1.0.1_postcss@8.4.14
       autoprefixer: 10.4.7_postcss@8.4.14
-      browserslist: 4.20.4
+      browserslist: 4.21.0
       css-blank-pseudo: 3.0.3_postcss@8.4.14
       css-has-pseudo: 3.0.4_postcss@8.4.14
       css-prefers-color-scheme: 6.0.3_postcss@8.4.14
@@ -9506,8 +9505,8 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /rc-pagination/3.1.16_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-GFcHXJ7XxeJDf9B+ndP4PRDt46maSSgYhiwofBMiIGKIlBhJ0wfu8DMCEvaWJJLpI2u4Gb6zF1dHpiqPFrosPg==}
+  /rc-pagination/3.1.17_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-/BQ5UxcBnW28vFAcP2hfh+Xg15W0QZn8TWYwdCApchMH1H0CxiaUUcULP8uXcFM1TygcdKWdt3JqsL9cTAfdkQ==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -9518,8 +9517,8 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /rc-picker/2.6.9_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-yH3UYXCADf7REtOAB5cwe1cyFKtB0p204RCN8JdZGG4uuSOZ1IPTkk/GJS6HOpxspZeJCLGzzajuQMDwck9dsw==}
+  /rc-picker/2.6.10_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-9wYtw0DFWs9FO92Qh2D76P0iojUr8ZhLOtScUeOit6ks/F+TBLrOC1uze3IOu+u9gbDAjmosNWLKbBzx/Yuv2w==}
     engines: {node: '>=8.x'}
     peerDependencies:
       react: '>=16.9.0'
@@ -10139,8 +10138,8 @@ packages:
     resolution: {integrity: sha512-r/H9MzAWtrv8aSVjPCMFpDMl5q66GqtmmRkRjpHTsp4zBAa+snZyiQNlMONiUmEJcsnaw0wCauJ2GWODr/aFkg==}
     engines: {node: '>= 12.13.0'}
 
-  /recoil/0.7.3_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-WaPppk3Hz5/V9nOVmu1X/o3cJyf/rLXw/YsEENvMzEDk+LKqMiGfFgZ3Gg51TKWccpCZCyrSBXn2O4L1E2WDPQ==}
+  /recoil/0.7.4_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-sCXvQGMfSprkNU4ZRkJV4B0qFQSURJMgsICqY1952WRlg66NMwYqi6n67vhnhn0qw4zHU1gHXJuMvRDaiRNFZw==}
     peerDependencies:
       react: '>=16.13.1'
       react-dom: '*'
@@ -10790,6 +10789,7 @@ packages:
 
   /stable/0.1.8:
     resolution: {integrity: sha512-ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==}
+    deprecated: 'Modern JS already guarantees Array#sort() is a stable sort, so this library is deprecated. See the compatibility table on MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#browser_compatibility'
     dev: false
 
   /stack-generator/2.0.10:
@@ -11190,8 +11190,8 @@ packages:
       string-width: 4.2.3
       strip-ansi: 6.0.1
 
-  /tailwindcss/3.1.3:
-    resolution: {integrity: sha512-PRJNYdSIthrb8hjmAyymEyEN8Yo61TMXpzyFUpxULeeyRn3Y3gpvuw6FlRTKrJvK7thSGKRnhT36VovVx4WeMA==}
+  /tailwindcss/3.1.4:
+    resolution: {integrity: sha512-NrxbFV4tYsga/hpWbRyUfIaBrNMXDxx5BsHgBS4v5tlyjf+sDsgBg5m9OxjrXIqAS/uR9kicxLKP+bEHI7BSeQ==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     dependencies:
@@ -11577,6 +11577,16 @@ packages:
   /unstated-next/1.1.0:
     resolution: {integrity: sha512-AAn47ZncPvgBGOvMcn8tSRxsrqwf2VdAPxLASTuLJvZt4rhKfDvUkmYZLGfclImSfTVMv7tF4ynaVxin0JjDCA==}
     dev: false
+
+  /update-browserslist-db/1.0.3_browserslist@4.21.0:
+    resolution: {integrity: sha512-ufSazemeh9Gty0qiWtoRpJ9F5Q5W3xdIPm1UZQqYQv/q0Nyb9EMHUB2lu+O9x1re9WsorpMAUu4Y6Lxcs5n+XQ==}
+    hasBin: true
+    peerDependencies:
+      browserslist: '>= 4.21.0'
+    dependencies:
+      browserslist: 4.21.0
+      escalade: 3.1.1
+      picocolors: 1.0.0
 
   /uri-js/4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
