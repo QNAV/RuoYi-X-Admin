@@ -33,6 +33,7 @@ interface CustomResponseStructure<D = any> extends ResponseStructure {
 
 interface RequestConfig extends AxiosRequestConfig {
   skipErrorHandler?: boolean;
+  convertToProData?: boolean;
 }
 
 const errorHandler = (res: CustomResponseStructure) => {
@@ -103,8 +104,13 @@ instance.interceptors.response.use(
   },
 );
 
-export const request = <D>(config: RequestConfig) =>
-  instance(config).then((axiosResponse) => {
+export function request<D>(config: { convertToProData?: false } & Omit<RequestConfig, 'convertToProData'>): Promise<D>;
+export function request<D>(
+  config: { convertToProData: true } & Omit<RequestConfig, 'convertToProData'>,
+): Promise<{ total: number; data: D[]; success: true }>;
+
+export function request<D>(config: RequestConfig) {
+  return instance(config).then((axiosResponse) => {
     const {
       data: { code, msg, data },
     } = axiosResponse as unknown as AxiosResponse<ResponseStructure>;
@@ -137,6 +143,14 @@ export const request = <D>(config: RequestConfig) =>
       throw customResponse;
     }
 
-    // 默认直接返回data
-    return customResponse.data;
+    if (config.convertToProData) {
+      return {
+        total: data?.total ?? 0,
+        data: data?.rows ?? [],
+        success,
+      };
+    }
+
+    return data;
   });
+}

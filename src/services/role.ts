@@ -1,5 +1,5 @@
-// 查询角色列表
-import { convertPaginationData, request } from '@/utils';
+import { request } from '@/utils';
 
+// 查询角色列表
 export const reqGetRoleList = (params: API.PaginationParameters) =>
-  request<API.PaginationData>({ url: '/system/role/list', params }).then((data) => convertPaginationData(data));
+  request({ url: '/system/role/list', params, convertToProData: true });

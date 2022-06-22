@@ -58,7 +58,3 @@ export const convertToPaginationParameters = <T extends Record<string, any>>(
     ...convertFilterParams(filter),
   };
 };
-
-export const convertPaginationData = <T>({ rows, ...rest }: API.PaginationData<T>) => {
-  return { ...rest, data: rows, success: true };
-};

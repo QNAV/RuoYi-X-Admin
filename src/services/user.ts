@@ -20,5 +20,6 @@ export const reqUpdateUserProfile = (params: UpdateUserProfileParams) =>
 // 修改密码
 export const reqUpdateUserPassword = (params: UpdateUserPasswordParams) =>
   request({ url: '/system/user/profile/updatePwd', method: 'PUT', params });
+
 // 上传头像地址
 export const uploadAvatarPath = `${API_HOST}/system/user/profile/avatar`;
