@@ -102,7 +102,7 @@ const MenuDetails: FC = () => {
       return await reqGetMenuDetail(selectedMenuId);
     },
     {
-      ready: selectedMenuId !== '0',
+      ready: selectedMenuId > 0,
       refreshDeps: [selectedMenuId],
     },
   );
@@ -128,7 +128,7 @@ const MenuDetails: FC = () => {
     },
   };
 
-  if (selectedMenuId === '0')
+  if (selectedMenuId === 0)
     return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="点击选择左侧菜单项查看详情" />;
 
   return (

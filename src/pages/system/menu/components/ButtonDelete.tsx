@@ -10,13 +10,7 @@ const ButtonDelete: FC = () => {
   const { mutate, isLoading } = useDeleteMenu();
 
   return (
-    <Button
-      icon={<DeleteOutlined />}
-      loading={isLoading}
-      disabled={menuId === '0'}
-      danger
-      onClick={() => mutate(menuId)}
-    >
+    <Button icon={<DeleteOutlined />} loading={isLoading} disabled={menuId === 0} danger onClick={() => mutate(menuId)}>
       删除
     </Button>
   );

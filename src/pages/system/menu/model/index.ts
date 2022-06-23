@@ -9,7 +9,7 @@ const key = 'systemMenu';
 
 const queryKey = [key, 'list'];
 
-export const selectedMenuIdAtom = atom<string>({ key: `${key}SelectedMenuId`, default: '0' });
+export const selectedMenuIdAtom = atom<number>({ key: `${key}SelectedMenuId`, default: 0 });
 
 export const visibleCreateModalAtom = atom<boolean>({ key: `${key}VisibleCreateModal`, default: false });
 
@@ -45,7 +45,7 @@ export const useDeleteMenu = () => {
   const { refetch } = useQueryMenuList();
   const resetSelectedKeys = useResetRecoilState(selectedMenuIdAtom);
 
-  return useMutation(async (menuId: string) => {
+  return useMutation(async (menuId: number) => {
     Modal.confirm({
       title: '删除菜单',
       content: '确定删除该菜单吗？',

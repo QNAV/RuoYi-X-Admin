@@ -29,15 +29,15 @@ import { useEffect, useRef } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 export interface OptionsParentId {
-  menuId: string;
+  menuId: number;
   menuName: string;
   children?: OptionsParentId[];
 }
 
-const getSelectedParentIds = (data: Record<string, MenuDataItem>, menuId: string): string[] => {
-  const parentIds: string[] = ['0'];
+const getSelectedParentIds = (data: Record<string, MenuDataItem>, menuId: number): number[] => {
+  const parentIds: number[] = [0];
 
-  if (menuId === '0') {
+  if (menuId === 0) {
     return parentIds;
   }
 
@@ -47,15 +47,15 @@ const getSelectedParentIds = (data: Record<string, MenuDataItem>, menuId: string
     }
 
     if (data[id].parentId) {
-      findParentId(data[id].parentId);
+      findParentId(data[id].parentId.toString());
     }
 
     if (data[id].menuType !== MenuType.F) {
-      parentIds.push(id);
+      parentIds.push(Number(id));
     }
   };
 
-  findParentId(menuId);
+  findParentId(menuId.toString());
 
   return parentIds;
 };
@@ -69,7 +69,7 @@ const getOptions = (data?: MenuDataItem[]): OptionsParentId[] => {
       });
   };
 
-  return [{ menuId: '0', menuName: '根目录', children: data ? formatOptions(data) : [] }];
+  return [{ menuId: 0, menuName: '根目录', children: data ? formatOptions(data) : [] }];
 };
 
 const ButtonCreate: FC = () => {

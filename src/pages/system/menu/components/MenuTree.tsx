@@ -61,7 +61,7 @@ const TreeTitle: FC = () => (
 const MenuTree = () => {
   const [searchParams, setSearchParams] = useState<GetMenuListParams>({});
 
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+  const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
 
   const [selectedMenuId, setSelectedMenuId] = useRecoilState(selectedMenuIdAtom);
@@ -74,7 +74,7 @@ const MenuTree = () => {
   const { mutate } = useDeleteMenu();
 
   const onSelect: TreeProps<MenuDataItem>['onSelect'] = (selectedKeys) => {
-    setSelectedKeys(selectedKeys as string[]);
+    setSelectedKeys(selectedKeys as number[]);
   };
 
   const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === menuData?.parentIds?.length;
@@ -162,7 +162,7 @@ const MenuTree = () => {
               children: 'children',
             }}
             treeData={menuData?.treeData}
-            onRightClick={(e) => setSelectedKeys([e.node.key] as string[])}
+            onRightClick={(e) => setSelectedKeys([e.node.key] as number[])}
           />
         ) : (
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
