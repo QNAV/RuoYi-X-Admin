@@ -1,17 +1,31 @@
-import RoleList from '@/pages/system/role/components/RoleList';
-import { ProCard } from '@ant-design/pro-components';
+import {
+  CCreateTime,
+  CCreateTimeRange,
+  CEnableDisableStatus,
+  CRoleId,
+  CRoleKey,
+  CRoleName,
+  CRoleSort,
+} from '@/columns';
+import ButtonCreate from '@/pages/system/role/components/ButtonCreate';
+import { reqGetRoleList } from '@/services';
+import { convertToPaginationParameters } from '@/utils';
+import type { ActionType } from '@ant-design/pro-components';
+import { ProTable } from '@ant-design/pro-components';
 import { PageContainer } from '@ant-design/pro-layout';
+import { useRef } from 'react';
 
 export default function () {
+  const actionRef = useRef<ActionType>();
+
   return (
     <PageContainer>
-      <ProCard ghost gutter={24}>
-        <ProCard colSpan="400px" title="角色列表">
-          <RoleList />
-        </ProCard>
-
-        <ProCard title="角色详情">11</ProCard>
-      </ProCard>
+      <ProTable
+        actionRef={actionRef}
+        columns={[CRoleId, CEnableDisableStatus, CRoleName, CRoleKey, CRoleSort, CCreateTime, CCreateTimeRange]}
+        request={async (...params) => await reqGetRoleList(convertToPaginationParameters(...params))}
+        toolbar={{ actions: [<ButtonCreate key="ButtonCreate" reloadTable={() => actionRef?.current?.reload()} />] }}
+      />
     </PageContainer>
   );
 }

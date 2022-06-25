@@ -12,6 +12,7 @@ export default defineConfig({
   initialState: {},
   moment2dayjs: {},
   access: {},
+  mfsu: false,
   define: {
     LOGIN_PATH_NAME: '/login',
   },

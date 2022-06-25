@@ -1,8 +1,6 @@
-import { useQuery } from 'react-query';
+import type { ActionType } from '@ant-design/pro-components';
+import { atom } from 'recoil';
 
 const key = 'systemRole';
 
-export const queryKey = [key, 'roleList'];
-
-// 查询角色列表
-export const useQueryRoleList = () => useQuery;
+export const tableActionsAtom = atom<ActionType>({ key: `${key}TableActions` });

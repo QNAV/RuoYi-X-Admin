@@ -8,11 +8,8 @@ declare module API {
     pageNum?: number;
     pageSize?: number;
     isAsc?: string;
-  }
-
-  // 通用返回数据
-  export interface PaginationData<D = any> {
-    total: number;
-    rows: D[];
+    orderByColumn?: string;
+    beginCreateTime?: string;
+    endCreateTime?: string;
   }
 }
