@@ -18,7 +18,7 @@
     "@ant-design/charts": "^1.3.6",
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^1.1.6",
-    "@ant-design/pro-layout": "7.0.1-beta.20",
+    "@ant-design/pro-layout": "next",
     "@umijs/max": "^4.0.2",
     "ahooks": "^3.5.0",
     "antd": "^4.21.3",
@@ -31,7 +31,7 @@
     "query-string": "^7.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-query": "4.0.0-beta.23",
+    "react-query": "beta",
     "recoil": "^0.7.4"
   },
   "devDependencies": {
