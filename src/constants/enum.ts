@@ -43,3 +43,14 @@ export const MapYesNoStatus: MapValueEnum<YesNoStatus> = new Map([
   [YesNoStatus.YES, { text: '是', status: 'Success' }],
   [YesNoStatus.NO, { text: '否', status: 'Error' }],
 ]);
+
+// 显示/隐藏
+export enum ShowHideStatus {
+  SHOW = '0',
+  HIDE = '1',
+}
+
+export const MapShowHideStatus: MapValueEnum<ShowHideStatus> = new Map([
+  [ShowHideStatus.SHOW, { text: '显示', status: 'Success' }],
+  [ShowHideStatus.HIDE, { text: '隐藏', status: 'Error' }],
+]);

@@ -1,5 +1,5 @@
 import { MenuType } from '@/constants';
-import type { MenuData } from '@/services';
+import type { MenuData, TreeData } from '@/services';
 import type { Key } from 'react';
 
 export const parseSimpleTreeData = (
@@ -64,14 +64,33 @@ export const sortByOrderNum = (data: MenuData): MenuData => {
 };
 
 // 获取 tree 的所有父菜单 id
-export const getParentIds = (data: MenuData): string[] => {
-  const parentIds: Set<string> = new Set();
-
-  data.forEach((item) => {
-    if (item.parentId) {
-      parentIds.add(item.parentId);
+export const getParentIds = (data: any[]): number[] => {
+  const parentIds = data.reduce<number[]>((acc, cur) => {
+    if (cur.parentId) {
+      acc.push(cur.parentId);
     }
-  });
 
-  return Array.from(parentIds);
+    if (cur.children) {
+      return [...acc, ...getParentIds(cur.children)];
+    }
+
+    return acc;
+  }, []);
+
+  return Array.from(new Set(parentIds));
+};
+
+// 获取 tree 的所有菜单 id
+export const getMenuIds = (data: TreeData): number[] => {
+  const menuIds = data.reduce<number[]>((acc, cur) => {
+    acc.push(cur.id);
+
+    if (cur.children) {
+      return [...acc, ...getMenuIds(cur.children)];
+    }
+
+    return acc;
+  }, []);
+
+  return Array.from(new Set(menuIds));
 };

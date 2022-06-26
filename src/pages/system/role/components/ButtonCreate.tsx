@@ -1,8 +1,16 @@
 import { EnableDisableStatus, MapEnableDisableStatus } from '@/constants';
+import MenuTree from '@/pages/system/role/components/MenuTree';
 import type { CreateRoleParams } from '@/services';
 import { reqCreateRole } from '@/services';
 import { PlusOutlined } from '@ant-design/icons';
-import { ModalForm, ProFormDigit, ProFormRadio, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
+import {
+  ModalForm,
+  ProFormDigit,
+  ProFormItem,
+  ProFormRadio,
+  ProFormText,
+  ProFormTextArea,
+} from '@ant-design/pro-components';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
 import { useMutation } from 'react-query';
@@ -45,6 +53,10 @@ const ButtonCreate: FC<{ reloadTable: () => void }> = ({ reloadTable }) => {
         valueEnum={MapEnableDisableStatus}
         initialValue={EnableDisableStatus.ENABLE}
       />
+
+      <ProFormItem label="菜单权限">
+        <MenuTree />
+      </ProFormItem>
 
       <ProFormTextArea name="remark" label="备注" />
     </ModalForm>

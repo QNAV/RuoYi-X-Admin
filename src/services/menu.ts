@@ -1,4 +1,4 @@
-import type { EnableDisableStatus, MenuType } from '@/constants';
+import type { EnableDisableStatus, MenuType, ShowHideStatus } from '@/constants';
 import { request } from '@/utils';
 import type { Key } from 'react';
 
@@ -31,6 +31,12 @@ export interface MenuDataItem {
   perms: string;
   icon: string;
   remark: string;
+}
+
+export interface GetMenuTreeParams {
+  menuName?: string;
+  status?: EnableDisableStatus;
+  visible?: ShowHideStatus;
 }
 
 /**
@@ -109,6 +115,16 @@ export interface CreateMenuData {
 
 export type MenuData = MenuDataItem[];
 
+export interface TreeDataItem {
+  id: number;
+  parentId: number;
+  label: string;
+  weight: number;
+  children?: TreeDataItem[];
+}
+
+export type TreeData = TreeDataItem[];
+
 // 查询菜单列表
 export const reqGetMenuList = (params?: GetMenuListParams) => request<MenuData>({ url: '/system/menu/list', params });
 
@@ -123,3 +139,7 @@ export const reqUpdateMenu = (data: CreateMenuData) => request({ url: '/system/m
 
 // 查询菜单详情
 export const reqGetMenuDetail = (menuId: number) => request<MenuDataItem>({ url: `/system/menu/${menuId}` });
+
+// 获取菜单下拉树列表
+export const reqGetMenuTree = (params?: GetMenuTreeParams) =>
+  request<TreeData>({ url: '/system/menu/treeselect', params });
