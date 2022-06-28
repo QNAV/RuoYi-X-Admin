@@ -7,7 +7,7 @@
     "clean": "rimraf dist .mfsu src/.umi src/.umi-production pnpm-lock.yaml node_modules",
     "postinstall": "max setup",
     "prepare": "husky install",
-    "start": "cross-env UMI_ENV=local max dev"
+    "start": "cross-env UMI_ENV=dev max dev"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,less}": [
