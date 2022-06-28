@@ -126,20 +126,19 @@ export interface TreeDataItem {
 export type TreeData = TreeDataItem[];
 
 // 查询菜单列表
-export const reqGetMenuList = (params?: GetMenuListParams) => request<MenuData>({ url: '/system/menu/list', params });
+export const reqGetMenuList = (params?: GetMenuListParams) => request<MenuData>('/system/menu/list', { params });
 
 // 删除菜单
-export const reqDeleteMenu = (menuId: number) => request({ url: `/system/menu/${menuId}`, method: 'DELETE' });
+export const reqDeleteMenu = (menuId: number) => request(`/system/menu/${menuId}`, { method: 'DELETE' });
 
 // 新增菜单
-export const reqCreateMenu = (data: CreateMenuData) => request({ url: '/system/menu', method: 'POST', data });
+export const reqCreateMenu = (data: CreateMenuData) => request('/system/menu', { method: 'POST', data });
 
 // 更新菜单
-export const reqUpdateMenu = (data: CreateMenuData) => request({ url: '/system/menu', method: 'PUT', data });
+export const reqUpdateMenu = (data: CreateMenuData) => request('/system/menu', { method: 'PUT', data });
 
 // 查询菜单详情
-export const reqGetMenuDetail = (menuId: number) => request<MenuDataItem>({ url: `/system/menu/${menuId}` });
+export const reqGetMenuDetail = (menuId: number) => request<MenuDataItem>(`/system/menu/${menuId}`);
 
 // 获取菜单下拉树列表
-export const reqGetMenuTree = (params?: GetMenuTreeParams) =>
-  request<TreeData>({ url: '/system/menu/treeselect', params });
+export const reqGetMenuTree = (params?: GetMenuTreeParams) => request<TreeData>('/system/menu/treeselect', { params });

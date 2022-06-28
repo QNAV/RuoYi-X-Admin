@@ -104,13 +104,17 @@ instance.interceptors.response.use(
   },
 );
 
-export function request<D>(config: { convertToProData?: false } & Omit<RequestConfig, 'convertToProData'>): Promise<D>;
 export function request<D>(
-  config: { convertToProData: true } & Omit<RequestConfig, 'convertToProData'>,
+  url: string,
+  config?: { convertToProData?: false } & Omit<RequestConfig, 'convertToProData'>,
+): Promise<D>;
+export function request<D>(
+  url: string,
+  config?: { convertToProData: true } & Omit<RequestConfig, 'convertToProData'>,
 ): Promise<{ total: number; data: D[]; success: true }>;
 
-export function request<D>(config: RequestConfig) {
-  return instance(config).then((axiosResponse) => {
+export function request<D>(url: string, config?: Omit<RequestConfig, 'url'>) {
+  return instance({ ...config, url }).then((axiosResponse) => {
     const {
       data: { code, msg, data },
     } = axiosResponse as unknown as AxiosResponse<ResponseStructure>;
@@ -135,7 +139,7 @@ export function request<D>(config: RequestConfig) {
       success,
     };
 
-    if (!config.skipErrorHandler) {
+    if (!config?.skipErrorHandler) {
       errorHandler(customResponse);
     }
 
@@ -143,7 +147,7 @@ export function request<D>(config: RequestConfig) {
       throw customResponse;
     }
 
-    if (config.convertToProData) {
+    if (config?.convertToProData) {
       return {
         total: data?.total ?? 0,
         data: data?.rows ?? [],

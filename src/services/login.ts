@@ -168,24 +168,24 @@ export interface UserRoute {
 
 // 账号密码登录
 export const reqLoginByPwd = (params: LoginByPwdParams) =>
-  request<LoginResponse>({ url: '/login', method: 'POST', data: params });
+  request<LoginResponse>('/login', { method: 'POST', data: params });
 
 // 短信验证码登录
 export const reqLoginBySms = (params: LoginBySmsParams) =>
-  request<LoginResponse>({ url: '/login/sms', method: 'POST', data: params });
+  request<LoginResponse>('/login/sms', { method: 'POST', data: params });
 
 // TODO 小程序登录
 
 // 登出
-export const reqLogout = () => request({ url: '/logout', method: 'POST' });
+export const reqLogout = () => request('/logout', { method: 'POST' });
 
 // 获取图片验证码
-export const reqGetCaptchaImage = () => request<GetCaptchaImageResponse>({ url: '/captchaImage' });
+export const reqGetCaptchaImage = () => request<GetCaptchaImageResponse>('/captchaImage');
 
 // TODO 获取短信验证码
 
 // 查询用户信息
-export const reqGetUserInfo = () => request<GetUserInfoResponse>({ url: '/getInfo' });
+export const reqGetUserInfo = () => request<GetUserInfoResponse>('/getInfo');
 
 // 查询用户路由信息
-export const reqGetUserRoutes = () => request<UserRoute[]>({ url: '/getRouters' });
+export const reqGetUserRoutes = () => request<UserRoute[]>('/getRouters');
