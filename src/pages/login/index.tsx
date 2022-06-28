@@ -127,7 +127,7 @@ const LoginPage: FC = () => {
                 <Image
                   src={`data:image/png;base64,${getCaptchaImageRes?.img}`}
                   preview={false}
-                  className="h-[40px] w-[135px]"
+                  style={{ height: '40px', width: '135px' }}
                   alt="图片验证码"
                   onClick={getCaptchaImage}
                 />
