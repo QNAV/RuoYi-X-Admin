@@ -1,1 +1,1 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[680],{48680:function(f,t,u){u.r(t),u.d(t,{default:function(){return E}});var n=u(89011),s=u(11527);function E(){return(0,s.jsx)(n.Outlet,{})}}}]);
+"use strict";(self.webpackChunkruoyi_x_umi=self.webpackChunkruoyi_x_umi||[]).push([[680],{48680:function(E,t,u){u.r(t),u.d(t,{default:function(){return s}});var n=u(89011),i=u(11527);function s(){return(0,i.jsx)(n.Outlet,{})}}}]);
