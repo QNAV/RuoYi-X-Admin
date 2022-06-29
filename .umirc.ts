@@ -23,4 +23,6 @@ export default defineConfig({
     mock: false,
   },
   routes,
+  keepalive: [/./],
+  tabsLayout: {},
 });
