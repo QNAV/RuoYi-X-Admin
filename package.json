@@ -22,7 +22,7 @@
     "@ant-design/pro-components": "^1.1.6",
     "@ant-design/pro-layout": "next",
     "@umijs/max": "^4.0.2",
-    "ahooks": "^3.5.0",
+    "ahooks": "^3.5.1",
     "antd": "^4.21.4",
     "axios": "0.27.2",
     "classnames": "^2.3.1",
@@ -56,6 +56,6 @@
     "swagger-ui-dist": "^4.12.0",
     "tailwindcss": "^3.1.4",
     "typescript": "^4.7.4",
-    "umi-presets-pro": "1.0.2"
+    "umi-presets-pro": "1.0.5"
   }
 }
