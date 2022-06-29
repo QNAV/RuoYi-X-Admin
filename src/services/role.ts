@@ -114,7 +114,7 @@ export interface CreateRoleParams {
 
 // 查询角色列表
 export const reqGetRoleList = (params: GetRoleListParams) =>
-  request<SysRoleRes>('/system/role/list', { params, convertToProData: true });
+  request('/system/role/list', { params, convertToProData: true });
 
 // 新建角色
 export const reqCreateRole = (data: CreateRoleParams) => request('/system/role', { method: 'POST', data });

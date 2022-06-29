@@ -19,7 +19,7 @@ enum ErrorShowType {
 interface ResponseStructure {
   code: number;
   msg: string;
-  data: any;
+  data?: any;
 }
 
 /**
@@ -104,16 +104,16 @@ instance.interceptors.response.use(
   },
 );
 
-export function request<D>(
+export function request<D extends ResponseStructure>(
   url: string,
   config?: { convertToProData?: false } & Omit<RequestConfig, 'convertToProData'>,
-): Promise<D>;
-export function request<D>(
+): Promise<D['data']>;
+export function request<D extends ResponseStructure>(
   url: string,
   config?: { convertToProData: true } & Omit<RequestConfig, 'convertToProData'>,
-): Promise<{ total: number; data: D[]; success: true }>;
+): Promise<{ total: number; data: D['data'][]; success: true }>;
 
-export function request<D>(url: string, config?: Omit<RequestConfig, 'url'>) {
+export function request<D extends ResponseStructure>(url: string, config?: Omit<RequestConfig, 'url'>) {
   return instance({ ...config, url }).then((axiosResponse) => {
     const {
       data: { code, msg, data },
@@ -131,7 +131,7 @@ export function request<D>(url: string, config?: Omit<RequestConfig, 'url'>) {
       showType = ErrorShowType.ERROR_MESSAGE;
     }
 
-    const customResponse: CustomResponseStructure<D> = {
+    const customResponse: CustomResponseStructure<D['data']> = {
       data,
       code,
       msg,

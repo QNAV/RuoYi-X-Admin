@@ -126,7 +126,7 @@ export interface TreeDataItem {
 export type TreeData = TreeDataItem[];
 
 // 查询菜单列表
-export const reqGetMenuList = (params?: GetMenuListParams) => request<MenuData>('/system/menu/list', { params });
+export const reqGetMenuList = (params?: GetMenuListParams) => request('/system/menu/list', { params });
 
 // 删除菜单
 export const reqDeleteMenu = (menuId: number) => request(`/system/menu/${menuId}`, { method: 'DELETE' });
@@ -138,7 +138,7 @@ export const reqCreateMenu = (data: CreateMenuData) => request('/system/menu', {
 export const reqUpdateMenu = (data: CreateMenuData) => request('/system/menu', { method: 'PUT', data });
 
 // 查询菜单详情
-export const reqGetMenuDetail = (menuId: number) => request<MenuDataItem>(`/system/menu/${menuId}`);
+export const reqGetMenuDetail = (menuId: number) => request(`/system/menu/${menuId}`);
 
 // 获取菜单下拉树列表
-export const reqGetMenuTree = (params?: GetMenuTreeParams) => request<TreeData>('/system/menu/treeselect', { params });
+export const reqGetMenuTree = (params?: GetMenuTreeParams) => request('/system/menu/treeselect', { params });

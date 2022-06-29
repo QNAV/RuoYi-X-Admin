@@ -23,7 +23,7 @@ export interface DictItemData {
 export type Dict = DictItemData[];
 
 // 查询显示/隐藏字典
-export const reqGetShowHideDict = () => request<Dict>('/system/dict/data/type/sys_show_hide');
+export const reqGetShowHideDict = () => request('/system/dict/data/type/sys_show_hide');
 
 // 查询正常/禁用字典
-export const reqGetEnableDisableDict = () => request<Dict>('/system/dict/data/type/sys_normal_disable');
+export const reqGetEnableDisableDict = () => request('/system/dict/data/type/sys_normal_disable');

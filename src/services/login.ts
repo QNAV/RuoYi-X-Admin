@@ -167,12 +167,10 @@ export interface UserRoute {
 }
 
 // 账号密码登录
-export const reqLoginByPwd = (params: LoginByPwdParams) =>
-  request<LoginResponse>('/login', { method: 'POST', data: params });
+export const reqLoginByPwd = (params: LoginByPwdParams) => request('/login', { method: 'POST', data: params });
 
 // 短信验证码登录
-export const reqLoginBySms = (params: LoginBySmsParams) =>
-  request<LoginResponse>('/login/sms', { method: 'POST', data: params });
+export const reqLoginBySms = (params: LoginBySmsParams) => request('/login/sms', { method: 'POST', data: params });
 
 // TODO 小程序登录
 
@@ -180,12 +178,12 @@ export const reqLoginBySms = (params: LoginBySmsParams) =>
 export const reqLogout = () => request('/logout', { method: 'POST' });
 
 // 获取图片验证码
-export const reqGetCaptchaImage = () => request<GetCaptchaImageResponse>('/captchaImage');
+export const reqGetCaptchaImage = () => request('/captchaImage');
 
 // TODO 获取短信验证码
 
 // 查询用户信息
-export const reqGetUserInfo = () => request<GetUserInfoResponse>('/getInfo');
+export const reqGetUserInfo = () => request('/getInfo');
 
 // 查询用户路由信息
-export const reqGetUserRoutes = () => request<UserRoute[]>('/getRouters');
+export const reqGetUserRoutes = () => request('/getRouters');
