@@ -1,4 +1,4 @@
-import { reqLogout } from '@/services';
+import { SysLoginPostLogout } from '@/services/swagger/SysLoginService';
 
 export enum StorageType {
   LOCAL_STORAGE,
@@ -25,7 +25,7 @@ export const getToken = () => localStorage.getItem(TOKEN_KEY) || sessionStorage.
 export const checkToken = () => !!getToken();
 
 export const logout = async () => {
-  await reqLogout();
+  await SysLoginPostLogout();
   clearToken();
   window.location.href = LOGIN_PATH_NAME;
 };

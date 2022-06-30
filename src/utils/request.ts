@@ -34,10 +34,11 @@ interface CustomResponseStructure<D = any> extends ResponseStructure {
 interface RequestConfig extends AxiosRequestConfig {
   skipErrorHandler?: boolean;
   convertToProData?: boolean;
+  requestType?: 'form';
 }
 
 const errorHandler = (res: CustomResponseStructure) => {
-  const { msg, showType } = res;
+  const { msg, showType } = res as any;
 
   switch (showType) {
     case ErrorShowType.SILENT:
@@ -114,7 +115,11 @@ export function request<D extends ResponseStructure>(
 ): Promise<{ total: number; data: D['data'][]; success: true }>;
 
 export function request<D extends ResponseStructure>(url: string, config?: Omit<RequestConfig, 'url'>) {
-  return instance({ ...config, url }).then((axiosResponse) => {
+  const { requestType, headers = {}, ...restConfig } = config || {};
+
+  if (requestType === 'form') headers['Content-Type'] = 'multipart/form-data';
+
+  return instance({ ...restConfig, headers, url }).then((axiosResponse) => {
     const {
       data: { code, msg, data },
     } = axiosResponse as unknown as AxiosResponse<ResponseStructure>;

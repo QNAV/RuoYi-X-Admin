@@ -1,5 +1,4 @@
 import { AntdIcon } from '@/components';
-import type { UserRoute } from '@/services';
 import { isHttpUrl } from '@/utils';
 import type { MenuDataItem } from '@ant-design/pro-layout';
 import qs from 'query-string';
@@ -23,7 +22,7 @@ export const checkPermission = (permKey: string | string[], userPerms: Set<strin
   return permKey.some((key) => userPerms.has(key));
 };
 
-export const convertUserRoutesToMenus = (userRoutes: UserRoute[], parentPath: string = ''): MenuDataItem[] => {
+export const convertUserRoutesToMenus = (userRoutes: API.RouterVo[], parentPath: string = ''): MenuDataItem[] => {
   const menus: MenuDataItem[] = [];
 
   userRoutes.forEach((item) => {
@@ -34,14 +33,14 @@ export const convertUserRoutesToMenus = (userRoutes: UserRoute[], parentPath: st
       meta: { title, icon },
     } = item;
 
-    let children: MenuDataItem[] = [];
+    let routes: MenuDataItem[] = [];
 
     const queryString = query ? `?${qs.stringify(JSON.parse(query))}` : '';
 
     const curRoutePath = parentPath && !isHttpUrl(path) ? `${parentPath}/${path}` : path;
 
     if (item.children && item.children.length > 0) {
-      children = convertUserRoutesToMenus(item.children, curRoutePath);
+      routes = convertUserRoutesToMenus(item.children, curRoutePath);
     }
 
     menus.push({
@@ -49,7 +48,7 @@ export const convertUserRoutesToMenus = (userRoutes: UserRoute[], parentPath: st
       name: title,
       hideInMenu: hidden,
       icon: <AntdIcon name={icon} />,
-      children,
+      routes,
     });
   });
 

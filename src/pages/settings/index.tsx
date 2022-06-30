@@ -2,13 +2,14 @@ import PwdForm from '@/pages/settings/components/PwdForm';
 import UserDescriptions from '@/pages/settings/components/UserDescriptions';
 import { ProCard } from '@ant-design/pro-components';
 import { PageContainer } from '@ant-design/pro-layout';
+import type { FC } from 'react';
 import { useState } from 'react';
 
 enum TabKey {
   PASSWORD = 'PASSWORD',
 }
 
-const SettingsPage = () => {
+const SettingsPage: FC = () => {
   const [activeKey, setActiveKey] = useState<TabKey>(TabKey.PASSWORD);
 
   return (

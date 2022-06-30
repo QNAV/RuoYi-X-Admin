@@ -1,28 +1,26 @@
-import type { UpdateUserPasswordParams } from '@/services';
-import { reqUpdateUserPassword } from '@/services';
+import { SysProfilePostUpdatePwd } from '@/services/swagger/SysProfileService';
 import { logout, regPassword } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormText } from '@ant-design/pro-components';
-import { useRequest } from 'ahooks';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
+import { useMutation } from 'react-query';
 
 const PwdForm: FC = () => {
-  const formRef = useRef<ProFormInstance<UpdateUserPasswordParams>>();
+  const formRef = useRef<ProFormInstance<API.UpdatePwdBody>>();
 
-  const { run, loading } = useRequest(
+  const { mutate, isLoading } = useMutation(
     async () => {
       const values = await formRef?.current?.validateFields();
 
-      if (!values) return;
+      if (values === undefined) return;
 
-      await reqUpdateUserPassword(values);
+      await SysProfilePostUpdatePwd(values);
     },
     {
-      manual: true,
       onSuccess: () => {
-        message.success('密码修改成功，即将自动跳转至登录页面');
+        message.success('密码修改成功，即将自动退出登录并跳转至登录页面');
 
         const timer = setTimeout(() => {
           logout();
@@ -73,7 +71,7 @@ const PwdForm: FC = () => {
         ]}
       />
 
-      <Button type="primary" loading={loading} onClick={run}>
+      <Button type="primary" loading={isLoading} onClick={() => mutate()}>
         更新密码
       </Button>
     </ProForm>

@@ -1,6 +1,6 @@
 import type { Route } from '@ant-design/pro-layout/es/typings';
 
-const customRoutes: Route[] = [
+export const customRoutes: Route[] = [
   {
     path: '/system',
     routes: [
@@ -138,10 +138,20 @@ const publicRoutes: Route[] = [
   {
     path: '403',
     component: '@/pages/403',
+    headerRender: false,
+    footerRender: false,
+    menuRender: false,
+  },
+  {
+    path: '404',
+    component: '@/pages/404',
+    headerRender: false,
+    footerRender: false,
+    menuRender: false,
   },
   {
     path: '*',
-    component: '@/pages/404',
+    redirect: '404',
   },
 ];
 

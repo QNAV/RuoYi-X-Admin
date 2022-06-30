@@ -1,6 +1,5 @@
 import { SexMap } from '@/constants';
-import type { UpdateUserProfileParams } from '@/services';
-import { reqUpdateUserProfile, uploadAvatarPath } from '@/services';
+import { SysProfilePostUpdateProfile } from '@/services/swagger/SysProfileService';
 import type { InitialState } from '@/types';
 import { getToken, regEmail, regPhone } from '@/utils';
 import { CameraOutlined } from '@ant-design/icons';
@@ -9,6 +8,9 @@ import { ProDescriptions } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { Avatar, Col, Divider, message, Row, Upload } from 'antd';
 import type { FC } from 'react';
+import { useMutation } from 'react-query';
+
+const uploadAvatarPath = `${API_HOST}/api/sys/profile/update-avatar`;
 
 const columns: ProDescriptionsItemProps[] = [
   { dataIndex: 'userName', title: '用户名称', valueType: 'text' },
@@ -20,7 +22,7 @@ const columns: ProDescriptionsItemProps[] = [
 const editableColumns: ProDescriptionsItemProps[] = [
   { dataIndex: 'nickName', title: '用户昵称', valueType: 'text' },
   {
-    dataIndex: 'phonenumber',
+    dataIndex: 'phoneNumber',
     title: '手机号码',
     valueType: 'text',
     fieldProps: { maxLength: 11 },
@@ -65,18 +67,18 @@ const editableColumns: ProDescriptionsItemProps[] = [
 const UserDescriptions: FC = () => {
   const initialStateModel = useModel('@@initialState');
 
-  const updateUserProfile = async (params: UpdateUserProfileParams) => {
-    await reqUpdateUserProfile(params);
+  const updateUserProfile = useMutation(async (params: API.SysUserReq) => {
+    await SysProfilePostUpdateProfile(params);
 
     await initialStateModel.refresh();
 
     message.success('修改成功');
-  };
+  });
 
   const editable: ProDescriptionsProps['editable'] = {
     onSave: async (k, record) => {
-      const key = k as keyof UpdateUserProfileParams;
-      await updateUserProfile({ [key]: record[key] });
+      const key = k as keyof API.SysUserReq;
+      await updateUserProfile.mutateAsync({ [key]: record[key] });
     },
   };
 
@@ -108,7 +110,7 @@ const UserDescriptions: FC = () => {
               }
 
               // TODO 测试上传头像
-              updateUserProfile({ avatar: e.file.response.data });
+              updateUserProfile.mutate({ avatar: e.file.response.data });
             }}
           >
             <Avatar icon={<CameraOutlined />} className="absolute bottom-0 right-0 bg-blue-500 cursor-pointer" />

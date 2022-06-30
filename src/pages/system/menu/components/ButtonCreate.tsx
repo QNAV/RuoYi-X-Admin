@@ -7,8 +7,7 @@ import {
   YesNoStatus,
 } from '@/constants';
 import { selectedMenuIdAtom, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
-import type { CreateMenuData, GetMenuListParams, MenuDataItem } from '@/services';
-import { reqCreateMenu, reqGetMenuList } from '@/services';
+import { SysMenuPostAdd, SysMenuPostList } from '@/services/swagger/SysMenuService';
 import { parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
@@ -34,7 +33,7 @@ export interface OptionsParentId {
   children?: OptionsParentId[];
 }
 
-const getSelectedParentIds = (data: Record<string, MenuDataItem>, menuId: number): number[] => {
+const getSelectedParentIds = (data: Record<string, API.SysMenu>, menuId: number): number[] => {
   const parentIds: number[] = [0];
 
   if (menuId === 0) {
@@ -60,8 +59,8 @@ const getSelectedParentIds = (data: Record<string, MenuDataItem>, menuId: number
   return parentIds;
 };
 
-const getOptions = (data?: MenuDataItem[]): OptionsParentId[] => {
-  const formatOptions = (items: MenuDataItem[]): OptionsParentId[] => {
+const getOptions = (data?: API.SysMenu[]): OptionsParentId[] => {
+  const formatOptions = (items: API.SysMenu[]): OptionsParentId[] => {
     return items
       .filter((item) => item.menuType !== MenuType.F)
       .map(({ menuId, menuName, children }) => {
@@ -81,14 +80,14 @@ const ButtonCreate: FC = () => {
 
   const selectedMenuId = useRecoilValue(selectedMenuIdAtom);
 
-  const { data, refresh } = useRequest(async (params: GetMenuListParams) => {
-    const data = await reqGetMenuList(params);
+  const { data, refresh } = useRequest(async (params: API.SysMenuQuery = {}) => {
+    const data = await SysMenuPostList(params);
 
     const treeData = parseSimpleTreeData(data, {
       id: 'menuId',
       pId: 'parentId',
       rootPId: null,
-    }) as MenuDataItem[];
+    }) as API.SysMenu[];
 
     return {
       options: getOptions(sortByOrderNum(treeData)),
@@ -111,9 +110,9 @@ const ButtonCreate: FC = () => {
       </Button>
 
       <Modal visible={visible} onCancel={() => setVisible(false)} title="新建菜单" footer={false} width={515}>
-        <ProForm<CreateMenuData>
+        <ProForm<API.SysMenu>
           onFinish={async (e) => {
-            await reqCreateMenu(e);
+            await SysMenuPostAdd(e);
 
             await refetch();
 

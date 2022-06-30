@@ -1,6 +1,6 @@
 import Actions from '@/pages/login/components/Actions';
-import type { LoginByPwdParams, LoginBySmsParams, LoginResponse } from '@/services';
-import { reqGetCaptchaImage, reqLoginByPwd, reqLoginBySms } from '@/services';
+import { CaptchaGetGetCode } from '@/services/swagger/CaptchaService';
+import { SysLoginPostLogin, SysLoginPostSmsLogin } from '@/services/swagger/SysLoginService';
 import { regPhone, setToken, StorageType } from '@/utils';
 import { LockOutlined, MobileOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginFormPage, ProFormCaptcha, ProFormCheckbox, ProFormGroup, ProFormText } from '@ant-design/pro-components';
@@ -10,7 +10,7 @@ import { Image, message, Tabs } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
-interface FormData extends LoginByPwdParams, LoginBySmsParams {
+interface FormData extends API.UserNameLoginBody, API.SmsLoginBody {
   autoLogin: boolean;
 }
 
@@ -26,21 +26,21 @@ const LoginPage: FC = () => {
   const msg = searchParams.get('msg');
   const redirect = searchParams.get('redirect') || '/';
 
-  const { data: getCaptchaImageRes, run: getCaptchaImage } = useRequest(reqGetCaptchaImage);
+  const { data: getCaptchaImageRes, run: getCaptchaImage } = useRequest(CaptchaGetGetCode);
 
   const submit = async (e: FormData) => {
     try {
       const { autoLogin, ...formData } = e;
 
-      let loginRes: LoginResponse;
+      let loginRes: API.LoginDTO;
 
       if (loginType === LoginType.MOBILE) {
-        loginRes = await reqLoginBySms(formData);
+        loginRes = await SysLoginPostSmsLogin(formData);
       } else if (!getCaptchaImageRes) {
         message.error('请先获取图片验证码');
         return;
       } else {
-        loginRes = await reqLoginByPwd({ ...formData, uuid: getCaptchaImageRes.uuid });
+        loginRes = await SysLoginPostLogin({ ...formData, uuid: getCaptchaImageRes.uuid });
       }
 
       setToken(autoLogin ? StorageType.LOCAL_STORAGE : StorageType.SESSION_STORAGE, `Bearer ${loginRes.token}`);

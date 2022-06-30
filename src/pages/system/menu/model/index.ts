@@ -1,5 +1,4 @@
-import type { GetMenuListParams, MenuData } from '@/services';
-import { reqDeleteMenu, reqGetMenuList } from '@/services';
+import { SysMenuPostList, SysMenuPostRemove } from '@/services/swagger/SysMenuService';
 import { getParentIds, parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { message, Modal } from 'antd';
 import { useMutation, useQuery } from 'react-query';
@@ -14,30 +13,24 @@ export const selectedMenuIdAtom = atom<number>({ key: `${key}SelectedMenuId`, de
 export const visibleCreateModalAtom = atom<boolean>({ key: `${key}VisibleCreateModal`, default: false });
 
 // 查询菜单列表
-export const useQueryMenuList = (params?: GetMenuListParams) => {
-  return useQuery(
-    queryKey,
-    async () => {
-      const data = await reqGetMenuList(params);
+export const useQueryMenuList = (params: API.SysMenuQuery = {}) => {
+  return useQuery(queryKey, async () => {
+    const data = await SysMenuPostList(params);
 
-      const treeData: MenuData = parseSimpleTreeData(data, {
-        id: 'menuId',
-        pId: 'parentId',
-        rootPId: null,
-      });
+    const treeData: API.SysMenu[] = parseSimpleTreeData(data, {
+      id: 'menuId',
+      pId: 'parentId',
+      rootPId: null,
+    });
 
-      return {
-        treeData: sortByOrderNum(treeData),
-        map: data.reduce((map, item) => {
-          return { ...map, [item.menuId]: item };
-        }, {}),
-        parentIds: getParentIds(data),
-      };
-    },
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
+    return {
+      treeData: sortByOrderNum(treeData),
+      map: data.reduce((map, item) => {
+        return { ...map, [item.menuId]: item };
+      }, {}),
+      parentIds: getParentIds(data),
+    };
+  });
 };
 
 // 删除菜单
@@ -50,7 +43,7 @@ export const useDeleteMenu = () => {
       title: '删除菜单',
       content: '确定删除该菜单吗？',
       onOk: async () => {
-        await reqDeleteMenu(menuId);
+        await SysMenuPostRemove({ menuId });
 
         await refetch();
 

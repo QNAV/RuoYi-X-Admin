@@ -1,5 +1,4 @@
 import { MenuType } from '@/constants';
-import type { MenuData, TreeData } from '@/services';
 import type { Key } from 'react';
 
 export const parseSimpleTreeData = (

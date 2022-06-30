@@ -1,13 +1,14 @@
 import { MapEnableDisableStatus, MapMenuType, MapYesNoStatus, MenuType } from '@/constants';
 import { selectedMenuIdAtom, useQueryMenuList } from '@/pages/system/menu/model';
-import type { CreateMenuData } from '@/services';
-import { reqGetMenuDetail, reqUpdateMenu } from '@/services';
+
+import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/swagger/SysMenuService';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
 import { Divider, Empty, message } from 'antd';
 import type { FC } from 'react';
 import { useMemo } from 'react';
+import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
 const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl: 2 };
@@ -99,7 +100,7 @@ const MenuDetails: FC = () => {
 
   const { data, refresh } = useRequest(
     async () => {
-      return await reqGetMenuDetail(selectedMenuId);
+      return await SysMenuGetInfo({ menuId: selectedMenuId });
     },
     {
       ready: selectedMenuId > 0,
@@ -107,8 +108,7 @@ const MenuDetails: FC = () => {
     },
   );
 
-  const { runAsync } = useRequest(reqUpdateMenu, {
-    manual: true,
+  const { mutateAsync } = useMutation(SysMenuPostEdit, {
     onSuccess: () => {
       refresh();
       reFetchMenuList();
@@ -116,15 +116,15 @@ const MenuDetails: FC = () => {
     },
   });
 
-  const columns = useColumns(data?.menuType);
+  const columns = useColumns(data?.menuType as MenuType);
 
   const editable: ProDescriptionsProps['editable'] = {
     onSave: async (key, record) => {
       const { menuType, orderNum, menuName, menuId } = record;
 
-      const newKey = key as keyof CreateMenuData;
+      const newKey = key as keyof API.SysMenu;
 
-      await runAsync({ menuId, menuType, orderNum, menuName, [newKey]: record[newKey] });
+      await mutateAsync({ menuId, menuType, orderNum, menuName, [newKey]: record[newKey] });
     },
   };
 

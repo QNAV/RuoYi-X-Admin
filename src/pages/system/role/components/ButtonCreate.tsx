@@ -1,7 +1,7 @@
 import { EnableDisableStatus, MapEnableDisableStatus } from '@/constants';
 import MenuTree from '@/pages/system/role/components/MenuTree';
-import type { CreateRoleParams } from '@/services';
-import { reqCreateRole } from '@/services';
+
+import { SysRolePostAdd } from '@/services/swagger/SysRoleService';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   ModalForm,
@@ -16,7 +16,7 @@ import type { FC } from 'react';
 import { useMutation } from 'react-query';
 
 const ButtonCreate: FC<{ reloadTable: () => void }> = ({ reloadTable }) => {
-  const { mutateAsync } = useMutation(reqCreateRole, {
+  const { mutateAsync } = useMutation(SysRolePostAdd, {
     onSuccess: () => {
       reloadTable();
       message.success('新建成功');
@@ -24,7 +24,7 @@ const ButtonCreate: FC<{ reloadTable: () => void }> = ({ reloadTable }) => {
   });
 
   return (
-    <ModalForm<CreateRoleParams>
+    <ModalForm<API.SysRoleReq>
       title="新建角色"
       trigger={
         <Button type="primary" icon={<PlusOutlined />}>

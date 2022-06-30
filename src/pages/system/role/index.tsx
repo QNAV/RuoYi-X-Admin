@@ -8,8 +8,7 @@ import {
   CRoleSort,
 } from '@/columns';
 import ButtonCreate from '@/pages/system/role/components/ButtonCreate';
-import { reqGetRoleList } from '@/services';
-import { convertToPaginationParameters } from '@/utils';
+import { SysRolePostList } from '@/services/swagger/SysRoleService';
 import type { ActionType } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { PageContainer } from '@ant-design/pro-layout';
@@ -23,7 +22,7 @@ export default function () {
       <ProTable
         actionRef={actionRef}
         columns={[CRoleId, CEnableDisableStatus, CRoleName, CRoleKey, CRoleSort, CCreateTime, CCreateTimeRange]}
-        request={async (...params) => await reqGetRoleList(convertToPaginationParameters(...params))}
+        request={async () => await SysRolePostList({}, {})}
         toolbar={{ actions: [<ButtonCreate key="ButtonCreate" reloadTable={() => actionRef?.current?.reload()} />] }}
       />
     </PageContainer>

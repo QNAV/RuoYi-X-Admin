@@ -1,7 +1,6 @@
 import { AntdIcon } from '@/components';
 import { MapEnableDisableStatus, MenuType } from '@/constants';
 import { selectedMenuIdAtom, useDeleteMenu, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
-import type { GetMenuListParams, MenuDataItem } from '@/services';
 import { CaretDownOutlined, CaretRightOutlined, CopyOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';
@@ -11,20 +10,20 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 
-enum MenuTypeColor {
-  M = 'blue',
-  C = 'green',
-  F = 'red',
-}
+const menuTypeColor: Record<MenuType | string, string> = {
+  M: 'blue',
+  C: 'green',
+  F: 'red',
+};
 
-const titleRender: TreeProps<MenuDataItem>['titleRender'] = (item) => {
+const titleRender: TreeProps<API.SysMenu>['titleRender'] = (item) => {
   return (
     <>
       <Tag color="rgb(148 163 184)">{item.orderNum}</Tag>
 
       <AntdIcon name={item.icon} className="mr-1" />
 
-      <Tag color={MenuTypeColor[item.menuType]} style={{ margin: '0 0 2px 0' }}>
+      <Tag color={menuTypeColor[item.menuType]} style={{ margin: '0 0 2px 0' }}>
         {item.menuName}
       </Tag>
 
@@ -51,15 +50,15 @@ const TreeTitle: FC = () => (
   <div className="mb-2">
     标签含义：
     <Tag color="rgb(148 163 184)">显示顺序</Tag>
-    <Tag color={MenuTypeColor[MenuType.M]}>目录</Tag>
-    <Tag color={MenuTypeColor[MenuType.C]}>菜单</Tag>
-    <Tag color={MenuTypeColor[MenuType.F]}>按钮</Tag>
+    <Tag color={menuTypeColor[MenuType.M]}>目录</Tag>
+    <Tag color={menuTypeColor[MenuType.C]}>菜单</Tag>
+    <Tag color={menuTypeColor[MenuType.F]}>按钮</Tag>
     <Tag>权限标识</Tag>
   </div>
 );
 
 const MenuTree = () => {
-  const [searchParams, setSearchParams] = useState<GetMenuListParams>({});
+  const [searchParams, setSearchParams] = useState<API.SysMenuQuery>({});
 
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
@@ -73,7 +72,7 @@ const MenuTree = () => {
 
   const { mutate } = useDeleteMenu();
 
-  const onSelect: TreeProps<MenuDataItem>['onSelect'] = (selectedKeys) => {
+  const onSelect: TreeProps<API.SysMenu>['onSelect'] = (selectedKeys) => {
     setSelectedKeys(selectedKeys as number[]);
   };
 
@@ -105,7 +104,7 @@ const MenuTree = () => {
           {isAllExpanded ? '全部折叠' : '全部展开'}
         </Button>
 
-        <LightFilter<GetMenuListParams>
+        <LightFilter<API.SysMenuQuery>
           onFinish={async (values) => {
             setSelectedKeys([]);
             setExpandedKeys([]);
@@ -148,7 +147,7 @@ const MenuTree = () => {
         trigger={['contextMenu']}
       >
         {menuData?.treeData.length ? (
-          <Tree<MenuDataItem>
+          <Tree<API.SysMenu>
             blockNode
             selectedKeys={selectedKeys}
             onSelect={onSelect}

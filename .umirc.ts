@@ -23,6 +23,6 @@ export default defineConfig({
     mock: false,
   },
   routes,
-  keepalive: [/./],
+  keepalive: [/^((?!.*(login|403|404|500)))/],
   tabsLayout: {},
 });

@@ -1,5 +1,5 @@
 import { LogoutIcon, SettingsIcon } from '@/components';
-import { reqGetUserInfo, reqGetUserRoutes } from '@/services';
+import { SysLoginGetInfo, SysLoginGetRouters } from '@/services/swagger/SysLoginService';
 import type { InitialState } from '@/types';
 import { checkToken, convertUserRoutesToMenus } from '@/utils';
 import { GithubOutlined } from '@ant-design/icons';
@@ -37,7 +37,7 @@ export const getInitialState = async (): Promise<InitialState | undefined> => {
     return;
   }
 
-  const [userInfo, userRoutes] = await Promise.all([reqGetUserInfo(), reqGetUserRoutes()]);
+  const [userInfo, userRoutes] = await Promise.all([SysLoginGetInfo(), SysLoginGetRouters()]);
 
   return {
     userInfo,

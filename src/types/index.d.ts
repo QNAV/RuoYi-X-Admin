@@ -1,9 +1,8 @@
-import type { GetUserInfoResponse, UserRoute } from '@/services';
 import type { ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 
 export interface InitialState {
-  userInfo: GetUserInfoResponse;
-  userRoutes: UserRoute[];
+  userInfo: API.UserInfoDTO;
+  userRoutes: API.RouterVo[];
 }
 
 export type MapValueEnum<K> = Map<
