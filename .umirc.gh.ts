@@ -2,7 +2,7 @@ import { defineConfig } from '@umijs/max';
 
 export default defineConfig({
   define: {
-    TOKEN_KEY: 'RUOYI_TOKEN',
+    TOKEN_KEY: 'RUOYI_TOKEN_GH',
     API_HOST: 'https://test-ryx-admin-api.p.quicknav.cn',
     LOGIN_PATH_NAME: '/RuoYi-X-Umi/login',
   },
