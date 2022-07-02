@@ -11,10 +11,7 @@ export async function SysOperLogPostClean(options?: { [key: string]: any }) {
 }
 
 /** 导出操作日志记录列表 POST /monitor/operlog/export */
-export async function SysOperLogPostExport(
-  body: API.SysOperLogQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysOperLogPostExport(body: API.SysOperLogQuery, options?: { [key: string]: any }) {
   return request<any>('/monitor/operlog/export', {
     method: 'POST',
     headers: {

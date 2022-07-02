@@ -30,10 +30,7 @@ export async function SysUserGetAuthRole(
 }
 
 /** 状态修改 POST /system/user/changeStatus */
-export async function SysUserPostChangeStatus(
-  body: API.SysUserReq,
-  options?: { [key: string]: any },
-) {
+export async function SysUserPostChangeStatus(body: API.SysUserReq, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/user/changeStatus', {
     method: 'POST',
     headers: {
@@ -86,10 +83,7 @@ export async function SysUserPostImportData(
     const item = (body as any)[ele];
 
     if (item !== undefined && item !== null) {
-      formData.append(
-        ele,
-        typeof item === 'object' && !(item instanceof File) ? JSON.stringify(item) : item,
-      );
+      formData.append(ele, typeof item === 'object' && !(item instanceof File) ? JSON.stringify(item) : item);
     }
   });
 
@@ -128,10 +122,7 @@ export async function SysUserGetInfo(
 }
 
 /** 用户授权角色 POST /system/user/insertAuthRole */
-export async function SysUserPostInsertAuthRole(
-  body: API.AuthRoleAllBody,
-  options?: { [key: string]: any },
-) {
+export async function SysUserPostInsertAuthRole(body: API.AuthRoleAllBody, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/user/insertAuthRole', {
     method: 'POST',
     headers: {

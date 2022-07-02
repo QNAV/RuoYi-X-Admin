@@ -19,8 +19,8 @@ import * as SysPostService from './SysPostService';
 import * as SysProfileService from './SysProfileService';
 import * as SysRegisterService from './SysRegisterService';
 import * as SysRoleService from './SysRoleService';
-import * as SysUserService from './SysUserService';
 import * as SysUserOnlineService from './SysUserOnlineService';
+import * as SysUserService from './SysUserService';
 export default {
   CacheService,
   CaptchaService,

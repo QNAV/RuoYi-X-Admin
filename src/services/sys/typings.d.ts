@@ -132,7 +132,7 @@ declare namespace API {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysDeptRes[];
+    data: SysDept[];
     /** 消息内容 */
     msg: string;
   };
@@ -258,7 +258,7 @@ declare namespace API {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysDeptRes;
+    data: SysDept;
     /** 消息内容 */
     msg: string;
   };
@@ -437,13 +437,13 @@ declare namespace API {
 
   type SysConfigPostListParams = {
     /** 当前页数 */
-    pageNum: number;
+    pageNum?: number;
     /** 分页大小 */
-    pageSize: number;
+    pageSize?: number;
     /** 排序列 */
-    orderByColumn: string;
+    orderByColumn?: string;
     /** 排序的方向 */
-    isAsc: string;
+    isAsc?: string;
   };
 
   type SysConfigPostRemoveParams = {
@@ -467,6 +467,12 @@ declare namespace API {
   type SysDept = {
     /** 祖级列表 */
     ancestors?: string;
+    /** 子部门 */
+    children?: SysDept[];
+    /** 创建者 */
+    createBy?: string;
+    /** 创建时间 */
+    createTime?: string;
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门id */
@@ -479,10 +485,18 @@ declare namespace API {
     leader?: string;
     /** 显示顺序 */
     orderNum: number;
+    /** 父菜单ID */
+    parentId?: number;
+    /** 父菜单名称 */
+    parentName?: string;
     /** 联系电话 */
     phone?: string;
     /** 部门状态:0正常,1停用 */
     status?: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
   };
 
   type SysDeptGetExcludeChildParams = {
@@ -516,62 +530,6 @@ declare namespace API {
     status?: string;
   };
 
-  type SysDeptReq = {
-    /** 祖级列表 */
-    ancestors?: string;
-    /** 子部门 */
-    children?: SysDeptReq[];
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
-    /** 删除标志（0代表存在 2代表删除） */
-    delFlag?: string;
-    /** 部门id */
-    deptId?: number;
-    /** 部门名称 */
-    deptName: string;
-    /** 邮箱 */
-    email?: string;
-    /** 负责人 */
-    leader?: string;
-    /** 显示顺序 */
-    orderNum: number;
-    /** 父菜单ID */
-    parentId?: number;
-    /** 父菜单名称 */
-    parentName?: string;
-    /** 联系电话 */
-    phone?: string;
-    /** 部门状态:0正常,1停用 */
-    status?: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
-  };
-
-  type SysDeptRes = {
-    /** 祖级列表 */
-    ancestors?: string;
-    /** 删除标志（0代表存在 2代表删除） */
-    delFlag?: string;
-    /** 部门id */
-    deptId?: number;
-    /** 部门名称 */
-    deptName: string;
-    /** 邮箱 */
-    email?: string;
-    /** 负责人 */
-    leader?: string;
-    /** 显示顺序 */
-    orderNum: number;
-    /** 联系电话 */
-    phone?: string;
-    /** 部门状态:0正常,1停用 */
-    status?: string;
-  };
-
   type SysDictDataGetInfoParams = {
     /** 字典code */
     dictCode: number;
@@ -584,13 +542,13 @@ declare namespace API {
 
   type SysDictDataPostListParams = {
     /** 当前页数 */
-    pageNum: number;
+    pageNum?: number;
     /** 分页大小 */
-    pageSize: number;
+    pageSize?: number;
     /** 排序列 */
-    orderByColumn: string;
+    orderByColumn?: string;
     /** 排序的方向 */
-    isAsc: string;
+    isAsc?: string;
   };
 
   type SysDictDataPostRemoveParams = {
@@ -698,13 +656,13 @@ declare namespace API {
 
   type SysDictTypePostListParams = {
     /** 当前页数 */
-    pageNum: number;
+    pageNum?: number;
     /** 分页大小 */
-    pageSize: number;
+    pageSize?: number;
     /** 排序列 */
-    orderByColumn: string;
+    orderByColumn?: string;
     /** 排序的方向 */
-    isAsc: string;
+    isAsc?: string;
   };
 
   type SysDictTypePostRemoveParams = {
@@ -753,13 +711,13 @@ declare namespace API {
 
   type SysLogininforPostListParams = {
     /** 当前页数 */
-    pageNum: number;
+    pageNum?: number;
     /** 分页大小 */
-    pageSize: number;
+    pageSize?: number;
     /** 排序列 */
-    orderByColumn: string;
+    orderByColumn?: string;
     /** 排序的方向 */
-    isAsc: string;
+    isAsc?: string;
   };
 
   type SysLogininforPostRemoveParams = {
@@ -879,13 +837,13 @@ declare namespace API {
 
   type SysNoticePostListParams = {
     /** 当前页数 */
-    pageNum: number;
+    pageNum?: number;
     /** 分页大小 */
-    pageSize: number;
+    pageSize?: number;
     /** 排序列 */
-    orderByColumn: string;
+    orderByColumn?: string;
     /** 排序的方向 */
-    isAsc: string;
+    isAsc?: string;
   };
 
   type SysNoticePostRemoveParams = {
@@ -941,13 +899,13 @@ declare namespace API {
 
   type SysOperLogPostListParams = {
     /** 当前页数 */
-    pageNum: number;
+    pageNum?: number;
     /** 分页大小 */
-    pageSize: number;
+    pageSize?: number;
     /** 排序列 */
-    orderByColumn: string;
+    orderByColumn?: string;
     /** 排序的方向 */
-    isAsc: string;
+    isAsc?: string;
   };
 
   type SysOperLogPostRemoveParams = {
@@ -1016,17 +974,17 @@ declare namespace API {
 
   type SysOssConfigPostListParams = {
     /** 当前页数 */
-    pageNum: number;
+    pageNum?: number;
     /** 分页大小 */
-    pageSize: number;
+    pageSize?: number;
     /** 排序列 */
-    orderByColumn: string;
+    orderByColumn?: string;
     /** 排序的方向 */
-    isAsc: string;
+    isAsc?: string;
   };
 
   type SysOssConfigPostRemoveParams = {
-    /** OSS配置ID串 */
+    /** OSS配置ID组 */
     ossConfigIds: number;
   };
 
@@ -1079,6 +1037,27 @@ declare namespace API {
   };
 
   type SysOssPostListParams = {
+    /** 当前页数 */
+    pageNum?: number;
+    /** 分页大小 */
+    pageSize?: number;
+    /** 排序列 */
+    orderByColumn?: string;
+    /** 排序的方向 */
+    isAsc?: string;
+  };
+
+  type SysOssPostRemoveParams = {
+    /** OSS对象ID组 */
+    ossIds: number;
+  };
+
+  type SysOssPostUploadParams = {
+    /** 文件 */
+    file: string;
+  };
+
+  type SysOssQuery = {
     /** 开始创建时间 */
     beginCreateTime?: string;
     /** 创建者 */
@@ -1095,24 +1074,6 @@ declare namespace API {
     service?: string;
     /** URL地址 */
     url?: string;
-    /** 当前页数 */
-    pageNum: number;
-    /** 分页大小 */
-    pageSize: number;
-    /** 排序列 */
-    orderByColumn: string;
-    /** 排序的方向 */
-    isAsc: string;
-  };
-
-  type SysOssPostRemoveParams = {
-    /** OSS对象ID串 */
-    ossIds: number;
-  };
-
-  type SysOssPostUploadParams = {
-    /** 文件 */
-    file: string;
   };
 
   type SysOssVo = {
@@ -1166,13 +1127,13 @@ declare namespace API {
 
   type SysPostPostListParams = {
     /** 当前页数 */
-    pageNum: number;
+    pageNum?: number;
     /** 分页大小 */
-    pageSize: number;
+    pageSize?: number;
     /** 排序列 */
-    orderByColumn: string;
+    orderByColumn?: string;
     /** 排序的方向 */
-    isAsc: string;
+    isAsc?: string;
   };
 
   type SysPostPostRemoveParams = {
@@ -1240,24 +1201,24 @@ declare namespace API {
 
   type SysRolePostAllocatedListParams = {
     /** 当前页数 */
-    pageNum: number;
+    pageNum?: number;
     /** 分页大小 */
-    pageSize: number;
+    pageSize?: number;
     /** 排序列 */
-    orderByColumn: string;
+    orderByColumn?: string;
     /** 排序的方向 */
-    isAsc: string;
+    isAsc?: string;
   };
 
   type SysRolePostListParams = {
     /** 当前页数 */
-    pageNum: number;
+    pageNum?: number;
     /** 分页大小 */
-    pageSize: number;
+    pageSize?: number;
     /** 排序列 */
-    orderByColumn: string;
+    orderByColumn?: string;
     /** 排序的方向 */
-    isAsc: string;
+    isAsc?: string;
   };
 
   type SysRolePostRemoveParams = {
@@ -1267,13 +1228,13 @@ declare namespace API {
 
   type SysRolePostUnallocatedListParams = {
     /** 当前页数 */
-    pageNum: number;
+    pageNum?: number;
     /** 分页大小 */
-    pageSize: number;
+    pageSize?: number;
     /** 排序列 */
-    orderByColumn: string;
+    orderByColumn?: string;
     /** 排序的方向 */
-    isAsc: string;
+    isAsc?: string;
   };
 
   type SysRoleQuery = {
@@ -1470,13 +1431,13 @@ declare namespace API {
 
   type SysUserPostListParams = {
     /** 当前页数 */
-    pageNum: number;
+    pageNum?: number;
     /** 分页大小 */
-    pageSize: number;
+    pageSize?: number;
     /** 排序列 */
-    orderByColumn: string;
+    orderByColumn?: string;
     /** 排序的方向 */
-    isAsc: string;
+    isAsc?: string;
   };
 
   type SysUserPostRemoveParams = {
@@ -1513,7 +1474,7 @@ declare namespace API {
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门对象 */
-    dept?: SysDeptReq;
+    dept?: SysDept;
     /** 部门ID */
     deptId?: number;
     /** 用户邮箱 */
@@ -1566,7 +1527,7 @@ declare namespace API {
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门对象 */
-    dept?: SysDeptRes;
+    dept?: SysDept;
     /** 部门ID */
     deptId?: number;
     /** 用户邮箱 */

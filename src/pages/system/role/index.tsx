@@ -8,7 +8,7 @@ import {
   CRoleSort,
 } from '@/columns';
 import ButtonCreate from '@/pages/system/role/components/ButtonCreate';
-import { SysRolePostList } from '@/services/swagger/SysRoleService';
+import { SysRolePostList } from '@/services/sys/SysRoleService';
 import type { ActionType } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { PageContainer } from '@ant-design/pro-layout';

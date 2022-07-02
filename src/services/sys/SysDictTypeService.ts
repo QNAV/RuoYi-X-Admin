@@ -27,10 +27,7 @@ export async function SysDictTypePostEdit(body: API.SysDictType, options?: { [ke
 }
 
 /** 导出字典类型列表 POST /system/dict/type/export */
-export async function SysDictTypePostExport(
-  body: API.SysDictTypeQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysDictTypePostExport(body: API.SysDictTypeQuery, options?: { [key: string]: any }) {
   return request<any>('/system/dict/type/export', {
     method: 'POST',
     headers: {

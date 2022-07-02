@@ -1,7 +1,7 @@
 import { EnableDisableStatus, MapEnableDisableStatus } from '@/constants';
 import MenuTree from '@/pages/system/role/components/MenuTree';
 
-import { SysRolePostAdd } from '@/services/swagger/SysRoleService';
+import { SysRolePostAdd } from '@/services/sys/SysRoleService';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   ModalForm,

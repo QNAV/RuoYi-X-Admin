@@ -3,10 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增对象存储配置 POST /system/oss/config/add */
-export async function SysOssConfigPostAdd(
-  body: API.SysOssConfigBo,
-  options?: { [key: string]: any },
-) {
+export async function SysOssConfigPostAdd(body: API.SysOssConfigBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/oss/config/add', {
     method: 'POST',
     headers: {
@@ -18,10 +15,7 @@ export async function SysOssConfigPostAdd(
 }
 
 /** 状态修改 POST /system/oss/config/changeStatus */
-export async function SysOssConfigPostChangeStatus(
-  body: API.SysOssConfigBo,
-  options?: { [key: string]: any },
-) {
+export async function SysOssConfigPostChangeStatus(body: API.SysOssConfigBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/oss/config/changeStatus', {
     method: 'POST',
     headers: {
@@ -33,10 +27,7 @@ export async function SysOssConfigPostChangeStatus(
 }
 
 /** 修改对象存储配置 POST /system/oss/config/edit */
-export async function SysOssConfigPostEdit(
-  body: API.SysOssConfigBo,
-  options?: { [key: string]: any },
-) {
+export async function SysOssConfigPostEdit(body: API.SysOssConfigBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/oss/config/edit', {
     method: 'POST',
     headers: {

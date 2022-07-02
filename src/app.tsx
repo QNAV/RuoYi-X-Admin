@@ -1,5 +1,5 @@
 import { LogoutIcon, SettingsIcon } from '@/components';
-import { SysLoginGetInfo, SysLoginGetRouters } from '@/services/swagger/SysLoginService';
+import { SysLoginGetInfo, SysLoginGetRouters } from '@/services/sys/SysLoginService';
 import type { InitialState } from '@/types';
 import { checkToken, convertUserRoutesToMenus } from '@/utils';
 import { GithubOutlined } from '@ant-design/icons';

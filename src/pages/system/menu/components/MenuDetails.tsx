@@ -1,7 +1,7 @@
 import { MapEnableDisableStatus, MapMenuType, MapYesNoStatus, MenuType } from '@/constants';
 import { selectedMenuIdAtom, useQueryMenuList } from '@/pages/system/menu/model';
 
-import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/swagger/SysMenuService';
+import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';

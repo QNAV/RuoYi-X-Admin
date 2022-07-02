@@ -1,4 +1,4 @@
-import { SysLoginPostLogout } from '@/services/swagger/SysLoginService';
+import { SysLoginPostLogout } from '@/services/sys/SysLoginService';
 
 export enum StorageType {
   LOCAL_STORAGE,

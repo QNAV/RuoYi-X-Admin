@@ -1,6 +1,6 @@
 import { clearToken, getToken } from '@/utils';
 import { message, notification } from 'antd';
-import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 
 import { createSearchParams } from '@umijs/max';
@@ -105,16 +105,9 @@ instance.interceptors.response.use(
   },
 );
 
-export function request<D extends ResponseStructure>(
-  url: string,
-  config?: { convertToProData?: false } & Omit<RequestConfig, 'convertToProData'>,
-): Promise<D['data']>;
-export function request<D extends ResponseStructure>(
-  url: string,
-  config?: { convertToProData: true } & Omit<RequestConfig, 'convertToProData'>,
-): Promise<{ total: number; data: D['data'][]; success: true }>;
+type Request = <D extends ResponseStructure>(url: string, config?: Omit<RequestConfig, 'url'>) => Promise<D['data']>;
 
-export function request<D extends ResponseStructure>(url: string, config?: Omit<RequestConfig, 'url'>) {
+export const request: Request = (url, config) => {
   const { requestType, headers = {}, ...restConfig } = config || {};
 
   if (requestType === 'form') headers['Content-Type'] = 'multipart/form-data';
@@ -122,7 +115,7 @@ export function request<D extends ResponseStructure>(url: string, config?: Omit<
   return instance({ ...restConfig, headers, url }).then((axiosResponse) => {
     const {
       data: { code, msg, data },
-    } = axiosResponse as unknown as AxiosResponse<ResponseStructure>;
+    } = axiosResponse;
 
     const success = code === 200;
 
@@ -136,7 +129,7 @@ export function request<D extends ResponseStructure>(url: string, config?: Omit<
       showType = ErrorShowType.ERROR_MESSAGE;
     }
 
-    const customResponse: CustomResponseStructure<D['data']> = {
+    const customResponse = {
       data,
       code,
       msg,
@@ -152,14 +145,13 @@ export function request<D extends ResponseStructure>(url: string, config?: Omit<
       throw customResponse;
     }
 
-    if (config?.convertToProData) {
-      return {
-        total: data?.total ?? 0,
-        data: data?.rows ?? [],
-        success,
-      };
-    }
-
     return data;
   });
-}
+};
+
+// 针对代码生成模块封装的请求
+export const requestGenerator: Request = (url, config) => {
+  const { headers = {}, ...restConfig } = config || {};
+  headers.datasource = 'master';
+  return request(url, { ...restConfig, headers });
+};

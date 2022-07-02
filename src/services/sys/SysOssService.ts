@@ -21,13 +21,18 @@ export async function SysOssGetDownload(
 export async function SysOssPostList(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.SysOssPostListParams,
+  body: API.SysOssQuery,
   options?: { [key: string]: any },
 ) {
   return request<API.TableDataInfoSysOssVo>('/system/oss/list', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     params: {
       ...params,
     },
+    data: body,
     ...(options || {}),
   });
 }
@@ -80,10 +85,7 @@ export async function SysOssPostUpload(
     const item = (body as any)[ele];
 
     if (item !== undefined && item !== null) {
-      formData.append(
-        ele,
-        typeof item === 'object' && !(item instanceof File) ? JSON.stringify(item) : item,
-      );
+      formData.append(ele, typeof item === 'object' && !(item instanceof File) ? JSON.stringify(item) : item);
     }
   });
 

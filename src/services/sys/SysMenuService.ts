@@ -84,10 +84,7 @@ export async function SysMenuGetRoleMenuTreeSelect(
 }
 
 /** 获取菜单下拉树列表 POST /system/menu/treeSelect */
-export async function SysMenuPostTreeSelect(
-  body: API.SysMenuQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysMenuPostTreeSelect(body: API.SysMenuQuery, options?: { [key: string]: any }) {
   return request<API.ResponseListTreelong>('/system/menu/treeSelect', {
     method: 'POST',
     headers: {

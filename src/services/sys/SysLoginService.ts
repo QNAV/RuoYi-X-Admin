@@ -11,10 +11,7 @@ export async function SysLoginGetInfo(options?: { [key: string]: any }) {
 }
 
 /** 用户名登录方法 POST /login */
-export async function SysLoginPostLogin(
-  body: API.UserNameLoginBody,
-  options?: { [key: string]: any },
-) {
+export async function SysLoginPostLogin(body: API.UserNameLoginBody, options?: { [key: string]: any }) {
   return request<API.ResponseLoginDTO>('/login', {
     method: 'POST',
     headers: {
@@ -42,10 +39,7 @@ export async function SysLogininforPostClean(options?: { [key: string]: any }) {
 }
 
 /** 导出系统访问记录列表 POST /monitor/logininfor/export */
-export async function SysLogininforPostExport(
-  body: API.SysLogininforQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysLogininforPostExport(body: API.SysLogininforQuery, options?: { [key: string]: any }) {
   return request<any>('/monitor/logininfor/export', {
     method: 'POST',
     headers: {
@@ -100,10 +94,7 @@ export async function SysLoginGetRouters(options?: { [key: string]: any }) {
 }
 
 /** 短信登录(示例) POST /smsLogin */
-export async function SysLoginPostSmsLogin(
-  body: API.SmsLoginBody,
-  options?: { [key: string]: any },
-) {
+export async function SysLoginPostSmsLogin(body: API.SmsLoginBody, options?: { [key: string]: any }) {
   return request<API.ResponseLoginDTO>('/smsLogin', {
     method: 'POST',
     headers: {

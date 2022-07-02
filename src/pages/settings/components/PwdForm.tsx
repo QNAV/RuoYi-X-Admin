@@ -1,4 +1,4 @@
-import { SysProfilePostUpdatePwd } from '@/services/swagger/SysProfileService';
+import { SysProfilePostUpdatePwd } from '@/services/sys/SysProfileService';
 import { logout, regPassword } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormText } from '@ant-design/pro-components';

@@ -3,7 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增部门 POST /system/dept/add */
-export async function SysDeptPostAdd(body: API.SysDeptReq, options?: { [key: string]: any }) {
+export async function SysDeptPostAdd(body: API.SysDept, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/dept/add', {
     method: 'POST',
     headers: {
@@ -15,7 +15,7 @@ export async function SysDeptPostAdd(body: API.SysDeptReq, options?: { [key: str
 }
 
 /** 修改部门 POST /system/dept/edit */
-export async function SysDeptPostEdit(body: API.SysDeptReq, options?: { [key: string]: any }) {
+export async function SysDeptPostEdit(body: API.SysDept, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/dept/edit', {
     method: 'POST',
     headers: {
@@ -99,10 +99,7 @@ export async function SysDeptGetRoleDeptTreeSelect(
 }
 
 /** 获取部门下拉树列表 POST /system/dept/treeSelect */
-export async function SysDeptPostTreeSelect(
-  body: API.SysDeptQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysDeptPostTreeSelect(body: API.SysDeptQuery, options?: { [key: string]: any }) {
   return request<API.ResponseListTreelong>('/system/dept/treeSelect', {
     method: 'POST',
     headers: {

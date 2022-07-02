@@ -9,7 +9,8 @@
     "postinstall": "max setup",
     "openapi": "max openapi",
     "prepare": "husky install",
-    "start": "cross-env UMI_ENV=dev max dev"
+    "start": "cross-env UMI_ENV=dev max dev",
+    "start:local": "cross-env UMI_ENV=local max dev"
   },
   "dependencies": {
     "@ant-design/charts": "^1.3.6",
@@ -23,6 +24,7 @@
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.1",
     "dayjs": "^1.11.3",
+    "highlight.js": "^11.5.1",
     "lodash-es": "^4.17.21",
     "nprogress": "^0.2.0",
     "query-string": "^7.1.1",
@@ -40,7 +42,7 @@
     "@types/react-dom": "^18.0.5",
     "@umijs/lint": "^4.0.5",
     "cross-env": "^7.0.3",
-    "eslint": "^8.18.0",
+    "eslint": "^8.19.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",

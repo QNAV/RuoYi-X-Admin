@@ -35,10 +35,7 @@ export async function SysRolePostAllocatedList(
 }
 
 /** 取消授权用户 POST /system/role/authUser/cancel */
-export async function SysRolePostCancelAuthUser(
-  body: API.SysUserRole,
-  options?: { [key: string]: any },
-) {
+export async function SysRolePostCancelAuthUser(body: API.SysUserRole, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/role/authUser/cancel', {
     method: 'POST',
     headers: {
@@ -50,10 +47,7 @@ export async function SysRolePostCancelAuthUser(
 }
 
 /** 批量取消授权用户 POST /system/role/authUser/cancelAll */
-export async function SysUserPostCancelAuthUserAll(
-  body: API.AuthUserAllBody,
-  options?: { [key: string]: any },
-) {
+export async function SysUserPostCancelAuthUserAll(body: API.AuthUserAllBody, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/role/authUser/cancelAll', {
     method: 'POST',
     headers: {
@@ -65,10 +59,7 @@ export async function SysUserPostCancelAuthUserAll(
 }
 
 /** 批量选择用户授权 POST /system/role/authUser/selectAll */
-export async function SysUserPostSelectAuthUserAll(
-  body: API.AuthUserAllBody,
-  options?: { [key: string]: any },
-) {
+export async function SysUserPostSelectAuthUserAll(body: API.AuthUserAllBody, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/role/authUser/selectAll', {
     method: 'POST',
     headers: {
@@ -100,10 +91,7 @@ export async function SysRolePostUnallocatedList(
 }
 
 /** 状态修改 POST /system/role/changeStatus */
-export async function SysRolePostChangeStatus(
-  body: API.SysRoleReq,
-  options?: { [key: string]: any },
-) {
+export async function SysRolePostChangeStatus(body: API.SysRoleReq, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/role/changeStatus', {
     method: 'POST',
     headers: {

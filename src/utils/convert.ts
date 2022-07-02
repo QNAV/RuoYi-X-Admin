@@ -37,24 +37,18 @@ export const convertFilterParams = (params: Filter) => {
 /**
  * 将 ProTable 的 分页参数 转化为 实际接口格式
  * @param params ProTable 中 request 返回的 params 传参
- * @param sort ProTable 中 request 返回的 sort 传参
- * @param filter ProTable 中 request 返回的 filter 传参
  */
-export const convertToPaginationParameters = <T extends Record<string, any>>(
+export const convertPaginationParams = <T extends Record<string, any>>(
   params: T & {
     pageSize?: number;
     current?: number;
     keyword?: string;
   },
-  sort: Sort,
-  filter: Filter,
 ) => {
   const { pageSize, current, ...restParams } = params;
 
   return {
     ...restParams,
-    ...(pageSize && current ? { limit: pageSize, pageSize: pageSize * (current - 1) } : {}),
-    ...convertSortParams(sort),
-    ...convertFilterParams(filter),
+    ...(pageSize && current ? { limit: pageSize, pageSize: pageSize * current } : {}),
   };
 };

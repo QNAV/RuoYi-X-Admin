@@ -3,10 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增字典类型 POST /system/dict/data/add */
-export async function SysDictDataPostAdd(
-  body: API.SysDictDataReq,
-  options?: { [key: string]: any },
-) {
+export async function SysDictDataPostAdd(body: API.SysDictDataReq, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/dict/data/add', {
     method: 'POST',
     headers: {
@@ -18,10 +15,7 @@ export async function SysDictDataPostAdd(
 }
 
 /** 修改保存字典类型 POST /system/dict/data/edit */
-export async function SysDictDataPostEdit(
-  body: API.SysDictDataReq,
-  options?: { [key: string]: any },
-) {
+export async function SysDictDataPostEdit(body: API.SysDictDataReq, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/dict/data/edit', {
     method: 'POST',
     headers: {
@@ -33,10 +27,7 @@ export async function SysDictDataPostEdit(
 }
 
 /** 导出字典数据列表 POST /system/dict/data/export */
-export async function SysDictDataPostExport(
-  body: API.SysDictDataQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysDictDataPostExport(body: API.SysDictDataQuery, options?: { [key: string]: any }) {
   return request<any>('/system/dict/data/export', {
     method: 'POST',
     headers: {

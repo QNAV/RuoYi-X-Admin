@@ -1,11 +1,28 @@
 import { MapEnableDisableStatus } from '@/constants';
 import type { ProItem } from '@/types';
 
+// 序号
+export const CIndex: ProItem = {
+  title: '序号',
+  dataIndex: 'index',
+  key: 'index',
+  valueType: 'indexBorder',
+};
+
 // 创建时间
 export const CCreateTime: ProItem = {
   title: '创建时间',
   dataIndex: 'createTime',
   key: 'createTime',
+  valueType: 'dateTime',
+  hideInSearch: true,
+};
+
+// 更新时间
+export const CUpdateTime: ProItem = {
+  title: '更新时间',
+  dataIndex: 'updateTime',
+  key: 'updateTime',
   valueType: 'dateTime',
   hideInSearch: true,
 };

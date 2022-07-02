@@ -1,6 +1,6 @@
 import Actions from '@/pages/login/components/Actions';
-import { CaptchaGetGetCode } from '@/services/swagger/CaptchaService';
-import { SysLoginPostLogin, SysLoginPostSmsLogin } from '@/services/swagger/SysLoginService';
+import { CaptchaGetGetCode } from '@/services/sys/CaptchaService';
+import { SysLoginPostLogin, SysLoginPostSmsLogin } from '@/services/sys/SysLoginService';
 import { regPhone, setToken, StorageType } from '@/utils';
 import { LockOutlined, MobileOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginFormPage, ProFormCaptcha, ProFormCheckbox, ProFormGroup, ProFormText } from '@ant-design/pro-components';

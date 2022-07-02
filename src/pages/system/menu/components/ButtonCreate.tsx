@@ -7,7 +7,7 @@ import {
   YesNoStatus,
 } from '@/constants';
 import { selectedMenuIdAtom, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
-import { SysMenuPostAdd, SysMenuPostList } from '@/services/swagger/SysMenuService';
+import { SysMenuPostAdd, SysMenuPostList } from '@/services/sys/SysMenuService';
 import { parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';

@@ -1,4 +1,4 @@
-import { SysMenuPostTreeSelect } from '@/services/swagger/SysMenuService';
+import { SysMenuPostTreeSelect } from '@/services/sys/SysMenuService';
 import { getParentIds } from '@/utils';
 import type { ActionType } from '@ant-design/pro-components';
 import { useQuery } from 'react-query';

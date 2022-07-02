@@ -42,10 +42,7 @@ export async function SysConfigPostEdit(body: API.SysConfig, options?: { [key: s
 }
 
 /** 导出参数配置列表 POST /system/config/export */
-export async function SysConfigPostExport(
-  body: API.SysConfigQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysConfigPostExport(body: API.SysConfigQuery, options?: { [key: string]: any }) {
   return request<any>('/system/config/export', {
     method: 'POST',
     headers: {
@@ -115,10 +112,7 @@ export async function SysConfigPostRemove(
 }
 
 /** 根据参数键名修改参数配置 POST /system/config/updateByKey */
-export async function SysConfigPostUpdateByKey(
-  body: API.SysConfig,
-  options?: { [key: string]: any },
-) {
+export async function SysConfigPostUpdateByKey(body: API.SysConfig, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/config/updateByKey', {
     method: 'POST',
     headers: {

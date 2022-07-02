@@ -1,5 +1,5 @@
 import { SexMap } from '@/constants';
-import { SysProfilePostUpdateProfile } from '@/services/swagger/SysProfileService';
+import { SysProfilePostUpdateProfile } from '@/services/sys/SysProfileService';
 import type { InitialState } from '@/types';
 import { getToken, regEmail, regPhone } from '@/utils';
 import { CameraOutlined } from '@ant-design/icons';

@@ -1,4 +1,4 @@
-import { SysMenuPostList, SysMenuPostRemove } from '@/services/swagger/SysMenuService';
+import { SysMenuPostList, SysMenuPostRemove } from '@/services/sys/SysMenuService';
 import { getParentIds, parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { message, Modal } from 'antd';
 import { useMutation, useQuery } from 'react-query';
