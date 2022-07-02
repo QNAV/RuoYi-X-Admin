@@ -4,7 +4,7 @@ import { SysLoginPostLogin, SysLoginPostSmsLogin } from '@/services/swagger/SysL
 import { regPhone, setToken, StorageType } from '@/utils';
 import { LockOutlined, MobileOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginFormPage, ProFormCaptcha, ProFormCheckbox, ProFormGroup, ProFormText } from '@ant-design/pro-components';
-import { useSearchParams } from '@umijs/max';
+import { useModel, useNavigate, useSearchParams } from '@umijs/max';
 import { useRequest } from 'ahooks';
 import { Image, message, Tabs } from 'antd';
 import type { FC } from 'react';
@@ -26,6 +26,10 @@ const LoginPage: FC = () => {
   const msg = searchParams.get('msg');
   const redirect = searchParams.get('redirect') || '/';
 
+  const { refresh } = useModel('@@initialState');
+
+  const navigate = useNavigate();
+
   const { data: getCaptchaImageRes, run: getCaptchaImage } = useRequest(CaptchaGetGetCode);
 
   const submit = async (e: FormData) => {
@@ -45,7 +49,9 @@ const LoginPage: FC = () => {
 
       setToken(autoLogin ? StorageType.LOCAL_STORAGE : StorageType.SESSION_STORAGE, `Bearer ${loginRes.token}`);
 
-      window.location.href = redirect;
+      await refresh();
+
+      navigate(redirect);
     } catch (error) {
       if (loginType === LoginType.USERNAME) {
         getCaptchaImage();
