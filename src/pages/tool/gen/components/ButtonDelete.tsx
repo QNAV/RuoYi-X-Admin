@@ -1,11 +1,21 @@
 import { GenPostRemove } from '@/services/gen/GenService';
 import { DeleteOutlined } from '@ant-design/icons';
-import { Button, Modal } from 'antd';
+import type { ProCoreActionType } from '@ant-design/pro-components';
+import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useMutation } from 'react-query';
 
-const ButtonDelete: FC<{ tableIds: number[] }> = ({ tableIds = [] }) => {
-  const { mutateAsync, isLoading } = useMutation(GenPostRemove, { onSuccess: () => {} });
+const ButtonDelete: FC<{ tableIds: number[]; tableActions?: ProCoreActionType }> = ({
+  tableIds = [],
+  tableActions,
+}) => {
+  const { mutateAsync, isLoading } = useMutation(GenPostRemove, {
+    onSuccess: () => {
+      tableActions?.reload();
+      tableActions?.clearSelected?.();
+      message.success('删除成功');
+    },
+  });
 
   const handleDelete = () => {
     Modal.confirm({

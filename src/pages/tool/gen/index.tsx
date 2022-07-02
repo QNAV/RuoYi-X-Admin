@@ -4,14 +4,12 @@ import ButtonDelete from '@/pages/tool/gen/components/ButtonDelete';
 import ButtonImport from '@/pages/tool/gen/components/ButtonImport';
 import ButtonPreview from '@/pages/tool/gen/components/ButtonPreview';
 import ModalPreview from '@/pages/tool/gen/components/ModalPreview';
-import { tableActionsAtom } from '@/pages/tool/gen/model';
 import { GenPostList } from '@/services/gen/GenService';
 import type { ProItem } from '@/types';
 import type { ActionType } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRef, useState } from 'react';
 
 const columns: ProItem[] = [
   CIndex,
@@ -23,10 +21,10 @@ const columns: ProItem[] = [
   {
     title: '操作',
     valueType: 'option',
-    render: (dom, entity) => {
+    render: (dom, entity, index, action) => {
       return (
         <>
-          <ButtonDelete tableIds={[entity.tableId]} />
+          <ButtonDelete tableIds={[entity.tableId]} tableActions={action} />
 
           <ButtonPreview tableId={entity.tableId} />
         </>
@@ -39,14 +37,6 @@ const GenPage: FC = () => {
   const actionRef = useRef<ActionType>();
   const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 
-  const setTableActions = useSetRecoilState(tableActionsAtom);
-
-  useEffect(() => {
-    if (actionRef?.current) {
-      setTableActions(actionRef.current);
-    }
-  }, [actionRef]);
-
   return (
     <BasePageContainer>
       <ProTable
@@ -58,7 +48,7 @@ const GenPage: FC = () => {
             setSelectedRowKeys(selectedRowKeys as number[]);
           },
         }}
-        tableAlertOptionRender={() => {
+        tableAlertRender={() => {
           return (
             <>
               <ButtonDelete tableIds={selectedRowKeys} />
@@ -66,7 +56,7 @@ const GenPage: FC = () => {
           );
         }}
         columns={columns}
-        toolbar={{ actions: [<ButtonImport key="ButtonCreate" />] }}
+        toolbar={{ actions: [<ButtonImport key="ButtonCreate" tableActions={actionRef?.current} />] }}
         request={async () => {
           const { total, rows } = await GenPostList({}, {});
 

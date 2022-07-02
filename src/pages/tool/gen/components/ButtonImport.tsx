@@ -1,7 +1,7 @@
 import { CCreateTime, CIndex, CTableComment, CTableName, CUpdateTime } from '@/columns';
-import { tableActionsAtom } from '@/pages/tool/gen/model';
 import { GenPostDbList, GenPostImportTable } from '@/services/gen/GenService';
 import type { ProItem } from '@/types';
+import { convertPaginationParams } from '@/utils';
 import type { ActionType } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { useBoolean } from 'ahooks';
@@ -9,14 +9,11 @@ import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { useMutation } from 'react-query';
-import { useRecoilValue } from 'recoil';
 
 const columns: ProItem[] = [CIndex, CTableName, CTableComment, CCreateTime, CUpdateTime];
 
-const ButtonImport: FC = () => {
+const ButtonImport: FC<{ tableActions?: ActionType }> = ({ tableActions }) => {
   const actionRef = useRef<ActionType>();
-
-  const tableActions = useRecoilValue(tableActionsAtom);
 
   const [visible, { toggle }] = useBoolean();
 
@@ -59,7 +56,7 @@ const ButtonImport: FC = () => {
           }}
           options={{ setting: false, density: false }}
           request={async (params) => {
-            const { rows, total } = await GenPostDbList(params, {});
+            const { rows, total } = await GenPostDbList(convertPaginationParams(params), {});
 
             return {
               data: rows,
