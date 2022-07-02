@@ -96,6 +96,10 @@ export const customRoutes: Route[] = [
         component: '@/pages/tool/gen',
       },
       {
+        path: 'gen-edit/:tableId',
+        component: '@/pages/tool/gen-edit',
+      },
+      {
         path: 'swagger',
         component: '@/pages/tool/swagger',
       },

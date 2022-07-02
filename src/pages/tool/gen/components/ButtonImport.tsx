@@ -1,4 +1,5 @@
 import { CCreateTime, CIndex, CTableComment, CTableName, CUpdateTime } from '@/columns';
+import { tableActionsAtom } from '@/pages/tool/gen/model';
 import { GenPostDbList, GenPostImportTable } from '@/services/gen/GenService';
 import type { ProItem } from '@/types';
 import { convertPaginationParams } from '@/utils';
@@ -9,11 +10,14 @@ import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { useMutation } from 'react-query';
+import { useRecoilValue } from 'recoil';
 
 const columns: ProItem[] = [CIndex, CTableName, CTableComment, CCreateTime, CUpdateTime];
 
-const ButtonImport: FC<{ tableActions?: ActionType }> = ({ tableActions }) => {
+const ButtonImport: FC = () => {
   const actionRef = useRef<ActionType>();
+
+  const tableActions = useRecoilValue(tableActionsAtom);
 
   const [visible, { toggle }] = useBoolean();
 

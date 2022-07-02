@@ -49,8 +49,39 @@ export enum ShowHideStatus {
   SHOW = '0',
   HIDE = '1',
 }
-
 export const MapShowHideStatus: MapValueEnum<ShowHideStatus> = new Map([
   [ShowHideStatus.SHOW, { text: '显示', status: 'Success' }],
   [ShowHideStatus.HIDE, { text: '隐藏', status: 'Error' }],
+]);
+
+// JAVA类型
+export enum JavaType {
+  STRING = 'String',
+  INTEGER = 'Integer',
+  LONG = 'Long',
+  DOUBLE = 'Double',
+  BOOLEAN = 'Boolean',
+  DATE = 'Date',
+  BIG_DECIMAL = 'BigDecimal',
+}
+export const MapJavaType: MapValueEnum<JavaType> = new Map([
+  [JavaType.STRING, { text: '字符串' }],
+  [JavaType.INTEGER, { text: '整数' }],
+  [JavaType.LONG, { text: '长整数' }],
+  [JavaType.DOUBLE, { text: '浮点数' }],
+  [JavaType.BOOLEAN, { text: '布尔' }],
+  [JavaType.DATE, { text: '日期' }],
+  [JavaType.BIG_DECIMAL, { text: '金额' }],
+]);
+
+// 生成模版类型
+export enum TemplateType {
+  CRUD = 'CRUD',
+  TREE = 'TREE',
+  SUB = 'SUB',
+}
+export const MapTemplateType: MapValueEnum<TemplateType> = new Map([
+  [TemplateType.CRUD, { text: '单表（增删改查）' }],
+  [TemplateType.TREE, { text: '树表（增删改查）' }],
+  [TemplateType.SUB, { text: '主子表（增删改查）' }],
 ]);

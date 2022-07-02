@@ -6,6 +6,7 @@ import { useSetRecoilState } from 'recoil';
 
 const ButtonPreview: FC<{ tableId: number }> = ({ tableId }) => {
   const setPreviewId = useSetRecoilState(previewIdAtom);
+
   return (
     <Button onClick={() => setPreviewId(tableId)} type="link" icon={<CodeOutlined />}>
       预览

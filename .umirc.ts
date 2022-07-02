@@ -32,6 +32,6 @@ export default defineConfig({
     },
   ],
   routes,
-  keepalive: [/^((?!.*(login|403|404|500)))/],
-  tabsLayout: {},
+  // keepalive: [/^((?!.*(login|403|404|500)))/],
+  // tabsLayout: {},
 });

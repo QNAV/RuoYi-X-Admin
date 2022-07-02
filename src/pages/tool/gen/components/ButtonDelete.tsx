@@ -1,14 +1,14 @@
+import { tableActionsAtom } from '@/pages/tool/gen/model';
 import { GenPostRemove } from '@/services/gen/GenService';
 import { DeleteOutlined } from '@ant-design/icons';
-import type { ProCoreActionType } from '@ant-design/pro-components';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useMutation } from 'react-query';
+import { useRecoilValue } from 'recoil';
 
-const ButtonDelete: FC<{ tableIds: number[]; tableActions?: ProCoreActionType }> = ({
-  tableIds = [],
-  tableActions,
-}) => {
+const ButtonDelete: FC<{ tableIds: number[] }> = ({ tableIds = [] }) => {
+  const tableActions = useRecoilValue(tableActionsAtom);
+
   const { mutateAsync, isLoading } = useMutation(GenPostRemove, {
     onSuccess: () => {
       tableActions?.reload();
