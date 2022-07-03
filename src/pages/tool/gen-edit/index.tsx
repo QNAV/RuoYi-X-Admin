@@ -1,5 +1,4 @@
 import DescBase from '@/pages/tool/gen-edit/components/DescBase';
-import DescGen from '@/pages/tool/gen-edit/components/DescGen';
 import EditableTableField from '@/pages/tool/gen-edit/components/EditableTableField';
 import type { GenInfoDto } from '@/pages/tool/gen-edit/data';
 import { GenGetInfo, GenPostEdit } from '@/services/gen/GenService';
@@ -15,13 +14,11 @@ import { useMutation } from 'react-query';
 enum TabKey {
   BASE_INFO = 'BASE_INFO',
   FIELD_INFO = 'FIELD_INFO',
-  GEN_INFO = 'GEN_INFO',
 }
 
 const TabName = {
   [TabKey.BASE_INFO]: '基本信息',
   [TabKey.FIELD_INFO]: '字段信息',
-  [TabKey.GEN_INFO]: '生成信息',
 };
 
 const GenEditPage: FC = () => {
@@ -42,7 +39,7 @@ const GenEditPage: FC = () => {
     },
   );
 
-  const { mutateAsync } = useMutation(
+  const { mutateAsync, isLoading } = useMutation(
     async (params: Partial<API.GenTableReq>) => {
       await GenPostEdit({
         tableId,
@@ -54,6 +51,8 @@ const GenEditPage: FC = () => {
         packageName: data!.info!.packageName,
         tableComment: data!.info!.tableComment,
         tableName: data!.info!.tableName,
+        // @ts-ignore
+        columns: data!.rows,
         ...params,
       });
     },
@@ -80,11 +79,7 @@ const GenEditPage: FC = () => {
         </ProCard.TabPane>
 
         <ProCard.TabPane tab={TabName[TabKey.FIELD_INFO]} key={TabKey.FIELD_INFO}>
-          <EditableTableField dataSource={data?.rows} handleEdit={mutateAsync} />
-        </ProCard.TabPane>
-
-        <ProCard.TabPane tab={TabName[TabKey.GEN_INFO]} key={TabKey.GEN_INFO}>
-          <DescGen dataSource={data?.info} handleEdit={mutateAsync} />
+          <EditableTableField dataSource={data?.rows} handleEdit={mutateAsync} loading={isLoading} />
         </ProCard.TabPane>
       </ProCard>
     </PageContainer>

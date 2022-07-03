@@ -201,3 +201,12 @@ export const CGenPath: ProItem = {
   key: 'genPath',
   valueType: 'text',
 };
+
+// 序号
+export const CSort: ProItem = {
+  title: '序号',
+  dataIndex: 'sort',
+  valueType: 'indexBorder',
+  editable: false,
+  width: 80,
+};
