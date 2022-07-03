@@ -19,7 +19,7 @@
     "@ant-design/pro-layout": "next",
     "@umijs/max": "^4.0.5",
     "ahooks": "^3.5.1",
-    "antd": "^4.21.4",
+    "antd": "^4.21.5",
     "axios": "0.27.2",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.1",
