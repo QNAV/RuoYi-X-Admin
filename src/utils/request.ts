@@ -1,6 +1,6 @@
 import { clearToken, getToken } from '@/utils';
 import { message, notification } from 'antd';
-import type { AxiosRequestConfig } from 'axios';
+import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
 
 import { createSearchParams } from '@umijs/max';
@@ -105,53 +105,69 @@ instance.interceptors.response.use(
   },
 );
 
-type Request = <D extends ResponseStructure>(url: string, config?: Omit<RequestConfig, 'url'>) => Promise<D['data']>;
+export function request<D extends ResponseStructure>(
+  url: string,
+  config: { skipErrorHandler?: false } & Omit<RequestConfig, 'url' | 'skipErrorHandler'>,
+): Promise<D['data']>;
 
-export const request: Request = (url, config) => {
+export function request<D extends ResponseStructure>(
+  url: string,
+  config: { skipErrorHandler: true } & Omit<RequestConfig, 'url' | 'skipErrorHandler'>,
+): Promise<AxiosResponse<D>>;
+
+export function request(url: any, config: any) {
   const { requestType, headers = {}, ...restConfig } = config || {};
 
   if (requestType === 'form') headers['Content-Type'] = 'multipart/form-data';
 
   return instance({ ...restConfig, headers, url }).then((axiosResponse) => {
-    const {
-      data: { code, msg, data },
-    } = axiosResponse;
-
-    const success = code === 200;
+    const success = axiosResponse.data?.code === 200;
 
     let showType: ErrorShowType;
 
     if (success) {
       showType = ErrorShowType.SILENT;
-    } else if (code === 401) {
+    } else if (axiosResponse.data?.code === 401) {
       showType = ErrorShowType.REDIRECT;
     } else {
       showType = ErrorShowType.ERROR_MESSAGE;
     }
 
     const customResponse = {
-      data,
-      code,
-      msg,
+      data: axiosResponse.data?.data,
+      code: axiosResponse.data?.code,
+      msg: axiosResponse.data?.msg,
       showType,
       success,
     };
 
-    if (!config?.skipErrorHandler) {
-      errorHandler(customResponse);
+    if (config?.skipErrorHandler) {
+      return axiosResponse;
     }
+
+    errorHandler(customResponse);
 
     if (!success) {
       throw customResponse;
     }
 
-    return data;
+    return customResponse.data;
   });
-};
+}
+
+export function requestGenerator<D extends ResponseStructure>(
+  url: string,
+  config: { skipErrorHandler?: false } & Omit<RequestConfig, 'url' | 'skipErrorHandler'>,
+): Promise<D['data']>;
+
+export function requestGenerator<D extends ResponseStructure>(
+  url: string,
+  config: { skipErrorHandler: true } & Omit<RequestConfig, 'url' | 'skipErrorHandler'>,
+): Promise<AxiosResponse<D>>;
 
 // 针对代码生成模块封装的请求
-export const requestGenerator: Request = (url, config) => {
+export function requestGenerator(url: any, config: any) {
   const { headers = {}, ...restConfig } = config || {};
   headers.datasource = 'master';
   return request(url, { ...restConfig, headers });
-};
+}

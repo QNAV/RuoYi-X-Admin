@@ -2,7 +2,8 @@ import { CCreateTime, CIndex, CTableComment, CTableName, CUpdateTime } from '@/c
 import { tableActionsAtom } from '@/pages/tool/gen/model';
 import { GenPostDbList, GenPostImportTable } from '@/services/gen/GenService';
 import type { ProItem } from '@/types';
-import { convertPaginationParams } from '@/utils';
+import { convertParams, omitPaginationParams } from '@/utils';
+import { CloudUploadOutlined } from '@ant-design/icons';
 import type { ActionType } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { useBoolean } from 'ahooks';
@@ -34,7 +35,7 @@ const ButtonImport: FC = () => {
 
   return (
     <>
-      <Button type="primary" onClick={toggle}>
+      <Button type="primary" onClick={toggle} icon={<CloudUploadOutlined />}>
         导入
       </Button>
 
@@ -44,6 +45,7 @@ const ButtonImport: FC = () => {
         title="导入表"
         onOk={() => mutate({ tables: selectedRowKeys.join(',') })}
         width={900}
+        okText="确定导入"
       >
         <ProTable<API.GenTableRes>
           ghost
@@ -52,15 +54,15 @@ const ButtonImport: FC = () => {
           pagination={{ pageSize: 10, current: 1 }}
           columns={columns}
           rowKey="tableName"
-          search={{ filterType: 'light' }}
           rowSelection={{
             onChange: (selectedRowKeys) => {
               setSelectedRowKeys(selectedRowKeys as string[]);
             },
           }}
-          options={{ setting: false, density: false }}
-          request={async (params) => {
-            const { rows, total } = await GenPostDbList(convertPaginationParams(params), {});
+          options={false}
+          request={async (params, sort, filter) => {
+            console.log(sort, filter);
+            const { rows, total } = await GenPostDbList(convertParams(params, sort), omitPaginationParams(params));
 
             return {
               data: rows,

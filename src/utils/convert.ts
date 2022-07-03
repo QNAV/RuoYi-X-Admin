@@ -1,4 +1,5 @@
 import type { SortOrder } from 'antd/es/table/interface';
+import { omit } from 'lodash-es';
 import type { Key } from 'react';
 
 type Sort = Record<string, SortOrder>;
@@ -9,14 +10,13 @@ type Filter = Record<string, Key[] | null>;
  * @param params ProTable 中 request 返回的 sort 传参
  */
 export const convertSortParams = (params: Sort) => {
-  return Object.keys(params).reduce((pre, key) => {
-    const value = params[key];
-
-    return {
-      ...pre,
-      ...(value ? { sort: `${key}:${value === 'ascend' ? 1 : -1}` } : {}),
-    };
-  }, {});
+  return Object.keys(params).reduce(
+    (pre, key) => ({
+      orderByColumn: key,
+      isAsc: params[key] === 'ascend' ? '1' : '0',
+    }),
+    {},
+  );
 };
 
 /**
@@ -45,10 +45,38 @@ export const convertPaginationParams = <T extends Record<string, any>>(
     keyword?: string;
   },
 ) => {
-  const { pageSize, current, ...restParams } = params;
+  const { pageSize, current } = params;
 
+  return pageSize && current ? { pageSize, pageNum: current } : {};
+};
+
+export const omitPaginationParams = <T extends Record<string, any>>(
+  params: T & {
+    pageSize?: number;
+    current?: number;
+    keyword?: string;
+  },
+): Omit<
+  T & {
+    pageSize?: number;
+    current?: number;
+    keyword?: string;
+  },
+  'pageSize' | 'current' | 'keyword'
+> => {
+  return omit(params, ['pageSize', 'current', 'keyword']);
+};
+
+export const convertParams = <T extends Record<string, any>>(
+  params: T & {
+    pageSize?: number;
+    current?: number;
+    keyword?: string;
+  },
+  sort: Sort = {},
+) => {
   return {
-    ...restParams,
-    ...(pageSize && current ? { limit: pageSize, pageSize: pageSize * current } : {}),
+    ...convertPaginationParams(params),
+    ...convertSortParams(sort),
   };
 };

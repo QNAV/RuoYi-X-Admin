@@ -1,6 +1,7 @@
 import DescBase from '@/pages/tool/gen-edit/components/DescBase';
 import DescGen from '@/pages/tool/gen-edit/components/DescGen';
 import EditableTableField from '@/pages/tool/gen-edit/components/EditableTableField';
+import type { GenInfoDto } from '@/pages/tool/gen-edit/data';
 import { GenGetInfo, GenPostEdit } from '@/services/gen/GenService';
 import { useParams } from '@@/exports';
 import { ProCard } from '@ant-design/pro-components';
@@ -25,13 +26,15 @@ const TabName = {
 
 const GenEditPage: FC = () => {
   const params = useParams();
-  const tableId = (params?.tableId ?? 0) as number;
+  const tableId = Number(params?.tableId ?? '0') as number;
 
   const [tab, setTab] = useState<TabKey>(TabKey.BASE_INFO);
 
   const { data, refresh } = useRequest(
     async () => {
-      return await GenGetInfo({ tableId });
+      const data = await GenGetInfo({ tableId });
+
+      return data as unknown as GenInfoDto;
     },
     {
       ready: tableId > 0,
@@ -39,9 +42,20 @@ const GenEditPage: FC = () => {
     },
   );
 
-  const {} = useMutation(
-    async (params: Omit<API.GenTableReq, 'tableId'>) => {
-      await GenPostEdit({ tableId, ...params });
+  const { mutateAsync } = useMutation(
+    async (params: Partial<API.GenTableReq>) => {
+      await GenPostEdit({
+        tableId,
+        businessName: data!.info!.businessName,
+        functionName: data!.info!.functionName,
+        className: data!.info!.className,
+        functionAuthor: data!.info!.functionAuthor,
+        moduleName: data!.info!.moduleName,
+        packageName: data!.info!.packageName,
+        tableComment: data!.info!.tableComment,
+        tableName: data!.info!.tableName,
+        ...params,
+      });
     },
     {
       onSuccess: () => {
@@ -50,8 +64,6 @@ const GenEditPage: FC = () => {
       },
     },
   );
-
-  console.log(data);
 
   return (
     <PageContainer>
@@ -64,15 +76,15 @@ const GenEditPage: FC = () => {
         }}
       >
         <ProCard.TabPane tab={TabName[TabKey.BASE_INFO]} key={TabKey.BASE_INFO}>
-          <DescBase />
+          <DescBase dataSource={data?.info} handleEdit={mutateAsync} />
         </ProCard.TabPane>
 
         <ProCard.TabPane tab={TabName[TabKey.FIELD_INFO]} key={TabKey.FIELD_INFO}>
-          <EditableTableField />
+          <EditableTableField dataSource={data?.rows} handleEdit={mutateAsync} />
         </ProCard.TabPane>
 
         <ProCard.TabPane tab={TabName[TabKey.GEN_INFO]} key={TabKey.GEN_INFO}>
-          <DescGen />
+          <DescGen dataSource={data?.info} handleEdit={mutateAsync} />
         </ProCard.TabPane>
       </ProCard>
     </PageContainer>

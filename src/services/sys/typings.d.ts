@@ -530,6 +530,62 @@ declare namespace API {
     status?: string;
   };
 
+  type SysDeptReq = {
+    /** 祖级列表 */
+    ancestors?: string;
+    /** 删除标志（0代表存在 2代表删除） */
+    delFlag?: string;
+    /** 部门id */
+    deptId?: number;
+    /** 部门名称 */
+    deptName: string;
+    /** 邮箱 */
+    email?: string;
+    /** 负责人 */
+    leader?: string;
+    /** 显示顺序 */
+    orderNum: number;
+    /** 联系电话 */
+    phone?: string;
+    /** 部门状态:0正常,1停用 */
+    status?: string;
+  };
+
+  type SysDeptRes = {
+    /** 祖级列表 */
+    ancestors?: string;
+    /** 子部门 */
+    children?: SysDeptRes[];
+    /** 创建者 */
+    createBy?: string;
+    /** 创建时间 */
+    createTime?: string;
+    /** 删除标志（0代表存在 2代表删除） */
+    delFlag?: string;
+    /** 部门id */
+    deptId?: number;
+    /** 部门名称 */
+    deptName: string;
+    /** 邮箱 */
+    email?: string;
+    /** 负责人 */
+    leader?: string;
+    /** 显示顺序 */
+    orderNum: number;
+    /** 父菜单ID */
+    parentId?: number;
+    /** 父菜单名称 */
+    parentName?: string;
+    /** 联系电话 */
+    phone?: string;
+    /** 部门状态:0正常,1停用 */
+    status?: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
+  };
+
   type SysDictDataGetInfoParams = {
     /** 字典code */
     dictCode: number;
@@ -1474,7 +1530,7 @@ declare namespace API {
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门对象 */
-    dept?: SysDept;
+    dept?: SysDeptReq;
     /** 部门ID */
     deptId?: number;
     /** 用户邮箱 */
@@ -1527,7 +1583,7 @@ declare namespace API {
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门对象 */
-    dept?: SysDept;
+    dept?: SysDeptRes;
     /** 部门ID */
     deptId?: number;
     /** 用户邮箱 */

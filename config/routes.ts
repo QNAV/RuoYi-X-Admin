@@ -58,7 +58,6 @@ export const customRoutes: Route[] = [
     ],
   },
   {
-    name: 'monitor',
     path: 'monitor',
     routes: [
       {
@@ -125,11 +124,13 @@ const publicRoutes: Route[] = [
     name: '首页',
     path: '/',
     component: '@/pages/home',
+    hideInMenu: true,
   },
   {
     name: '个人中心',
     path: 'settings',
     component: '@/pages/settings',
+    hideInMenu: true,
   },
   {
     name: '登录',
@@ -140,22 +141,16 @@ const publicRoutes: Route[] = [
     menuRender: false,
   },
   {
+    name: '403',
     path: '403',
     component: '@/pages/403',
-    headerRender: false,
-    footerRender: false,
-    menuRender: false,
+    hideInMenu: true,
   },
   {
-    path: '404',
-    component: '@/pages/404',
-    headerRender: false,
-    footerRender: false,
-    menuRender: false,
-  },
-  {
+    name: '404',
     path: '*',
-    redirect: '404',
+    component: '@/pages/404',
+    hideInMenu: true,
   },
 ];
 

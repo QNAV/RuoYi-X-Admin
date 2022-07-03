@@ -76,12 +76,44 @@ export const MapJavaType: MapValueEnum<JavaType> = new Map([
 
 // 生成模版类型
 export enum TemplateType {
-  CRUD = 'CRUD',
-  TREE = 'TREE',
-  SUB = 'SUB',
+  CRUD = 'crud',
+  TREE = 'tree',
+  SUB = 'sub',
 }
 export const MapTemplateType: MapValueEnum<TemplateType> = new Map([
   [TemplateType.CRUD, { text: '单表（增删改查）' }],
   [TemplateType.TREE, { text: '树表（增删改查）' }],
   [TemplateType.SUB, { text: '主子表（增删改查）' }],
+]);
+
+// 查询方式
+export enum QueryType {
+  EQ = 'EQ',
+  NE = 'NE',
+  GT = 'GT',
+  GE = 'GE',
+  LT = 'LT',
+  LE = 'LE',
+  LIKE = 'LIKE',
+  BETWEEN = 'BETWEEN',
+}
+export const MapQueryType: MapValueEnum<QueryType> = new Map([
+  [QueryType.EQ, { text: '=' }],
+  [QueryType.NE, { text: '!=' }],
+  [QueryType.GT, { text: '>' }],
+  [QueryType.GE, { text: '>=' }],
+  [QueryType.LT, { text: '<' }],
+  [QueryType.LE, { text: '<=' }],
+  [QueryType.LIKE, { text: 'LIKE' }],
+  [QueryType.BETWEEN, { text: 'BETWEEN' }],
+]);
+
+// 生成代码方式
+export enum GenType {
+  ZIP = '0',
+  CUSTOM = '1',
+}
+export const MapGenType: MapValueEnum<GenType> = new Map([
+  [GenType.ZIP, { text: 'zip压缩包' }],
+  [GenType.CUSTOM, { text: '自定义路径' }],
 ]);

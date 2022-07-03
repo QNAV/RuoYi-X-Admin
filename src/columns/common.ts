@@ -7,6 +7,7 @@ export const CIndex: ProItem = {
   dataIndex: 'index',
   key: 'index',
   valueType: 'indexBorder',
+  width: 60,
 };
 
 // 创建时间
@@ -16,6 +17,7 @@ export const CCreateTime: ProItem = {
   key: 'createTime',
   valueType: 'dateTime',
   hideInSearch: true,
+  sorter: true,
 };
 
 // 更新时间
@@ -25,6 +27,7 @@ export const CUpdateTime: ProItem = {
   key: 'updateTime',
   valueType: 'dateTime',
   hideInSearch: true,
+  sorter: true,
 };
 
 // 启用/禁用 状态
@@ -51,4 +54,13 @@ export const CCreateTimeRange: ProItem = {
       };
     },
   },
+};
+
+// 备注
+export const CRemark: ProItem = {
+  title: '备注',
+  dataIndex: 'remark',
+  key: 'remark',
+  valueType: 'textarea',
+  hideInSearch: true,
 };

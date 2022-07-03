@@ -6,7 +6,10 @@ import type { FC } from 'react';
 import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-const ButtonDelete: FC<{ tableIds: number[] }> = ({ tableIds = [] }) => {
+const ButtonDelete: FC<{ tableIds: number[]; isBatch?: boolean }> = ({ tableIds, isBatch = false }) => {
+  const text = isBatch ? '批量删除' : '删除';
+  const disabled = tableIds.length === 0 && isBatch;
+
   const tableActions = useRecoilValue(tableActionsAtom);
 
   const { mutateAsync, isLoading } = useMutation(GenPostRemove, {
@@ -29,8 +32,8 @@ const ButtonDelete: FC<{ tableIds: number[] }> = ({ tableIds = [] }) => {
   };
 
   return (
-    <Button loading={isLoading} icon={<DeleteOutlined />} type="link" onClick={handleDelete}>
-      删除
+    <Button loading={isLoading} icon={<DeleteOutlined />} type="link" onClick={handleDelete} disabled={disabled}>
+      {text}
     </Button>
   );
 };
