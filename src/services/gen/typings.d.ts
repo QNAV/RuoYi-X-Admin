@@ -189,7 +189,7 @@ declare namespace API {
     /** 表名称 */
     className: string;
     /** 表列信息 */
-    columns?: GenTableColumnReq[];
+    columns: GenTableColumnReq[];
     /** 创建者 */
     createBy?: string;
     /** 创建时间 */
@@ -252,7 +252,7 @@ declare namespace API {
     /** 表名称 */
     className: string;
     /** 表列信息 */
-    columns?: GenTableColumnRes[];
+    columns: GenTableColumnRes[];
     /** 创建者 */
     createBy?: string;
     /** 创建时间 */

@@ -3,7 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增部门 POST /system/dept/add */
-export async function SysDeptPostAdd(body: API.SysDept, options?: { [key: string]: any }) {
+export async function SysDeptPostAdd(body: API.SysDeptReq, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/dept/add', {
     method: 'POST',
     headers: {
@@ -15,7 +15,7 @@ export async function SysDeptPostAdd(body: API.SysDept, options?: { [key: string
 }
 
 /** 修改部门 POST /system/dept/edit */
-export async function SysDeptPostEdit(body: API.SysDept, options?: { [key: string]: any }) {
+export async function SysDeptPostEdit(body: API.SysDeptReq, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/dept/edit', {
     method: 'POST',
     headers: {
