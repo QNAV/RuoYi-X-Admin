@@ -41,7 +41,7 @@
     "@types/lodash-es": "^4.17.6",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^18.0.14",
-    "@types/react-dom": "^18.0.5",
+    "@types/react-dom": "^18.0.6",
     "@umijs/lint": "^4.0.5",
     "cross-env": "^7.0.3",
     "eslint": "^8.19.0",
