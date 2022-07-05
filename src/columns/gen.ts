@@ -23,6 +23,7 @@ export const CClassName: ProItem = {
   dataIndex: 'className',
   key: 'className',
   valueType: 'text',
+  hideInSearch: true,
 };
 
 // 作者

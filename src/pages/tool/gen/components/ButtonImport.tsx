@@ -1,4 +1,4 @@
-import { CCreateTime, CIndex, CTableComment, CTableName, CUpdateTime } from '@/columns';
+import { CCreateTime, CCreateTimeRange, CIndex, CTableComment, CTableName, CUpdateTime } from '@/columns';
 import { tableActionsAtom } from '@/pages/tool/gen/model';
 import { GenPostDbList, GenPostImportTable } from '@/services/gen/GenService';
 import type { ProItem } from '@/types';
@@ -13,7 +13,7 @@ import { useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
-const columns: ProItem[] = [CIndex, CTableName, CTableComment, CCreateTime, CUpdateTime];
+const columns: ProItem[] = [CIndex, CTableName, CTableComment, CCreateTime, CUpdateTime, CCreateTimeRange];
 
 const ButtonImport: FC = () => {
   const actionRef = useRef<ActionType>();
@@ -42,10 +42,10 @@ const ButtonImport: FC = () => {
       <Modal
         visible={visible}
         onCancel={toggle}
-        title="导入表"
+        title="导入表结构"
         onOk={() => mutate({ tables: selectedRowKeys.join(',') })}
         width={900}
-        okText="确定导入"
+        okText="提交"
       >
         <ProTable<API.GenTableRes>
           ghost
@@ -54,6 +54,7 @@ const ButtonImport: FC = () => {
           pagination={{ pageSize: 10, current: 1 }}
           columns={columns}
           rowKey="tableName"
+          search={{ filterType: 'light' }}
           rowSelection={{
             onChange: (selectedRowKeys) => {
               setSelectedRowKeys(selectedRowKeys as string[]);

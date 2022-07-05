@@ -1,3 +1,4 @@
+import type { GenType } from '@/constants';
 import { GenGetBatchGenCode } from '@/services/gen/GenService';
 import { CloudDownloadOutlined } from '@ant-design/icons';
 import { Button, message } from 'antd';
@@ -5,14 +6,17 @@ import { saveAs } from 'file-saver';
 import type { FC } from 'react';
 import { useMutation } from 'react-query';
 
-const ButtonDownload: FC<{ tableNames: string[]; isBatch?: boolean }> = ({ tableNames, isBatch = false }) => {
+const ButtonDownload: FC<{ rows: { tableName: string; genType: GenType; genPath: string }[]; isBatch?: boolean }> = ({
+  rows = [],
+  isBatch = false,
+}) => {
   const text = isBatch ? '批量下载' : '下载';
-  const disabled = tableNames.length === 0 && isBatch;
+  const disabled = rows.length === 0 && isBatch;
 
   const { isLoading, mutate } = useMutation(
     async () => {
       const res = await GenGetBatchGenCode(
-        { tables: tableNames.join(',') },
+        { tables: rows.map((i) => i.tableName).join(',') },
         { skipErrorHandler: true, responseType: 'blob' },
       );
 

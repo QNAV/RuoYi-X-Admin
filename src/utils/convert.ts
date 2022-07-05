@@ -13,7 +13,7 @@ export const convertSortParams = (params: Sort) => {
   return Object.keys(params).reduce(
     (pre, key) => ({
       orderByColumn: key,
-      isAsc: params[key] === 'ascend' ? '1' : '0',
+      isAsc: params[key] === 'ascend' ? 'asc' : 'desc',
     }),
     {},
   );

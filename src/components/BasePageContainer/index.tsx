@@ -8,7 +8,6 @@ export const BasePageContainer: FC<PageContainerProps> = (props) => {
     <PageContainer
       header={{
         title: '',
-        breadcrumb: {},
       }}
     >
       {props.children}

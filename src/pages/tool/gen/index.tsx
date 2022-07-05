@@ -1,5 +1,7 @@
-import { CClassName, CCreateTime, CIndex, CTableComment, CTableName, CUpdateTime } from '@/columns';
+import { CClassName, CCreateTime, CCreateTimeRange, CIndex, CTableComment, CTableName, CUpdateTime } from '@/columns';
 import { BasePageContainer } from '@/components';
+import type { GenType } from '@/constants';
+import { useInitActionType } from '@/hooks';
 import ButtonDelete from '@/pages/tool/gen/components/ButtonDelete';
 import ButtonDownload from '@/pages/tool/gen/components/ButtonDownload';
 import ButtonEdit from '@/pages/tool/gen/components/ButtonEdit';
@@ -10,11 +12,10 @@ import ModalPreview from '@/pages/tool/gen/components/ModalPreview';
 import { tableActionsAtom } from '@/pages/tool/gen/model';
 import { GenPostList } from '@/services/gen/GenService';
 import type { ProItem } from '@/types';
-import type { ActionType } from '@ant-design/pro-components';
+import { convertParams, omitPaginationParams } from '@/utils';
 import { ProTable } from '@ant-design/pro-components';
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useState } from 'react';
 
 const columns: ProItem[] = [
   CIndex,
@@ -23,6 +24,7 @@ const columns: ProItem[] = [
   CClassName,
   CCreateTime,
   CUpdateTime,
+  CCreateTimeRange,
   {
     title: '操作',
     valueType: 'option',
@@ -37,7 +39,7 @@ const columns: ProItem[] = [
 
           <ButtonSync tableName={entity.tableName} />
 
-          <ButtonDownload tableNames={[entity.tableName]} />
+          <ButtonDownload rows={[{ tableName: entity.tableName, genType: entity.genType, genPath: entity.genPath }]} />
         </>
       );
     },
@@ -45,18 +47,10 @@ const columns: ProItem[] = [
 ];
 
 const GenPage: FC = () => {
-  const actionRef = useRef<ActionType>();
-
-  const setTableActions = useSetRecoilState(tableActionsAtom);
+  const actionRef = useInitActionType(tableActionsAtom);
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
   const [selectedRows, setSelectedRows] = useState<API.GenTableRes[]>([]);
-
-  useEffect(() => {
-    if (actionRef?.current) {
-      setTableActions(actionRef.current);
-    }
-  }, []);
 
   return (
     <BasePageContainer>
@@ -75,14 +69,21 @@ const GenPage: FC = () => {
             <>
               <ButtonDelete tableIds={selectedRowKeys} isBatch />
 
-              <ButtonDownload tableNames={selectedRows.map((i) => i.tableName)} isBatch />
+              <ButtonDownload
+                rows={selectedRows.map(({ tableName, genType, genPath }) => ({
+                  tableName,
+                  genType: genType as GenType,
+                  genPath: genPath as string,
+                }))}
+                isBatch
+              />
             </>
           );
         }}
         columns={columns}
         toolbar={{ actions: [<ButtonImport key="ButtonCreate" />] }}
-        request={async () => {
-          const { total, rows } = await GenPostList({}, {});
+        request={async (params, sort) => {
+          const { total, rows } = await GenPostList(convertParams(params, sort), omitPaginationParams(params));
 
           return {
             data: rows,
