@@ -89,7 +89,8 @@ const LoginPage: FC = () => {
                 size: 'large',
                 prefix: <UserOutlined />,
               }}
-              placeholder="请输入用户名"
+              placeholder="admin"
+              initialValue="admin"
               rules={[
                 {
                   required: true,
@@ -103,7 +104,8 @@ const LoginPage: FC = () => {
                 size: 'large',
                 prefix: <LockOutlined />,
               }}
-              placeholder="请输入密码"
+              placeholder="admin123"
+              initialValue="admin123"
               rules={[
                 {
                   required: true,
