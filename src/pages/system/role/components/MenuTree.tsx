@@ -4,29 +4,32 @@ import { ProCard } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';
 import { Button, Checkbox, Space, Tree } from 'antd';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const fieldNames = {
   title: 'label',
   key: 'id',
   children: 'children',
 };
-const MenuTree: FC = () => {
+
+const MenuTree: FC<{ onChange: (checkedMenuIds: number[]) => void }> = ({ onChange }) => {
   const { data } = useQueryMenuTree();
 
-  const [checkedKeys, setCheckedKeys] = useState<number[]>();
+  const [checkedKeys, setCheckedKeys] = useState<number[]>([]);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
   const [checkStrictly, setCheckStrictly] = useState<boolean>();
-
-  console.log(data);
 
   const allExpandedKeys = data?.parentIds ?? [];
 
   const isAllExpanded = expandedKeys && expandedKeys.length > 0 && expandedKeys.length === allExpandedKeys.length;
 
+  useEffect(() => {
+    onChange(checkedKeys);
+  }, [checkedKeys]);
+
   return (
-    <ProCard bordered ghost>
-      <Space>
+    <ProCard bordered>
+      <Space className="mb-2">
         <Button
           size="small"
           icon={isAllExpanded ? <CaretDownOutlined /> : <CaretRightOutlined />}

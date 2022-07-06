@@ -28,7 +28,7 @@ export const CRoleKey: ProItem = {
 
 // 角色排序
 export const CRoleSort: ProItem = {
-  title: '角色排序',
+  title: '显示排序',
   dataIndex: 'roleSort',
   key: 'roleSort',
   valueType: 'text',
