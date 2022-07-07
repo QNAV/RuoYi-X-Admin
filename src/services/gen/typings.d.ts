@@ -34,33 +34,11 @@ declare namespace API {
     tableName: string;
   };
 
-  type GenInfoDto = GenTableRes;
-
-  type GenPostDbListParams = {
-    /** 当前页数 */
-    pageNum?: number;
-    /** 分页大小 */
-    pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
-  };
+  type GenInfoVo = GenTableRes;
 
   type GenPostImportTableParams = {
     /** 业务生成表名称组 */
     tables: string;
-  };
-
-  type GenPostListParams = {
-    /** 当前页数 */
-    pageNum?: number;
-    /** 分页大小 */
-    pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
   };
 
   type GenPostRemoveParams = {
@@ -172,11 +150,19 @@ declare namespace API {
     usableColumn?: boolean;
   };
 
-  type GenTableQuery = {
+  type GenTablePageQuery = {
     /** 开始创建时间 */
     beginCreateTime?: string;
     /** 结束创建时间 */
     endCreateTime?: string;
+    /** 排序的方向 */
+    isAsc?: string;
+    /** 排序列 */
+    orderByColumn?: string;
+    /** 当前页数 */
+    pageNum?: number;
+    /** 分页大小 */
+    pageSize?: number;
     /** 表描述 */
     tableComment?: string;
     /** 表名称 */
@@ -312,11 +298,11 @@ declare namespace API {
     updateTime?: string;
   };
 
-  type ResponseGenInfoDto = {
+  type ResponseGenInfoVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: GenInfoDto;
+    data: GenInfoVo;
     /** 消息内容 */
     msg: string;
   };

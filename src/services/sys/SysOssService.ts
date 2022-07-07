@@ -18,19 +18,11 @@ export async function SysOssGetDownload(
 }
 
 /** 查询OSS对象存储列表 POST /system/oss/list */
-export async function SysOssPostList(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.SysOssPostListParams,
-  body: API.SysOssQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysOssPostList(body: API.SysOssPageQuery, options?: { [key: string]: any }) {
   return request<API.TableDataInfoSysOssVo>('/system/oss/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    params: {
-      ...params,
     },
     data: body,
     ...(options || {}),
@@ -89,7 +81,7 @@ export async function SysOssPostUpload(
     }
   });
 
-  return request<API.ResponseOssUploadDTO>('/system/oss/upload', {
+  return request<API.ResponseOssUploadVo>('/system/oss/upload', {
     method: 'POST',
     params: {
       ...params,

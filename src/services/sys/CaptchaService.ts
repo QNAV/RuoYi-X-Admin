@@ -4,7 +4,7 @@ import { request } from '@/utils';
 
 /** 生成验证码 GET /captchaImage */
 export async function CaptchaGetGetCode(options?: { [key: string]: any }) {
-  return request<API.ResponseCaptchaImageDto>('/captchaImage', {
+  return request<API.ResponseCaptchaImageVo>('/captchaImage', {
     method: 'GET',
     ...(options || {}),
   });

@@ -54,19 +54,11 @@ export async function SysDictTypeGetInfo(
 }
 
 /** 查询字典类型列表 POST /system/dict/type/list */
-export async function SysDictTypePostList(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.SysDictTypePostListParams,
-  body: API.SysDictTypeQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysDictTypePostList(body: API.SysDictTypePageQuery, options?: { [key: string]: any }) {
   return request<API.TableDataInfoSysDictType>('/system/dict/type/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    params: {
-      ...params,
     },
     data: body,
     ...(options || {}),

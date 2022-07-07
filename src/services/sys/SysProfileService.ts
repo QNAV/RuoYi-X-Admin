@@ -4,7 +4,7 @@ import { request } from '@/utils';
 
 /** 个人信息 GET /system/user/profile */
 export async function SysProfileGetProfile(options?: { [key: string]: any }) {
-  return request<API.ResponseProfileDTO>('/system/user/profile', {
+  return request<API.ResponseProfileVo>('/system/user/profile', {
     method: 'GET',
     ...(options || {}),
   });
@@ -44,7 +44,7 @@ export async function SysProfilePostAvatar(
     }
   });
 
-  return request<API.ResponseAvatarUploadDTO>('/system/user/profile/avatar', {
+  return request<API.ResponseAvatarUploadVo>('/system/user/profile/avatar', {
     method: 'POST',
     params: {
       ...params,

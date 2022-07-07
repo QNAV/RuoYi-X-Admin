@@ -13,12 +13,12 @@ declare namespace API {
     userIds: number[];
   };
 
-  type AvatarUploadDTO = {
+  type AvatarUploadVo = {
     /** 头像地址 */
     imgUrl?: string;
   };
 
-  type CacheInfoDTO = {
+  type CacheInfoVo = {
     /** redis命令统计 */
     commandStats?: Record<string, any>[];
     /** 数据库大小 */
@@ -32,7 +32,7 @@ declare namespace API {
     phoneNumber: string;
   };
 
-  type CaptchaImageDto = {
+  type CaptchaImageVo = {
     /** 验证码开关 */
     captchaOnOff?: boolean;
     /** 图片base64 */
@@ -45,7 +45,7 @@ declare namespace API {
 
   type Comparableobject = true;
 
-  type LoginDTO = {
+  type LoginVo = {
     /** 身份令牌 */
     token?: string;
   };
@@ -61,7 +61,7 @@ declare namespace API {
     title?: string;
   };
 
-  type OssUploadDTO = {
+  type OssUploadVo = {
     /** 原名 */
     fileName?: string;
     /** 对象存储主键 */
@@ -70,7 +70,7 @@ declare namespace API {
     url?: string;
   };
 
-  type ProfileDTO = {
+  type ProfileVo = {
     /** 用户所属岗位组 */
     postGroup?: string;
     /** 用户所属角色组 */
@@ -92,29 +92,29 @@ declare namespace API {
     uuid: string;
   };
 
-  type ResponseAvatarUploadDTO = {
+  type ResponseAvatarUploadVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: AvatarUploadDTO;
+    data: AvatarUploadVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseCacheInfoDTO = {
+  type ResponseCacheInfoVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: CacheInfoDTO;
+    data: CacheInfoVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseCaptchaImageDto = {
+  type ResponseCaptchaImageVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: CaptchaImageDto;
+    data: CaptchaImageVo;
     /** 消息内容 */
     msg: string;
   };
@@ -200,47 +200,47 @@ declare namespace API {
     msg: string;
   };
 
-  type ResponseLoginDTO = {
+  type ResponseLoginVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: LoginDTO;
+    data: LoginVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseOssUploadDTO = {
+  type ResponseOssUploadVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: OssUploadDTO;
+    data: OssUploadVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseProfileDTO = {
+  type ResponseProfileVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: ProfileDTO;
+    data: ProfileVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseRoleDeptTreeSelectDTO = {
+  type ResponseRoleDeptTreeSelectVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: RoleDeptTreeSelectDTO;
+    data: RoleDeptTreeSelectVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseRoleMenuTreeSelectDTO = {
+  type ResponseRoleMenuTreeSelectVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: RoleMenuTreeSelectDTO;
+    data: RoleMenuTreeSelectVo;
     /** 消息内容 */
     msg: string;
   };
@@ -326,29 +326,29 @@ declare namespace API {
     msg: string;
   };
 
-  type ResponseUserAuthRoleDTO = {
+  type ResponseUserAuthRoleVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: UserAuthRoleDTO;
+    data: UserAuthRoleVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseUserDetailDTO = {
+  type ResponseUserDetailVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: UserDetailDTO;
+    data: UserDetailVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseUserInfoDTO = {
+  type ResponseUserInfoVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: UserInfoDTO;
+    data: UserInfoVo;
     /** 消息内容 */
     msg: string;
   };
@@ -360,14 +360,14 @@ declare namespace API {
     msg: string;
   };
 
-  type RoleDeptTreeSelectDTO = {
+  type RoleDeptTreeSelectVo = {
     /** 选中部门ID列表 */
     checkedKeys?: number[];
     /** 下拉树结构列表 */
     depts?: Record<string, any>[];
   };
 
-  type RoleMenuTreeSelectDTO = {
+  type RoleMenuTreeSelectVo = {
     /** 菜单树信息keys */
     checkedKeys?: number[];
     /** 前端所需要下拉树结构 */
@@ -435,15 +435,25 @@ declare namespace API {
     configId: number;
   };
 
-  type SysConfigPostListParams = {
+  type SysConfigPageQuery = {
+    /** 开始时间 */
+    beginTime?: string;
+    /** 参数键名 */
+    configKey?: string;
+    /** 参数名称 */
+    configName?: string;
+    /** 系统内置（Y是 N否） */
+    configType?: string;
+    /** 结束时间 */
+    endTime?: string;
+    /** 排序的方向 */
+    isAsc?: string;
+    /** 排序列 */
+    orderByColumn?: string;
     /** 当前页数 */
     pageNum?: number;
     /** 分页大小 */
     pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
   };
 
   type SysConfigPostRemoveParams = {
@@ -582,15 +592,21 @@ declare namespace API {
     dictType: string;
   };
 
-  type SysDictDataPostListParams = {
+  type SysDictDataPageQuery = {
+    /** 字典标签 */
+    dictLabel?: string;
+    /** 字典类型 */
+    dictType?: string;
+    /** 排序的方向 */
+    isAsc?: string;
+    /** 排序列 */
+    orderByColumn?: string;
     /** 当前页数 */
     pageNum?: number;
     /** 分页大小 */
     pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
+    /** 状态（0正常 1停用） */
+    status?: string;
   };
 
   type SysDictDataPostRemoveParams = {
@@ -696,15 +712,25 @@ declare namespace API {
     dictId: number;
   };
 
-  type SysDictTypePostListParams = {
+  type SysDictTypePageQuery = {
+    /** 开始时间 */
+    beginTime?: string;
+    /** 字典名称 */
+    dictName?: string;
+    /** 字典类型 */
+    dictType?: string;
+    /** 结束时间 */
+    endTime?: string;
+    /** 排序的方向 */
+    isAsc?: string;
+    /** 排序列 */
+    orderByColumn?: string;
     /** 当前页数 */
     pageNum?: number;
     /** 分页大小 */
     pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
+    /** 状态（0正常 1停用） */
+    status?: string;
   };
 
   type SysDictTypePostRemoveParams = {
@@ -751,15 +777,25 @@ declare namespace API {
     userName?: string;
   };
 
-  type SysLogininforPostListParams = {
+  type SysLogininforPageQuery = {
+    /** 开始时间 */
+    beginTime?: string;
+    /** 结束时间 */
+    endTime?: string;
+    /** 登录IP地址 */
+    ipaddr?: string;
+    /** 排序的方向 */
+    isAsc?: string;
+    /** 排序列 */
+    orderByColumn?: string;
     /** 当前页数 */
     pageNum?: number;
     /** 分页大小 */
     pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
+    /** 登录状态 0成功 1失败 */
+    status?: string;
+    /** 用户账号 */
+    userName?: string;
   };
 
   type SysLogininforPostRemoveParams = {
@@ -841,8 +877,16 @@ declare namespace API {
   };
 
   type SysMenuQuery = {
+    /** 排序的方向 */
+    isAsc?: string;
     /** 菜单名称 */
     menuName?: string;
+    /** 排序列 */
+    orderByColumn?: string;
+    /** 当前页数 */
+    pageNum?: number;
+    /** 分页大小 */
+    pageSize?: number;
     /** 菜单状态（0显示 1隐藏） */
     status?: string;
     /** 显示状态（0显示 1隐藏） */
@@ -877,29 +921,26 @@ declare namespace API {
     noticeId: number;
   };
 
-  type SysNoticePostListParams = {
+  type SysNoticePageQuery = {
+    /** 创建者 */
+    createBy?: string;
+    /** 排序的方向 */
+    isAsc?: string;
+    /** 公告标题 */
+    noticeTitle?: string;
+    /** 公告类型（1通知 2公告） */
+    noticeType?: string;
+    /** 排序列 */
+    orderByColumn?: string;
     /** 当前页数 */
     pageNum?: number;
     /** 分页大小 */
     pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
   };
 
   type SysNoticePostRemoveParams = {
     /** 公告ID串 */
     noticeIds: number;
-  };
-
-  type SysNoticeQuery = {
-    /** 创建者 */
-    createBy?: string;
-    /** 公告标题 */
-    noticeTitle?: string;
-    /** 公告类型（1通知 2公告） */
-    noticeType?: string;
   };
 
   type SysOperLog = {
@@ -939,15 +980,29 @@ declare namespace API {
     title?: string;
   };
 
-  type SysOperLogPostListParams = {
+  type SysOperLogPageQuery = {
+    /** 开始时间 */
+    beginTime?: string;
+    /** 业务类型（0其它 1新增 2修改 3删除） */
+    businessType?: number;
+    /** 业务类型数组 */
+    businessTypes?: number[];
+    /** 结束时间 */
+    endTime?: string;
+    /** 排序的方向 */
+    isAsc?: string;
+    /** 操作人员 */
+    operName?: string;
+    /** 排序列 */
+    orderByColumn?: string;
     /** 当前页数 */
     pageNum?: number;
     /** 分页大小 */
     pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
+    /** 操作状态（0正常 1异常） */
+    status?: number;
+    /** 操作模块 */
+    title?: string;
   };
 
   type SysOperLogPostRemoveParams = {
@@ -972,7 +1027,44 @@ declare namespace API {
     title?: string;
   };
 
-  type SysOssConfigBo = {
+  type SysOssConfigAddBo = {
+    /** accessKey */
+    accessKey: string;
+    /** 桶名称 */
+    bucketName: string;
+    /** 配置key */
+    configKey: string;
+    /** 创建者 */
+    createBy?: string;
+    /** 创建时间 */
+    createTime?: string;
+    /** 自定义域名 */
+    domain?: string;
+    /** 访问站点 */
+    endpoint: string;
+    /** 扩展字段 */
+    ext1?: string;
+    /** 是否https（Y=是,N=否） */
+    isHttps?: string;
+    /** 主建 */
+    ossConfigId?: number;
+    /** 前缀 */
+    prefix?: string;
+    /** 域 */
+    region?: string;
+    /** 备注 */
+    remark?: string;
+    /** secretKey */
+    secretKey: string;
+    /** 状态（0=正常,1=停用） */
+    status?: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
+  };
+
+  type SysOssConfigEditBo = {
     /** accessKey */
     accessKey: string;
     /** 桶名称 */
@@ -1014,15 +1106,21 @@ declare namespace API {
     ossConfigId: number;
   };
 
-  type SysOssConfigPostListParams = {
+  type SysOssConfigPageQuery = {
+    /** 桶名称 */
+    bucketName?: string;
+    /** 配置key */
+    configKey?: string;
+    /** 排序的方向 */
+    isAsc?: string;
+    /** 排序列 */
+    orderByColumn?: string;
     /** 当前页数 */
     pageNum?: number;
     /** 分页大小 */
     pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
+    /** 状态（0=正常,1=停用） */
+    status?: string;
   };
 
   type SysOssConfigPostRemoveParams = {
@@ -1030,22 +1128,13 @@ declare namespace API {
     ossConfigIds: number;
   };
 
-  type SysOssConfigQuery = {
-    /** 桶名称 */
-    bucketName?: string;
-    /** 配置key */
-    configKey?: string;
-    /** 状态（0=正常,1=停用） */
-    status?: string;
-  };
-
   type SysOssConfigVo = {
     /** accessKey */
-    accessKey?: string;
+    accessKey: string;
     /** 桶名称 */
-    bucketName?: string;
+    bucketName: string;
     /** 配置key */
-    configKey?: string;
+    configKey: string;
     /** 自定义域名 */
     domain?: string;
     /** 访问站点 */
@@ -1053,9 +1142,9 @@ declare namespace API {
     /** 扩展字段 */
     ext1?: string;
     /** 是否https（Y=是,N=否） */
-    isHttps?: string;
+    isHttps: string;
     /** 主建 */
-    ossConfigId?: number;
+    ossConfigId: number;
     /** 前缀 */
     prefix?: string;
     /** 域 */
@@ -1063,9 +1152,9 @@ declare namespace API {
     /** 备注 */
     remark?: string;
     /** secretKey */
-    secretKey?: string;
+    secretKey: string;
     /** 状态（0=正常,1=停用） */
-    status?: string;
+    status: string;
   };
 
   type SysOssGetDownloadParams = {
@@ -1078,28 +1167,7 @@ declare namespace API {
     ossIds: number;
   };
 
-  type SysOssPostListParams = {
-    /** 当前页数 */
-    pageNum?: number;
-    /** 分页大小 */
-    pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
-  };
-
-  type SysOssPostRemoveParams = {
-    /** OSS对象ID组 */
-    ossIds: number;
-  };
-
-  type SysOssPostUploadParams = {
-    /** 文件 */
-    file: string;
-  };
-
-  type SysOssQuery = {
+  type SysOssPageQuery = {
     /** 开始创建时间 */
     beginCreateTime?: string;
     /** 创建者 */
@@ -1110,12 +1178,30 @@ declare namespace API {
     fileName?: string;
     /** 文件后缀名 */
     fileSuffix?: string;
+    /** 排序的方向 */
+    isAsc?: string;
+    /** 排序列 */
+    orderByColumn?: string;
     /** 原名 */
     originalName?: string;
+    /** 当前页数 */
+    pageNum?: number;
+    /** 分页大小 */
+    pageSize?: number;
     /** 服务商 */
     service?: string;
     /** URL地址 */
     url?: string;
+  };
+
+  type SysOssPostRemoveParams = {
+    /** OSS对象ID组 */
+    ossIds: number;
+  };
+
+  type SysOssPostUploadParams = {
+    /** 文件 */
+    file: string;
   };
 
   type SysOssVo = {
@@ -1167,15 +1253,21 @@ declare namespace API {
     postId: number;
   };
 
-  type SysPostPostListParams = {
+  type SysPostPageQuery = {
+    /** 排序的方向 */
+    isAsc?: string;
+    /** 排序列 */
+    orderByColumn?: string;
     /** 当前页数 */
     pageNum?: number;
     /** 分页大小 */
     pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
+    /** 岗位编码 */
+    postCode?: string;
+    /** 岗位名称 */
+    postName?: string;
+    /** 状态（0正常 1停用） */
+    status?: string;
   };
 
   type SysPostPostRemoveParams = {
@@ -1241,42 +1333,9 @@ declare namespace API {
     roleId: number;
   };
 
-  type SysRolePostAllocatedListParams = {
-    /** 当前页数 */
-    pageNum?: number;
-    /** 分页大小 */
-    pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
-  };
-
-  type SysRolePostListParams = {
-    /** 当前页数 */
-    pageNum?: number;
-    /** 分页大小 */
-    pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
-  };
-
   type SysRolePostRemoveParams = {
     /** 角色ID串 */
     roleIds: number;
-  };
-
-  type SysRolePostUnallocatedListParams = {
-    /** 当前页数 */
-    pageNum?: number;
-    /** 分页大小 */
-    pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
   };
 
   type SysRoleQuery = {
@@ -1284,6 +1343,14 @@ declare namespace API {
     beginCreateTime?: string;
     /** 结束创建时间 */
     endCreateTime?: string;
+    /** 排序的方向 */
+    isAsc?: string;
+    /** 排序列 */
+    orderByColumn?: string;
+    /** 当前页数 */
+    pageNum?: number;
+    /** 分页大小 */
+    pageSize?: number;
     /** 角色ID */
     roleId?: number;
     /** 角色权限 */
@@ -1464,22 +1531,38 @@ declare namespace API {
     tokenId: string;
   };
 
+  type SysUserPageQuery = {
+    /** 开始创建时间 */
+    beginCreateTime?: string;
+    /** 部门ID */
+    deptId?: number;
+    /** 结束创建时间 */
+    endCreateTime?: string;
+    /** 排序的方向 */
+    isAsc?: string;
+    /** 排序列 */
+    orderByColumn?: string;
+    /** 当前页数 */
+    pageNum?: number;
+    /** 分页大小 */
+    pageSize?: number;
+    /** 手机号码 */
+    phoneNumber?: string;
+    /** 角色ID */
+    roleId?: number;
+    /** 帐号状态（0正常 1停用） */
+    status?: string;
+    /** 用户ID */
+    userId?: number;
+    /** 用户账号 */
+    userName?: string;
+  };
+
   type SysUserPostImportDataParams = {
     /** 导入文件 */
     file: string;
     /** updateSupport */
     updateSupport?: boolean;
-  };
-
-  type SysUserPostListParams = {
-    /** 当前页数 */
-    pageNum?: number;
-    /** 分页大小 */
-    pageSize?: number;
-    /** 排序列 */
-    orderByColumn?: string;
-    /** 排序的方向 */
-    isAsc?: string;
   };
 
   type SysUserPostRemoveParams = {
@@ -1516,7 +1599,7 @@ declare namespace API {
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门对象 */
-    dept?: SysDeptReq;
+    dept?: SysDept;
     /** 部门ID */
     deptId?: number;
     /** 用户邮箱 */
@@ -1569,7 +1652,7 @@ declare namespace API {
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门对象 */
-    dept?: SysDeptRes;
+    dept?: SysDept;
     /** 部门ID */
     deptId?: number;
     /** 用户邮箱 */
@@ -1825,14 +1908,14 @@ declare namespace API {
     oldPassword: string;
   };
 
-  type UserAuthRoleDTO = {
+  type UserAuthRoleVo = {
     /** 授权角色列表 */
     roles?: SysRoleRes[];
     /** 用户信息业务对象 */
     user?: SysUserRes;
   };
 
-  type UserDetailDTO = {
+  type UserDetailVo = {
     /** 岗位ID列表 */
     postIds?: number[];
     /** 岗位列表 */
@@ -1845,7 +1928,7 @@ declare namespace API {
     user?: SysUserRes;
   };
 
-  type UserInfoDTO = {
+  type UserInfoVo = {
     /** 权限集合 */
     permissions?: string[];
     /** 角色集合 */

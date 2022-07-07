@@ -4,7 +4,7 @@ import { request } from '@/utils';
 
 /** 获取已登录用户信息 GET /info */
 export async function SysLoginGetInfo(options?: { [key: string]: any }) {
-  return request<API.ResponseUserInfoDTO>('/info', {
+  return request<API.ResponseUserInfoVo>('/info', {
     method: 'GET',
     ...(options || {}),
   });
@@ -12,7 +12,7 @@ export async function SysLoginGetInfo(options?: { [key: string]: any }) {
 
 /** 用户名登录方法 POST /login */
 export async function SysLoginPostLogin(body: API.UserNameLoginBody, options?: { [key: string]: any }) {
-  return request<API.ResponseLoginDTO>('/login', {
+  return request<API.ResponseLoginVo>('/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -51,19 +51,11 @@ export async function SysLogininforPostExport(body: API.SysLogininforQuery, opti
 }
 
 /** 查询系统访问记录列表 POST /monitor/logininfor/list */
-export async function SysLogininforPostList(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.SysLogininforPostListParams,
-  body: API.SysLogininforQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysLogininforPostList(body: API.SysLogininforPageQuery, options?: { [key: string]: any }) {
   return request<API.TableDataInfoSysLogininfor>('/monitor/logininfor/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    params: {
-      ...params,
     },
     data: body,
     ...(options || {}),
@@ -95,7 +87,7 @@ export async function SysLoginGetRouters(options?: { [key: string]: any }) {
 
 /** 短信登录(示例) POST /smsLogin */
 export async function SysLoginPostSmsLogin(body: API.SmsLoginBody, options?: { [key: string]: any }) {
-  return request<API.ResponseLoginDTO>('/smsLogin', {
+  return request<API.ResponseLoginVo>('/smsLogin', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -111,7 +103,7 @@ export async function SysLoginGetXcxLogin(
   params: API.SysLoginGetXcxLoginParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseLoginDTO>('/xcxLogin', {
+  return request<API.ResponseLoginVo>('/xcxLogin', {
     method: 'GET',
     params: {
       ...params,

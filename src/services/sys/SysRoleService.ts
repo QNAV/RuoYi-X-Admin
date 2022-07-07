@@ -15,19 +15,11 @@ export async function SysRolePostAdd(body: API.SysRoleReq, options?: { [key: str
 }
 
 /** 查询已分配用户角色列表 POST /system/role/authUser/allocatedList */
-export async function SysRolePostAllocatedList(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.SysRolePostAllocatedListParams,
-  body: API.SysUserQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysRolePostAllocatedList(body: API.SysUserPageQuery, options?: { [key: string]: any }) {
   return request<API.TableDataInfoSysUser>('/system/role/authUser/allocatedList', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    params: {
-      ...params,
     },
     data: body,
     ...(options || {}),
@@ -71,19 +63,11 @@ export async function SysUserPostSelectAuthUserAll(body: API.AuthUserAllBody, op
 }
 
 /** 查询未分配用户角色列表 POST /system/role/authUser/unallocatedList */
-export async function SysRolePostUnallocatedList(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.SysRolePostUnallocatedListParams,
-  body: API.SysUserQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysRolePostUnallocatedList(body: API.SysUserPageQuery, options?: { [key: string]: any }) {
   return request<API.TableDataInfoSysUser>('/system/role/authUser/unallocatedList', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    params: {
-      ...params,
     },
     data: body,
     ...(options || {}),
@@ -154,19 +138,11 @@ export async function SysRoleGetInfo(
 }
 
 /** 查询角色信息列表 POST /system/role/list */
-export async function SysRolePostList(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.SysRolePostListParams,
-  body: API.SysRoleQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysRolePostList(body: API.SysRoleQuery, options?: { [key: string]: any }) {
   return request<API.TableDataInfoSysRole>('/system/role/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    params: {
-      ...params,
     },
     data: body,
     ...(options || {}),

@@ -20,7 +20,7 @@ export async function SysUserGetAuthRole(
   params: API.SysUserGetAuthRoleParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseUserAuthRoleDTO>('/system/user/authRole', {
+  return request<API.ResponseUserAuthRoleVo>('/system/user/authRole', {
     method: 'GET',
     params: {
       ...params,
@@ -112,7 +112,7 @@ export async function SysUserGetInfo(
   params: API.SysUserGetInfoParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseUserDetailDTO>('/system/user/info', {
+  return request<API.ResponseUserDetailVo>('/system/user/info', {
     method: 'GET',
     params: {
       ...params,
@@ -134,19 +134,11 @@ export async function SysUserPostInsertAuthRole(body: API.AuthRoleAllBody, optio
 }
 
 /** 获取用户列表 POST /system/user/list */
-export async function SysUserPostList(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.SysUserPostListParams,
-  body: API.SysUserQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysUserPostList(body: API.SysUserPageQuery, options?: { [key: string]: any }) {
   return request<API.TableDataInfoSysUser>('/system/user/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    params: {
-      ...params,
     },
     data: body,
     ...(options || {}),

@@ -3,7 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增对象存储配置 POST /system/oss/config/add */
-export async function SysOssConfigPostAdd(body: API.SysOssConfigBo, options?: { [key: string]: any }) {
+export async function SysOssConfigPostAdd(body: API.SysOssConfigAddBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/oss/config/add', {
     method: 'POST',
     headers: {
@@ -15,7 +15,7 @@ export async function SysOssConfigPostAdd(body: API.SysOssConfigBo, options?: { 
 }
 
 /** 状态修改 POST /system/oss/config/changeStatus */
-export async function SysOssConfigPostChangeStatus(body: API.SysOssConfigBo, options?: { [key: string]: any }) {
+export async function SysOssConfigPostChangeStatus(body: API.SysOssConfigEditBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/oss/config/changeStatus', {
     method: 'POST',
     headers: {
@@ -27,7 +27,7 @@ export async function SysOssConfigPostChangeStatus(body: API.SysOssConfigBo, opt
 }
 
 /** 修改对象存储配置 POST /system/oss/config/edit */
-export async function SysOssConfigPostEdit(body: API.SysOssConfigBo, options?: { [key: string]: any }) {
+export async function SysOssConfigPostEdit(body: API.SysOssConfigEditBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/oss/config/edit', {
     method: 'POST',
     headers: {
@@ -54,19 +54,11 @@ export async function SysOssConfigGetInfo(
 }
 
 /** 查询对象存储配置列表 POST /system/oss/config/list */
-export async function SysOssConfigPostList(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.SysOssConfigPostListParams,
-  body: API.SysOssConfigQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysOssConfigPostList(body: API.SysOssConfigPageQuery, options?: { [key: string]: any }) {
   return request<API.TableDataInfoSysOssConfigVo>('/system/oss/config/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    params: {
-      ...params,
     },
     data: body,
     ...(options || {}),

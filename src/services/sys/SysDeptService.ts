@@ -89,7 +89,7 @@ export async function SysDeptGetRoleDeptTreeSelect(
   params: API.SysDeptGetRoleDeptTreeSelectParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseRoleDeptTreeSelectDTO>('/system/dept/roleDeptTreeSelect', {
+  return request<API.ResponseRoleDeptTreeSelectVo>('/system/dept/roleDeptTreeSelect', {
     method: 'GET',
     params: {
       ...params,

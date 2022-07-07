@@ -33,19 +33,11 @@ export async function GenGetColumnList(
 }
 
 /** 查询数据库列表 POST /tool/gen/db/list */
-export async function GenPostDbList(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.GenPostDbListParams,
-  body: API.GenTableQuery,
-  options?: { [key: string]: any },
-) {
+export async function GenPostDbList(body: API.GenTablePageQuery, options?: { [key: string]: any }) {
   return request<API.TableDataInfoGenTable>('/tool/gen/db/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    params: {
-      ...params,
     },
     data: body,
     ...(options || {}),
@@ -115,7 +107,7 @@ export async function GenGetInfo(
   params: API.GenGetInfoParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseGenInfoDto>('/tool/gen/info', {
+  return request<API.ResponseGenInfoVo>('/tool/gen/info', {
     method: 'GET',
     params: {
       ...params,
@@ -125,19 +117,11 @@ export async function GenGetInfo(
 }
 
 /** 查询代码生成列表 POST /tool/gen/list */
-export async function GenPostList(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.GenPostListParams,
-  body: API.GenTableQuery,
-  options?: { [key: string]: any },
-) {
+export async function GenPostList(body: API.GenTablePageQuery, options?: { [key: string]: any }) {
   return request<API.TableDataInfoGenTable>('/tool/gen/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    params: {
-      ...params,
     },
     data: body,
     ...(options || {}),

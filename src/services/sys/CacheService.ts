@@ -4,7 +4,7 @@ import { request } from '@/utils';
 
 /** 获取缓存监控详细信息 GET /monitor/cache/info */
 export async function CacheGetInfo(options?: { [key: string]: any }) {
-  return request<API.ResponseCacheInfoDTO>('/monitor/cache/info', {
+  return request<API.ResponseCacheInfoVo>('/monitor/cache/info', {
     method: 'GET',
     ...(options || {}),
   });

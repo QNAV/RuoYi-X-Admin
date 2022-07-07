@@ -23,19 +23,11 @@ export async function SysOperLogPostExport(body: API.SysOperLogQuery, options?: 
 }
 
 /** 查询操作日志记录列表 POST /monitor/operlog/list */
-export async function SysOperLogPostList(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.SysOperLogPostListParams,
-  body: API.SysOperLogQuery,
-  options?: { [key: string]: any },
-) {
+export async function SysOperLogPostList(body: API.SysOperLogPageQuery, options?: { [key: string]: any }) {
   return request<API.TableDataInfoSysOperLog>('/monitor/operlog/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    params: {
-      ...params,
     },
     data: body,
     ...(options || {}),

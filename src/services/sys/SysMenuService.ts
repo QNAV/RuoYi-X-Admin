@@ -74,7 +74,7 @@ export async function SysMenuGetRoleMenuTreeSelect(
   params: API.SysMenuGetRoleMenuTreeSelectParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseRoleMenuTreeSelectDTO>('/system/menu/roleMenuTreeSelect', {
+  return request<API.ResponseRoleMenuTreeSelectVo>('/system/menu/roleMenuTreeSelect', {
     method: 'GET',
     params: {
       ...params,
