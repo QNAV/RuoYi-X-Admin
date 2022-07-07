@@ -1,5 +1,4 @@
 import type { SortOrder } from 'antd/es/table/interface';
-import { omit } from 'lodash-es';
 import type { Key } from 'react';
 
 type Sort = Record<string, SortOrder>;
@@ -45,26 +44,9 @@ export const convertPaginationParams = <T extends Record<string, any>>(
     keyword?: string;
   },
 ) => {
-  const { pageSize, current } = params;
+  const { current, ...restParams } = params;
 
-  return pageSize && current ? { pageSize, pageNum: current } : {};
-};
-
-export const omitPaginationParams = <T extends Record<string, any>>(
-  params: T & {
-    pageSize?: number;
-    current?: number;
-    keyword?: string;
-  },
-): Omit<
-  T & {
-    pageSize?: number;
-    current?: number;
-    keyword?: string;
-  },
-  'pageSize' | 'current' | 'keyword'
-> => {
-  return omit(params, ['pageSize', 'current', 'keyword']);
+  return restParams?.pageSize && current ? { pageNum: current, ...restParams } : params;
 };
 
 export const convertParams = <T extends Record<string, any>>(
@@ -73,10 +55,12 @@ export const convertParams = <T extends Record<string, any>>(
     current?: number;
     keyword?: string;
   },
-  sort: Sort = {},
+  sort: Sort,
+  filter: Filter,
 ) => {
   return {
     ...convertPaginationParams(params),
     ...convertSortParams(sort),
+    ...convertFilterParams(filter),
   };
 };

@@ -12,7 +12,7 @@ import ButtonCreate from '@/pages/system/role/components/ButtonCreate';
 import ButtonDelete from '@/pages/system/role/components/ButtonDelete';
 import { tableActionsAtom } from '@/pages/system/role/model';
 import { SysRolePostList } from '@/services/sys/SysRoleService';
-import { convertParams, omitPaginationParams } from '@/utils';
+import { convertParams } from '@/utils';
 import { ProTable } from '@ant-design/pro-components';
 import { PageContainer } from '@ant-design/pro-layout';
 
@@ -43,11 +43,8 @@ export default function () {
             ),
           },
         ]}
-        request={async (params) => {
-          const { rows, total } = await SysRolePostList(
-            convertParams(params, { createTime: 'ascend' }),
-            omitPaginationParams(params),
-          );
+        request={async (...params) => {
+          const { rows, total } = await SysRolePostList(convertParams(...params));
 
           return { data: rows, total, success: true };
         }}

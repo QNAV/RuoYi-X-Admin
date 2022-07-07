@@ -2,7 +2,7 @@ import { CCreateTime, CCreateTimeRange, CIndex, CTableComment, CTableName, CUpda
 import { tableActionsAtom } from '@/pages/tool/gen/model';
 import { GenPostDbList, GenPostImportTable } from '@/services/gen/GenService';
 import type { ProItem } from '@/types';
-import { convertParams, omitPaginationParams } from '@/utils';
+import { convertParams } from '@/utils';
 import { CloudUploadOutlined } from '@ant-design/icons';
 import type { ActionType } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
@@ -61,13 +61,13 @@ const ButtonImport: FC = () => {
             },
           }}
           options={false}
-          request={async (params, sort, filter) => {
-            console.log(sort, filter);
-            const { rows, total } = await GenPostDbList(convertParams(params, sort), omitPaginationParams(params));
+          request={async (...params) => {
+            const { rows, total } = await GenPostDbList(convertParams(...params));
 
             return {
               data: rows,
               total: total,
+              success: true,
             };
           }}
         />

@@ -12,7 +12,7 @@ import ModalPreview from '@/pages/tool/gen/components/ModalPreview';
 import { tableActionsAtom } from '@/pages/tool/gen/model';
 import { GenPostList } from '@/services/gen/GenService';
 import type { ProItem } from '@/types';
-import { convertParams, omitPaginationParams } from '@/utils';
+import { convertParams } from '@/utils';
 import { ProTable } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -82,8 +82,8 @@ const GenPage: FC = () => {
         }}
         columns={columns}
         toolbar={{ actions: [<ButtonImport key="ButtonCreate" />] }}
-        request={async (params, sort) => {
-          const { total, rows } = await GenPostList(convertParams(params, sort), omitPaginationParams(params));
+        request={async (...params) => {
+          const { total, rows } = await GenPostList(convertParams(...params));
 
           return {
             data: rows,
