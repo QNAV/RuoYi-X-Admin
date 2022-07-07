@@ -22,6 +22,7 @@ export default function () {
   return (
     <PageContainer>
       <ProTable<API.SysRoleRes>
+        rowKey="roleId"
         actionRef={actionRef}
         columns={[
           CRoleId,
@@ -50,7 +51,7 @@ export default function () {
 
           return { data: rows, total, success: true };
         }}
-        toolbar={{ actions: [<ButtonCreate key="ButtonCreate" reloadTable={() => actionRef?.current?.reload()} />] }}
+        toolbar={{ actions: [<ButtonCreate key="ButtonCreate" />] }}
       />
     </PageContainer>
   );

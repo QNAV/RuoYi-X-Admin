@@ -1,10 +1,10 @@
 import { useQueryMenuTree } from '@/pages/system/role/model';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { ProCard } from '@ant-design/pro-components';
-import type { TreeProps } from 'antd';
+import type { CheckboxProps, TreeProps } from 'antd';
 import { Button, Checkbox, Space, Tree } from 'antd';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const fieldNames = {
   title: 'label',
@@ -12,20 +12,41 @@ const fieldNames = {
   children: 'children',
 };
 
-const MenuTree: FC<{ onChange: (checkedMenuIds: number[]) => void }> = ({ onChange }) => {
+export interface MenuTreeValue {
+  menuIds: number[];
+  menuCheckStrictly: boolean;
+}
+
+export interface MenuTreeProps {
+  value?: MenuTreeValue;
+  onChange?: (value: MenuTreeValue) => void;
+}
+
+const MenuTree: FC<MenuTreeProps> = ({ value, onChange }) => {
   const { data } = useQueryMenuTree();
 
-  const [checkedKeys, setCheckedKeys] = useState<number[]>([]);
+  const [menuIds, setMenuIds] = useState<number[]>([]);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
-  const [checkStrictly, setCheckStrictly] = useState<boolean>();
+  const [checkStrictly, setCheckStrictly] = useState<boolean>(false);
+
+  const triggerChange = (changedValue: Partial<MenuTreeValue>) => {
+    onChange?.({ menuIds, menuCheckStrictly: checkStrictly, ...value, ...changedValue });
+  };
+
+  const onCheck: TreeProps['onCheck'] = (k) => {
+    const keys = Array.isArray(k) ? (k as number[]) : (k?.checked as number[]);
+
+    setMenuIds(keys);
+    triggerChange({ menuIds: keys });
+  };
+
+  const onCheckStrictlyChange: CheckboxProps['onChange'] = (e) => {
+    setCheckStrictly(!e.target.checked);
+    triggerChange({ menuCheckStrictly: !e.target.checked });
+  };
 
   const allExpandedKeys = data?.parentIds ?? [];
-
   const isAllExpanded = expandedKeys && expandedKeys.length > 0 && expandedKeys.length === allExpandedKeys.length;
-
-  useEffect(() => {
-    onChange(checkedKeys);
-  }, [checkedKeys]);
 
   return (
     <ProCard bordered>
@@ -38,7 +59,7 @@ const MenuTree: FC<{ onChange: (checkedMenuIds: number[]) => void }> = ({ onChan
           {isAllExpanded ? '全部折叠' : '全部展开'}
         </Button>
 
-        <Checkbox defaultChecked onChange={(e) => setCheckStrictly(!e.target.checked)}>
+        <Checkbox defaultChecked onChange={onCheckStrictlyChange}>
           父子联动
         </Checkbox>
       </Space>
@@ -47,8 +68,8 @@ const MenuTree: FC<{ onChange: (checkedMenuIds: number[]) => void }> = ({ onChan
         checkable
         treeData={data?.treeData ?? []}
         fieldNames={fieldNames}
-        checkedKeys={checkedKeys}
-        onCheck={(keys) => setCheckedKeys(Array.isArray(keys) ? (keys as number[]) : (keys?.checked as number[]))}
+        checkedKeys={menuIds}
+        onCheck={onCheck}
         expandedKeys={expandedKeys}
         onExpand={setExpandedKeys}
         checkStrictly={checkStrictly}

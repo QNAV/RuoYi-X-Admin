@@ -1,10 +1,10 @@
-import { EnableDisableStatus, MapEnableDisableStatus } from '@/constants';
+import { EnableDisableStatus, MapEnableDisableStatus, ModalBodyStyle } from '@/constants';
+import type { MenuTreeValue } from '@/pages/system/role/components/MenuTree';
 import MenuTree from '@/pages/system/role/components/MenuTree';
 
 import { tableActionsAtom } from '@/pages/system/role/model';
 import { SysRolePostAdd } from '@/services/sys/SysRoleService';
 import { PlusOutlined } from '@ant-design/icons';
-import type { ProFormInstance } from '@ant-design/pro-components';
 import {
   ModalForm,
   ProFormDigit,
@@ -15,12 +15,14 @@ import {
 } from '@ant-design/pro-components';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
-import { useRef } from 'react';
 import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
+interface FormData extends API.SysRoleReq {
+  menuInfo?: MenuTreeValue;
+}
+
 const ButtonCreate: FC = () => {
-  const formRef = useRef<ProFormInstance>();
   const tableActions = useRecoilValue(tableActionsAtom);
 
   const { mutateAsync } = useMutation(SysRolePostAdd, {
@@ -31,7 +33,7 @@ const ButtonCreate: FC = () => {
   });
 
   return (
-    <ModalForm<API.SysRoleReq>
+    <ModalForm<FormData>
       title="新建角色"
       trigger={
         <Button type="primary" icon={<PlusOutlined />}>
@@ -39,10 +41,15 @@ const ButtonCreate: FC = () => {
         </Button>
       }
       onFinish={async (values) => {
-        await mutateAsync(values);
+        const { menuInfo = { menuIds: [], menuCheckStrictly: true }, ...r } = values;
+
+        await mutateAsync({ ...r, ...menuInfo });
         return true;
       }}
       width={500}
+      modalProps={{
+        bodyStyle: ModalBodyStyle,
+      }}
     >
       <ProFormText name="roleName" label="角色名称" rules={[{ required: true }]} />
 
@@ -62,15 +69,11 @@ const ButtonCreate: FC = () => {
         initialValue={EnableDisableStatus.ENABLE}
       />
 
-      <ProFormItem label="菜单权限">
-        <MenuTree
-          onChange={(e) => {
-            formRef?.current?.setFieldsValue({ menuIds: e });
-          }}
-        />
-      </ProFormItem>
-
       <ProFormTextArea name="remark" label="备注" />
+
+      <ProFormItem name="menuInfo" label="菜单权限">
+        <MenuTree />
+      </ProFormItem>
     </ModalForm>
   );
 };
