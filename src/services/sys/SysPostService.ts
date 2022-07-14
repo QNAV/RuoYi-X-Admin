@@ -3,7 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增岗位 POST /system/post/add */
-export async function SysPostPostAdd(body: API.SysPost, options?: { [key: string]: any }) {
+export async function SysPostPostAdd(body: API.SysPostAddBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/post/add', {
     method: 'POST',
     headers: {
@@ -15,7 +15,7 @@ export async function SysPostPostAdd(body: API.SysPost, options?: { [key: string
 }
 
 /** 修改岗位 POST /system/post/edit */
-export async function SysPostPostEdit(body: API.SysPost, options?: { [key: string]: any }) {
+export async function SysPostPostEdit(body: API.SysPostEditBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/post/edit', {
     method: 'POST',
     headers: {
@@ -27,7 +27,7 @@ export async function SysPostPostEdit(body: API.SysPost, options?: { [key: strin
 }
 
 /** 导出岗位列表 POST /system/post/export */
-export async function SysPostPostExport(body: API.SysPostQuery, options?: { [key: string]: any }) {
+export async function SysPostPostExport(body: API.SysPostQueryBo, options?: { [key: string]: any }) {
   return request<any>('/system/post/export', {
     method: 'POST',
     headers: {
@@ -44,7 +44,7 @@ export async function SysPostGetInfo(
   params: API.SysPostGetInfoParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseSysPost>('/system/post/info', {
+  return request<API.ResponseSysPostVo>('/system/post/info', {
     method: 'GET',
     params: {
       ...params,
@@ -54,8 +54,8 @@ export async function SysPostGetInfo(
 }
 
 /** 获取岗位列表 POST /system/post/list */
-export async function SysPostPostList(body: API.SysPostPageQuery, options?: { [key: string]: any }) {
-  return request<API.TableDataInfoSysPost>('/system/post/list', {
+export async function SysPostPostList(body: API.SysPostPageQueryBo, options?: { [key: string]: any }) {
+  return request<API.TableDataInfoSysPostVo>('/system/post/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ export async function SysPostPostList(body: API.SysPostPageQuery, options?: { [k
 
 /** 获取岗位选择框列表 GET /system/post/optionSelect */
 export async function SysPostGetOptionSelect(options?: { [key: string]: any }) {
-  return request<API.ResponseListSysPost>('/system/post/optionSelect', {
+  return request<API.ResponseListSysPostVo>('/system/post/optionSelect', {
     method: 'GET',
     ...(options || {}),
   });

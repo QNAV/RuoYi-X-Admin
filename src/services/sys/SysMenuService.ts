@@ -3,7 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增菜单 POST /system/menu/add */
-export async function SysMenuPostAdd(body: API.SysMenu, options?: { [key: string]: any }) {
+export async function SysMenuPostAdd(body: API.SysMenuAddBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/menu/add', {
     method: 'POST',
     headers: {
@@ -15,7 +15,7 @@ export async function SysMenuPostAdd(body: API.SysMenu, options?: { [key: string
 }
 
 /** 修改菜单 POST /system/menu/edit */
-export async function SysMenuPostEdit(body: API.SysMenu, options?: { [key: string]: any }) {
+export async function SysMenuPostEdit(body: API.SysMenuEditBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/menu/edit', {
     method: 'POST',
     headers: {
@@ -42,7 +42,7 @@ export async function SysMenuGetInfo(
 }
 
 /** 获取菜单列表 POST /system/menu/list */
-export async function SysMenuPostList(body: API.SysMenuQuery, options?: { [key: string]: any }) {
+export async function SysMenuPostList(body: API.SysMenuQueryBo, options?: { [key: string]: any }) {
   return request<API.ResponseListSysMenu>('/system/menu/list', {
     method: 'POST',
     headers: {
@@ -84,7 +84,7 @@ export async function SysMenuGetRoleMenuTreeSelect(
 }
 
 /** 获取菜单下拉树列表 POST /system/menu/treeSelect */
-export async function SysMenuPostTreeSelect(body: API.SysMenuQuery, options?: { [key: string]: any }) {
+export async function SysMenuPostTreeSelect(body: API.SysMenuQueryBo, options?: { [key: string]: any }) {
   return request<API.ResponseListTreelong>('/system/menu/treeSelect', {
     method: 'POST',
     headers: {

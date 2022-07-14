@@ -316,25 +316,18 @@ declare namespace API {
     msg: string;
   };
 
-  type ResponseVoid = {
-    /** 消息状态码 */
-    code: number;
-    /** 消息内容 */
-    msg: string;
-  };
-
   type TableDataGenTable = {
     /** 列表数据 */
-    rows?: GenTableRes[];
+    rows: GenTableRes[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
   type TableDataGenTableColumn = {
     /** 列表数据 */
-    rows?: GenTableColumnRes[];
+    rows: GenTableColumnRes[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
   type TableDataInfoGenTable = {

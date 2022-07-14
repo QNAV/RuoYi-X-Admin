@@ -3,7 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增字典类型 POST /system/dict/data/add */
-export async function SysDictDataPostAdd(body: API.SysDictDataReq, options?: { [key: string]: any }) {
+export async function SysDictDataPostAdd(body: API.SysDictDataAddBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/dict/data/add', {
     method: 'POST',
     headers: {
@@ -15,7 +15,7 @@ export async function SysDictDataPostAdd(body: API.SysDictDataReq, options?: { [
 }
 
 /** 修改保存字典类型 POST /system/dict/data/edit */
-export async function SysDictDataPostEdit(body: API.SysDictDataReq, options?: { [key: string]: any }) {
+export async function SysDictDataPostEdit(body: API.SysDictDataEditBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/dict/data/edit', {
     method: 'POST',
     headers: {
@@ -27,7 +27,7 @@ export async function SysDictDataPostEdit(body: API.SysDictDataReq, options?: { 
 }
 
 /** 导出字典数据列表 POST /system/dict/data/export */
-export async function SysDictDataPostExport(body: API.SysDictDataQuery, options?: { [key: string]: any }) {
+export async function SysDictDataPostExport(body: API.SysDictDataQueryBo, options?: { [key: string]: any }) {
   return request<any>('/system/dict/data/export', {
     method: 'POST',
     headers: {
@@ -44,7 +44,7 @@ export async function SysDictDataGetInfo(
   params: API.SysDictDataGetInfoParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseSysDictData>('/system/dict/data/info', {
+  return request<API.ResponseSysDictDataVo>('/system/dict/data/info', {
     method: 'GET',
     params: {
       ...params,
@@ -54,8 +54,8 @@ export async function SysDictDataGetInfo(
 }
 
 /** 查询字典数据列表 POST /system/dict/data/list */
-export async function SysDictDataPostList(body: API.SysDictDataPageQuery, options?: { [key: string]: any }) {
-  return request<API.TableDataInfoSysDictData>('/system/dict/data/list', {
+export async function SysDictDataPostList(body: API.SysDictDataPageQueryBo, options?: { [key: string]: any }) {
+  return request<API.TableDataInfoSysDictDataVo>('/system/dict/data/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export async function SysDictDataGetType(
   params: API.SysDictDataGetTypeParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseListSysDictData>('/system/dict/data/type', {
+  return request<API.ResponseListSysDictDataVo>('/system/dict/data/type', {
     method: 'GET',
     params: {
       ...params,

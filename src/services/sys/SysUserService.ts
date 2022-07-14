@@ -3,7 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增用户 POST /system/user/add */
-export async function SysUserPostAdd(body: API.SysUserReq, options?: { [key: string]: any }) {
+export async function SysUserPostAdd(body: API.SysUserAddBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/user/add', {
     method: 'POST',
     headers: {
@@ -42,7 +42,7 @@ export async function SysUserPostChangeStatus(body: API.SysUserReq, options?: { 
 }
 
 /** 修改用户 POST /system/user/edit */
-export async function SysUserPostEdit(body: API.SysUserReq, options?: { [key: string]: any }) {
+export async function SysUserPostEdit(body: API.SysUserEditBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/user/edit', {
     method: 'POST',
     headers: {
@@ -54,7 +54,7 @@ export async function SysUserPostEdit(body: API.SysUserReq, options?: { [key: st
 }
 
 /** 导出用户列表 POST /system/user/export */
-export async function SysUserPostExport(body: API.SysUserQuery, options?: { [key: string]: any }) {
+export async function SysUserPostExport(body: API.SysUserQueryBo, options?: { [key: string]: any }) {
   return request<any>('/system/user/export', {
     method: 'POST',
     headers: {
@@ -122,7 +122,7 @@ export async function SysUserGetInfo(
 }
 
 /** 用户授权角色 POST /system/user/insertAuthRole */
-export async function SysUserPostInsertAuthRole(body: API.AuthRoleAllBody, options?: { [key: string]: any }) {
+export async function SysUserPostInsertAuthRole(body: API.AuthRoleAllBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/user/insertAuthRole', {
     method: 'POST',
     headers: {
@@ -134,8 +134,8 @@ export async function SysUserPostInsertAuthRole(body: API.AuthRoleAllBody, optio
 }
 
 /** 获取用户列表 POST /system/user/list */
-export async function SysUserPostList(body: API.SysUserPageQuery, options?: { [key: string]: any }) {
-  return request<API.TableDataInfoSysUser>('/system/user/list', {
+export async function SysUserPostList(body: API.SysUserPageQueryBo, options?: { [key: string]: any }) {
+  return request<API.TableDataInfoSysUserVo>('/system/user/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

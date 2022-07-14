@@ -3,7 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增角色 POST /system/role/add */
-export async function SysRolePostAdd(body: API.SysRoleReq, options?: { [key: string]: any }) {
+export async function SysRolePostAdd(body: API.SysRole, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/role/add', {
     method: 'POST',
     headers: {
@@ -15,8 +15,8 @@ export async function SysRolePostAdd(body: API.SysRoleReq, options?: { [key: str
 }
 
 /** 查询已分配用户角色列表 POST /system/role/authUser/allocatedList */
-export async function SysRolePostAllocatedList(body: API.SysUserPageQuery, options?: { [key: string]: any }) {
-  return request<API.TableDataInfoSysUser>('/system/role/authUser/allocatedList', {
+export async function SysRolePostAllocatedList(body: API.SysUserPageQueryBo, options?: { [key: string]: any }) {
+  return request<API.TableDataInfoSysUserVo>('/system/role/authUser/allocatedList', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export async function SysRolePostCancelAuthUser(body: API.SysUserRole, options?:
 }
 
 /** 批量取消授权用户 POST /system/role/authUser/cancelAll */
-export async function SysUserPostCancelAuthUserAll(body: API.AuthUserAllBody, options?: { [key: string]: any }) {
+export async function SysUserPostCancelAuthUserAll(body: API.AuthUserAllBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/role/authUser/cancelAll', {
     method: 'POST',
     headers: {
@@ -51,7 +51,7 @@ export async function SysUserPostCancelAuthUserAll(body: API.AuthUserAllBody, op
 }
 
 /** 批量选择用户授权 POST /system/role/authUser/selectAll */
-export async function SysUserPostSelectAuthUserAll(body: API.AuthUserAllBody, options?: { [key: string]: any }) {
+export async function SysUserPostSelectAuthUserAll(body: API.AuthUserAllBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/role/authUser/selectAll', {
     method: 'POST',
     headers: {
@@ -63,8 +63,8 @@ export async function SysUserPostSelectAuthUserAll(body: API.AuthUserAllBody, op
 }
 
 /** 查询未分配用户角色列表 POST /system/role/authUser/unallocatedList */
-export async function SysRolePostUnallocatedList(body: API.SysUserPageQuery, options?: { [key: string]: any }) {
-  return request<API.TableDataInfoSysUser>('/system/role/authUser/unallocatedList', {
+export async function SysRolePostUnallocatedList(body: API.SysUserPageQueryBo, options?: { [key: string]: any }) {
+  return request<API.TableDataInfoSysUserVo>('/system/role/authUser/unallocatedList', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export async function SysRolePostUnallocatedList(body: API.SysUserPageQuery, opt
 }
 
 /** 状态修改 POST /system/role/changeStatus */
-export async function SysRolePostChangeStatus(body: API.SysRoleReq, options?: { [key: string]: any }) {
+export async function SysRolePostChangeStatus(body: API.SysRole, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/role/changeStatus', {
     method: 'POST',
     headers: {
@@ -87,7 +87,7 @@ export async function SysRolePostChangeStatus(body: API.SysRoleReq, options?: { 
 }
 
 /** 修改保存数据权限 POST /system/role/dataScope */
-export async function SysRolePostDataScope(body: API.SysRoleReq, options?: { [key: string]: any }) {
+export async function SysRolePostDataScope(body: API.SysRole, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/role/dataScope', {
     method: 'POST',
     headers: {
@@ -99,7 +99,7 @@ export async function SysRolePostDataScope(body: API.SysRoleReq, options?: { [ke
 }
 
 /** 修改保存角色 POST /system/role/edit */
-export async function SysRolePostEdit(body: API.SysRoleReq, options?: { [key: string]: any }) {
+export async function SysRolePostEdit(body: API.SysRole, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/role/edit', {
     method: 'POST',
     headers: {
@@ -111,7 +111,7 @@ export async function SysRolePostEdit(body: API.SysRoleReq, options?: { [key: st
 }
 
 /** 导出角色信息列表 POST /system/role/export */
-export async function SysRolePostExport(body: API.SysRoleQuery, options?: { [key: string]: any }) {
+export async function SysRolePostExport(body: API.SysRoleQueryBo, options?: { [key: string]: any }) {
   return request<any>('/system/role/export', {
     method: 'POST',
     headers: {
@@ -128,7 +128,7 @@ export async function SysRoleGetInfo(
   params: API.SysRoleGetInfoParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseSysRole>('/system/role/info', {
+  return request<API.ResponseSysRoleVo>('/system/role/info', {
     method: 'GET',
     params: {
       ...params,
@@ -138,8 +138,8 @@ export async function SysRoleGetInfo(
 }
 
 /** 查询角色信息列表 POST /system/role/list */
-export async function SysRolePostList(body: API.SysRoleQuery, options?: { [key: string]: any }) {
-  return request<API.TableDataInfoSysRole>('/system/role/list', {
+export async function SysRolePostList(body: API.SysRoleQueryBo, options?: { [key: string]: any }) {
+  return request<API.TableDataInfoSysRoleVo>('/system/role/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ export async function SysRolePostList(body: API.SysRoleQuery, options?: { [key: 
 
 /** 获取角色选择框列表 GET /system/role/optionSelect */
 export async function SysRoleGetOptionSelect(options?: { [key: string]: any }) {
-  return request<API.ResponseListSysRole>('/system/role/optionSelect', {
+  return request<API.ResponseListSysRoleVo>('/system/role/optionSelect', {
     method: 'GET',
     ...(options || {}),
   });

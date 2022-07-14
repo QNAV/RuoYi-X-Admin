@@ -3,7 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增参数配置 POST /system/config/add */
-export async function SysConfigPostAdd(body: API.SysConfig, options?: { [key: string]: any }) {
+export async function SysConfigPostAdd(body: API.SysConfigAddBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/config/add', {
     method: 'POST',
     headers: {
@@ -30,7 +30,7 @@ export async function SysConfigGetConfigKey(
 }
 
 /** 修改参数配置 POST /system/config/edit */
-export async function SysConfigPostEdit(body: API.SysConfig, options?: { [key: string]: any }) {
+export async function SysConfigPostEdit(body: API.SysConfigEditBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/config/edit', {
     method: 'POST',
     headers: {
@@ -42,7 +42,7 @@ export async function SysConfigPostEdit(body: API.SysConfig, options?: { [key: s
 }
 
 /** 导出参数配置列表 POST /system/config/export */
-export async function SysConfigPostExport(body: API.SysConfigQuery, options?: { [key: string]: any }) {
+export async function SysConfigPostExport(body: API.SysConfigQueryBo, options?: { [key: string]: any }) {
   return request<any>('/system/config/export', {
     method: 'POST',
     headers: {
@@ -59,7 +59,7 @@ export async function SysConfigGetInfo(
   params: API.SysConfigGetInfoParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseSysConfig>('/system/config/info', {
+  return request<API.ResponseSysConfigVo>('/system/config/info', {
     method: 'GET',
     params: {
       ...params,
@@ -69,8 +69,8 @@ export async function SysConfigGetInfo(
 }
 
 /** 获取参数配置列表 POST /system/config/list */
-export async function SysConfigPostList(body: API.SysConfigPageQuery, options?: { [key: string]: any }) {
-  return request<API.TableDataInfoSysConfig>('/system/config/list', {
+export async function SysConfigPostList(body: API.SysConfigPageQueryBo, options?: { [key: string]: any }) {
+  return request<API.TableDataInfoSysConfigVo>('/system/config/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ export async function SysConfigPostRemove(
 }
 
 /** 根据参数键名修改参数配置 POST /system/config/updateByKey */
-export async function SysConfigPostUpdateByKey(body: API.SysConfig, options?: { [key: string]: any }) {
+export async function SysConfigPostUpdateByKey(body: API.SysConfigEditBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/config/updateByKey', {
     method: 'POST',
     headers: {

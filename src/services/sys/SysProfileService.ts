@@ -11,7 +11,7 @@ export async function SysProfileGetProfile(options?: { [key: string]: any }) {
 }
 
 /** 修改用户 POST /system/user/profile */
-export async function SysProfilePostUpdateProfile(body: API.SysUserReq, options?: { [key: string]: any }) {
+export async function SysProfilePostUpdateProfile(body: API.LoginUserUpdateBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/user/profile', {
     method: 'POST',
     headers: {
@@ -56,7 +56,7 @@ export async function SysProfilePostAvatar(
 }
 
 /** 重置密码 POST /system/user/profile/updatePwd */
-export async function SysProfilePostUpdatePwd(body: API.UpdatePwdBody, options?: { [key: string]: any }) {
+export async function SysProfilePostUpdatePwd(body: API.UpdatePwdBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/user/profile/updatePwd', {
     method: 'POST',
     headers: {

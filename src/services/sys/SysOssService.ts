@@ -18,7 +18,7 @@ export async function SysOssGetDownload(
 }
 
 /** 查询OSS对象存储列表 POST /system/oss/list */
-export async function SysOssPostList(body: API.SysOssPageQuery, options?: { [key: string]: any }) {
+export async function SysOssPostList(body: API.SysOssPageQueryBo, options?: { [key: string]: any }) {
   return request<API.TableDataInfoSysOssVo>('/system/oss/list', {
     method: 'POST',
     headers: {

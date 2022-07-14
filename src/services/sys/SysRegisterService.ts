@@ -3,7 +3,7 @@
 import { request } from '@/utils';
 
 /** 用户注册 POST /register */
-export async function SysRegisterPostRegister(body: API.RegisterBodyUserName, options?: { [key: string]: any }) {
+export async function SysRegisterPostRegister(body: API.UserNameRegisterBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/register', {
     method: 'POST',
     headers: {

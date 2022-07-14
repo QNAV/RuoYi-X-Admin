@@ -23,7 +23,7 @@ export async function SysUserOnlineGetList(
   params: API.SysUserOnlineGetListParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.TableDataInfoSysUserOnline>('/monitor/online/list', {
+  return request<API.TableDataInfoSysUserOnlineVo>('/monitor/online/list', {
     method: 'GET',
     params: {
       ...params,

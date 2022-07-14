@@ -3,7 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增通知公告 POST /system/notice/add */
-export async function SysNoticePostAdd(body: API.SysNotice, options?: { [key: string]: any }) {
+export async function SysNoticePostAdd(body: API.SysNoticeAddBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/notice/add', {
     method: 'POST',
     headers: {
@@ -15,7 +15,7 @@ export async function SysNoticePostAdd(body: API.SysNotice, options?: { [key: st
 }
 
 /** 修改通知公告 POST /system/notice/edit */
-export async function SysNoticePostEdit(body: API.SysNotice, options?: { [key: string]: any }) {
+export async function SysNoticePostEdit(body: API.SysNoticeEditBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/notice/edit', {
     method: 'POST',
     headers: {
@@ -32,7 +32,7 @@ export async function SysNoticeGetInfo(
   params: API.SysNoticeGetInfoParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseSysNotice>('/system/notice/info', {
+  return request<API.ResponseSysNoticeVo>('/system/notice/info', {
     method: 'GET',
     params: {
       ...params,
@@ -42,8 +42,8 @@ export async function SysNoticeGetInfo(
 }
 
 /** 获取通知公告列表 POST /system/notice/list */
-export async function SysNoticePostList(body: API.SysNoticePageQuery, options?: { [key: string]: any }) {
-  return request<API.TableDataInfoSysNotice>('/system/notice/list', {
+export async function SysNoticePostList(body: API.SysNoticePageQueryBo, options?: { [key: string]: any }) {
+  return request<API.TableDataInfoSysNoticeVo>('/system/notice/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

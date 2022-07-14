@@ -54,7 +54,7 @@ export async function SysOssConfigGetInfo(
 }
 
 /** 查询对象存储配置列表 POST /system/oss/config/list */
-export async function SysOssConfigPostList(body: API.SysOssConfigPageQuery, options?: { [key: string]: any }) {
+export async function SysOssConfigPostList(body: API.SysOssConfigPageQueryBo, options?: { [key: string]: any }) {
   return request<API.TableDataInfoSysOssConfigVo>('/system/oss/config/list', {
     method: 'POST',
     headers: {

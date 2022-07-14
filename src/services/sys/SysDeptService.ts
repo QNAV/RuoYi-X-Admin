@@ -3,7 +3,7 @@
 import { request } from '@/utils';
 
 /** 新增部门 POST /system/dept/add */
-export async function SysDeptPostAdd(body: API.SysDeptReq, options?: { [key: string]: any }) {
+export async function SysDeptPostAdd(body: API.SysDeptAddBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/dept/add', {
     method: 'POST',
     headers: {
@@ -15,7 +15,7 @@ export async function SysDeptPostAdd(body: API.SysDeptReq, options?: { [key: str
 }
 
 /** 修改部门 POST /system/dept/edit */
-export async function SysDeptPostEdit(body: API.SysDeptReq, options?: { [key: string]: any }) {
+export async function SysDeptPostEdit(body: API.SysDeptEditBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/dept/edit', {
     method: 'POST',
     headers: {
@@ -32,7 +32,7 @@ export async function SysDeptGetInfo(
   params: API.SysDeptGetInfoParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseSysDept>('/system/dept/info', {
+  return request<API.ResponseSysDeptVo>('/system/dept/info', {
     method: 'GET',
     params: {
       ...params,
@@ -42,8 +42,8 @@ export async function SysDeptGetInfo(
 }
 
 /** 获取部门列表 POST /system/dept/list */
-export async function SysDeptPostList(body: API.SysDeptQuery, options?: { [key: string]: any }) {
-  return request<API.ResponseListSysDept>('/system/dept/list', {
+export async function SysDeptPostList(body: API.SysDeptQueryBo, options?: { [key: string]: any }) {
+  return request<API.ResponseListSysDeptVo>('/system/dept/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export async function SysDeptGetExcludeChild(
   params: API.SysDeptGetExcludeChildParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseListSysDept>('/system/dept/list/exclude', {
+  return request<API.ResponseListSysDeptVo>('/system/dept/list/exclude', {
     method: 'GET',
     params: {
       ...params,
@@ -99,7 +99,7 @@ export async function SysDeptGetRoleDeptTreeSelect(
 }
 
 /** 获取部门下拉树列表 POST /system/dept/treeSelect */
-export async function SysDeptPostTreeSelect(body: API.SysDeptQuery, options?: { [key: string]: any }) {
+export async function SysDeptPostTreeSelect(body: API.SysDeptQueryBo, options?: { [key: string]: any }) {
   return request<API.ResponseListTreelong>('/system/dept/treeSelect', {
     method: 'POST',
     headers: {

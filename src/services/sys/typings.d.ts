@@ -1,12 +1,12 @@
 declare namespace API {
-  type AuthRoleAllBody = {
+  type AuthRoleAllBo = {
     /** 角色ID串 */
     roleIds: number[];
     /** 用户Id */
     userId: number;
   };
 
-  type AuthUserAllBody = {
+  type AuthUserAllBo = {
     /** 角色ID */
     roleId: number;
     /** 用户ID串 */
@@ -45,6 +45,19 @@ declare namespace API {
 
   type Comparableobject = true;
 
+  type LoginUserUpdateBo = {
+    /** 用户头像 */
+    avatar?: string;
+    /** 用户邮箱 */
+    email?: string;
+    /** 用户昵称 */
+    nickName?: string;
+    /** 手机号码 */
+    phoneNumber?: string;
+    /** 用户性别 */
+    sex?: string;
+  };
+
   type LoginVo = {
     /** 身份令牌 */
     token?: string;
@@ -58,7 +71,7 @@ declare namespace API {
     /** 设置为true，则不会被 <keep-alive>缓存 */
     noCache?: boolean;
     /** 设置该路由在侧边栏和面包屑中展示的名字 */
-    title?: string;
+    title: string;
   };
 
   type OssUploadVo = {
@@ -72,24 +85,11 @@ declare namespace API {
 
   type ProfileVo = {
     /** 用户所属岗位组 */
-    postGroup?: string;
+    postGroup: string;
     /** 用户所属角色组 */
-    roleGroup?: string;
+    roleGroup: string;
     /** 用户对象信息 */
-    user?: SysUserRes;
-  };
-
-  type RegisterBodyUserName = {
-    /** 验证码 */
-    code: string;
-    /** 用户密码 */
-    password: string;
-    /** 用户类型 */
-    userType?: string;
-    /** 用户名 */
-    username: string;
-    /** 唯一标识 */
-    uuid: string;
+    user: SysUserVo;
   };
 
   type ResponseAvatarUploadVo = {
@@ -128,29 +128,29 @@ declare namespace API {
     msg: string;
   };
 
-  type ResponseListSysDept = {
+  type ResponseListSysDeptVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysDeptRes[];
+    data: SysDeptVo[];
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseListSysDictData = {
+  type ResponseListSysDictDataVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysDictDataRes[];
+    data: SysDictDataVo[];
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseListSysDictType = {
+  type ResponseListSysDictTypeVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysDictType[];
+    data: SysDictTypeVo[];
     /** 消息内容 */
     msg: string;
   };
@@ -159,7 +159,7 @@ declare namespace API {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysMenu[];
+    data: SysMenu0[];
     /** 消息内容 */
     msg: string;
   };
@@ -173,20 +173,20 @@ declare namespace API {
     msg: string;
   };
 
-  type ResponseListSysPost = {
+  type ResponseListSysPostVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysPost[];
+    data: SysPostVo[];
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseListSysRole = {
+  type ResponseListSysRoleVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysRoleRes[];
+    data: SysRoleVo[];
     /** 消息内容 */
     msg: string;
   };
@@ -245,38 +245,38 @@ declare namespace API {
     msg: string;
   };
 
-  type ResponseSysConfig = {
+  type ResponseSysConfigVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysConfig;
+    data: SysConfigVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseSysDept = {
+  type ResponseSysDeptVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysDeptRes;
+    data: SysDeptVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseSysDictData = {
+  type ResponseSysDictDataVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysDictDataRes;
+    data: SysDictDataVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseSysDictType = {
+  type ResponseSysDictTypeVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysDictType;
+    data: SysDictTypeVo;
     /** 消息内容 */
     msg: string;
   };
@@ -285,16 +285,16 @@ declare namespace API {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysMenu;
+    data: SysMenu0;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseSysNotice = {
+  type ResponseSysNoticeVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysNotice;
+    data: SysNoticeVo;
     /** 消息内容 */
     msg: string;
   };
@@ -308,20 +308,20 @@ declare namespace API {
     msg: string;
   };
 
-  type ResponseSysPost = {
+  type ResponseSysPostVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysPost;
+    data: SysPostVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type ResponseSysRole = {
+  type ResponseSysRoleVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysRoleRes;
+    data: SysRoleVo;
     /** 消息内容 */
     msg: string;
   };
@@ -369,42 +369,40 @@ declare namespace API {
 
   type RoleMenuTreeSelectVo = {
     /** 菜单树信息keys */
-    checkedKeys?: number[];
+    checkedKeys: number[];
     /** 前端所需要下拉树结构 */
-    menus?: Record<string, any>[];
+    menus: Record<string, any>[];
   };
 
   type RouterVo = {
     /** 当你一个路由下面的 children 声明的路由大于1个时，自动会变成嵌套的模式--如组件页面 */
-    alwaysShow?: boolean;
+    alwaysShow: boolean;
     /** 子路由 */
     children?: RouterVo[];
     /** 组件地址 */
     component?: string;
     /** 是否隐藏路由，当设置 true 的时候该路由不会再侧边栏出现 */
-    hidden?: boolean;
+    hidden: boolean;
     /** 其他元素 */
     meta?: MetaVo;
     /** 路由名字 */
-    name?: string;
+    name: string;
     /** 路由地址 */
-    path?: string;
+    path: string;
     /** 路由参数：如 {"id": 1, "name": "ry"} */
     query?: string;
     /** 重定向地址，当设置 noRedirect 的时候该路由在面包屑导航中不可被点击 */
     redirect?: string;
   };
 
-  type SmsLoginBody = {
+  type SmsLoginBo = {
     /** 用户手机号 */
     phoneNumber?: string;
     /** 短信验证码 */
     smsCode?: string;
   };
 
-  type SysConfig = {
-    /** 参数主键 */
-    configId?: number;
+  type SysConfigAddBo = {
     /** 参数键名 */
     configKey: string;
     /** 参数名称 */
@@ -413,16 +411,23 @@ declare namespace API {
     configType?: string;
     /** 参数键值 */
     configValue: string;
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
     /** 备注 */
     remark?: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
+  };
+
+  type SysConfigEditBo = {
+    /** 参数主键 */
+    configId: number;
+    /** 参数键名 */
+    configKey?: string;
+    /** 参数名称 */
+    configName?: string;
+    /** 系统内置（Y是 N否） */
+    configType?: string;
+    /** 参数键值 */
+    configValue?: string;
+    /** 备注 */
+    remark?: string;
   };
 
   type SysConfigGetConfigKeyParams = {
@@ -435,7 +440,7 @@ declare namespace API {
     configId: number;
   };
 
-  type SysConfigPageQuery = {
+  type SysConfigPageQueryBo = {
     /** 开始时间 */
     beginTime?: string;
     /** 参数键名 */
@@ -461,7 +466,7 @@ declare namespace API {
     configIds: number;
   };
 
-  type SysConfigQuery = {
+  type SysConfigQueryBo = {
     /** 开始时间 */
     beginTime?: string;
     /** 参数键名 */
@@ -474,9 +479,38 @@ declare namespace API {
     endTime?: string;
   };
 
+  type SysConfigVo = {
+    /** 参数主键 */
+    configId: number;
+    /** 参数键名 */
+    configKey: string;
+    /** 参数名称 */
+    configName: string;
+    /** 系统内置（Y是 N否） */
+    configType: string;
+    /** 参数键值 */
+    configValue: string;
+    /** 创建者 */
+    createBy: string;
+    /** 创建时间 */
+    createTime: string;
+    /** 备注 */
+    remark?: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
+  };
+
   type SysDept = {
     /** 祖级列表 */
     ancestors?: string;
+    /** 子部门 */
+    children?: SysDept[];
+    /** 创建者 */
+    createBy?: string;
+    /** 创建时间 */
+    createTime?: string;
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门id */
@@ -489,6 +523,66 @@ declare namespace API {
     leader?: string;
     /** 显示顺序 */
     orderNum: number;
+    /** 父菜单ID */
+    parentId?: number;
+    /** 父菜单名称 */
+    parentName?: string;
+    /** 联系电话 */
+    phone?: string;
+    /** 部门状态:0正常,1停用 */
+    status?: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
+  };
+
+  type SysDeptAddBo = {
+    /** 祖级列表 */
+    ancestors?: string;
+    /** 子部门 */
+    children?: SysDept[];
+    /** 删除标志（0代表存在 2代表删除） */
+    delFlag?: string;
+    /** 部门名称 */
+    deptName: string;
+    /** 邮箱 */
+    email?: string;
+    /** 负责人 */
+    leader?: string;
+    /** 显示顺序 */
+    orderNum: number;
+    /** 父菜单ID */
+    parentId?: number;
+    /** 父菜单名称 */
+    parentName?: string;
+    /** 联系电话 */
+    phone?: string;
+    /** 部门状态:0正常,1停用 */
+    status?: string;
+  };
+
+  type SysDeptEditBo = {
+    /** 祖级列表 */
+    ancestors?: string;
+    /** 子部门 */
+    children?: SysDept[];
+    /** 删除标志（0代表存在 2代表删除） */
+    delFlag?: string;
+    /** 部门id */
+    deptId: number;
+    /** 部门名称 */
+    deptName: string;
+    /** 邮箱 */
+    email?: string;
+    /** 负责人 */
+    leader?: string;
+    /** 显示顺序 */
+    orderNum?: number;
+    /** 父菜单ID */
+    parentId?: number;
+    /** 父菜单名称 */
+    parentName?: string;
     /** 联系电话 */
     phone?: string;
     /** 部门状态:0正常,1停用 */
@@ -515,7 +609,7 @@ declare namespace API {
     deptId: number;
   };
 
-  type SysDeptQuery = {
+  type SysDeptQueryBo = {
     /** 部门id */
     deptId?: number;
     /** 部门名称 */
@@ -582,6 +676,85 @@ declare namespace API {
     status?: string;
   };
 
+  type SysDeptVo = {
+    /** 祖级列表 */
+    ancestors?: string;
+    /** 子部门 */
+    children?: SysDeptVo[];
+    /** 创建者 */
+    createBy: string;
+    /** 创建时间 */
+    createTime: string;
+    /** 删除标志（0代表存在 2代表删除） */
+    delFlag: string;
+    /** 部门id */
+    deptId: number;
+    /** 部门名称 */
+    deptName: string;
+    /** 邮箱 */
+    email?: string;
+    /** 负责人 */
+    leader?: string;
+    /** 显示顺序 */
+    orderNum: number;
+    /** 父菜单ID */
+    parentId?: number;
+    /** 父菜单名称 */
+    parentName?: string;
+    /** 联系电话 */
+    phone?: string;
+    /** 部门状态:0正常,1停用 */
+    status: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
+  };
+
+  type SysDictDataAddBo = {
+    /** 样式属性（其他样式扩展） */
+    cssClass?: string;
+    /** 字典标签 */
+    dictLabel: string;
+    /** 字典排序 */
+    dictSort?: number;
+    /** 字典类型 */
+    dictType: string;
+    /** 字典键值 */
+    dictValue: string;
+    /** 是否默认（Y是 N否） */
+    isDefault?: string;
+    /** 表格字典样式 */
+    listClass?: string;
+    /** 备注 */
+    remark?: string;
+    /** 状态（0正常 1停用） */
+    status?: string;
+  };
+
+  type SysDictDataEditBo = {
+    /** 样式属性（其他样式扩展） */
+    cssClass?: string;
+    /** 字典编码 */
+    dictCode: number;
+    /** 字典标签 */
+    dictLabel?: string;
+    /** 字典排序 */
+    dictSort?: number;
+    /** 字典类型 */
+    dictType?: string;
+    /** 字典键值 */
+    dictValue?: string;
+    /** 是否默认（Y是 N否） */
+    isDefault?: string;
+    /** 表格字典样式 */
+    listClass?: string;
+    /** 备注 */
+    remark?: string;
+    /** 状态（0正常 1停用） */
+    status?: string;
+  };
+
   type SysDictDataGetInfoParams = {
     /** 字典code */
     dictCode: number;
@@ -592,7 +765,7 @@ declare namespace API {
     dictType: string;
   };
 
-  type SysDictDataPageQuery = {
+  type SysDictDataPageQueryBo = {
     /** 字典标签 */
     dictLabel?: string;
     /** 字典类型 */
@@ -614,7 +787,7 @@ declare namespace API {
     dictCodes: number;
   };
 
-  type SysDictDataQuery = {
+  type SysDictDataQueryBo = {
     /** 字典标签 */
     dictLabel?: string;
     /** 字典类型 */
@@ -623,76 +796,38 @@ declare namespace API {
     status?: string;
   };
 
-  type SysDictDataReq = {
+  type SysDictDataVo = {
     /** 创建者 */
-    createBy?: string;
+    createBy: string;
     /** 创建时间 */
-    createTime?: string;
+    createTime: string;
     /** 样式属性（其他样式扩展） */
     cssClass?: string;
     /** 字典编码 */
-    dictCode?: number;
+    dictCode: number;
     /** 字典标签 */
     dictLabel: string;
     /** 字典排序 */
-    dictSort?: number;
+    dictSort: number;
     /** 字典类型 */
     dictType: string;
     /** 字典键值 */
     dictValue: string;
     /** 是否默认（Y是 N否） */
-    isDefault?: string;
+    isDefault: string;
     /** 表格字典样式 */
     listClass?: string;
     /** 备注 */
     remark?: string;
     /** 状态（0正常 1停用） */
-    status?: string;
+    status: string;
     /** 更新者 */
     updateBy?: string;
     /** 更新时间 */
     updateTime?: string;
   };
 
-  type SysDictDataRes = {
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
-    /** 样式属性（其他样式扩展） */
-    cssClass?: string;
-    default?: boolean;
-    /** 字典编码 */
-    dictCode?: number;
-    /** 字典标签 */
-    dictLabel: string;
-    /** 字典排序 */
-    dictSort?: number;
-    /** 字典类型 */
-    dictType: string;
-    /** 字典键值 */
-    dictValue: string;
-    /** 是否默认（Y是 N否） */
-    isDefault?: string;
-    /** 表格字典样式 */
-    listClass?: string;
-    /** 备注 */
-    remark?: string;
-    /** 状态（0正常 1停用） */
-    status?: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
-  };
-
-  type SysDictType = {
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
-    /** 字典主键 */
-    dictId?: number;
+  type SysDictTypeAddBo = {
     /** 字典名称 */
     dictName: string;
     /** 字典类型 */
@@ -701,10 +836,19 @@ declare namespace API {
     remark?: string;
     /** 状态（0正常 1停用） */
     status?: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
+  };
+
+  type SysDictTypeEditBo = {
+    /** 字典主键 */
+    dictId: number;
+    /** 字典名称 */
+    dictName?: string;
+    /** 字典类型 */
+    dictType?: string;
+    /** 备注 */
+    remark?: string;
+    /** 状态（0正常 1停用） */
+    status?: string;
   };
 
   type SysDictTypeGetInfoParams = {
@@ -712,7 +856,7 @@ declare namespace API {
     dictId: number;
   };
 
-  type SysDictTypePageQuery = {
+  type SysDictTypePageQueryBo = {
     /** 开始时间 */
     beginTime?: string;
     /** 字典名称 */
@@ -738,7 +882,7 @@ declare namespace API {
     dictIds: number;
   };
 
-  type SysDictTypeQuery = {
+  type SysDictTypeQueryBo = {
     /** 开始时间 */
     beginTime?: string;
     /** 字典名称 */
@@ -751,33 +895,33 @@ declare namespace API {
     status?: string;
   };
 
+  type SysDictTypeVo = {
+    /** 创建者 */
+    createBy: string;
+    /** 创建时间 */
+    createTime: string;
+    /** 字典主键 */
+    dictId: number;
+    /** 字典名称 */
+    dictName: string;
+    /** 字典类型 */
+    dictType: string;
+    /** 备注 */
+    remark?: string;
+    /** 状态（0正常 1停用） */
+    status: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
+  };
+
   type SysLoginGetXcxLoginParams = {
     /** 小程序code */
     xcxCode: string;
   };
 
-  type SysLogininfor = {
-    /** 浏览器类型 */
-    browser?: string;
-    /** 访问ID */
-    infoId?: number;
-    /** 登录IP地址 */
-    ipaddr?: string;
-    /** 登录地点 */
-    loginLocation?: string;
-    /** 访问时间 */
-    loginTime?: string;
-    /** 提示消息 */
-    msg?: string;
-    /** 操作系统 */
-    os?: string;
-    /** 登录状态 0成功 1失败 */
-    status?: string;
-    /** 用户账号 */
-    userName?: string;
-  };
-
-  type SysLogininforPageQuery = {
+  type SysLogininforPageQueryBo = {
     /** 开始时间 */
     beginTime?: string;
     /** 结束时间 */
@@ -803,7 +947,7 @@ declare namespace API {
     infoIds: number;
   };
 
-  type SysLogininforQuery = {
+  type SysLogininforQueryBo = {
     /** 开始时间 */
     beginTime?: string;
     /** 结束时间 */
@@ -816,15 +960,30 @@ declare namespace API {
     userName?: string;
   };
 
+  type SysLogininforVo = {
+    /** 浏览器类型 */
+    browser: string;
+    /** 访问ID */
+    infoId: number;
+    /** 登录IP地址 */
+    ipaddr: string;
+    /** 登录地点 */
+    loginLocation: string;
+    /** 访问时间 */
+    loginTime: string;
+    /** 提示消息 */
+    msg: string;
+    /** 操作系统 */
+    os: string;
+    /** 登录状态 0成功 1失败 */
+    status: string;
+    /** 用户账号 */
+    userName: string;
+  };
+
   type SysMenu = {
-    /** 子部门 */
-    children?: SysMenu[];
     /** 组件路径 */
     component?: string;
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
     /** 菜单图标 */
     icon?: string;
     /** 是否缓存（0缓存 1不缓存） */
@@ -833,6 +992,68 @@ declare namespace API {
     isFrame?: string;
     /** 菜单ID */
     menuId?: number;
+    /** 菜单名称 */
+    menuName: string;
+    /** 类型（M目录 C菜单 F按钮） */
+    menuType: string;
+    /** 显示顺序 */
+    orderNum: number;
+    /** 路由地址 */
+    path?: string;
+    /** 权限字符串 */
+    perms?: string;
+    /** 路由参数 */
+    queryParam?: string;
+    /** 备注 */
+    remark?: string;
+    /** 菜单状态（0显示 1隐藏） */
+    status?: string;
+    /** 显示状态（0显示 1隐藏） */
+    visible?: string;
+  };
+
+  type SysMenu0 = {
+    /** 组件路径 */
+    component?: string;
+    /** 菜单图标 */
+    icon?: string;
+    /** 是否缓存（0缓存 1不缓存） */
+    isCache: string;
+    /** 是否为外链（0是 1否） */
+    isFrame: string;
+    /** 菜单ID */
+    menuId: number;
+    /** 菜单名称 */
+    menuName: string;
+    /** 类型（M目录 C菜单 F按钮） */
+    menuType: string;
+    /** 显示顺序 */
+    orderNum: number;
+    /** 路由地址 */
+    path?: string;
+    /** 权限字符串 */
+    perms?: string;
+    /** 路由参数 */
+    queryParam?: string;
+    /** 备注 */
+    remark?: string;
+    /** 菜单状态（0显示 1隐藏） */
+    status: string;
+    /** 显示状态（0显示 1隐藏） */
+    visible: string;
+  };
+
+  type SysMenuAddBo = {
+    /** 子菜单 */
+    children?: SysMenu[];
+    /** 组件路径 */
+    component?: string;
+    /** 菜单图标 */
+    icon?: string;
+    /** 是否缓存（0缓存 1不缓存） */
+    isCache?: string;
+    /** 是否为外链（0是 1否） */
+    isFrame?: string;
     /** 菜单名称 */
     menuName: string;
     /** 类型（M目录 C菜单 F按钮） */
@@ -853,10 +1074,43 @@ declare namespace API {
     remark?: string;
     /** 菜单状态（0显示 1隐藏） */
     status?: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
+    /** 显示状态（0显示 1隐藏） */
+    visible?: string;
+  };
+
+  type SysMenuEditBo = {
+    /** 子菜单 */
+    children?: SysMenu[];
+    /** 组件路径 */
+    component?: string;
+    /** 菜单图标 */
+    icon?: string;
+    /** 是否缓存（0缓存 1不缓存） */
+    isCache?: string;
+    /** 是否为外链（0是 1否） */
+    isFrame?: string;
+    /** 菜单ID */
+    menuId: number;
+    /** 菜单名称 */
+    menuName?: string;
+    /** 类型（M目录 C菜单 F按钮） */
+    menuType?: string;
+    /** 显示顺序 */
+    orderNum?: number;
+    /** 父菜单ID */
+    parentId?: number;
+    /** 父菜单名称 */
+    parentName?: string;
+    /** 路由地址 */
+    path?: string;
+    /** 权限字符串 */
+    perms?: string;
+    /** 路由参数 */
+    queryParam?: string;
+    /** 备注 */
+    remark?: string;
+    /** 菜单状态（0显示 1隐藏） */
+    status?: string;
     /** 显示状态（0显示 1隐藏） */
     visible?: string;
   };
@@ -876,7 +1130,7 @@ declare namespace API {
     menuId: number;
   };
 
-  type SysMenuQuery = {
+  type SysMenuQueryBo = {
     /** 排序的方向 */
     isAsc?: string;
     /** 菜单名称 */
@@ -893,15 +1147,9 @@ declare namespace API {
     visible?: string;
   };
 
-  type SysNotice = {
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
+  type SysNoticeAddBo = {
     /** 公告内容 */
     noticeContent: string;
-    /** 公告ID */
-    noticeId?: number;
     /** 公告标题 */
     noticeTitle: string;
     /** 公告类型（1通知 2公告） */
@@ -910,10 +1158,21 @@ declare namespace API {
     remark?: string;
     /** 公告状态（0正常 1关闭） */
     status: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
+  };
+
+  type SysNoticeEditBo = {
+    /** 公告内容 */
+    noticeContent?: string;
+    /** 公告ID */
+    noticeId: number;
+    /** 公告标题 */
+    noticeTitle?: string;
+    /** 公告类型（1通知 2公告） */
+    noticeType?: string;
+    /** 备注 */
+    remark?: string;
+    /** 公告状态（0正常 1关闭） */
+    status?: string;
   };
 
   type SysNoticeGetInfoParams = {
@@ -921,7 +1180,7 @@ declare namespace API {
     noticeId: number;
   };
 
-  type SysNoticePageQuery = {
+  type SysNoticePageQueryBo = {
     /** 创建者 */
     createBy?: string;
     /** 排序的方向 */
@@ -943,44 +1202,30 @@ declare namespace API {
     noticeIds: number;
   };
 
-  type SysOperLog = {
-    /** 业务类型（0其它 1新增 2修改 3删除） */
-    businessType?: number;
-    /** 业务类型数组 */
-    businessTypes?: number[];
-    /** 部门名称 */
-    deptName?: string;
-    /** 错误消息 */
-    errorMsg?: string;
-    /** 返回参数 */
-    jsonResult?: string;
-    /** 请求方法 */
-    method?: string;
-    /** 日志主键 */
-    operId?: number;
-    /** 操作地址 */
-    operIp?: string;
-    /** 操作地点 */
-    operLocation?: string;
-    /** 操作人员 */
-    operName?: string;
-    /** 请求参数 */
-    operParam?: string;
-    /** 操作时间 */
-    operTime?: string;
-    /** 请求url */
-    operUrl?: string;
-    /** 操作类别（0其它 1后台用户 2手机端用户） */
-    operatorType?: number;
-    /** 请求方式 */
-    requestMethod?: string;
-    /** 操作状态（0正常 1异常） */
-    status?: number;
-    /** 操作模块 */
-    title?: string;
+  type SysNoticeVo = {
+    /** 创建者 */
+    createBy: string;
+    /** 创建时间 */
+    createTime: string;
+    /** 公告内容 */
+    noticeContent: string;
+    /** 公告ID */
+    noticeId: number;
+    /** 公告标题 */
+    noticeTitle: string;
+    /** 公告类型（1通知 2公告） */
+    noticeType: string;
+    /** 备注 */
+    remark?: string;
+    /** 公告状态（0正常 1关闭） */
+    status: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
   };
 
-  type SysOperLogPageQuery = {
+  type SysOperLogPageQueryBo = {
     /** 开始时间 */
     beginTime?: string;
     /** 业务类型（0其它 1新增 2修改 3删除） */
@@ -1010,7 +1255,7 @@ declare namespace API {
     operIds: number;
   };
 
-  type SysOperLogQuery = {
+  type SysOperLogQueryBo = {
     /** 开始时间 */
     beginTime?: string;
     /** 业务类型（0其它 1新增 2修改 3删除） */
@@ -1027,6 +1272,43 @@ declare namespace API {
     title?: string;
   };
 
+  type SysOperLogVo = {
+    /** 业务类型（0其它 1新增 2修改 3删除） */
+    businessType: number;
+    /** 业务类型数组 */
+    businessTypes: number[];
+    /** 部门名称 */
+    deptName?: string;
+    /** 错误消息 */
+    errorMsg?: string;
+    /** 返回参数 */
+    jsonResult?: string;
+    /** 请求方法 */
+    method: string;
+    /** 日志主键 */
+    operId: number;
+    /** 操作地址 */
+    operIp: string;
+    /** 操作地点 */
+    operLocation?: string;
+    /** 操作人员 */
+    operName: string;
+    /** 请求参数 */
+    operParam: string;
+    /** 操作时间 */
+    operTime: string;
+    /** 请求url */
+    operUrl: string;
+    /** 操作类别（0其它 1后台用户 2手机端用户） */
+    operatorType: number;
+    /** 请求方式 */
+    requestMethod: string;
+    /** 操作状态（0正常 1异常） */
+    status: number;
+    /** 操作模块 */
+    title: string;
+  };
+
   type SysOssConfigAddBo = {
     /** accessKey */
     accessKey: string;
@@ -1034,10 +1316,6 @@ declare namespace API {
     bucketName: string;
     /** 配置key */
     configKey: string;
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
     /** 自定义域名 */
     domain?: string;
     /** 访问站点 */
@@ -1046,8 +1324,6 @@ declare namespace API {
     ext1?: string;
     /** 是否https（Y=是,N=否） */
     isHttps?: string;
-    /** 主建 */
-    ossConfigId?: number;
     /** 前缀 */
     prefix?: string;
     /** 域 */
@@ -1058,27 +1334,19 @@ declare namespace API {
     secretKey: string;
     /** 状态（0=正常,1=停用） */
     status?: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
   };
 
   type SysOssConfigEditBo = {
     /** accessKey */
-    accessKey: string;
+    accessKey?: string;
     /** 桶名称 */
-    bucketName: string;
+    bucketName?: string;
     /** 配置key */
-    configKey: string;
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
+    configKey?: string;
     /** 自定义域名 */
     domain?: string;
     /** 访问站点 */
-    endpoint: string;
+    endpoint?: string;
     /** 扩展字段 */
     ext1?: string;
     /** 是否https（Y=是,N=否） */
@@ -1092,13 +1360,9 @@ declare namespace API {
     /** 备注 */
     remark?: string;
     /** secretKey */
-    secretKey: string;
+    secretKey?: string;
     /** 状态（0=正常,1=停用） */
     status?: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
   };
 
   type SysOssConfigGetInfoParams = {
@@ -1106,7 +1370,7 @@ declare namespace API {
     ossConfigId: number;
   };
 
-  type SysOssConfigPageQuery = {
+  type SysOssConfigPageQueryBo = {
     /** 桶名称 */
     bucketName?: string;
     /** 配置key */
@@ -1135,6 +1399,10 @@ declare namespace API {
     bucketName: string;
     /** 配置key */
     configKey: string;
+    /** 创建者 */
+    createBy: string;
+    /** 创建时间 */
+    createTime: string;
     /** 自定义域名 */
     domain?: string;
     /** 访问站点 */
@@ -1155,6 +1423,10 @@ declare namespace API {
     secretKey: string;
     /** 状态（0=正常,1=停用） */
     status: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
   };
 
   type SysOssGetDownloadParams = {
@@ -1167,7 +1439,7 @@ declare namespace API {
     ossIds: number;
   };
 
-  type SysOssPageQuery = {
+  type SysOssPageQueryBo = {
     /** 开始创建时间 */
     beginCreateTime?: string;
     /** 创建者 */
@@ -1208,32 +1480,28 @@ declare namespace API {
     /** 上传人 */
     createBy?: string;
     /** 创建时间 */
-    createTime?: string;
+    createTime: string;
     /** 文件名 */
-    fileName?: string;
+    fileName: string;
     /** 文件后缀名 */
-    fileSuffix?: string;
+    fileSuffix: string;
     /** 原名 */
-    originalName?: string;
+    originalName: string;
     /** 对象存储主键 */
-    ossId?: number;
+    ossId: number;
     /** 服务商 */
-    service?: string;
+    service: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
     /** URL地址 */
-    url?: string;
+    url: string;
   };
 
-  type SysPost = {
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
-    /** 用户是否存在此岗位标识 默认不存在 */
-    flag?: boolean;
+  type SysPostAddBo = {
     /** 岗位编码 */
     postCode: string;
-    /** 岗位序号 */
-    postId?: number;
     /** 岗位名称 */
     postName: string;
     /** 岗位排序 */
@@ -1242,10 +1510,21 @@ declare namespace API {
     remark?: string;
     /** 状态（0正常 1停用） */
     status: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
+  };
+
+  type SysPostEditBo = {
+    /** 岗位编码 */
+    postCode: string;
+    /** 岗位序号 */
+    postId: number;
+    /** 岗位名称 */
+    postName: string;
+    /** 岗位排序 */
+    postSort: number;
+    /** 备注 */
+    remark?: string;
+    /** 状态（0正常 1停用） */
+    status: string;
   };
 
   type SysPostGetInfoParams = {
@@ -1253,7 +1532,7 @@ declare namespace API {
     postId: number;
   };
 
-  type SysPostPageQuery = {
+  type SysPostPageQueryBo = {
     /** 排序的方向 */
     isAsc?: string;
     /** 排序列 */
@@ -1275,7 +1554,7 @@ declare namespace API {
     postIds: number;
   };
 
-  type SysPostQuery = {
+  type SysPostQueryBo = {
     /** 岗位编码 */
     postCode?: string;
     /** 岗位名称 */
@@ -1284,14 +1563,37 @@ declare namespace API {
     status?: string;
   };
 
+  type SysPostVo = {
+    /** 创建者 */
+    createBy: string;
+    /** 创建时间 */
+    createTime: string;
+    /** 用户是否存在此岗位标识 默认不存在 */
+    flag: boolean;
+    /** 岗位编码 */
+    postCode: string;
+    /** 岗位序号 */
+    postId: number;
+    /** 岗位名称 */
+    postName: string;
+    /** 岗位排序 */
+    postSort: number;
+    /** 备注 */
+    remark?: string;
+    /** 状态（0正常 1停用） */
+    status: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
+  };
+
   type SysProfilePostAvatarParams = {
     /** 用户头像 */
     avatarfile: string;
   };
 
   type SysRole = {
-    /** 是否管理员 */
-    admin?: boolean;
     /** 创建者 */
     createBy?: string;
     /** 创建时间 */
@@ -1338,7 +1640,7 @@ declare namespace API {
     roleIds: number;
   };
 
-  type SysRoleQuery = {
+  type SysRoleQueryBo = {
     /** 开始创建时间 */
     beginCreateTime?: string;
     /** 结束创建时间 */
@@ -1437,27 +1739,52 @@ declare namespace API {
     updateTime?: string;
   };
 
-  type SysUser = {
+  type SysRoleVo = {
     /** 是否管理员 */
-    admin?: boolean;
+    admin: boolean;
+    /** 创建者 */
+    createBy: string;
+    /** 创建时间 */
+    createTime: string;
+    /** 数据范围（1：所有数据权限；2：自定义数据权限；3：本部门数据权限；4：本部门及以下数据权限；5：仅本人数据权限） */
+    dataScope: string;
+    /** 删除标志（0代表存在 2代表删除） */
+    delFlag: string;
+    /** 部门树选择项是否关联显示（0：父子不互相关联显示 1：父子互相关联显示 ） */
+    deptCheckStrictly: boolean;
+    /** 部门组（数据权限） */
+    deptIds: number[];
+    /** 用户是否存在此角色标识 默认不存在 */
+    flag: boolean;
+    /** 菜单树选择项是否关联显示（ 0：父子不互相关联显示 1：父子互相关联显示） */
+    menuCheckStrictly: boolean;
+    /** 菜单组 */
+    menuIds: number[];
+    /** 备注 */
+    remark?: string;
+    /** 角色ID */
+    roleId: number;
+    /** 角色权限 */
+    roleKey: string;
+    /** 角色名称 */
+    roleName: string;
+    /** 角色排序 */
+    roleSort: number;
+    /** 角色状态（0正常 1停用） */
+    status: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
+  };
+
+  type SysUserAddBo = {
     /** 用户头像 */
     avatar?: string;
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
-    /** 删除标志（0代表存在 2代表删除） */
-    delFlag?: string;
-    /** 部门对象 */
-    dept?: SysDept;
     /** 部门ID */
     deptId?: number;
     /** 用户邮箱 */
     email?: string;
-    /** 最后登录时间 */
-    loginDate?: string;
-    /** 最后登录IP */
-    loginIp?: string;
     /** 用户昵称 */
     nickName: string;
     /** 密码 */
@@ -1468,24 +1795,45 @@ declare namespace API {
     postIds: number[];
     /** 备注 */
     remark?: string;
-    /** 角色ID */
-    roleId?: number;
     /** 角色组 */
     roleIds: number[];
-    /** 角色对象 */
-    roles?: SysRoleRes[];
     /** 用户性别 */
     sex?: string;
     /** 帐号状态（0正常 1停用） */
     status?: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
-    /** 用户ID */
-    userId?: number;
     /** 用户账号 */
     userName: string;
+    /** 用户类型 */
+    userType?: string;
+  };
+
+  type SysUserEditBo = {
+    /** 用户头像 */
+    avatar?: string;
+    /** 部门ID */
+    deptId?: number;
+    /** 用户邮箱 */
+    email?: string;
+    /** 用户昵称 */
+    nickName?: string;
+    /** 密码 */
+    password?: string;
+    /** 手机号码 */
+    phoneNumber?: string;
+    /** 岗位组 */
+    postIds: number[];
+    /** 备注 */
+    remark?: string;
+    /** 角色组 */
+    roleIds: number[];
+    /** 用户性别 */
+    sex?: string;
+    /** 帐号状态（0正常 1停用） */
+    status?: string;
+    /** 用户ID */
+    userId: number;
+    /** 用户账号 */
+    userName?: string;
     /** 用户类型 */
     userType?: string;
   };
@@ -1500,25 +1848,6 @@ declare namespace API {
     userId: number;
   };
 
-  type SysUserOnline = {
-    /** 浏览器类型 */
-    browser?: string;
-    /** 部门名称 */
-    deptName?: string;
-    /** 登录IP地址 */
-    ipaddr?: string;
-    /** 登录地址 */
-    loginLocation?: string;
-    /** 登录时间 */
-    loginTime?: number;
-    /** 操作系统 */
-    os?: string;
-    /** 会话编号 */
-    tokenId?: string;
-    /** 用户名称 */
-    userName?: string;
-  };
-
   type SysUserOnlineGetListParams = {
     /** ip地址 */
     ipaddr?: string;
@@ -1531,7 +1860,26 @@ declare namespace API {
     tokenId: string;
   };
 
-  type SysUserPageQuery = {
+  type SysUserOnlineVo = {
+    /** 浏览器类型 */
+    browser: string;
+    /** 部门名称 */
+    deptName?: string;
+    /** 登录IP地址 */
+    ipaddr: string;
+    /** 登录地址 */
+    loginLocation?: string;
+    /** 登录时间 */
+    loginTime: number;
+    /** 操作系统 */
+    os: string;
+    /** 会话编号 */
+    tokenId: string;
+    /** 用户名称 */
+    userName: string;
+  };
+
+  type SysUserPageQueryBo = {
     /** 开始创建时间 */
     beginCreateTime?: string;
     /** 部门ID */
@@ -1570,7 +1918,7 @@ declare namespace API {
     userIds: number;
   };
 
-  type SysUserQuery = {
+  type SysUserQueryBo = {
     /** 开始创建时间 */
     beginCreateTime?: string;
     /** 部门ID */
@@ -1599,7 +1947,7 @@ declare namespace API {
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门对象 */
-    dept?: SysDept;
+    dept?: SysDeptReq;
     /** 部门ID */
     deptId?: number;
     /** 用户邮箱 */
@@ -1652,7 +2000,7 @@ declare namespace API {
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门对象 */
-    dept?: SysDept;
+    dept?: SysDeptRes;
     /** 部门ID */
     deptId?: number;
     /** 用户邮箱 */
@@ -1700,56 +2048,109 @@ declare namespace API {
     userId?: number;
   };
 
-  type TableDataInfoSysConfig = {
+  type SysUserVo = {
+    /** 是否管理员 */
+    admin: boolean;
+    /** 用户头像 */
+    avatar?: string;
+    /** 创建者 */
+    createBy: string;
+    /** 创建时间 */
+    createTime: string;
+    /** 删除标志（0代表存在 2代表删除） */
+    delFlag: string;
+    /** 部门对象 */
+    dept: SysDeptVo;
+    /** 部门ID */
+    deptId: number;
+    /** 用户邮箱 */
+    email?: string;
+    /** 最后登录时间 */
+    loginDate?: string;
+    /** 最后登录IP */
+    loginIp?: string;
+    /** 用户昵称 */
+    nickName: string;
+    /** 密码 */
+    password: string;
+    /** 手机号码 */
+    phoneNumber?: string;
+    /** 岗位组 */
+    postIds: number[];
+    /** 备注 */
+    remark?: string;
+    /** 角色ID */
+    roleId: number;
+    /** 角色组 */
+    roleIds: number[];
+    /** 角色对象 */
+    roles: SysRoleVo[];
+    /** 用户性别 */
+    sex: string;
+    /** 帐号状态（0正常 1停用） */
+    status: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
+    /** 用户ID */
+    userId: number;
+    /** 用户账号 */
+    userName: string;
+    /** 用户类型 */
+    userType: string;
+  };
+
+  type TableDataInfoSysConfigVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: TableDataSysConfig;
+    data: TableDataSysConfigVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type TableDataInfoSysDictData = {
+  type TableDataInfoSysDictDataVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: TableDataSysDictData;
+    data: TableDataSysDictDataVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type TableDataInfoSysDictType = {
+  type TableDataInfoSysDictTypeVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: TableDataSysDictType;
+    data: TableDataSysDictTypeVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type TableDataInfoSysLogininfor = {
+  type TableDataInfoSysLogininforVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: TableDataSysLogininfor;
+    data: TableDataSysLogininforVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type TableDataInfoSysNotice = {
+  type TableDataInfoSysNoticeVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: TableDataSysNotice;
+    data: TableDataSysNoticeVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type TableDataInfoSysOperLog = {
+  type TableDataInfoSysOperLogVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: TableDataSysOperLog;
+    data: TableDataSysOperLogVo;
     /** 消息内容 */
     msg: string;
   };
@@ -1772,124 +2173,124 @@ declare namespace API {
     msg: string;
   };
 
-  type TableDataInfoSysPost = {
+  type TableDataInfoSysPostVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: TableDataSysPost;
+    data: TableDataSysPostVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type TableDataInfoSysRole = {
+  type TableDataInfoSysRoleVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: TableDataSysRole;
+    data: TableDataSysRoleVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type TableDataInfoSysUser = {
+  type TableDataInfoSysUserOnlineVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: TableDataSysUser;
+    data: TableDataSysUserOnlineVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type TableDataInfoSysUserOnline = {
+  type TableDataInfoSysUserVo = {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: TableDataSysUserOnline;
+    data: TableDataSysUserVo;
     /** 消息内容 */
     msg: string;
   };
 
-  type TableDataSysConfig = {
+  type TableDataSysConfigVo = {
     /** 列表数据 */
-    rows?: SysConfig[];
+    rows: SysConfigVo[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
-  type TableDataSysDictData = {
+  type TableDataSysDictDataVo = {
     /** 列表数据 */
-    rows?: SysDictDataRes[];
+    rows: SysDictDataVo[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
-  type TableDataSysDictType = {
+  type TableDataSysDictTypeVo = {
     /** 列表数据 */
-    rows?: SysDictType[];
+    rows: SysDictTypeVo[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
-  type TableDataSysLogininfor = {
+  type TableDataSysLogininforVo = {
     /** 列表数据 */
-    rows?: SysLogininfor[];
+    rows: SysLogininforVo[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
-  type TableDataSysNotice = {
+  type TableDataSysNoticeVo = {
     /** 列表数据 */
-    rows?: SysNotice[];
+    rows: SysNoticeVo[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
-  type TableDataSysOperLog = {
+  type TableDataSysOperLogVo = {
     /** 列表数据 */
-    rows?: SysOperLog[];
+    rows: SysOperLogVo[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
   type TableDataSysOssConfigVo = {
     /** 列表数据 */
-    rows?: SysOssConfigVo[];
+    rows: SysOssConfigVo[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
   type TableDataSysOssVo = {
     /** 列表数据 */
-    rows?: SysOssVo[];
+    rows: SysOssVo[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
-  type TableDataSysPost = {
+  type TableDataSysPostVo = {
     /** 列表数据 */
-    rows?: SysPost[];
+    rows: SysPostVo[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
-  type TableDataSysRole = {
+  type TableDataSysRoleVo = {
     /** 列表数据 */
-    rows?: SysRoleRes[];
+    rows: SysRoleVo[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
-  type TableDataSysUser = {
+  type TableDataSysUserOnlineVo = {
     /** 列表数据 */
-    rows?: SysUserRes[];
+    rows: SysUserOnlineVo[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
-  type TableDataSysUserOnline = {
+  type TableDataSysUserVo = {
     /** 列表数据 */
-    rows?: SysUserOnline[];
+    rows: SysUserVo[];
     /** 总记录数 */
-    total?: number;
+    total: number;
   };
 
   type TreeNodeConfig = {
@@ -1901,7 +2302,7 @@ declare namespace API {
     weightKey?: string;
   };
 
-  type UpdatePwdBody = {
+  type UpdatePwdBo = {
     /** 新密码 */
     newPassword: string;
     /** 原密码 */
@@ -1919,29 +2320,42 @@ declare namespace API {
     /** 岗位ID列表 */
     postIds?: number[];
     /** 岗位列表 */
-    posts?: SysPost[];
+    posts: SysPostVo[];
     /** 角色ID列表 */
     roleIds?: number[];
     /** 角色列表 */
-    roles?: SysRoleRes[];
+    roles: SysRoleVo[];
     /** 用户信息业务对象 */
-    user?: SysUserRes;
+    user?: SysUserVo;
   };
 
   type UserInfoVo = {
     /** 权限集合 */
-    permissions?: string[];
+    permissions: string[];
     /** 角色集合 */
-    roles?: string[];
+    roles: string[];
     /** 用户信息业务对象 */
-    user?: SysUser;
+    user: SysUserVo;
   };
 
-  type UserNameLoginBody = {
+  type UserNameLoginBo = {
     /** 验证码 */
     code: string;
     /** 用户密码 */
     password: string;
+    /** 用户名 */
+    username: string;
+    /** 唯一标识 */
+    uuid: string;
+  };
+
+  type UserNameRegisterBo = {
+    /** 验证码 */
+    code: string;
+    /** 用户密码 */
+    password: string;
+    /** 用户类型 */
+    userType?: string;
     /** 用户名 */
     username: string;
     /** 唯一标识 */

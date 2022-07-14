@@ -11,7 +11,7 @@ export async function SysOperLogPostClean(options?: { [key: string]: any }) {
 }
 
 /** 导出操作日志记录列表 POST /monitor/operlog/export */
-export async function SysOperLogPostExport(body: API.SysOperLogQuery, options?: { [key: string]: any }) {
+export async function SysOperLogPostExport(body: API.SysOperLogQueryBo, options?: { [key: string]: any }) {
   return request<any>('/monitor/operlog/export', {
     method: 'POST',
     headers: {
@@ -23,8 +23,8 @@ export async function SysOperLogPostExport(body: API.SysOperLogQuery, options?: 
 }
 
 /** 查询操作日志记录列表 POST /monitor/operlog/list */
-export async function SysOperLogPostList(body: API.SysOperLogPageQuery, options?: { [key: string]: any }) {
-  return request<API.TableDataInfoSysOperLog>('/monitor/operlog/list', {
+export async function SysOperLogPostList(body: API.SysOperLogPageQueryBo, options?: { [key: string]: any }) {
+  return request<API.TableDataInfoSysOperLogVo>('/monitor/operlog/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
