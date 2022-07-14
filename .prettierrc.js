@@ -39,5 +39,5 @@ module.exports = {
   // 格式化内嵌代码
   embeddedLanguageFormatting: 'auto',
 
-  plugins: ['prettier-plugin-organize-imports', 'prettier-plugin-packagejson'],
+  plugins: ['./node_modules/prettier-plugin-organize-imports', './node_modules/prettier-plugin-packagejson'],
 };
