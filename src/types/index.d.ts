@@ -1,11 +1,11 @@
 import type { ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 
 export interface InitialState {
-  userInfo: API.UserInfoDTO;
+  userInfo: API.UserInfoVo;
   userRoutes: API.RouterVo[];
 }
 
-export type MapValueEnum<K> = Map<
+export type ValueEnumMap<K> = Map<
   K,
   { text: string; status?: 'Default' | 'Error' | 'Success' | 'Processing' | 'Warning' }
 >;

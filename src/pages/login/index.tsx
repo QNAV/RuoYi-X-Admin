@@ -6,11 +6,11 @@ import { LockOutlined, MobileOutlined, SafetyCertificateOutlined, UserOutlined }
 import { LoginFormPage, ProFormCaptcha, ProFormCheckbox, ProFormGroup, ProFormText } from '@ant-design/pro-components';
 import { useModel, useNavigate, useSearchParams } from '@umijs/max';
 import { useRequest } from 'ahooks';
-import { Image, message, Tabs } from 'antd';
+import { Image, message, Skeleton, Tabs } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
-interface FormData extends API.UserNameLoginBody, API.SmsLoginBody {
+interface FormData extends API.UserNameLoginBo, API.SmsLoginBo {
   autoLogin: boolean;
 }
 
@@ -32,26 +32,44 @@ const LoginPage: FC = () => {
 
   const { data: getCaptchaImageRes, run: getCaptchaImage } = useRequest(CaptchaGetGetCode);
 
+  const handleLoginSuccess = async (autoLogin: boolean, token: string) => {
+    setToken(autoLogin ? StorageType.LOCAL_STORAGE : StorageType.SESSION_STORAGE, `Bearer ${token}`);
+
+    await refresh();
+
+    navigate(redirect);
+  };
+
+  const loginBySms = async (autoLogin: boolean, data: API.SmsLoginBo) => {
+    const { token } = await SysLoginPostSmsLogin(data);
+
+    await handleLoginSuccess(autoLogin, token);
+  };
+
+  const loginByUsername = async (autoLogin: boolean, data: API.UserNameLoginBo) => {
+    if (!getCaptchaImageRes) {
+      message.error('请先获取图片验证码');
+      return;
+    }
+
+    const { token } = await SysLoginPostLogin({ ...data, uuid: getCaptchaImageRes.uuid });
+
+    await handleLoginSuccess(autoLogin, token);
+  };
+
   const submit = async (e: FormData) => {
     try {
       const { autoLogin, ...formData } = e;
 
-      let loginRes: API.LoginDTO;
-
       if (loginType === LoginType.MOBILE) {
-        loginRes = await SysLoginPostSmsLogin(formData);
-      } else if (!getCaptchaImageRes) {
-        message.error('请先获取图片验证码');
+        await loginBySms(autoLogin, formData);
         return;
-      } else {
-        loginRes = await SysLoginPostLogin({ ...formData, uuid: getCaptchaImageRes.uuid });
       }
 
-      setToken(autoLogin ? StorageType.LOCAL_STORAGE : StorageType.SESSION_STORAGE, `Bearer ${loginRes.token}`);
-
-      await refresh();
-
-      navigate(redirect);
+      if (loginType === LoginType.USERNAME) {
+        await loginByUsername(autoLogin, formData);
+        return;
+      }
     } catch (error) {
       if (loginType === LoginType.USERNAME) {
         getCaptchaImage();
@@ -132,13 +150,18 @@ const LoginPage: FC = () => {
               />
 
               <div className="h-[40px] w-[135px] cursor-pointer border border-solid border-gray-300">
-                <Image
-                  src={`data:image/png;base64,${getCaptchaImageRes?.img}`}
-                  preview={false}
-                  style={{ height: '40px', width: '135px' }}
-                  alt="图片验证码"
-                  onClick={getCaptchaImage}
-                />
+                {getCaptchaImageRes?.img ? (
+                  <Image
+                    src={`data:image/png;base64,${getCaptchaImageRes?.img}`}
+                    preview={false}
+                    height={40}
+                    width={135}
+                    alt="图片验证码"
+                    onClick={getCaptchaImage}
+                  />
+                ) : (
+                  <Skeleton.Button active block size="large" />
+                )}
               </div>
             </ProFormGroup>
           </>
@@ -152,7 +175,7 @@ const LoginPage: FC = () => {
                 size: 'large',
                 prefix: <MobileOutlined />,
               }}
-              name="phonenumber"
+              name="phoneNumber"
               placeholder="请输入手机号"
               rules={[
                 {
@@ -176,7 +199,7 @@ const LoginPage: FC = () => {
               placeholder="请输入验证码"
               captchaTextRender={(timing, count) => {
                 if (timing) {
-                  return `${count} ${'获取验证码'}`;
+                  return `${count} 获取验证码`;
                 }
                 return '获取验证码';
               }}

@@ -1,4 +1,4 @@
-import { EnableDisableStatus, MapEnableDisableStatus, ModalBodyStyle } from '@/constants';
+import { EnableDisableStatus, EnableDisableStatusMap, ModalBodyStyle } from '@/constants';
 import type { MenuTreeValue } from '@/pages/system/role/components/MenuTree';
 import MenuTree from '@/pages/system/role/components/MenuTree';
 
@@ -65,7 +65,7 @@ const ButtonCreate: FC = () => {
       <ProFormRadio.Group
         name="status"
         label="状态"
-        valueEnum={MapEnableDisableStatus}
+        valueEnum={EnableDisableStatusMap}
         initialValue={EnableDisableStatus.ENABLE}
       />
 

@@ -1,10 +1,10 @@
 import {
   EnableDisableStatus,
-  MapEnableDisableStatus,
-  MapMenuType,
-  MapYesNoStatus,
+  EnableDisableStatusMap,
   MenuType,
+  MenuTypeMap,
   YesNoStatus,
+  YesNoStatusMap,
 } from '@/constants';
 import { selectedMenuIdAtom, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
 import { SysMenuPostAdd, SysMenuPostList } from '@/services/sys/SysMenuService';
@@ -144,7 +144,7 @@ const ButtonCreate: FC = () => {
           <ProFormRadio.Group
             name="menuType"
             label="菜单类型"
-            valueEnum={MapMenuType}
+            valueEnum={MenuTypeMap}
             rules={[{ required: true, message: '请选择菜单类型' }]}
           />
 
@@ -176,7 +176,7 @@ const ButtonCreate: FC = () => {
                           tooltip="选择停用则路由将不会出现在侧边栏，也不能被访问"
                           name="status"
                           label="菜单状态"
-                          valueEnum={MapEnableDisableStatus}
+                          valueEnum={EnableDisableStatusMap}
                           required
                           initialValue={EnableDisableStatus.ENABLE}
                         />
@@ -184,7 +184,7 @@ const ButtonCreate: FC = () => {
                         <ProFormRadio.Group
                           name="visible"
                           label="菜单是否显示"
-                          valueEnum={MapYesNoStatus}
+                          valueEnum={YesNoStatusMap}
                           required
                           initialValue={YesNoStatus.YES}
                           tooltip="选择否则路由将不会出现在侧边栏，但仍然可以访问"
@@ -193,7 +193,7 @@ const ButtonCreate: FC = () => {
                         <ProFormRadio.Group
                           name="isFrame"
                           label="是否外链"
-                          valueEnum={MapYesNoStatus}
+                          valueEnum={YesNoStatusMap}
                           required
                           initialValue={YesNoStatus.NO}
                           tooltip="选择是外链则路由地址需要以`http(s)://`开头"

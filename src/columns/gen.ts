@@ -1,4 +1,4 @@
-import { MapGenType, MapJavaType, MapQueryType, MapTemplateType, MapYesNoStatus } from '@/constants';
+import { GenTypeMap, JavaTypeMap, QueryTypeMap, TemplateTypeMap, YesNoStatusMap } from '@/constants';
 import type { ProItem } from '@/types';
 
 // 表名称
@@ -72,7 +72,7 @@ export const CJavaType: ProItem = {
   dataIndex: 'javaType',
   key: 'javaType',
   valueType: 'select',
-  valueEnum: MapJavaType,
+  valueEnum: JavaTypeMap,
   width: 90,
 };
 
@@ -92,7 +92,7 @@ export const CIsInsert: ProItem = {
   key: 'isInsert',
   valueType: 'radioButton',
   width: 115,
-  valueEnum: MapYesNoStatus,
+  valueEnum: YesNoStatusMap,
 };
 
 // 编辑
@@ -102,7 +102,7 @@ export const CIsEdit: ProItem = {
   key: 'isEdit',
   valueType: 'radioButton',
   width: 115,
-  valueEnum: MapYesNoStatus,
+  valueEnum: YesNoStatusMap,
 };
 
 // 列表
@@ -112,7 +112,7 @@ export const CIsList: ProItem = {
   key: 'isList',
   valueType: 'radioButton',
   width: 115,
-  valueEnum: MapYesNoStatus,
+  valueEnum: YesNoStatusMap,
 };
 
 // 查询
@@ -122,7 +122,7 @@ export const CIsQuery: ProItem = {
   key: 'isQuery',
   valueType: 'radioButton',
   width: 115,
-  valueEnum: MapYesNoStatus,
+  valueEnum: YesNoStatusMap,
 };
 
 // 必填
@@ -132,7 +132,7 @@ export const CIsRequired: ProItem = {
   key: 'isRequired',
   valueType: 'radioButton',
   width: 115,
-  valueEnum: MapYesNoStatus,
+  valueEnum: YesNoStatusMap,
 };
 
 // 查询方式
@@ -141,7 +141,7 @@ export const CQueryType: ProItem = {
   dataIndex: 'queryType',
   key: 'queryType',
   valueType: 'select',
-  valueEnum: MapQueryType,
+  valueEnum: QueryTypeMap,
   width: 70,
 };
 
@@ -151,7 +151,7 @@ export const CTplCategory: ProItem = {
   dataIndex: 'tplCategory',
   key: 'tplCategory',
   valueType: 'select',
-  valueEnum: MapTemplateType,
+  valueEnum: TemplateTypeMap,
 };
 
 // 生成包路径
@@ -192,7 +192,7 @@ export const CGenType: ProItem = {
   dataIndex: 'genType',
   key: 'genType',
   valueType: 'select',
-  valueEnum: MapGenType,
+  valueEnum: GenTypeMap,
 };
 
 // 自定义路径

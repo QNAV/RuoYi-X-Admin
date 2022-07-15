@@ -1,6 +1,6 @@
 import type { Route } from '@ant-design/pro-layout/es/typings';
 
-export const customRoutes: Route[] = [
+const customRoutes: Route[] = [
   {
     path: '/system',
     routes: [
@@ -119,7 +119,7 @@ export const customRoutes: Route[] = [
   },
 ];
 
-const publicRoutes: Route[] = [
+export const publicRoutes: Route[] = [
   {
     name: '首页',
     path: '/',
@@ -136,6 +136,7 @@ const publicRoutes: Route[] = [
     name: '登录',
     path: 'login',
     component: '@/pages/login',
+    hideInMenu: true,
     headerRender: false,
     footerRender: false,
     menuRender: false,

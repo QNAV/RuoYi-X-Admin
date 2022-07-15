@@ -3,8 +3,8 @@ import { SysLoginGetInfo, SysLoginGetRouters } from '@/services/sys/SysLoginServ
 import type { InitialState } from '@/types';
 import { checkToken, convertUserRoutesToMenus } from '@/utils';
 import { GithubOutlined } from '@ant-design/icons';
+import type { ProLayoutProps } from '@ant-design/pro-layout';
 import { DefaultFooter } from '@ant-design/pro-layout';
-import type { ProLayoutProps } from '@ant-design/pro-layout/es/ProLayout';
 import { history } from '@umijs/max';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
@@ -13,6 +13,7 @@ import { createElement } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import type { RecoilRootProps } from 'recoil';
 import { RecoilRoot } from 'recoil';
+import { publicRoutes } from '../config/routes';
 
 dayjs.locale('zh-cn');
 
@@ -23,7 +24,7 @@ export const render = (oldRender: () => void) => {
   const isLoginPage = window.location.pathname === LOGIN_PATH_NAME;
 
   if (!hasLogin && !isLoginPage) {
-    window.location.href = LOGIN_PATH_NAME;
+    window.location.replace(`${LOGIN_PATH_NAME}?redirect=${window.location.pathname}`);
     return;
   }
 
@@ -86,8 +87,8 @@ export const layout = ({ initialState }: { initialState: InitialState }): ProLay
       },
     ],
     onMenuHeaderClick: () => history.push('/'),
-    actionsRender: () => [<SettingsIcon key="LogoutIcon" />, <LogoutIcon key="LogoutIcon" />],
-    menuDataRender: () => convertUserRoutesToMenus(userRoutes),
+    actionsRender: () => [<SettingsIcon key="SettingsIcon" />, <LogoutIcon key="LogoutIcon" />],
+    menuDataRender: () => [...publicRoutes, ...convertUserRoutesToMenus(userRoutes)],
     footerRender: () => (
       <DefaultFooter
         links={[

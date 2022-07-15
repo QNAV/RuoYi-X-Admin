@@ -1,5 +1,5 @@
 import { AntdIcon } from '@/components';
-import { MapEnableDisableStatus, MenuType } from '@/constants';
+import { EnableDisableStatusMap, MenuType } from '@/constants';
 import { selectedMenuIdAtom, useDeleteMenu, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
 import { CaretDownOutlined, CaretRightOutlined, CopyOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
@@ -113,7 +113,7 @@ const MenuTree = () => {
         >
           <ProFormText name="menuName" label="菜单名称" />
 
-          <ProFormSelect name="status" label="状态" valueEnum={MapEnableDisableStatus} />
+          <ProFormSelect name="status" label="状态" valueEnum={EnableDisableStatusMap} />
         </LightFilter>
       </div>
 

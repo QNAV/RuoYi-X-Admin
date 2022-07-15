@@ -1,4 +1,4 @@
-import { MapEnableDisableStatus } from '@/constants';
+import { EnableDisableStatusMap } from '@/constants';
 import type { ProItem } from '@/types';
 
 // 序号
@@ -36,7 +36,7 @@ export const CEnableDisableStatus: ProItem = {
   dataIndex: 'status',
   key: 'status',
   valueType: 'radio',
-  valueEnum: MapEnableDisableStatus,
+  valueEnum: EnableDisableStatusMap,
 };
 
 // 创建时间范围

@@ -1,4 +1,4 @@
-import { MapEnableDisableStatus, MapMenuType, MapYesNoStatus, MenuType } from '@/constants';
+import { EnableDisableStatusMap, MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
 import { selectedMenuIdAtom, useQueryMenuList } from '@/pages/system/menu/model';
 
 import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
@@ -26,14 +26,14 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
           dataIndex: 'status',
           key: 'status',
           valueType: 'radio',
-          valueEnum: MapEnableDisableStatus,
+          valueEnum: EnableDisableStatusMap,
         },
         {
           title: '是否显示',
           dataIndex: 'visible',
           key: 'visible',
           valueType: 'radio',
-          valueEnum: MapYesNoStatus,
+          valueEnum: YesNoStatusMap,
           tooltip: '选择否则路由将不会出现在侧边栏，但仍然可以访问',
         },
         {
@@ -41,7 +41,7 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
           dataIndex: 'isFrame',
           key: 'isFrame',
           valueType: 'radio',
-          valueEnum: MapYesNoStatus,
+          valueEnum: YesNoStatusMap,
           tooltip: '选择是外链则路由地址需要以`http(s)://`开头',
         },
         {
@@ -140,7 +140,7 @@ const MenuDetails: FC = () => {
             dataIndex: 'menuType',
             key: 'menuType',
             valueType: 'select',
-            valueEnum: MapMenuType,
+            valueEnum: MenuTypeMap,
             editable: false,
           },
           {
