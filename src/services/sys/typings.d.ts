@@ -34,11 +34,11 @@ declare namespace API {
 
   type CaptchaImageVo = {
     /** 验证码开关 */
-    captchaOnOff?: boolean;
+    captchaOnOff: boolean;
     /** 图片base64 */
-    img?: string;
+    img: string;
     /** 验证码唯一标识符 */
-    uuid?: string;
+    uuid: string;
   };
 
   type CharSequence = true;
@@ -60,7 +60,7 @@ declare namespace API {
 
   type LoginVo = {
     /** 身份令牌 */
-    token?: string;
+    token: string;
   };
 
   type MetaVo = {
@@ -620,19 +620,19 @@ declare namespace API {
     status?: string;
   };
 
-  type SysDeptReq = {
+  type SysDeptVo = {
     /** 祖级列表 */
     ancestors?: string;
     /** 子部门 */
-    children?: SysDeptReq[];
+    children?: SysDeptVo[];
     /** 创建者 */
-    createBy?: string;
+    createBy: string;
     /** 创建时间 */
-    createTime?: string;
+    createTime: string;
     /** 删除标志（0代表存在 2代表删除） */
-    delFlag?: string;
+    delFlag: string;
     /** 部门id */
-    deptId?: number;
+    deptId: number;
     /** 部门名称 */
     deptName: string;
     /** 邮箱 */
@@ -648,53 +648,11 @@ declare namespace API {
     /** 联系电话 */
     phone?: string;
     /** 部门状态:0正常,1停用 */
-    status?: string;
+    status: string;
     /** 更新者 */
     updateBy?: string;
     /** 更新时间 */
     updateTime?: string;
-  };
-
-  type SysDeptRes = {
-    /** 祖级列表 */
-    ancestors?: string;
-    /** 删除标志（0代表存在 2代表删除） */
-    delFlag?: string;
-    /** 部门id */
-    deptId?: number;
-    /** 部门名称 */
-    deptName: string;
-    /** 邮箱 */
-    email?: string;
-    /** 负责人 */
-    leader?: string;
-    /** 显示顺序 */
-    orderNum: number;
-    /** 联系电话 */
-    phone?: string;
-    /** 部门状态:0正常,1停用 */
-    status?: string;
-  };
-
-  type SysDeptVo = {
-    /** 祖级列表 */
-    ancestors?: string;
-    /** 删除标志（0代表存在 2代表删除） */
-    delFlag: string;
-    /** 部门id */
-    deptId: number;
-    /** 部门名称 */
-    deptName: string;
-    /** 邮箱 */
-    email?: string;
-    /** 负责人 */
-    leader?: string;
-    /** 显示顺序 */
-    orderNum: number;
-    /** 联系电话 */
-    phone?: string;
-    /** 部门状态:0正常,1停用 */
-    status: string;
   };
 
   type SysDictDataAddBo = {
@@ -968,8 +926,14 @@ declare namespace API {
   };
 
   type SysMenu = {
+    /** 子部门 */
+    children?: SysMenu[];
     /** 组件路径 */
     component?: string;
+    /** 创建者 */
+    createBy?: string;
+    /** 创建时间 */
+    createTime?: string;
     /** 菜单图标 */
     icon?: string;
     /** 是否缓存（0缓存 1不缓存） */
@@ -984,6 +948,10 @@ declare namespace API {
     menuType: string;
     /** 显示顺序 */
     orderNum: number;
+    /** 父菜单ID */
+    parentId?: number;
+    /** 父菜单名称 */
+    parentName?: string;
     /** 路由地址 */
     path?: string;
     /** 权限字符串 */
@@ -994,6 +962,10 @@ declare namespace API {
     remark?: string;
     /** 菜单状态（0显示 1隐藏） */
     status?: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
     /** 显示状态（0显示 1隐藏） */
     visible?: string;
   };
@@ -1933,7 +1905,7 @@ declare namespace API {
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门对象 */
-    dept?: SysDeptReq;
+    dept?: SysDept;
     /** 部门ID */
     deptId?: number;
     /** 用户邮箱 */
@@ -1986,7 +1958,7 @@ declare namespace API {
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门对象 */
-    dept?: SysDeptRes;
+    dept?: SysDept;
     /** 部门ID */
     deptId?: number;
     /** 用户邮箱 */
