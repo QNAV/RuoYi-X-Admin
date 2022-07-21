@@ -1,9 +1,9 @@
 import { tableActionsAtom } from '@/pages/tool/gen/model';
 import { GenPostRemove } from '@/services/gen/GenService';
 import { DeleteOutlined } from '@ant-design/icons';
+import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
-import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
 const ButtonDelete: FC<{ tableIds: number[]; isBatch?: boolean }> = ({ tableIds, isBatch = false }) => {

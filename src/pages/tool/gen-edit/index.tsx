@@ -5,11 +5,11 @@ import { GenGetInfo, GenPostEdit } from '@/services/gen/GenService';
 import { useParams } from '@@/exports';
 import { ProCard } from '@ant-design/pro-components';
 import { PageContainer } from '@ant-design/pro-layout';
+import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useMutation } from 'react-query';
 
 enum TabKey {
   BASE_INFO = 'BASE_INFO',

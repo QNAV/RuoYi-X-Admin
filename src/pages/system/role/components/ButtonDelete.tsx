@@ -1,9 +1,9 @@
 import { tableActionsAtom } from '@/pages/system/role/model';
 import { SysRolePostRemove } from '@/services/sys/SysRoleService';
 import { DeleteOutlined } from '@ant-design/icons';
+import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
-import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
 const ButtonDelete: FC<{ roleIds: number[] }> = ({ roleIds }) => {

@@ -2,10 +2,10 @@ import { SysProfilePostUpdatePwd } from '@/services/sys/SysProfileService';
 import { logout, regPassword } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormText } from '@ant-design/pro-components';
+import { useMutation } from '@tanstack/react-query';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
-import { useMutation } from 'react-query';
 
 const PwdForm: FC = () => {
   const formRef = useRef<ProFormInstance<API.UpdatePwdBody>>();

@@ -1,7 +1,7 @@
 import { SysMenuPostList, SysMenuPostRemove } from '@/services/sys/SysMenuService';
 import { getParentIds, parseSimpleTreeData, sortByOrderNum } from '@/utils';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { message, Modal } from 'antd';
-import { useMutation, useQuery } from 'react-query';
 import { atom, useResetRecoilState } from 'recoil';
 
 const key = 'systemMenu';

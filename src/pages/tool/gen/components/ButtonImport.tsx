@@ -6,11 +6,11 @@ import { convertParams } from '@/utils';
 import { CloudUploadOutlined } from '@ant-design/icons';
 import type { ActionType } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
+import { useMutation } from '@tanstack/react-query';
 import { useBoolean } from 'ahooks';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
-import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
 const columns: ProItem[] = [CIndex, CTableName, CTableComment, CCreateTime, CUpdateTime, CCreateTimeRange];

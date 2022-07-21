@@ -5,10 +5,10 @@ import { getToken, regEmail, regPhone } from '@/utils';
 import { CameraOutlined } from '@ant-design/icons';
 import type { ProDescriptionsItemProps, ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
+import { useMutation } from '@tanstack/react-query';
 import { useModel } from '@umijs/max';
 import { Avatar, Col, Divider, message, Row, Upload } from 'antd';
 import type { FC } from 'react';
-import { useMutation } from 'react-query';
 
 const uploadAvatarPath = `${API_HOST}/api/sys/profile/update-avatar`;
 

@@ -1,8 +1,8 @@
 import { GenGetSynchDb } from '@/services/gen/GenService';
 import { CloudSyncOutlined } from '@ant-design/icons';
+import { useMutation } from '@tanstack/react-query';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
-import { useMutation } from 'react-query';
 
 const ButtonSync: FC<{ tableName: string }> = ({ tableName }) => {
   const { isLoading, mutate } = useMutation(

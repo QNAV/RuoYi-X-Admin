@@ -1,10 +1,10 @@
 import type { GenType } from '@/constants';
 import { GenGetBatchGenCode } from '@/services/gen/GenService';
 import { CloudDownloadOutlined } from '@ant-design/icons';
+import { useMutation } from '@tanstack/react-query';
 import { Button, message } from 'antd';
 import { saveAs } from 'file-saver';
 import type { FC } from 'react';
-import { useMutation } from 'react-query';
 
 const ButtonDownload: FC<{ rows: { tableName: string; genType: GenType; genPath: string }[]; isBatch?: boolean }> = ({
   rows = [],

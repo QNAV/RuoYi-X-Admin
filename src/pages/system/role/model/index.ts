@@ -1,7 +1,7 @@
 import { SysMenuPostTreeSelect } from '@/services/sys/SysMenuService';
 import { getParentIds } from '@/utils';
 import type { ActionType } from '@ant-design/pro-components';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { atom } from 'recoil';
 
 const key = 'systemRole';

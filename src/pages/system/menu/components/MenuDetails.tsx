@@ -4,11 +4,11 @@ import { selectedMenuIdAtom, useQueryMenuList } from '@/pages/system/menu/model'
 import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
+import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { Divider, Empty, message } from 'antd';
 import type { FC } from 'react';
 import { useMemo } from 'react';
-import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 
 const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl: 2 };
