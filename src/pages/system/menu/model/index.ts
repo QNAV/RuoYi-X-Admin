@@ -1,20 +1,20 @@
 import { SysMenuPostList, SysMenuPostRemove } from '@/services/sys/SysMenuService';
 import { getParentIds, parseSimpleTreeData, sortByOrderNum } from '@/utils';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { message, Modal } from 'antd';
 import { atom, useResetRecoilState } from 'recoil';
 
-const key = 'systemMenu';
+const namespace = 'systemMenu';
 
-const queryKey = [key, 'list'];
+export const queryMenuListKey = [namespace, 'list'];
 
-export const selectedMenuIdAtom = atom<number>({ key: `${key}SelectedMenuId`, default: 0 });
+export const selectedMenuIdAtom = atom<number>({ key: `${namespace}SelectedMenuId`, default: 0 });
 
-export const visibleCreateModalAtom = atom<boolean>({ key: `${key}VisibleCreateModal`, default: false });
+export const visibleCreateModalAtom = atom<boolean>({ key: `${namespace}VisibleCreateModal`, default: false });
 
 // 查询菜单列表
-export const useQueryMenuList = (params: API.SysMenuQuery = {}) => {
-  return useQuery(queryKey, async () => {
+export const useQueryMenuList = (params: API.SysMenuQueryBo = {}) => {
+  return useQuery(queryMenuListKey, async () => {
     const data = await SysMenuPostList(params);
 
     const treeData: API.SysMenu[] = parseSimpleTreeData(data, {
@@ -35,7 +35,7 @@ export const useQueryMenuList = (params: API.SysMenuQuery = {}) => {
 
 // 删除菜单
 export const useDeleteMenu = () => {
-  const { refetch } = useQueryMenuList();
+  const queryClient = useQueryClient();
   const resetSelectedKeys = useResetRecoilState(selectedMenuIdAtom);
 
   return useMutation(async (menuId: number) => {
@@ -45,7 +45,7 @@ export const useDeleteMenu = () => {
       onOk: async () => {
         await SysMenuPostRemove({ menuId });
 
-        await refetch();
+        await queryClient.invalidateQueries(queryMenuListKey);
 
         resetSelectedKeys();
 

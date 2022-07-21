@@ -21,20 +21,20 @@ const titleRender: TreeProps<API.SysMenu>['titleRender'] = (item) => {
     <>
       <Tag color="rgb(148 163 184)">{item.orderNum}</Tag>
 
-      <AntdIcon name={item.icon} className="mr-1" />
+      {item?.icon && <AntdIcon name={item.icon} className="mr-1" />}
 
       <Tag color={menuTypeColor[item.menuType]} style={{ margin: '0 0 2px 0' }}>
         {item.menuName}
       </Tag>
 
-      {item.perms && (
+      {item?.perms && (
         <Tag style={{ margin: '0 0 2px 2px' }}>
           <Space size="small">
             {item.perms}
             <CopyOutlined
               style={{ color: '#1890ff' }}
               onClick={(e) => {
-                copy(item.perms);
+                copy(item.perms!);
                 message.success('复制成功');
                 e.stopPropagation();
               }}
@@ -58,7 +58,7 @@ const TreeTitle: FC = () => (
 );
 
 const MenuTree = () => {
-  const [searchParams, setSearchParams] = useState<API.SysMenuQuery>({});
+  const [searchParams, setSearchParams] = useState<API.SysMenuQueryBo>({});
 
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
@@ -70,7 +70,7 @@ const MenuTree = () => {
 
   const { data: menuData, refetch } = useQueryMenuList(searchParams);
 
-  const { mutate } = useDeleteMenu();
+  const { mutate: deleteMenu } = useDeleteMenu();
 
   const onSelect: TreeProps<API.SysMenu>['onSelect'] = (selectedKeys) => {
     setSelectedKeys(selectedKeys as number[]);
@@ -104,7 +104,7 @@ const MenuTree = () => {
           {isAllExpanded ? '全部折叠' : '全部展开'}
         </Button>
 
-        <LightFilter<API.SysMenuQuery>
+        <LightFilter<API.SysMenuQueryBo>
           onFinish={async (values) => {
             setSelectedKeys([]);
             setExpandedKeys([]);
@@ -127,7 +127,7 @@ const MenuTree = () => {
                 onClick: () => showCreateModal(true),
               },
               {
-                label: '在根目录新建',
+                label: '在根目录下新建',
                 key: 'create',
                 onClick: () => {
                   resetSelectedMenuId();
@@ -139,7 +139,7 @@ const MenuTree = () => {
                 key: 'delete',
                 danger: true,
                 disabled: selectedKeys.length === 0,
-                onClick: () => mutate(selectedMenuId),
+                onClick: () => deleteMenu(selectedMenuId),
               },
             ]}
           />

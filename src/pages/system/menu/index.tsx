@@ -13,12 +13,11 @@ export default function () {
           title="菜单列表"
           colSpan="550px"
           extra={[<ButtonCreate key="ButtonCreate" />, <ButtonDelete key="ButtonDelete" />]}
-          bodyStyle={{ height: '700px', overflowY: 'auto', overflowX: 'hidden' }}
         >
           <MenuTree />
         </ProCard>
 
-        <ProCard title="菜单详情" bodyStyle={{ height: '707px' }}>
+        <ProCard title="菜单详情">
           <MenuDetails />
         </ProCard>
       </ProCard>

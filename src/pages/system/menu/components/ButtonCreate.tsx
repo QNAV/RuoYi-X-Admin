@@ -6,7 +6,7 @@ import {
   YesNoStatus,
   YesNoStatusMap,
 } from '@/constants';
-import { selectedMenuIdAtom, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
+import { queryMenuListKey, selectedMenuIdAtom, visibleCreateModalAtom } from '@/pages/system/menu/model';
 import { SysMenuPostAdd, SysMenuPostList } from '@/services/sys/SysMenuService';
 import { parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { PlusOutlined } from '@ant-design/icons';
@@ -21,6 +21,7 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
@@ -59,8 +60,8 @@ const getSelectedParentIds = (data: Record<string, API.SysMenu>, menuId: number)
   return parentIds;
 };
 
-const getOptions = (data?: API.SysMenu[]): OptionsParentId[] => {
-  const formatOptions = (items: API.SysMenu[]): OptionsParentId[] => {
+const getOptions = (data?: API.SysMenu0[]): OptionsParentId[] => {
+  const formatOptions = (items: API.SysMenu0[]): OptionsParentId[] => {
     return items
       .filter((item) => item.menuType !== MenuType.F)
       .map(({ menuId, menuName, children }) => {
@@ -76,11 +77,11 @@ const ButtonCreate: FC = () => {
 
   const [visible, setVisible] = useRecoilState(visibleCreateModalAtom);
 
-  const { refetch } = useQueryMenuList();
+  const queryClient = useQueryClient();
 
   const selectedMenuId = useRecoilValue(selectedMenuIdAtom);
 
-  const { data, refresh } = useRequest(async (params: API.SysMenuQuery = {}) => {
+  const { data, refresh } = useRequest(async (params: API.SysMenuQueryBo = {}) => {
     const data = await SysMenuPostList(params);
 
     const treeData = parseSimpleTreeData(data, {
@@ -114,7 +115,7 @@ const ButtonCreate: FC = () => {
           onFinish={async (e) => {
             await SysMenuPostAdd(e);
 
-            await refetch();
+            await queryClient.invalidateQueries(queryMenuListKey);
 
             setVisible(false);
 
