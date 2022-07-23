@@ -15,7 +15,7 @@
   "dependencies": {
     "@ant-design/charts": "^1.4.2",
     "@ant-design/icons": "^4.7.0",
-    "@ant-design/pro-components": "^1.1.12",
+    "@ant-design/pro-components": "^1.1.14",
     "@ant-design/pro-layout": "next",
     "@tanstack/react-query": "^4.0.10",
     "@tanstack/react-query-devtools": "^4.0.10",
