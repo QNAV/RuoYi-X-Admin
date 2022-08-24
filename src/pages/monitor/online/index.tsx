@@ -1,6 +1,7 @@
 import { SysUserOnlineGetList, SysUserOnlinePostForceLogout } from '@/services/sys/SysUserOnlineService';
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
+import { PageContainer } from '@ant-design/pro-layout';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
 
@@ -67,18 +68,20 @@ const columns: ProColumns[] = [
 
 const OnlinePage: FC = () => {
   return (
-    <ProTable
-      rowKey="tokenId"
-      columns={columns}
-      request={async (params) => {
-        const { rows, total } = await SysUserOnlineGetList(params as API.SysUserOnlineGetListParams);
+    <PageContainer>
+      <ProTable
+        rowKey="tokenId"
+        columns={columns}
+        request={async (params) => {
+          const { rows, total } = await SysUserOnlineGetList(params as API.SysUserOnlineGetListParams);
 
-        return {
-          data: rows,
-          total,
-        };
-      }}
-    />
+          return {
+            data: rows,
+            total,
+          };
+        }}
+      />
+    </PageContainer>
   );
 };
 

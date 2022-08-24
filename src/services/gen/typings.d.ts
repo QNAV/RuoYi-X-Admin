@@ -34,7 +34,14 @@ declare namespace API {
     tableName: string;
   };
 
-  type GenInfoVo = GenTableRes;
+  type GenInfoVo = {
+    /** 查询到的生成业务信息 */
+    info: GenTableRes;
+    /** 查询到的生成业务字段列表 */
+    rows: GenTableColumnRes[];
+    /** 所有生成业务信息列表 */
+    tables: GenTableRes[];
+  };
 
   type GenPostImportTableParams = {
     /** 业务生成表名称组 */

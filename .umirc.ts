@@ -32,6 +32,4 @@ export default defineConfig({
     },
   ],
   routes,
-  keepalive: [/^((?!.*login))/],
-  tabsLayout: {},
 });

@@ -1,10 +1,8 @@
-import { LogoutIcon, SettingsIcon } from '@/components';
+import { BaseFooter, LogoutIcon, SettingsIcon } from '@/components';
 import { SysLoginGetInfo, SysLoginGetRouters } from '@/services/sys/SysLoginService';
 import type { InitialState } from '@/types';
 import { checkToken, convertUserRoutesToMenus } from '@/utils';
-import { GithubOutlined } from '@ant-design/icons';
 import type { ProLayoutProps } from '@ant-design/pro-layout';
-import { DefaultFooter } from '@ant-design/pro-layout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { history } from '@umijs/max';
 import dayjs from 'dayjs';
@@ -66,36 +64,24 @@ export const layout = ({ initialState }: { initialState: InitialState }): ProLay
       title: userInfo.user.nickName,
     },
     rightContentRender: false,
-    layoutBgImgList: [
-      {
-        src: 'https://img.alicdn.com/imgextra/i2/O1CN01O4etvp1DvpFLKfuWq_!!6000000000279-2-tps-609-606.png',
-        left: 85,
-        bottom: 100,
-        height: '303px',
+    token: {
+      layoutBg: '#f5f5f5',
+      header: {
+        headerBgColor: '#292f33',
+        headerTitleColor: '#fff',
       },
-      {
-        src: 'https://img.alicdn.com/imgextra/i2/O1CN01O4etvp1DvpFLKfuWq_!!6000000000279-2-tps-609-606.png',
-        bottom: -68,
-        right: -45,
-        height: '303px',
+      sider: {
+        menuBackgroundColor: '#fff',
+        menuItemDividerColor: '#dfdfdf',
+        menuTextColor: '#595959',
+        menuSelectedTextColor: 'rgba(42,122,251,1)',
+        menuItemSelectedBgColor: 'rgba(230,243,254,1)',
+        menuItemCollapsedSelectedBgColor: 'rgba(230,243,254,1)',
       },
-      {
-        src: 'https://img.alicdn.com/imgextra/i3/O1CN018NxReL1shX85Yz6Cx_!!6000000005798-2-tps-884-496.png',
-        bottom: 0,
-        left: 0,
-        width: '331px',
-      },
-    ],
+    },
     onMenuHeaderClick: () => history.push('/'),
     actionsRender: () => [<SettingsIcon key="SettingsIcon" />, <LogoutIcon key="LogoutIcon" />],
     menuDataRender: () => [...publicRoutes, ...convertUserRoutesToMenus(userRoutes)],
-    footerRender: () => (
-      <DefaultFooter
-        links={[
-          { key: 'Github', title: <GithubOutlined />, href: 'https://github.com/QNAV/RuoYi-X-Umi', blankTarget: true },
-        ]}
-        copyright="2022 Sushi Su"
-      />
-    ),
+    footerRender: BaseFooter,
   };
 };
