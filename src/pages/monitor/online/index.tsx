@@ -1,7 +1,6 @@
 import { SysUserOnlineGetList, SysUserOnlinePostForceLogout } from '@/services/sys/SysUserOnlineService';
 import type { ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
-import { PageContainer } from '@ant-design/pro-layout';
+import { PageContainer, ProTable } from '@ant-design/pro-components';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
 

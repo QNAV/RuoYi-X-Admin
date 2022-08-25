@@ -1,8 +1,9 @@
-import { BaseFooter, LogoutIcon, SettingsIcon } from '@/components';
+import { BaseFooter } from '@/components';
+import { BaseHeaderRightContent } from '@/components/BaseHeaderRightContent';
 import { SysLoginGetInfo, SysLoginGetRouters } from '@/services/sys/SysLoginService';
 import type { InitialState } from '@/types';
 import { checkToken, convertUserRoutesToMenus } from '@/utils';
-import type { ProLayoutProps } from '@ant-design/pro-layout';
+import type { ProLayoutProps } from '@ant-design/pro-components';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { history } from '@umijs/max';
 import dayjs from 'dayjs';
@@ -58,30 +59,14 @@ export const layout = ({ initialState }: { initialState: InitialState }): ProLay
   const { userInfo, userRoutes } = initialState;
 
   return {
-    avatarProps: {
-      src: userInfo.user.avatar,
-      size: 'small',
-      title: userInfo.user.nickName,
-    },
-    rightContentRender: false,
-    token: {
-      layoutBg: '#f5f5f5',
-      header: {
-        headerBgColor: '#292f33',
-        headerTitleColor: '#fff',
-      },
-      sider: {
-        menuBackgroundColor: '#fff',
-        menuItemDividerColor: '#dfdfdf',
-        menuTextColor: '#595959',
-        menuSelectedTextColor: 'rgba(42,122,251,1)',
-        menuItemSelectedBgColor: 'rgba(230,243,254,1)',
-        menuItemCollapsedSelectedBgColor: 'rgba(230,243,254,1)',
-      },
-    },
     onMenuHeaderClick: () => history.push('/'),
-    actionsRender: () => [<SettingsIcon key="SettingsIcon" />, <LogoutIcon key="LogoutIcon" />],
     menuDataRender: () => [...publicRoutes, ...convertUserRoutesToMenus(userRoutes)],
+    rightContentRender: () => (
+      <BaseHeaderRightContent nickName={userInfo.user.nickName} avatar={userInfo.user.avatar} />
+    ),
     footerRender: BaseFooter,
+    layout: 'mix',
+    navTheme: 'light',
+    fixSiderbar: true,
   };
 };

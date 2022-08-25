@@ -1,5 +1,4 @@
 import { CClassName, CCreateTime, CCreateTimeRange, CIndex, CTableComment, CTableName, CUpdateTime } from '@/columns';
-import { BasePageContainer } from '@/components';
 import type { GenType } from '@/constants';
 import { useInitActionType } from '@/hooks';
 import ButtonDelete from '@/pages/tool/gen/components/ButtonDelete';
@@ -13,7 +12,7 @@ import { tableActionsAtom } from '@/pages/tool/gen/model';
 import { GenPostList } from '@/services/gen/GenService';
 import type { ProItem } from '@/types';
 import { convertParams } from '@/utils';
-import { ProTable } from '@ant-design/pro-components';
+import { PageContainer, ProTable } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -53,7 +52,7 @@ const GenPage: FC = () => {
   const [selectedRows, setSelectedRows] = useState<API.GenTableRes[]>([]);
 
   return (
-    <BasePageContainer>
+    <PageContainer>
       <ProTable<API.GenTableRes>
         actionRef={actionRef}
         rowKey="tableId"
@@ -94,7 +93,7 @@ const GenPage: FC = () => {
       />
 
       <ModalPreview />
-    </BasePageContainer>
+    </PageContainer>
   );
 };
 

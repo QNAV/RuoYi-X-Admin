@@ -1,6 +1,6 @@
 import { AntdIcon } from '@/components';
 import { isHttpUrl } from '@/utils';
-import type { MenuDataItem } from '@ant-design/pro-layout';
+import type { MenuDataItem } from '@ant-design/pro-components';
 import qs from 'query-string';
 
 export const rootKey = '*:*:*';
@@ -26,12 +26,7 @@ export const convertUserRoutesToMenus = (userRoutes: API.RouterVo[], parentPath:
   const menus: MenuDataItem[] = [];
 
   userRoutes.forEach((item) => {
-    const {
-      query,
-      path,
-      hidden,
-      meta: { title, icon },
-    } = item;
+    const { query, path, hidden, meta } = item;
 
     let routes: MenuDataItem[] = [];
 
@@ -45,9 +40,9 @@ export const convertUserRoutesToMenus = (userRoutes: API.RouterVo[], parentPath:
 
     menus.push({
       path: `${curRoutePath}${queryString}`,
-      name: title,
+      name: meta?.title,
       hideInMenu: hidden,
-      icon: <AntdIcon name={icon} />,
+      icon: <AntdIcon name={meta?.icon} />,
       routes,
     });
   });

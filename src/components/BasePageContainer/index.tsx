@@ -1,5 +1,5 @@
-import type { PageContainerProps } from '@ant-design/pro-layout';
-import { PageContainer } from '@ant-design/pro-layout';
+import type { PageContainerProps } from '@ant-design/pro-components';
+import { PageContainer } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { cloneElement } from 'react';
 

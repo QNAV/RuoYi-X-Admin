@@ -2,8 +2,7 @@ import ButtonCreate from '@/pages/system/menu/components/ButtonCreate';
 import ButtonDelete from '@/pages/system/menu/components/ButtonDelete';
 import MenuDetails from '@/pages/system/menu/components/MenuDetails';
 import MenuTree from '@/pages/system/menu/components/MenuTree';
-import { ProCard } from '@ant-design/pro-components';
-import { PageContainer } from '@ant-design/pro-layout';
+import { PageContainer, ProCard } from '@ant-design/pro-components';
 
 export default function () {
   return (

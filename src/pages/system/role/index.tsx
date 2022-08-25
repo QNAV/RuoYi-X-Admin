@@ -13,8 +13,7 @@ import ButtonDelete from '@/pages/system/role/components/ButtonDelete';
 import { tableActionsAtom } from '@/pages/system/role/model';
 import { SysRolePostList } from '@/services/sys/SysRoleService';
 import { convertParams } from '@/utils';
-import { ProTable } from '@ant-design/pro-components';
-import { PageContainer } from '@ant-design/pro-layout';
+import { PageContainer, ProTable } from '@ant-design/pro-components';
 
 export default function () {
   const actionRef = useInitActionType(tableActionsAtom);

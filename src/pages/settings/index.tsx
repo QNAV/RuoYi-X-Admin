@@ -1,7 +1,6 @@
 import PwdForm from '@/pages/settings/components/PwdForm';
 import UserDescriptions from '@/pages/settings/components/UserDescriptions';
-import { ProCard } from '@ant-design/pro-components';
-import { PageContainer } from '@ant-design/pro-layout';
+import { PageContainer, ProCard } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
 

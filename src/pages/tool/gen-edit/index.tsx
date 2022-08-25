@@ -3,8 +3,7 @@ import EditableTableField from '@/pages/tool/gen-edit/components/EditableTableFi
 import type { GenInfoDto } from '@/pages/tool/gen-edit/data';
 import { GenGetInfo, GenPostEdit } from '@/services/gen/GenService';
 import { useParams } from '@@/exports';
-import { ProCard } from '@ant-design/pro-components';
-import { PageContainer } from '@ant-design/pro-layout';
+import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';

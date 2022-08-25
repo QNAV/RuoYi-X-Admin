@@ -1,6 +1,6 @@
-import type { Route } from '@ant-design/pro-layout/es/typings';
+import type { MenuDataItem } from '@ant-design/pro-components';
 
-const customRoutes: Route[] = [
+const customRoutes: MenuDataItem[] = [
   {
     path: '/system',
     routes: [
@@ -119,7 +119,7 @@ const customRoutes: Route[] = [
   },
 ];
 
-export const publicRoutes: Route[] = [
+export const publicRoutes: MenuDataItem[] = [
   {
     name: '首页',
     path: '/',
