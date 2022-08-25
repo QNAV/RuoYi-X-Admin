@@ -1,6 +1,12 @@
 import { AntdIcon } from '@/components';
 import { EnableDisableStatusMap, MenuType } from '@/constants';
-import { selectedMenuIdAtom, useDeleteMenu, useQueryMenuList, visibleCreateModalAtom } from '@/pages/system/menu/model';
+import {
+  useDeleteMenu,
+  useQueryMenuList,
+  useResetSelectedMenuId,
+  useSelectedMenuIdState,
+  useShowCreateModal,
+} from '@/pages/system/menu/model';
 import { CaretDownOutlined, CaretRightOutlined, CopyOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';
@@ -8,7 +14,6 @@ import { Button, Dropdown, Empty, Menu, message, Space, Tag, Tree } from 'antd';
 import copy from 'copy-to-clipboard';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 const menuTypeColor: Record<MenuType | string, string> = {
   M: 'blue',
@@ -63,10 +68,10 @@ const MenuTree = () => {
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
 
-  const [selectedMenuId, setSelectedMenuId] = useRecoilState(selectedMenuIdAtom);
-  const resetSelectedMenuId = useResetRecoilState(selectedMenuIdAtom);
+  const [selectedMenuId, setSelectedMenuId] = useSelectedMenuIdState();
+  const resetSelectedMenuId = useResetSelectedMenuId();
 
-  const showCreateModal = useSetRecoilState(visibleCreateModalAtom);
+  const showCreateModal = useShowCreateModal();
 
   const { data: menuData, refetch } = useQueryMenuList(searchParams);
 

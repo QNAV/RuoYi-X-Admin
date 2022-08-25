@@ -2,17 +2,24 @@ import { SysMenuPostList, SysMenuPostRemove } from '@/services/sys/SysMenuServic
 import { getParentIds, parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { message, Modal } from 'antd';
-import { atom, useResetRecoilState } from 'recoil';
+import { atom, useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 const namespace = 'systemMenu';
 
-export const queryMenuListKey = [namespace, 'list'];
+// 已选中的菜单
+const AtomSelectedMenuId = atom<number>({ key: `${namespace}SelectedMenuId`, default: 0 });
+export const useResetSelectedMenuId = () => useResetRecoilState(AtomSelectedMenuId);
+export const useSelectedMenuIdState = () => useRecoilState(AtomSelectedMenuId);
+export const useSelectedMenuIdValue = () => useRecoilValue(AtomSelectedMenuId);
 
-export const selectedMenuIdAtom = atom<number>({ key: `${namespace}SelectedMenuId`, default: 0 });
-
-export const visibleCreateModalAtom = atom<boolean>({ key: `${namespace}VisibleCreateModal`, default: false });
+// 新建菜单弹窗
+const AtomCreateModalState = atom<boolean>({ key: `${namespace}VisibleCreateModal`, default: false });
+export const useHideCreateModal = () => useResetRecoilState(AtomCreateModalState);
+export const useShowCreateModal = () => useSetRecoilState(AtomCreateModalState);
+export const useCreateModalVisibleValue = () => useRecoilValue(AtomCreateModalState);
 
 // 查询菜单列表
+export const queryMenuListKey = [namespace, 'list'];
 export const useQueryMenuList = (params: API.SysMenuQueryBo = {}) => {
   return useQuery(queryMenuListKey, async () => {
     const data = await SysMenuPostList(params);
@@ -36,7 +43,7 @@ export const useQueryMenuList = (params: API.SysMenuQueryBo = {}) => {
 // 删除菜单
 export const useDeleteMenu = () => {
   const queryClient = useQueryClient();
-  const resetSelectedKeys = useResetRecoilState(selectedMenuIdAtom);
+  const resetSelectedMenuId = useResetSelectedMenuId();
 
   return useMutation(async (menuId: number) => {
     Modal.confirm({
@@ -47,7 +54,7 @@ export const useDeleteMenu = () => {
 
         await queryClient.invalidateQueries(queryMenuListKey);
 
-        resetSelectedKeys();
+        resetSelectedMenuId();
 
         message.success('删除成功');
       },

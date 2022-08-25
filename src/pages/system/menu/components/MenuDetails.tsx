@@ -1,5 +1,5 @@
 import { EnableDisableStatusMap, MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
-import { selectedMenuIdAtom, useQueryMenuList } from '@/pages/system/menu/model';
+import { useQueryMenuList, useSelectedMenuIdValue } from '@/pages/system/menu/model';
 
 import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
@@ -9,7 +9,6 @@ import { useRequest } from 'ahooks';
 import { Divider, Empty, message } from 'antd';
 import type { FC } from 'react';
 import { useMemo } from 'react';
-import { useRecoilValue } from 'recoil';
 
 const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl: 2 };
 
@@ -94,7 +93,7 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
 };
 
 const MenuDetails: FC = () => {
-  const selectedMenuId = useRecoilValue(selectedMenuIdAtom);
+  const selectedMenuId = useSelectedMenuIdValue();
 
   const { refetch: reFetchMenuList } = useQueryMenuList();
 

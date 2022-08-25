@@ -1,5 +1,4 @@
-import { BaseFooter } from '@/components';
-import { BaseHeaderRightContent } from '@/components/BaseHeaderRightContent';
+import { BaseFooter, BaseHeaderRightContent } from '@/components';
 import { SysLoginGetInfo, SysLoginGetRouters } from '@/services/sys/SysLoginService';
 import type { InitialState } from '@/types';
 import { checkToken, convertUserRoutesToMenus } from '@/utils';

@@ -6,9 +6,16 @@ import {
   YesNoStatus,
   YesNoStatusMap,
 } from '@/constants';
-import { queryMenuListKey, selectedMenuIdAtom, visibleCreateModalAtom } from '@/pages/system/menu/model';
+import {
+  queryMenuListKey,
+  useCreateModalVisibleValue,
+  useHideCreateModal,
+  useSelectedMenuIdValue,
+  useShowCreateModal,
+} from '@/pages/system/menu/model';
 import { SysMenuPostAdd, SysMenuPostList } from '@/services/sys/SysMenuService';
 import { parseSimpleTreeData, sortByOrderNum } from '@/utils';
+import { Access, useAccess } from '@@/plugin-access';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import {
@@ -26,7 +33,6 @@ import { useRequest } from 'ahooks';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useRef } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
 
 export interface OptionsParentId {
   menuId: number;
@@ -46,7 +52,7 @@ const getSelectedParentIds = (data: Record<string, API.SysMenu>, menuId: number)
       return;
     }
 
-    if (data[id].parentId) {
+    if (data?.[id]?.parentId) {
       findParentId(data[id].parentId.toString());
     }
 
@@ -75,11 +81,14 @@ const getOptions = (data?: API.SysMenu0[]): OptionsParentId[] => {
 const ButtonCreate: FC = () => {
   const formRef = useRef<ProFormInstance>();
 
-  const [visible, setVisible] = useRecoilState(visibleCreateModalAtom);
+  const access = useAccess();
 
+  const showCreateModal = useShowCreateModal();
+  const hideCreateModal = useHideCreateModal();
+  const visible = useCreateModalVisibleValue();
   const queryClient = useQueryClient();
 
-  const selectedMenuId = useRecoilValue(selectedMenuIdAtom);
+  const selectedMenuId = useSelectedMenuIdValue();
 
   const { data, refresh } = useRequest(async (params: API.SysMenuQueryBo = {}) => {
     const data = await SysMenuPostList(params);
@@ -105,19 +114,19 @@ const ButtonCreate: FC = () => {
   }, [selectedMenuId, data?.map, formRef?.current]);
 
   return (
-    <>
-      <Button className="mr-2" type="primary" onClick={() => setVisible(true)} icon={<PlusOutlined />}>
+    <Access accessible={access.canAddSysMenu}>
+      <Button type="primary" onClick={() => showCreateModal(true)} icon={<PlusOutlined />}>
         新建
       </Button>
 
-      <Modal visible={visible} onCancel={() => setVisible(false)} title="新建菜单" footer={false} width={515}>
+      <Modal visible={visible} onCancel={hideCreateModal} title="新建菜单" footer={false} width={515}>
         <ProForm<API.SysMenu>
           onFinish={async (e) => {
             await SysMenuPostAdd(e);
 
             await queryClient.invalidateQueries(queryMenuListKey);
 
-            setVisible(false);
+            hideCreateModal();
 
             refresh();
 
@@ -221,19 +230,11 @@ const ButtonCreate: FC = () => {
                   )}
 
                   {menuType === MenuType.C && (
-                    <>
-                      {/* // TODO 后续添加*/}
-                      {/*<ProFormText*/}
-                      {/*  name="component"*/}
-                      {/*  label="组件路径"*/}
-                      {/*  tooltip="访问的组件路径，如：`system/user/index`，默认在`/src/pages`目录下"*/}
-                      {/*/>*/}
-                      <ProFormText
-                        name="queryParam"
-                        label="路由参数"
-                        tooltip={'访问路由的默认传递参数，如：{"id": 1, "name": "ry"}'}
-                      />
-                    </>
+                    <ProFormText
+                      name="queryParam"
+                      label="路由参数"
+                      tooltip={'访问路由的默认传递参数，如：{"id": 1, "name": "ry"}'}
+                    />
                   )}
 
                   {menuType !== MenuType.M && <ProFormText name="perms" label="权限标识" />}
@@ -245,7 +246,7 @@ const ButtonCreate: FC = () => {
           <ProFormTextArea name="remark" label="备注" />
         </ProForm>
       </Modal>
-    </>
+    </Access>
   );
 };
 
