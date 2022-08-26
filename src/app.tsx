@@ -4,6 +4,7 @@ import type { InitialState } from '@/types';
 import { checkToken, convertUserRoutesToMenus } from '@/utils';
 import type { ProLayoutProps } from '@ant-design/pro-components';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { history } from '@umijs/max';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
@@ -48,11 +49,22 @@ export const rootContainer = (container: ReactNode, opts: RecoilRootProps) => {
   return createElement(RecoilRoot, opts, container);
 };
 
-export const dataflowProvider = (container: ReactNode) => {
-  return createElement(QueryClientProvider, { client: queryClient }, container);
+export const dataflowProvider = (container: ReactNode, opts: { children: ReactNode }) => {
+  return createElement(
+    (props) => {
+      return (
+        <QueryClientProvider {...props}>
+          {props.children}
+          <ReactQueryDevtools position="bottom-right" />
+        </QueryClientProvider>
+      );
+    },
+    { ...opts, client: queryClient },
+    container,
+  );
 };
 
-export const layout = ({ initialState }: { initialState: InitialState }): ProLayoutProps => {
+export const layout = ({ initialState }: { initialState?: InitialState }): ProLayoutProps => {
   if (!initialState) return {};
 
   const { userInfo, userRoutes } = initialState;

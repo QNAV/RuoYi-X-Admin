@@ -20,7 +20,7 @@
     "@tanstack/react-query-devtools": "^4.2.1",
     "@umijs/max": "^4.0.15",
     "ahooks": "^3.7.0",
-    "antd": "^4.22.7",
+    "antd": "^4.22.8",
     "axios": "0.27.2",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.2",
