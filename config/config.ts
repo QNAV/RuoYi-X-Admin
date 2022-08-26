@@ -1,5 +1,5 @@
 import { defineConfig } from '@umijs/max';
-import routes from './config/routes';
+import routes from './routes';
 
 export default defineConfig({
   npmClient: 'pnpm',

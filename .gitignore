@@ -11,3 +11,4 @@
 /dist
 /.mfsu
 /.idea
+/config/config.dev.local.ts
