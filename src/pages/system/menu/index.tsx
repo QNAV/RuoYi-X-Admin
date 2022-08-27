@@ -4,8 +4,9 @@ import MenuDetails from '@/pages/system/menu/components/MenuDetails';
 import MenuTree from '@/pages/system/menu/components/MenuTree';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { Space } from 'antd';
+import type { FC } from 'react';
 
-export default function () {
+const PageMenu: FC = () => {
   return (
     <PageContainer>
       <ProCard ghost gutter={24}>
@@ -28,4 +29,6 @@ export default function () {
       </ProCard>
     </PageContainer>
   );
-}
+};
+
+export default PageMenu;

@@ -1,12 +1,12 @@
 import { EnableDisableStatusMap, MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
 import { useQueryMenuList, useSelectedMenuIdValue } from '@/pages/system/menu/model';
-
 import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
+import { useAccess } from '@@/plugin-access';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
-import { Divider, Empty, message } from 'antd';
+import { Divider, Empty, message, Spin } from 'antd';
 import type { FC } from 'react';
 import { useMemo } from 'react';
 
@@ -67,17 +67,6 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
       );
     }
 
-    // TODO 后续添加
-    // if (menuType === MenuType.C) {
-    //   columns.push({
-    //     title: '组件路径',
-    //     dataIndex: 'component',
-    //     key: 'component',
-    //     valueType: 'text',
-    //     tooltip: '访问的组件路径，如：`system/user/index`，默认在`/src/pages`目录下',
-    //   });
-    // }
-
     if (menuType !== MenuType.M) {
       columns.push({
         title: '权限标识',
@@ -93,11 +82,12 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
 };
 
 const MenuDetails: FC = () => {
-  const selectedMenuId = useSelectedMenuIdValue();
+  const access = useAccess();
 
   const { refetch: reFetchMenuList } = useQueryMenuList();
 
-  const { data, refresh } = useRequest(
+  const selectedMenuId = useSelectedMenuIdValue();
+  const { data, loading, refresh } = useRequest(
     async () => {
       return await SysMenuGetInfo({ menuId: selectedMenuId });
     },
@@ -115,23 +105,29 @@ const MenuDetails: FC = () => {
     },
   });
 
-  const columns = useColumns(data?.menuType as MenuType);
+  const columns = useColumns(data?.menuType as MenuType | undefined);
 
-  const editable: ProDescriptionsProps['editable'] = {
-    onSave: async (key, record) => {
-      const { menuType, orderNum, menuName, menuId } = record;
+  const editable: ProDescriptionsProps['editable'] = access.canEditSysMenu
+    ? {
+        onSave: async (key, record) => {
+          const { menuType, orderNum, menuName, menuId } = record;
 
-      const newKey = key as keyof API.SysMenu;
-
-      await mutateAsync({ menuId, menuType, orderNum, menuName, [newKey]: record[newKey] });
-    },
-  };
+          await mutateAsync({
+            menuId,
+            menuType,
+            orderNum,
+            menuName,
+            [key as keyof API.SysMenu]: record[key as keyof API.SysMenu],
+          });
+        },
+      }
+    : undefined;
 
   if (selectedMenuId === 0)
     return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="点击选择左侧菜单项查看详情" />;
 
   return (
-    <div>
+    <Spin spinning={loading}>
       <ProDescriptions
         columns={[
           {
@@ -187,7 +183,7 @@ const MenuDetails: FC = () => {
       <Divider />
 
       <ProDescriptions columns={columns} dataSource={data} editable={editable} column={column} />
-    </div>
+    </Spin>
   );
 };
 

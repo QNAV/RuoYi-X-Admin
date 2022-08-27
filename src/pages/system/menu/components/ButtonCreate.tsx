@@ -7,14 +7,13 @@ import {
   YesNoStatusMap,
 } from '@/constants';
 import {
-  queryMenuListKey,
   useCreateModalVisibleValue,
   useHideCreateModal,
+  useQueryMenuList,
   useSelectedMenuIdValue,
   useShowCreateModal,
 } from '@/pages/system/menu/model';
-import { SysMenuPostAdd, SysMenuPostList } from '@/services/sys/SysMenuService';
-import { parseSimpleTreeData, sortByOrderNum } from '@/utils';
+import { SysMenuPostAdd } from '@/services/sys/SysMenuService';
 import { Access, useAccess } from '@@/plugin-access';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
@@ -28,8 +27,7 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { useQueryClient } from '@tanstack/react-query';
-import { useRequest } from 'ahooks';
+import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useRef } from 'react';
@@ -53,7 +51,7 @@ const getSelectedParentIds = (data: Record<string, API.SysMenu>, menuId: number)
     }
 
     if (data?.[id]?.parentId) {
-      findParentId(data[id].parentId.toString());
+      findParentId(data[id].parentId!.toString());
     }
 
     if (data[id].menuType !== MenuType.F) {
@@ -66,50 +64,45 @@ const getSelectedParentIds = (data: Record<string, API.SysMenu>, menuId: number)
   return parentIds;
 };
 
-const getOptions = (data?: API.SysMenu0[]): OptionsParentId[] => {
-  const formatOptions = (items: API.SysMenu0[]): OptionsParentId[] => {
-    return items
-      .filter((item) => item.menuType !== MenuType.F)
-      .map(({ menuId, menuName, children }) => {
-        return { menuId, menuName, children: children ? formatOptions(children) : [] };
-      });
-  };
-
-  return [{ menuId: 0, menuName: '根目录', children: data ? formatOptions(data) : [] }];
-};
-
 const ButtonCreate: FC = () => {
-  const formRef = useRef<ProFormInstance>();
-
   const access = useAccess();
+
+  const formRef = useRef<ProFormInstance<API.SysMenu>>();
 
   const showCreateModal = useShowCreateModal();
   const hideCreateModal = useHideCreateModal();
   const visible = useCreateModalVisibleValue();
-  const queryClient = useQueryClient();
 
   const selectedMenuId = useSelectedMenuIdValue();
 
-  const { data, refresh } = useRequest(async (params: API.SysMenuQueryBo = {}) => {
-    const data = await SysMenuPostList(params);
+  const { data, refetch } = useQueryMenuList();
 
-    const treeData = parseSimpleTreeData(data, {
-      id: 'menuId',
-      pId: 'parentId',
-      rootPId: null,
-    }) as API.SysMenu[];
+  const { isLoading, mutate: handleSubmit } = useMutation(
+    async () => {
+      const formData = await formRef.current?.validateFieldsReturnFormatValue?.();
 
-    return {
-      options: getOptions(sortByOrderNum(treeData)),
-      map: data.reduce((map, item) => {
-        return { ...map, [item.menuId]: item };
-      }, {}),
-    };
-  });
+      if (!formData) return;
+
+      await SysMenuPostAdd(formData);
+    },
+    {
+      onSuccess: () => {
+        refetch();
+
+        hideCreateModal();
+
+        formRef?.current?.resetFields();
+
+        message.success('新建成功');
+      },
+    },
+  );
 
   useEffect(() => {
     if (formRef?.current?.setFieldsValue && data?.map) {
-      formRef?.current?.setFieldsValue({ parentId: getSelectedParentIds(data?.map, selectedMenuId) });
+      formRef?.current?.setFieldsValue({
+        parentId: getSelectedParentIds(data.map, selectedMenuId) as unknown as number,
+      });
     }
   }, [selectedMenuId, data?.map, formRef?.current]);
 
@@ -119,23 +112,18 @@ const ButtonCreate: FC = () => {
         新建
       </Button>
 
-      <Modal visible={visible} onCancel={hideCreateModal} title="新建菜单" footer={false} width={515}>
-        <ProForm<API.SysMenu>
-          onFinish={async (e) => {
-            await SysMenuPostAdd(e);
-
-            await queryClient.invalidateQueries(queryMenuListKey);
-
-            hideCreateModal();
-
-            refresh();
-
-            formRef?.current?.resetFields();
-
-            message.success('新建成功');
-          }}
-          formRef={formRef}
-        >
+      <Modal
+        visible={visible}
+        onCancel={hideCreateModal}
+        title="新建菜单"
+        width={515}
+        okText="提交"
+        onOk={() => handleSubmit()}
+        okButtonProps={{
+          loading: isLoading,
+        }}
+      >
+        <ProForm<API.SysMenu> submitter={false} formRef={formRef}>
           <ProFormCascader
             name="parentId"
             label="父级菜单"

@@ -96,7 +96,7 @@ const MenuTree = () => {
   }, [selectedKeys]);
 
   return (
-    <div>
+    <>
       <TreeTitle />
 
       <div className="flex justify-between items-center">
@@ -151,28 +151,30 @@ const MenuTree = () => {
         }
         trigger={['contextMenu']}
       >
-        {menuData?.treeData.length ? (
-          <Tree<API.SysMenu>
-            blockNode
-            selectedKeys={selectedKeys}
-            onSelect={onSelect}
-            expandedKeys={expandedKeys}
-            titleRender={titleRender}
-            onExpand={setExpandedKeys}
-            showLine={{ showLeafIcon: false }}
-            fieldNames={{
-              title: 'menuName',
-              key: 'menuId',
-              children: 'children',
-            }}
-            treeData={menuData?.treeData}
-            onRightClick={(e) => setSelectedKeys([e.node.key] as number[])}
-          />
-        ) : (
-          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-        )}
+        <div className="max-h-[60vh] overflow-auto">
+          {menuData?.treeData.length ? (
+            <Tree<API.SysMenu>
+              blockNode
+              selectedKeys={selectedKeys}
+              onSelect={onSelect}
+              expandedKeys={expandedKeys}
+              titleRender={titleRender}
+              onExpand={setExpandedKeys}
+              showLine={{ showLeafIcon: false }}
+              fieldNames={{
+                title: 'menuName',
+                key: 'menuId',
+                children: 'children',
+              }}
+              treeData={menuData?.treeData}
+              onRightClick={(e) => setSelectedKeys([e.node.key] as number[])}
+            />
+          ) : (
+            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          )}
+        </div>
       </Dropdown>
-    </div>
+    </>
   );
 };
 

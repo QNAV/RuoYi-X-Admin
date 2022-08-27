@@ -1,3 +1,5 @@
+import { MenuType } from '@/constants';
+import type { OptionsParentId } from '@/pages/system/menu/components/ButtonCreate';
 import { SysMenuPostList, SysMenuPostRemove } from '@/services/sys/SysMenuService';
 import { getParentIds, parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -5,6 +7,18 @@ import { message, Modal } from 'antd';
 import { atom, useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 const namespace = 'systemMenu';
+
+const getOptions = (data?: API.SysMenu[]): OptionsParentId[] => {
+  const formatOptions = (items: API.SysMenu[]): OptionsParentId[] => {
+    return items
+      .filter((item) => item.menuType !== MenuType.F)
+      .map(({ menuId, menuName, children }) => {
+        return { menuId: menuId!, menuName, children: children ? formatOptions(children) : [] };
+      });
+  };
+
+  return [{ menuId: 0, menuName: '根目录', children: data ? formatOptions(data) : [] }];
+};
 
 // 已选中的菜单
 const AtomSelectedMenuId = atom<number>({ key: `${namespace}SelectedMenuId`, default: 0 });
@@ -31,6 +45,7 @@ export const useQueryMenuList = (params: API.SysMenuQueryBo = {}) => {
     });
 
     return {
+      options: getOptions(sortByOrderNum(treeData)),
       treeData: sortByOrderNum(treeData),
       map: data.reduce((map, item) => {
         return { ...map, [item.menuId]: item };

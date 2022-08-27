@@ -6,11 +6,26 @@ import axios from 'axios';
 import { createSearchParams } from '@umijs/max';
 
 enum ErrorShowType {
-  SILENT = 0, // 不提示错误
-  WARN_MESSAGE = 1, // 警告信息提示
-  ERROR_MESSAGE = 2, // 错误信息提示
-  NOTIFICATION = 3, // 通知提示
-  REDIRECT = 9, // 页面跳转
+  /**
+   * 静默处理
+   */
+  SILENT = 0,
+  /**
+   * 警告信息提示
+   */
+  WARN_MESSAGE = 1,
+  /**
+   * 错误信息提示
+   */
+  ERROR_MESSAGE = 2,
+  /**
+   * 通知信息提示
+   */
+  NOTIFICATION = 3,
+  /**
+   * 跳转到登录页
+   */
+  REDIRECT = 9,
 }
 
 /**
@@ -38,7 +53,7 @@ interface RequestConfig extends AxiosRequestConfig {
 }
 
 const errorHandler = (res: CustomResponseStructure) => {
-  const { msg, showType } = res as any;
+  const { msg, showType } = res;
 
   switch (showType) {
     case ErrorShowType.SILENT:
@@ -105,16 +120,19 @@ instance.interceptors.response.use(
   },
 );
 
+/**
+ * 请求方法
+ * @param url
+ * @param config
+ */
 export function request<D extends ResponseStructure>(
   url: string,
   config: { skipErrorHandler?: false } & Omit<RequestConfig, 'url' | 'skipErrorHandler'>,
 ): Promise<D['data']>;
-
 export function request<D extends ResponseStructure>(
   url: string,
   config: { skipErrorHandler: true } & Omit<RequestConfig, 'url' | 'skipErrorHandler'>,
 ): Promise<AxiosResponse<D>>;
-
 export function request(url: any, config: any) {
   const { requestType, headers = {}, ...restConfig } = config || {};
 
@@ -155,19 +173,21 @@ export function request(url: any, config: any) {
   });
 }
 
+/**
+ * 针对生成代码模块封装的请求方法
+ * @param url
+ * @param config
+ */
 export function requestGenerator<D extends ResponseStructure>(
   url: string,
   config: { skipErrorHandler?: false } & Omit<RequestConfig, 'url' | 'skipErrorHandler'>,
 ): Promise<D['data']>;
-
 export function requestGenerator<D extends ResponseStructure>(
   url: string,
   config: { skipErrorHandler: true } & Omit<RequestConfig, 'url' | 'skipErrorHandler'>,
 ): Promise<AxiosResponse<D>>;
-
-// 针对代码生成模块封装的请求
-export function requestGenerator(url: any, config: any) {
-  const { headers = {}, ...restConfig } = config || {};
+export function requestGenerator(url: any, config: any = {}) {
+  const { headers = {}, ...restConfig } = config;
   headers.datasource = 'master';
   return request(url, { ...restConfig, headers });
 }
