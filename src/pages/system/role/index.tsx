@@ -1,54 +1,23 @@
-import {
-  CCreateTime,
-  CCreateTimeRange,
-  CEnableDisableStatus,
-  CRoleId,
-  CRoleKey,
-  CRoleName,
-  CRoleSort,
-} from '@/columns';
-import { useInitActionType } from '@/hooks';
 import ButtonCreate from '@/pages/system/role/components/ButtonCreate';
-import ButtonDelete from '@/pages/system/role/components/ButtonDelete';
-import { tableActionsAtom } from '@/pages/system/role/model';
-import { SysRolePostList } from '@/services/sys/SysRoleService';
-import { convertParams } from '@/utils';
-import { PageContainer, ProTable } from '@ant-design/pro-components';
+import DetailsRole from '@/pages/system/role/components/DetailsRole';
+import ListRole from '@/pages/system/role/components/ListRole';
+import { PageContainer, ProCard } from '@ant-design/pro-components';
+import type { FC } from 'react';
 
-export default function () {
-  const actionRef = useInitActionType(tableActionsAtom);
-
+const PageRole: FC = () => {
   return (
     <PageContainer>
-      <ProTable<API.SysRoleRes>
-        rowKey="roleId"
-        actionRef={actionRef}
-        columns={[
-          CRoleId,
-          CEnableDisableStatus,
-          CRoleName,
-          CRoleKey,
-          CRoleSort,
-          CCreateTime,
-          CCreateTimeRange,
-          {
-            title: '操作',
-            dataIndex: 'option',
-            valueType: 'option',
-            render: (_, record) => (
-              <>
-                <ButtonDelete roleIds={[record.roleId]} />
-              </>
-            ),
-          },
-        ]}
-        request={async (...params) => {
-          const { rows, total } = await SysRolePostList(convertParams(...params));
+      <ProCard ghost gutter={24}>
+        <ProCard title="角色列表" colSpan="400px" extra={<ButtonCreate />}>
+          <ListRole />
+        </ProCard>
 
-          return { data: rows, total, success: true };
-        }}
-        toolbar={{ actions: [<ButtonCreate key="ButtonCreate" />] }}
-      />
+        <ProCard title="角色详情">
+          <DetailsRole />
+        </ProCard>
+      </ProCard>
     </PageContainer>
   );
-}
+};
+
+export default PageRole;

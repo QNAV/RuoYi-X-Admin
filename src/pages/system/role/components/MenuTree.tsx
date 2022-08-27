@@ -1,4 +1,4 @@
-import { useQueryMenuTree } from '@/pages/system/role/model';
+import { useQueryMenuList } from '@/pages/system/menu/model';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { ProCard } from '@ant-design/pro-components';
 import type { CheckboxProps, TreeProps } from 'antd';
@@ -23,7 +23,7 @@ export interface MenuTreeProps {
 }
 
 const MenuTree: FC<MenuTreeProps> = ({ value, onChange }) => {
-  const { data } = useQueryMenuTree();
+  const { data } = useQueryMenuList();
 
   const [menuIds, setMenuIds] = useState<number[]>([]);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);

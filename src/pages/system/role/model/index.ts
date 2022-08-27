@@ -1,20 +1,22 @@
-import { SysMenuPostTreeSelect } from '@/services/sys/SysMenuService';
-import { getParentIds } from '@/utils';
+import { useInitActionType } from '@/hooks';
 import type { ActionType } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
-import { atom } from 'recoil';
+import { atom, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
-const key = 'systemRole';
-const queryKey = [key, 'menuTree'];
+const namespace = 'systemRole';
 
-export const tableActionsAtom = atom<ActionType>({ key: `${key}TableActions`, default: undefined });
+// 主表格操作
+const AtomMainTableActions = atom<ActionType>({ key: `${namespace}AtomMainTableActions`, default: undefined });
+export const useMainTableActions = () => useRecoilValue(AtomMainTableActions);
+export const useMainTableActionRef = () => useInitActionType(AtomMainTableActions);
 
-export const useQueryMenuTree = (params: API.SysMenuQuery = {}) =>
-  useQuery(queryKey, async () => {
-    const data = await SysMenuPostTreeSelect(params);
-
-    return {
-      treeData: data,
-      parentIds: getParentIds(data),
-    };
-  });
+// 角色详情
+const AtomRoleDetails = atom({
+  key: `${namespace}AtomRoleDetails`,
+  default: {
+    visible: false,
+    roleId: 0,
+  },
+});
+export const useHideRoleDetails = () => useResetRecoilState(AtomRoleDetails);
+export const useShowRoleDetails = () => useSetRecoilState(AtomRoleDetails);
+export const useRoleDetailsVisibleValue = () => useRecoilValue(AtomRoleDetails);
