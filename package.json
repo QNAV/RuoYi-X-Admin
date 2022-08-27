@@ -44,7 +44,7 @@
     "@types/react-dom": "^18.0.6",
     "@umijs/lint": "^4.0.15",
     "cross-env": "^7.0.3",
-    "eslint": "^8.22.0",
+    "eslint": "8.22.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
