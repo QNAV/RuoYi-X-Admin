@@ -2,7 +2,7 @@ import { useHideRoleDetails, useRoleDetailsVisibleValue, useRoleListActions } fr
 import { SysRolePostRemove } from '@/services/sys/SysRoleService';
 import { Access, useAccess } from '@@/plugin-access';
 import { DeleteOutlined } from '@ant-design/icons';
-import { Button, message, Modal } from 'antd';
+import { Button, message, Modal, Typography } from 'antd';
 import type { FC } from 'react';
 
 const ButtonDeleteRole: FC = () => {
@@ -11,12 +11,18 @@ const ButtonDeleteRole: FC = () => {
   const mainTableActions = useRoleListActions();
 
   const hideRoleDetails = useHideRoleDetails();
-  const { visible, roleId } = useRoleDetailsVisibleValue();
+  const { visible, roleId, roleName } = useRoleDetailsVisibleValue();
 
   const handleDel = () =>
     Modal.confirm({
       title: '删除确认',
-      content: `确定删除 角色ID 为 ${roleId} 的角色吗？`,
+
+      content: (
+        <>
+          确定对角色<Typography.Text code>{roleName}</Typography.Text>进行<Typography.Text code>删除</Typography.Text>
+          操作吗？
+        </>
+      ),
       onOk: async () => {
         await SysRolePostRemove({ roleIds: roleId });
         hideRoleDetails();

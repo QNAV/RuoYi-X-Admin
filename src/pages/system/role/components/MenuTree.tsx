@@ -1,6 +1,5 @@
 import { useQueryMenuList } from '@/pages/system/menu/model';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
-import { ProCard } from '@ant-design/pro-components';
 import type { CheckboxProps, TreeProps } from 'antd';
 import { Button, Checkbox, Space, Tree } from 'antd';
 import type { FC } from 'react';
@@ -49,7 +48,7 @@ const MenuTree: FC<MenuTreeProps> = ({ value, onChange }) => {
   const isAllExpanded = expandedKeys && expandedKeys.length > 0 && expandedKeys.length === allExpandedKeys.length;
 
   return (
-    <ProCard bordered>
+    <>
       <Space className="mb-2">
         <Button
           size="small"
@@ -74,7 +73,7 @@ const MenuTree: FC<MenuTreeProps> = ({ value, onChange }) => {
         onExpand={setExpandedKeys}
         checkStrictly={checkStrictly}
       />
-    </ProCard>
+    </>
   );
 };
 

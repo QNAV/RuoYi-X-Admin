@@ -12,19 +12,21 @@ const ListRole: FC = () => {
   const roleListActionRef = useRoleListActionRef();
 
   const showRoleDetails = useShowRoleDetails();
-  const { onClick, rowSelection, selectedRowKeys } = useRowClick<API.SysRoleVo>('roleId', 'radio');
+  const { onClick, rowSelection, selectedRows } = useRowClick<API.SysRoleVo>('roleId', 'radio');
 
   useEffect(() => {
-    if (selectedRowKeys.length > 0) {
+    if (selectedRows.length === 1) {
       showRoleDetails({
-        roleId: selectedRowKeys[0] as number,
+        roleId: selectedRows[0].roleId,
+        roleName: selectedRows[0].roleName,
         visible: true,
       });
     }
-  }, [selectedRowKeys]);
+  }, [selectedRows]);
 
   return (
     <ProList<API.SysRoleVo>
+      ghost
       rowKey="roleId"
       actionRef={roleListActionRef}
       metas={{

@@ -1,20 +1,12 @@
-import { EnableDisableStatus, EnableDisableStatusMap, ModalBodyStyle } from '@/constants';
+import { EnableDisableStatus, EnableDisableStatusMap } from '@/constants';
 import type { MenuTreeValue } from '@/pages/system/role/components/MenuTree';
-import MenuTree from '@/pages/system/role/components/MenuTree';
 
 import { useRoleListActions } from '@/pages/system/role/model';
 import { SysRolePostAdd } from '@/services/sys/SysRoleService';
 import { Access } from '@@/exports';
 import { useAccess } from '@@/plugin-access';
 import { PlusOutlined } from '@ant-design/icons';
-import {
-  ModalForm,
-  ProFormDigit,
-  ProFormItem,
-  ProFormRadio,
-  ProFormText,
-  ProFormTextArea,
-} from '@ant-design/pro-components';
+import { ModalForm, ProFormDigit, ProFormRadio, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
@@ -47,12 +39,10 @@ const ButtonCreateRole: FC = () => {
           const { menuInfo = { menuIds: [], menuCheckStrictly: true }, ...r } = values;
 
           await mutateAsync({ ...r, ...menuInfo });
+
           return true;
         }}
         width={500}
-        modalProps={{
-          bodyStyle: ModalBodyStyle,
-        }}
       >
         <ProFormText name="roleName" label="角色名称" rules={[{ required: true }]} />
 
@@ -73,10 +63,6 @@ const ButtonCreateRole: FC = () => {
         />
 
         <ProFormTextArea name="remark" label="备注" />
-
-        <ProFormItem name="menuInfo" label="菜单权限">
-          <MenuTree />
-        </ProFormItem>
       </ModalForm>
     </Access>
   );

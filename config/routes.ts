@@ -11,6 +11,7 @@ const customRoutes: MenuDataItem[] = [
       {
         path: 'role',
         component: '@/pages/system/role',
+        access: 'canReadSysRole',
       },
       {
         path: 'menu',
