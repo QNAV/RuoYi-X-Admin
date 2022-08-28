@@ -1,6 +1,6 @@
 import { EnableDisableStatus } from '@/constants';
 import { useRowClick } from '@/hooks';
-import { useShowRoleDetails } from '@/pages/system/role/model';
+import { useRoleListActionRef, useShowRoleDetails } from '@/pages/system/role/model';
 import { SysRolePostList } from '@/services/sys/SysRoleService';
 import { convertParams } from '@/utils';
 import { ProList } from '@ant-design/pro-components';
@@ -9,6 +9,8 @@ import type { FC } from 'react';
 import { useEffect } from 'react';
 
 const ListRole: FC = () => {
+  const roleListActionRef = useRoleListActionRef();
+
   const showRoleDetails = useShowRoleDetails();
   const { onClick, rowSelection, selectedRowKeys } = useRowClick<API.SysRoleVo>('roleId', 'radio');
 
@@ -24,6 +26,7 @@ const ListRole: FC = () => {
   return (
     <ProList<API.SysRoleVo>
       rowKey="roleId"
+      actionRef={roleListActionRef}
       metas={{
         title: {
           dataIndex: 'roleName',
@@ -46,6 +49,10 @@ const ListRole: FC = () => {
         };
       }}
       rowSelection={rowSelection}
+      pagination={{
+        current: 1,
+        pageSize: 10,
+      }}
       request={async (...params) => {
         const { rows, total } = await SysRolePostList(convertParams(...params));
 

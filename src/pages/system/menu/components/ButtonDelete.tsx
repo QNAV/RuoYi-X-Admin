@@ -12,7 +12,7 @@ const ButtonDelete: FC = () => {
   const { mutate, isLoading } = useDeleteMenu();
 
   return (
-    <Access accessible={access.canDeleteSysMenu}>
+    <Access accessible={access.canRemoveSysMenu}>
       <Button
         icon={<DeleteOutlined />}
         loading={isLoading}

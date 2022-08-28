@@ -7,6 +7,7 @@ export const CIndex: ProItem = {
   dataIndex: 'index',
   key: 'index',
   valueType: 'indexBorder',
+  editable: false,
   width: 60,
 };
 
@@ -16,6 +17,7 @@ export const CCreateTime: ProItem = {
   dataIndex: 'createTime',
   key: 'createTime',
   valueType: 'dateTime',
+  editable: false,
   hideInSearch: true,
   sorter: true,
 };
@@ -26,6 +28,7 @@ export const CUpdateTime: ProItem = {
   dataIndex: 'updateTime',
   key: 'updateTime',
   valueType: 'dateTime',
+  editable: false,
   hideInSearch: true,
   sorter: true,
 };

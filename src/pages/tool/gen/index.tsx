@@ -80,7 +80,7 @@ const GenPage: FC = () => {
           );
         }}
         columns={columns}
-        toolbar={{ actions: [<ButtonImport key="ButtonCreate" />] }}
+        toolbar={{ actions: [<ButtonImport key="ButtonCreateRole" />] }}
         request={async (...params) => {
           const { total, rows } = await GenPostList(convertParams(...params));
 

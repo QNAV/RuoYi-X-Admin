@@ -4,10 +4,10 @@ import { atom, useRecoilValue, useResetRecoilState, useSetRecoilState } from 're
 
 const namespace = 'systemRole';
 
-// 主表格操作
-const AtomMainTableActions = atom<ActionType>({ key: `${namespace}AtomMainTableActions`, default: undefined });
-export const useMainTableActions = () => useRecoilValue(AtomMainTableActions);
-export const useMainTableActionRef = () => useInitActionType(AtomMainTableActions);
+// 角色列表操作
+const AtomRoleListActions = atom<ActionType>({ key: `${namespace}AtomRoleListActions`, default: undefined });
+export const useRoleListActions = () => useRecoilValue(AtomRoleListActions);
+export const useRoleListActionRef = () => useInitActionType(AtomRoleListActions);
 
 // 角色详情
 const AtomRoleDetails = atom({

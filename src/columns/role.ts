@@ -10,7 +10,7 @@ export const CRoleName: ProItem = {
 
 // 角色ID
 export const CRoleId: ProItem = {
-  title: '角色ID',
+  title: '角色编号',
   dataIndex: 'roleId',
   key: 'roleId',
   valueType: 'text',

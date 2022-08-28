@@ -2,9 +2,10 @@ import { EnableDisableStatus, EnableDisableStatusMap, ModalBodyStyle } from '@/c
 import type { MenuTreeValue } from '@/pages/system/role/components/MenuTree';
 import MenuTree from '@/pages/system/role/components/MenuTree';
 
-import { useMainTableActions } from '@/pages/system/role/model';
+import { useRoleListActions } from '@/pages/system/role/model';
 import { SysRolePostAdd } from '@/services/sys/SysRoleService';
 import { Access } from '@@/exports';
+import { useAccess } from '@@/plugin-access';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   ModalForm,
@@ -22,8 +23,9 @@ interface FormData extends API.SysRoleReq {
   menuInfo?: MenuTreeValue;
 }
 
-const ButtonCreate: FC = () => {
-  const tableActions = useMainTableActions();
+const ButtonCreateRole: FC = () => {
+  const access = useAccess();
+  const tableActions = useRoleListActions();
 
   const { mutateAsync } = useMutation(SysRolePostAdd, {
     onSuccess: () => {
@@ -33,7 +35,7 @@ const ButtonCreate: FC = () => {
   });
 
   return (
-    <Access accessible>
+    <Access accessible={access.canAddSysRole}>
       <ModalForm<FormData>
         title="新建角色"
         trigger={
@@ -80,4 +82,4 @@ const ButtonCreate: FC = () => {
   );
 };
 
-export default ButtonCreate;
+export default ButtonCreateRole;

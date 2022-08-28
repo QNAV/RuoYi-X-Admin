@@ -1,3 +1,4 @@
+import { EmptySimple } from '@/components';
 import { EnableDisableStatusMap, MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
 import { useQueryMenuList, useSelectedMenuIdValue } from '@/pages/system/menu/model';
 import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
@@ -6,7 +7,7 @@ import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
-import { Divider, Empty, message, Spin } from 'antd';
+import { Divider, message, Spin } from 'antd';
 import type { FC } from 'react';
 import { useMemo } from 'react';
 
@@ -123,8 +124,7 @@ const MenuDetails: FC = () => {
       }
     : undefined;
 
-  if (selectedMenuId === 0)
-    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="点击选择左侧菜单项查看详情" />;
+  if (selectedMenuId === 0) return <EmptySimple description="点击选择左侧菜单项查看详情" />;
 
   return (
     <Spin spinning={loading}>
