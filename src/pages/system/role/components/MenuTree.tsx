@@ -1,15 +1,8 @@
 import { useQueryMenuList } from '@/pages/system/menu/model';
-import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import type { CheckboxProps, TreeProps } from 'antd';
-import { Button, Checkbox, Space, Tree } from 'antd';
+import { Checkbox, Space, Tree } from 'antd';
 import type { FC } from 'react';
 import { useState } from 'react';
-
-const fieldNames = {
-  title: 'label',
-  key: 'id',
-  children: 'children',
-};
 
 export interface MenuTreeValue {
   menuIds: number[];
@@ -17,19 +10,19 @@ export interface MenuTreeValue {
 }
 
 export interface MenuTreeProps {
-  value?: MenuTreeValue;
-  onChange?: (value: MenuTreeValue) => void;
+  value: MenuTreeValue;
+  onChange: (value: MenuTreeValue) => void;
 }
 
 const MenuTree: FC<MenuTreeProps> = ({ value, onChange }) => {
   const { data } = useQueryMenuList();
 
-  const [menuIds, setMenuIds] = useState<number[]>([]);
+  const [menuIds, setMenuIds] = useState<number[]>(value?.menuIds);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
   const [checkStrictly, setCheckStrictly] = useState<boolean>(false);
 
   const triggerChange = (changedValue: Partial<MenuTreeValue>) => {
-    onChange?.({ menuIds, menuCheckStrictly: checkStrictly, ...value, ...changedValue });
+    onChange({ ...value, ...changedValue });
   };
 
   const onCheck: TreeProps['onCheck'] = (k) => {
@@ -44,29 +37,30 @@ const MenuTree: FC<MenuTreeProps> = ({ value, onChange }) => {
     triggerChange({ menuCheckStrictly: !e.target.checked });
   };
 
-  const allExpandedKeys = data?.parentIds ?? [];
-  const isAllExpanded = expandedKeys && expandedKeys.length > 0 && expandedKeys.length === allExpandedKeys.length;
-
   return (
     <>
       <Space className="mb-2">
-        <Button
-          size="small"
-          icon={isAllExpanded ? <CaretDownOutlined /> : <CaretRightOutlined />}
-          onClick={() => setExpandedKeys(isAllExpanded ? [] : allExpandedKeys)}
+        <Checkbox
+          onChange={(e) => {
+            setExpandedKeys(e.target.checked ? data?.parentIds ?? [] : []);
+          }}
         >
-          {isAllExpanded ? '全部折叠' : '全部展开'}
-        </Button>
-
-        <Checkbox defaultChecked onChange={onCheckStrictlyChange}>
-          父子联动
+          展开/折叠
         </Checkbox>
+
+        <Checkbox>全选/全不选</Checkbox>
+
+        <Checkbox onChange={onCheckStrictlyChange}>父子联动</Checkbox>
       </Space>
 
       <Tree<any>
         checkable
         treeData={data?.treeData ?? []}
-        fieldNames={fieldNames}
+        fieldNames={{
+          title: 'menuName',
+          key: 'menuId',
+          children: 'children',
+        }}
         checkedKeys={menuIds}
         onCheck={onCheck}
         expandedKeys={expandedKeys}

@@ -1,7 +1,7 @@
 import { CCreateTime, CEnableDisableStatus, CRemark, CRoleId, CRoleKey, CRoleName, CRoleSort } from '@/columns';
 import { EmptySimple } from '@/components';
 import ButtonEditRolePerm from '@/pages/system/role/components/ButtonEditRolePerm';
-import MenuTree from '@/pages/system/role/components/MenuTree';
+import TreeTransferMenuTree from '@/pages/system/role/components/TransferMenuTree';
 import { useEndEditRolePermission, useRoleDetailsVisibleValue, useRoleListActions } from '@/pages/system/role/model';
 import { SysRoleGetInfo, SysRolePostEdit } from '@/services/sys/SysRoleService';
 import { useAccess } from '@@/plugin-access';
@@ -86,26 +86,24 @@ const DetailsRole: FC = () => {
   if (!visible) return <EmptySimple description="点击选择左侧角色查看详情" />;
 
   return (
-    <div className="max-h-[60vh] overflow-y-auto">
-      <Spin spinning={loading}>
-        <ProDescriptions column={2} columns={[CRoleId, CCreateTime]} dataSource={data} />
+    <Spin spinning={loading}>
+      <ProDescriptions column={2} columns={[CRoleId, CCreateTime]} dataSource={data} />
 
-        <Divider />
+      <Divider />
 
-        <ProDescriptions
-          column={2}
-          columns={[CEnableDisableStatus, CRoleSort, CRoleName, CRemark, CRoleKey]}
-          dataSource={data}
-          editable={editable}
-        />
+      <ProDescriptions
+        column={2}
+        columns={[CEnableDisableStatus, CRoleSort, CRoleName, CRemark, CRoleKey]}
+        dataSource={data}
+        editable={editable}
+      />
 
-        <Divider />
+      <Divider />
 
-        <ProCard title="角色权限" ghost extra={<ButtonEditRolePerm />}>
-          <MenuTree />
-        </ProCard>
-      </Spin>
-    </div>
+      <ProCard ghost extra={<ButtonEditRolePerm />}>
+        <TreeTransferMenuTree />
+      </ProCard>
+    </Spin>
   );
 };
 

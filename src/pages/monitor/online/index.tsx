@@ -72,11 +72,12 @@ const OnlinePage: FC = () => {
         rowKey="tokenId"
         columns={columns}
         request={async (params) => {
-          const { rows, total } = await SysUserOnlineGetList(params as API.SysUserOnlineGetListParams);
+          const { data, total } = await SysUserOnlineGetList(params as API.SysUserOnlineGetListParams);
 
           return {
-            data: rows,
+            data,
             total,
+            success: true,
           };
         }}
       />

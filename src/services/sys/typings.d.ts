@@ -623,12 +623,6 @@ declare namespace API {
   type SysDeptVo = {
     /** 祖级列表 */
     ancestors?: string;
-    /** 子部门 */
-    children?: SysDeptVo[];
-    /** 创建者 */
-    createBy: string;
-    /** 创建时间 */
-    createTime: string;
     /** 删除标志（0代表存在 2代表删除） */
     delFlag: string;
     /** 部门id */
@@ -641,18 +635,10 @@ declare namespace API {
     leader?: string;
     /** 显示顺序 */
     orderNum: number;
-    /** 父菜单ID */
-    parentId?: number;
-    /** 父菜单名称 */
-    parentName?: string;
     /** 联系电话 */
     phone?: string;
     /** 部门状态:0正常,1停用 */
     status: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
   };
 
   type SysDictDataAddBo = {
@@ -2169,84 +2155,84 @@ declare namespace API {
 
   type TableDataSysConfigVo = {
     /** 列表数据 */
-    rows: SysConfigVo[];
+    data: SysConfigVo[];
     /** 总记录数 */
     total: number;
   };
 
   type TableDataSysDictDataVo = {
     /** 列表数据 */
-    rows: SysDictDataVo[];
+    data: SysDictDataVo[];
     /** 总记录数 */
     total: number;
   };
 
   type TableDataSysDictTypeVo = {
     /** 列表数据 */
-    rows: SysDictTypeVo[];
+    data: SysDictTypeVo[];
     /** 总记录数 */
     total: number;
   };
 
   type TableDataSysLogininforVo = {
     /** 列表数据 */
-    rows: SysLogininforVo[];
+    data: SysLogininforVo[];
     /** 总记录数 */
     total: number;
   };
 
   type TableDataSysNoticeVo = {
     /** 列表数据 */
-    rows: SysNoticeVo[];
+    data: SysNoticeVo[];
     /** 总记录数 */
     total: number;
   };
 
   type TableDataSysOperLogVo = {
     /** 列表数据 */
-    rows: SysOperLogVo[];
+    data: SysOperLogVo[];
     /** 总记录数 */
     total: number;
   };
 
   type TableDataSysOssConfigVo = {
     /** 列表数据 */
-    rows: SysOssConfigVo[];
+    data: SysOssConfigVo[];
     /** 总记录数 */
     total: number;
   };
 
   type TableDataSysOssVo = {
     /** 列表数据 */
-    rows: SysOssVo[];
+    data: SysOssVo[];
     /** 总记录数 */
     total: number;
   };
 
   type TableDataSysPostVo = {
     /** 列表数据 */
-    rows: SysPostVo[];
+    data: SysPostVo[];
     /** 总记录数 */
     total: number;
   };
 
   type TableDataSysRoleVo = {
     /** 列表数据 */
-    rows: SysRoleVo[];
+    data: SysRoleVo[];
     /** 总记录数 */
     total: number;
   };
 
   type TableDataSysUserOnlineVo = {
     /** 列表数据 */
-    rows: SysUserOnlineVo[];
+    data: SysUserOnlineVo[];
     /** 总记录数 */
     total: number;
   };
 
   type TableDataSysUserVo = {
     /** 列表数据 */
-    rows: SysUserVo[];
+    data: SysUserVo[];
     /** 总记录数 */
     total: number;
   };

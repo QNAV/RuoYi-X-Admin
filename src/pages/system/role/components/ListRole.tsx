@@ -52,14 +52,9 @@ const ListRole: FC = () => {
       }}
       rowSelection={rowSelection}
       pagination={{
-        current: 1,
         pageSize: 10,
       }}
-      request={async (...params) => {
-        const { rows, total } = await SysRolePostList(convertParams(...params));
-
-        return { data: rows, total, success: true };
-      }}
+      request={(...params) => SysRolePostList(convertParams(...params))}
     >
       1
     </ProList>

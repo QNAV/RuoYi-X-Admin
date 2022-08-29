@@ -325,14 +325,14 @@ declare namespace API {
 
   type TableDataGenTable = {
     /** 列表数据 */
-    rows: GenTableRes[];
+    data: GenTableRes[];
     /** 总记录数 */
     total: number;
   };
 
   type TableDataGenTableColumn = {
     /** 列表数据 */
-    rows: GenTableColumnRes[];
+    data: GenTableColumnRes[];
     /** 总记录数 */
     total: number;
   };

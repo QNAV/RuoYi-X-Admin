@@ -4,7 +4,7 @@ import {
   useStartEditRolePermission,
 } from '@/pages/system/role/model';
 import { useAccess } from '@@/plugin-access';
-import { Button } from 'antd';
+import { Button, Space } from 'antd';
 import type { FC } from 'react';
 
 const ButtonEditRolePerm: FC = () => {
@@ -19,7 +19,13 @@ const ButtonEditRolePerm: FC = () => {
   }
 
   if (editRolePermissionValue) {
-    return <Button onClick={endEditRolePermission}>取消编辑</Button>;
+    return (
+      <Space>
+        <Button onClick={endEditRolePermission}>取消编辑</Button>
+
+        <Button type="primary">保存</Button>
+      </Space>
+    );
   }
 
   return (
