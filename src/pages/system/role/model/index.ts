@@ -21,15 +21,3 @@ const AtomRoleDetails = atom({
 export const useHideRoleDetails = () => useResetRecoilState(AtomRoleDetails);
 export const useShowRoleDetails = () => useSetRecoilState(AtomRoleDetails);
 export const useRoleDetailsVisibleValue = () => useRecoilValue(AtomRoleDetails);
-
-// 编辑角色权限
-const AtomRolePermission = atom({
-  key: `${namespace}AtomRolePermission`,
-  default: false,
-});
-export const useStartEditRolePermission = () => {
-  const setRecoilState = useSetRecoilState(AtomRolePermission);
-  return () => setRecoilState(true);
-};
-export const useEndEditRolePermission = () => useResetRecoilState(AtomRolePermission);
-export const useEditRolePermissionValue = () => useRecoilValue(AtomRolePermission);

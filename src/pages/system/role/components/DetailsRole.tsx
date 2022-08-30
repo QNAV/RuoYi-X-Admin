@@ -1,12 +1,11 @@
 import { CCreateTime, CEnableDisableStatus, CRemark, CRoleId, CRoleKey, CRoleName, CRoleSort } from '@/columns';
 import { EmptySimple } from '@/components';
-import ButtonEditRolePerm from '@/pages/system/role/components/ButtonEditRolePerm';
 import TreeTransferMenuTree from '@/pages/system/role/components/TransferMenuTree';
-import { useEndEditRolePermission, useRoleDetailsVisibleValue, useRoleListActions } from '@/pages/system/role/model';
+import { useRoleDetailsVisibleValue, useRoleListActions } from '@/pages/system/role/model';
 import { SysRoleGetInfo, SysRolePostEdit } from '@/services/sys/SysRoleService';
 import { useAccess } from '@@/plugin-access';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
-import { ProCard, ProDescriptions } from '@ant-design/pro-components';
+import { ProDescriptions } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { Divider, Form, message, Spin } from 'antd';
@@ -24,14 +23,12 @@ const DetailsRole: FC = () => {
 
   const { roleId, visible } = useRoleDetailsVisibleValue();
 
-  const endEditRolePermission = useEndEditRolePermission();
-
   const { data, loading, refresh } = useRequest(() => SysRoleGetInfo({ roleId }), {
     ready: visible,
     refreshDeps: [roleId],
   });
 
-  const { mutate } = useMutation(
+  const { mutateAsync } = useMutation(
     async (params: Partial<API.SysRole>) => {
       await SysRolePostEdit({
         roleId,
@@ -69,7 +66,7 @@ const DetailsRole: FC = () => {
             }
           },
           onSave: async (key, record) => {
-            mutate({
+            await mutateAsync({
               [key as keyof API.SysRole]: record[key as keyof API.SysRole],
             });
           },
@@ -79,7 +76,6 @@ const DetailsRole: FC = () => {
   useEffect(() => {
     if (roleId > 0) {
       setEditableKeys([]);
-      endEditRolePermission();
     }
   }, [roleId]);
 
@@ -100,9 +96,7 @@ const DetailsRole: FC = () => {
 
       <Divider />
 
-      <ProCard ghost extra={<ButtonEditRolePerm />}>
-        <TreeTransferMenuTree />
-      </ProCard>
+      <TreeTransferMenuTree selectedMenuIds={data?.menuIds ?? []} menuCheckStrictly={!!data?.menuCheckStrictly} />
     </Spin>
   );
 };

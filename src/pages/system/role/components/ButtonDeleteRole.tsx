@@ -11,12 +11,11 @@ const ButtonDeleteRole: FC = () => {
   const mainTableActions = useRoleListActions();
 
   const hideRoleDetails = useHideRoleDetails();
-  const { visible, roleId, roleName } = useRoleDetailsVisibleValue();
+  const { roleId, roleName } = useRoleDetailsVisibleValue();
 
   const handleDel = () =>
     Modal.confirm({
       title: '删除确认',
-
       content: (
         <>
           确定对角色<Typography.Text code>{roleName}</Typography.Text>进行<Typography.Text code>删除</Typography.Text>
@@ -34,7 +33,7 @@ const ButtonDeleteRole: FC = () => {
 
   return (
     <Access accessible={access.canRemoveSysRole}>
-      <Button danger ghost icon={<DeleteOutlined />} disabled={!visible} onClick={handleDel}>
+      <Button danger ghost icon={<DeleteOutlined />} onClick={handleDel}>
         删除
       </Button>
     </Access>
