@@ -27,7 +27,7 @@ export const BaseHeaderRightContent: FC<{ nickName?: string; avatar?: string }> 
   const navigate = useNavigate();
 
   return (
-    <header className="hover:bg-[rgba(255,255,255,0.085)] px-2 text-white ">
+    <header className="hover:bg-[rgba(255,255,255,0.085)] px-3 text-white ">
       <Dropdown
         overlay={
           <Menu
