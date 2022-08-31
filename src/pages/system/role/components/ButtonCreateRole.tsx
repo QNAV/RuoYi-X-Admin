@@ -4,39 +4,38 @@ import { SysRolePostAdd } from '@/services/sys/SysRoleService';
 import { Access } from '@@/exports';
 import { useAccess } from '@@/plugin-access';
 import { PlusOutlined } from '@ant-design/icons';
+import type { ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormDigit, ProFormRadio, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
-
-interface FormData extends API.SysRoleReq {
-  menuInfo?: {
-    menuIds: number[];
-    menuCheckStrictly: boolean;
-  };
-}
+import { useRef } from 'react';
 
 const ButtonCreateRole: FC = () => {
   const access = useAccess();
+
+  const formRef = useRef<ProFormInstance>();
 
   const roleListActions = useRoleListActions();
 
   const { mutateAsync } = useMutation(SysRolePostAdd, {
     onSuccess: () => {
       roleListActions?.reload();
+      formRef.current?.resetFields();
       message.success('新建成功');
     },
   });
 
   return (
     <Access accessible={access.canAddSysRole}>
-      <ModalForm<FormData>
+      <ModalForm<API.SysRoleReq>
         title="新建角色"
         trigger={
           <Button type="primary" icon={<PlusOutlined />}>
             新建
           </Button>
         }
+        formRef={formRef}
         onFinish={async (values) => {
           await mutateAsync({ ...values, menuIds: [], menuCheckStrictly: false });
 

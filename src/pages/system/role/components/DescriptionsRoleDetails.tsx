@@ -97,7 +97,11 @@ const DescriptionsRoleDetails: FC = () => {
 
       <Divider />
 
-      <MenuTree selectedMenuIds={data?.menuIds ?? []} menuCheckStrictly={!!data?.menuCheckStrictly} />
+      <MenuTree
+        selectedMenuIds={data?.menuIds ?? []}
+        menuCheckStrictly={!!data?.menuCheckStrictly}
+        handleEdit={(e) => mutateAsync(e)}
+      />
     </Spin>
   );
 };

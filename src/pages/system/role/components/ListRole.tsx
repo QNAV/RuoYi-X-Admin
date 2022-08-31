@@ -12,6 +12,7 @@ const ListRole: FC = () => {
   const roleListActionRef = useRoleListActionRef();
 
   const showRoleDetails = useShowRoleDetails();
+
   const { onClick, rowSelection, selectedRows } = useRowClick<API.SysRoleVo>('roleId', 'radio');
 
   useEffect(() => {
@@ -55,9 +56,7 @@ const ListRole: FC = () => {
         pageSize: 10,
       }}
       request={(...params) => SysRolePostList(convertParams(...params))}
-    >
-      1
-    </ProList>
+    />
   );
 };
 

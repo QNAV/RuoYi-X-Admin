@@ -3,6 +3,7 @@ import { SysMenuPostTreeSelect } from '@/services/sys/SysMenuService';
 import type { TreeData } from '@/utils';
 import { getMenuIds, getParentIds } from '@/utils';
 import { Access } from '@@/exports';
+import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { Button, Checkbox, Space, Tree } from 'antd';
 import type { FC, Key } from 'react';
@@ -14,10 +15,11 @@ const fieldNames = {
   children: 'children',
 };
 
-const TreeTransferMenuTree: FC<{ selectedMenuIds: number[]; menuCheckStrictly: boolean }> = ({
-  selectedMenuIds,
-  menuCheckStrictly,
-}) => {
+const TreeTransferMenuTree: FC<{
+  selectedMenuIds: number[];
+  menuCheckStrictly: boolean;
+  handleEdit: (e: { menuIds: number[]; menuCheckStrictly: boolean }) => Promise<any>;
+}> = ({ selectedMenuIds, menuCheckStrictly, handleEdit }) => {
   const [checkedKeys, setCheckedKeys] = useState<number[]>([]);
   const [checkStrictly, setCheckStrictly] = useState<boolean>(false);
   const [editable, setEditable] = useState(false);
@@ -54,9 +56,20 @@ const TreeTransferMenuTree: FC<{ selectedMenuIds: number[]; menuCheckStrictly: b
     setCheckedKeys([]);
   };
 
+  const { isLoading, mutate } = useMutation(
+    async () => {
+      await handleEdit({ menuIds: checkedKeys, menuCheckStrictly: checkStrictly });
+    },
+    {
+      onSuccess: () => {
+        setEditable(false);
+      },
+    },
+  );
+
   const treeData = useMemo(() => {
     return data?.treeData ?? [];
-  }, [selectedMenuIds, data]);
+  }, [selectedMenuIds, editable, data]);
 
   // 切换角色后初始化菜单树
   useEffect(() => {
@@ -83,8 +96,10 @@ const TreeTransferMenuTree: FC<{ selectedMenuIds: number[]; menuCheckStrictly: b
         <Access accessible>
           {editable ? (
             <Space>
-              <Button onClick={() => setEditable(false)}>取消编辑</Button>
-              <Button type="primary" ghost onClick={() => setEditable(false)}>
+              <Button loading={isLoading} onClick={() => setEditable(false)}>
+                取消编辑
+              </Button>
+              <Button type="primary" ghost loading={isLoading} onClick={() => mutate()}>
                 保存
               </Button>
             </Space>
