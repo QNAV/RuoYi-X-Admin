@@ -1,6 +1,14 @@
 import { MenuType } from '@/constants';
 import type { Key } from 'react';
 
+export interface TreeData {
+  id: number;
+  label: string;
+  parentId: number;
+  weight: number;
+  children?: TreeData[];
+}
+
 export const parseSimpleTreeData = (
   treeData: Record<any, any>[],
   { id, pId, rootPId }: { id: string; pId: string; rootPId: null | Key },
@@ -37,10 +45,10 @@ export const parseSimpleTreeData = (
   return rootNodeList;
 };
 
-const handleSort = (data: MenuData) => {
+const handleSort = (data: API.SysMenu[]) => {
   return data.sort((a, b) => {
     if (a.orderNum === b.orderNum) {
-      return new Date(a.createTime).getTime() - new Date(b.createTime).getTime();
+      return new Date(a.createTime!).getTime() - new Date(b.createTime!).getTime();
     }
 
     return a.orderNum - b.orderNum;
@@ -48,7 +56,7 @@ const handleSort = (data: MenuData) => {
 };
 
 // 数组按 orderNum 排序
-export const sortByOrderNum = (data: MenuData): MenuData => {
+export const sortByOrderNum = (data: API.SysMenu[]): API.SysMenu[] => {
   const newData = data.map((item) => {
     if (item.children) {
       item.children = sortByOrderNum(item.children);
@@ -63,7 +71,7 @@ export const sortByOrderNum = (data: MenuData): MenuData => {
 };
 
 // 获取 tree 的所有父菜单 id
-export const getParentIds = (data: any[]): number[] => {
+export const getParentIds = (data: TreeData[]): number[] => {
   const parentIds = data.reduce<number[]>((acc, cur) => {
     if (cur.parentId) {
       acc.push(cur.parentId);
@@ -80,7 +88,7 @@ export const getParentIds = (data: any[]): number[] => {
 };
 
 // 获取 tree 的所有菜单 id
-export const getMenuIds = (data: TreeData): number[] => {
+export const getMenuIds = (data: TreeData[]): number[] => {
   const menuIds = data.reduce<number[]>((acc, cur) => {
     acc.push(cur.id);
 

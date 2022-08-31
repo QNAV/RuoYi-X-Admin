@@ -1,6 +1,6 @@
 import { CCreateTime, CEnableDisableStatus, CRemark, CRoleId, CRoleKey, CRoleName, CRoleSort } from '@/columns';
 import { EmptySimple } from '@/components';
-import TreeTransferMenuTree from '@/pages/system/role/components/TransferMenuTree';
+import MenuTree from '@/pages/system/role/components/MenuTree';
 import { useRoleDetailsVisibleValue, useRoleListActions } from '@/pages/system/role/model';
 import { SysRoleGetInfo, SysRolePostEdit } from '@/services/sys/SysRoleService';
 import { useAccess } from '@@/plugin-access';
@@ -12,7 +12,7 @@ import { Divider, Form, message, Spin } from 'antd';
 import type { FC, Key } from 'react';
 import { useEffect, useState } from 'react';
 
-const DetailsRole: FC = () => {
+const DescriptionsRoleDetails: FC = () => {
   const [editableKeys, setEditableKeys] = useState<Key[]>([]);
 
   const [form] = Form.useForm();
@@ -24,7 +24,7 @@ const DetailsRole: FC = () => {
   const { roleId, visible } = useRoleDetailsVisibleValue();
 
   const { data, loading, refresh } = useRequest(() => SysRoleGetInfo({ roleId }), {
-    ready: visible,
+    ready: visible && roleId > 0,
     refreshDeps: [roleId],
   });
 
@@ -73,6 +73,7 @@ const DetailsRole: FC = () => {
         }
       : undefined;
 
+  // 切换角色后初始化编辑状态
   useEffect(() => {
     if (roleId > 0) {
       setEditableKeys([]);
@@ -96,9 +97,9 @@ const DetailsRole: FC = () => {
 
       <Divider />
 
-      <TreeTransferMenuTree selectedMenuIds={data?.menuIds ?? []} menuCheckStrictly={!!data?.menuCheckStrictly} />
+      <MenuTree selectedMenuIds={data?.menuIds ?? []} menuCheckStrictly={!!data?.menuCheckStrictly} />
     </Spin>
   );
 };
 
-export default DetailsRole;
+export default DescriptionsRoleDetails;

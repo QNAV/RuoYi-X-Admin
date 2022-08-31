@@ -1,74 +1,129 @@
-import { useQueryMenuList } from '@/pages/system/menu/model';
-import type { CheckboxProps, TreeProps } from 'antd';
-import { Checkbox, Space, Tree } from 'antd';
-import type { FC } from 'react';
-import { useState } from 'react';
+import { useRoleDetailsVisibleValue } from '@/pages/system/role/model';
+import { SysMenuPostTreeSelect } from '@/services/sys/SysMenuService';
+import type { TreeData } from '@/utils';
+import { getMenuIds, getParentIds } from '@/utils';
+import { Access } from '@@/exports';
+import { useRequest } from 'ahooks';
+import { Button, Checkbox, Space, Tree } from 'antd';
+import type { FC, Key } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-export interface MenuTreeValue {
-  menuIds: number[];
-  menuCheckStrictly: boolean;
-}
+const fieldNames = {
+  title: 'label',
+  key: 'id',
+  children: 'children',
+};
 
-export interface MenuTreeProps {
-  value: MenuTreeValue;
-  onChange: (value: MenuTreeValue) => void;
-}
-
-const MenuTree: FC<MenuTreeProps> = ({ value, onChange }) => {
-  const { data } = useQueryMenuList();
-
-  const [menuIds, setMenuIds] = useState<number[]>(value?.menuIds);
-  const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
+const TreeTransferMenuTree: FC<{ selectedMenuIds: number[]; menuCheckStrictly: boolean }> = ({
+  selectedMenuIds,
+  menuCheckStrictly,
+}) => {
+  const [checkedKeys, setCheckedKeys] = useState<number[]>([]);
   const [checkStrictly, setCheckStrictly] = useState<boolean>(false);
+  const [editable, setEditable] = useState(false);
+  const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
 
-  const triggerChange = (changedValue: Partial<MenuTreeValue>) => {
-    onChange({ ...value, ...changedValue });
+  const { roleId } = useRoleDetailsVisibleValue();
+
+  const { data } = useRequest(async () => {
+    const res = (await SysMenuPostTreeSelect({})) as TreeData[];
+
+    return {
+      treeData: res,
+      allIds: getMenuIds(res),
+      parentIds: getParentIds(res),
+      allMenuIds: res.map((item) => item.id),
+    };
+  });
+
+  // 展开/折叠
+  const handleExpandedAllChange = (checked: boolean) => {
+    if (checked) {
+      setExpandedKeys(data?.parentIds ?? []);
+      return;
+    }
+    setExpandedKeys([]);
   };
 
-  const onCheck: TreeProps['onCheck'] = (k) => {
-    const keys = Array.isArray(k) ? (k as number[]) : (k?.checked as number[]);
-
-    setMenuIds(keys);
-    triggerChange({ menuIds: keys });
+  // 全选/全不选
+  const handleCheckedAllChange = (checked: boolean) => {
+    if (checked) {
+      setCheckedKeys(data?.allIds ?? []);
+      return;
+    }
+    setCheckedKeys([]);
   };
 
-  const onCheckStrictlyChange: CheckboxProps['onChange'] = (e) => {
-    setCheckStrictly(!e.target.checked);
-    triggerChange({ menuCheckStrictly: !e.target.checked });
-  };
+  const treeData = useMemo(() => {
+    return data?.treeData ?? [];
+  }, [selectedMenuIds, data]);
+
+  // 切换角色后初始化菜单树
+  useEffect(() => {
+    if (roleId > 0) {
+      setEditable(false);
+    }
+  }, [roleId]);
 
   return (
     <>
-      <Space className="mb-2">
-        <Checkbox
-          onChange={(e) => {
-            setExpandedKeys(e.target.checked ? data?.parentIds ?? [] : []);
+      <header className="flex justify-between mb-2">
+        <Space>
+          <Checkbox onChange={(e) => handleExpandedAllChange(e.target.checked)}>展开/折叠</Checkbox>
+          {editable && (
+            <>
+              <Checkbox onChange={(e) => handleCheckedAllChange(e.target.checked)}>全选/全不选</Checkbox>
+              <Checkbox value={!checkStrictly} onChange={(e) => setCheckStrictly(!e.target.checked)}>
+                父子联动
+              </Checkbox>
+            </>
+          )}
+        </Space>
+
+        <Access accessible>
+          {editable ? (
+            <Space>
+              <Button onClick={() => setEditable(false)}>取消编辑</Button>
+              <Button type="primary" ghost onClick={() => setEditable(false)}>
+                保存
+              </Button>
+            </Space>
+          ) : (
+            <Button
+              type="primary"
+              ghost
+              onClick={() => {
+                setEditable(true);
+                setCheckedKeys(selectedMenuIds);
+                setCheckStrictly(menuCheckStrictly);
+              }}
+            >
+              编辑权限
+            </Button>
+          )}
+        </Access>
+      </header>
+
+      <div className="h-[400px] overflow-y-auto">
+        <Tree<any>
+          blockNode
+          checkable={editable}
+          checkStrictly={checkStrictly}
+          fieldNames={fieldNames}
+          checkedKeys={checkedKeys}
+          treeData={treeData}
+          expandedKeys={expandedKeys}
+          onExpand={(keys) => setExpandedKeys(keys)}
+          onCheck={(_, { checked, node: { key } }) => {
+            console.log(checked);
+            console.log(_);
+            console.log(key);
+            setCheckedKeys([key as number]);
           }}
-        >
-          展开/折叠
-        </Checkbox>
-
-        <Checkbox>全选/全不选</Checkbox>
-
-        <Checkbox onChange={onCheckStrictlyChange}>父子联动</Checkbox>
-      </Space>
-
-      <Tree<any>
-        checkable
-        treeData={data?.treeData ?? []}
-        fieldNames={{
-          title: 'menuName',
-          key: 'menuId',
-          children: 'children',
-        }}
-        checkedKeys={menuIds}
-        onCheck={onCheck}
-        expandedKeys={expandedKeys}
-        onExpand={setExpandedKeys}
-        checkStrictly={checkStrictly}
-      />
+        />
+      </div>
     </>
   );
 };
 
-export default MenuTree;
+export default TreeTransferMenuTree;

@@ -6,12 +6,12 @@ const access = (initialState: InitialState) => {
 
   return {
     // 系统管理-角色管理
-    canReadSysRole: checkPermission('sys:role:list', userPermissions),
-    canQuerySysRole: checkPermission('sys:role:query', userPermissions),
-    canAddSysRole: checkPermission('sys:role:add', userPermissions),
-    canEditSysRole: checkPermission('sys:role:edit', userPermissions),
-    canRemoveSysRole: checkPermission('sys:role:remove', userPermissions),
-    canExportSysRole: checkPermission('sys:role:export', userPermissions),
+    canReadSysRole: checkPermission('system:role:list', userPermissions),
+    canQuerySysRole: checkPermission('system:role:query', userPermissions),
+    canAddSysRole: checkPermission('system:role:add', userPermissions),
+    canEditSysRole: checkPermission('system:role:edit', userPermissions),
+    canRemoveSysRole: checkPermission('system:role:remove', userPermissions),
+    canExportSysRole: checkPermission('system:role:export', userPermissions),
 
     // 系统管理-菜单管理
     canReadSysMenu: checkPermission('system:menu:list', userPermissions),

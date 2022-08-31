@@ -1,6 +1,4 @@
 import { EnableDisableStatus, EnableDisableStatusMap } from '@/constants';
-import type { MenuTreeValue } from '@/pages/system/role/components/MenuTree';
-
 import { useRoleListActions } from '@/pages/system/role/model';
 import { SysRolePostAdd } from '@/services/sys/SysRoleService';
 import { Access } from '@@/exports';
@@ -12,16 +10,20 @@ import { Button, message } from 'antd';
 import type { FC } from 'react';
 
 interface FormData extends API.SysRoleReq {
-  menuInfo?: MenuTreeValue;
+  menuInfo?: {
+    menuIds: number[];
+    menuCheckStrictly: boolean;
+  };
 }
 
 const ButtonCreateRole: FC = () => {
   const access = useAccess();
-  const tableActions = useRoleListActions();
+
+  const roleListActions = useRoleListActions();
 
   const { mutateAsync } = useMutation(SysRolePostAdd, {
     onSuccess: () => {
-      tableActions?.reload();
+      roleListActions?.reload();
       message.success('新建成功');
     },
   });
@@ -36,9 +38,7 @@ const ButtonCreateRole: FC = () => {
           </Button>
         }
         onFinish={async (values) => {
-          const { menuInfo = { menuIds: [], menuCheckStrictly: true }, ...r } = values;
-
-          await mutateAsync({ ...r, ...menuInfo });
+          await mutateAsync({ ...values, menuIds: [], menuCheckStrictly: false });
 
           return true;
         }}

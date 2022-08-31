@@ -1,6 +1,6 @@
 import ButtonCreateRole from '@/pages/system/role/components/ButtonCreateRole';
 import ButtonDeleteRole from '@/pages/system/role/components/ButtonDeleteRole';
-import DetailsRole from '@/pages/system/role/components/DetailsRole';
+import DescriptionsRoleDetails from '@/pages/system/role/components/DescriptionsRoleDetails';
 import ListRole from '@/pages/system/role/components/ListRole';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import type { FC } from 'react';
@@ -14,7 +14,7 @@ const PageRole: FC = () => {
         </ProCard>
 
         <ProCard title="角色详情" extra={<ButtonDeleteRole />}>
-          <DetailsRole />
+          <DescriptionsRoleDetails />
         </ProCard>
       </ProCard>
     </PageContainer>
