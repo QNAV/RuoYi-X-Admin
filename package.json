@@ -40,7 +40,7 @@
     "@types/file-saver": "^2.0.5",
     "@types/lodash": "^4.14.184",
     "@types/nprogress": "^0.2.0",
-    "@types/react": "^18.0.17",
+    "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "@umijs/lint": "^4.0.15",
     "cross-env": "^7.0.3",
