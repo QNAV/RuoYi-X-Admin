@@ -2,7 +2,7 @@ import { EmptySimple } from '@/components';
 import { useRoleDetailsVisibleValue } from '@/pages/system/role/model';
 import { SysMenuPostTreeSelect } from '@/services/sys/SysMenuService';
 import type { TreeData } from '@/utils';
-import { filterCheckedTree, getMenuIds, getParentIds } from '@/utils';
+import { filterCheckedTree, findParentIds, getMenuIds, getParentIds } from '@/utils';
 import { Access } from '@@/exports';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
@@ -33,16 +33,15 @@ const TreeTransferMenuTree: FC<{
 
     return {
       treeData: res,
-      allIds: getMenuIds(res),
-      parentIds: getParentIds(res),
-      allMenuIds: res.map((item) => item.id),
+      allMenuIds: getMenuIds(res),
+      allParentIds: getParentIds(res),
     };
   });
 
   // 展开/折叠
   const handleExpandedAllChange = (checked: boolean) => {
     if (checked) {
-      setExpandedKeys(data?.parentIds ?? []);
+      setExpandedKeys(data?.allParentIds ?? []);
       return;
     }
     setExpandedKeys([]);
@@ -51,7 +50,7 @@ const TreeTransferMenuTree: FC<{
   // 全选/全不选
   const handleCheckedAllChange = (checked: boolean) => {
     if (checked) {
-      setCheckedKeys(data?.allIds ?? []);
+      setCheckedKeys(data?.allMenuIds ?? []);
       return;
     }
     setCheckedKeys([]);
@@ -59,7 +58,19 @@ const TreeTransferMenuTree: FC<{
 
   const { isLoading, mutate } = useMutation(
     async () => {
-      await handleEdit({ menuIds: checkedKeys, menuCheckStrictly: checkStrictly });
+      let menuIds: number[];
+
+      if (checkStrictly) {
+        menuIds = checkedKeys;
+      } else {
+        const parentIds = checkedKeys.reduce<number[]>((prev, curr) => {
+          return [...prev, ...findParentIds(data!.treeData, curr)];
+        }, []);
+
+        menuIds = Array.from(new Set([...checkedKeys, ...parentIds]));
+      }
+
+      await handleEdit({ menuIds, menuCheckStrictly: checkStrictly });
     },
     {
       onSuccess: () => {

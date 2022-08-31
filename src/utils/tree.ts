@@ -113,10 +113,26 @@ export const filterCheckedTree = (tree: TreeData[], checkedKeys: number[]): Tree
       item.children = filterCheckedTree(item.children, checkedKeys);
     }
 
-    if (checkedKeys.includes(item.id) || (item.children && item.children.length > 0)) {
+    if (checkedKeys.includes(item.id) || (item?.children && item.children.length > 0)) {
       newTree.push(item);
     }
   });
 
   return newTree;
+};
+
+export const findParentIds = (tree: TreeData[], id: number): number[] => {
+  const parentIds = tree.reduce<number[]>((acc, cur) => {
+    if (cur?.children) {
+      return [...acc, ...findParentIds(cur.children, id)];
+    }
+
+    if (cur.parentId === 0 || cur.id !== id) {
+      return acc;
+    }
+
+    return [...acc, cur.parentId];
+  }, []);
+
+  return Array.from(new Set(parentIds));
 };
