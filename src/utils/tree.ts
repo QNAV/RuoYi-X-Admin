@@ -1,4 +1,5 @@
 import { MenuType } from '@/constants';
+import { cloneDeep } from 'lodash';
 import type { Key } from 'react';
 
 export interface TreeData {
@@ -100,4 +101,22 @@ export const getMenuIds = (data: TreeData[]): number[] => {
   }, []);
 
   return Array.from(new Set(menuIds));
+};
+
+export const filterCheckedTree = (tree: TreeData[], checkedKeys: number[]): TreeData[] => {
+  const newTree: TreeData[] = [];
+
+  const cloneTree = cloneDeep(tree);
+
+  cloneTree.forEach((item) => {
+    if (item.children) {
+      item.children = filterCheckedTree(item.children, checkedKeys);
+    }
+
+    if (checkedKeys.includes(item.id) || (item.children && item.children.length > 0)) {
+      newTree.push(item);
+    }
+  });
+
+  return newTree;
 };

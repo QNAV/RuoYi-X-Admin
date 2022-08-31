@@ -1,7 +1,8 @@
+import { EmptySimple } from '@/components';
 import { useRoleDetailsVisibleValue } from '@/pages/system/role/model';
 import { SysMenuPostTreeSelect } from '@/services/sys/SysMenuService';
 import type { TreeData } from '@/utils';
-import { getMenuIds, getParentIds } from '@/utils';
+import { filterCheckedTree, getMenuIds, getParentIds } from '@/utils';
 import { Access } from '@@/exports';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
@@ -68,7 +69,13 @@ const TreeTransferMenuTree: FC<{
   );
 
   const treeData = useMemo(() => {
-    return data?.treeData ?? [];
+    const tree = data?.treeData ?? [];
+
+    if (editable) {
+      return tree;
+    }
+
+    return filterCheckedTree(tree, selectedMenuIds);
   }, [selectedMenuIds, editable, data]);
 
   // 切换角色后初始化菜单树
@@ -82,11 +89,14 @@ const TreeTransferMenuTree: FC<{
     <>
       <header className="flex justify-between mb-2">
         <Space>
-          <Checkbox onChange={(e) => handleExpandedAllChange(e.target.checked)}>展开/折叠</Checkbox>
+          {treeData.length > 0 && (
+            <Checkbox onChange={(e) => handleExpandedAllChange(e.target.checked)}>展开/折叠</Checkbox>
+          )}
+
           {editable && (
             <>
               <Checkbox onChange={(e) => handleCheckedAllChange(e.target.checked)}>全选/全不选</Checkbox>
-              <Checkbox value={!checkStrictly} onChange={(e) => setCheckStrictly(!e.target.checked)}>
+              <Checkbox checked={!checkStrictly} onChange={(e) => setCheckStrictly(!e.target.checked)}>
                 父子联动
               </Checkbox>
             </>
@@ -119,23 +129,29 @@ const TreeTransferMenuTree: FC<{
         </Access>
       </header>
 
-      <div className="h-[400px] overflow-y-auto">
-        <Tree<any>
-          blockNode
-          checkable={editable}
-          checkStrictly={checkStrictly}
-          fieldNames={fieldNames}
-          checkedKeys={checkedKeys}
-          treeData={treeData}
-          expandedKeys={expandedKeys}
-          onExpand={(keys) => setExpandedKeys(keys)}
-          onCheck={(_, { checked, node: { key } }) => {
-            console.log(checked);
-            console.log(_);
-            console.log(key);
-            setCheckedKeys([key as number]);
-          }}
-        />
+      <div className="h-[390px] overflow-y-auto">
+        {treeData.length > 0 ? (
+          <Tree<any>
+            blockNode
+            checkable={editable}
+            checkStrictly={checkStrictly}
+            fieldNames={fieldNames}
+            checkedKeys={checkedKeys}
+            treeData={treeData}
+            expandedKeys={expandedKeys}
+            onExpand={(keys) => setExpandedKeys(keys)}
+            onCheck={(_) => {
+              if (checkStrictly) {
+                setCheckedKeys((_ as { checked: number[]; halfChecked: number[] }).checked);
+                return;
+              }
+
+              setCheckedKeys(_ as number[]);
+            }}
+          />
+        ) : (
+          <EmptySimple description="暂未分配权限" />
+        )}
       </div>
     </>
   );
