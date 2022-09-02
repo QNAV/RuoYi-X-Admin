@@ -10,7 +10,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { Divider, Form, message, Spin } from 'antd';
 import type { FC, Key } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const DescriptionsRoleDetails: FC = () => {
   const [editableKeys, setEditableKeys] = useState<Key[]>([]);
@@ -26,6 +26,9 @@ const DescriptionsRoleDetails: FC = () => {
   const { data, loading, refresh } = useRequest(() => SysRoleGetInfo({ roleId }), {
     ready: visible && roleId > 0,
     refreshDeps: [roleId],
+    onSuccess: () => {
+      setEditableKeys([]);
+    },
   });
 
   const { mutateAsync } = useMutation(
@@ -73,13 +76,6 @@ const DescriptionsRoleDetails: FC = () => {
         }
       : undefined;
 
-  // 切换角色后初始化编辑状态
-  useEffect(() => {
-    if (roleId > 0) {
-      setEditableKeys([]);
-    }
-  }, [roleId]);
-
   if (!visible) return <EmptySimple description="点击选择左侧角色查看详情" />;
 
   return (
@@ -97,11 +93,7 @@ const DescriptionsRoleDetails: FC = () => {
 
       <Divider />
 
-      <MenuTree
-        selectedMenuIds={data?.menuIds ?? []}
-        menuCheckStrictly={!!data?.menuCheckStrictly}
-        handleEdit={(e) => mutateAsync(e)}
-      />
+      <MenuTree roleId={roleId} menuCheckStrictly={!!data?.menuCheckStrictly} handleEdit={(e) => mutateAsync(e)} />
     </Spin>
   );
 };
