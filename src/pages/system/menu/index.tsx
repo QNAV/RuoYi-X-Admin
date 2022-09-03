@@ -1,7 +1,7 @@
 import ButtonCreate from '@/pages/system/menu/components/ButtonCreate';
 import ButtonDelete from '@/pages/system/menu/components/ButtonDelete';
-import MenuDetails from '@/pages/system/menu/components/MenuDetails';
-import MenuTree from '@/pages/system/menu/components/MenuTree';
+import DescDetails from '@/pages/system/menu/components/DescDetails';
+import TreeMenu from '@/pages/system/menu/components/TreeMenu';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { Space } from 'antd';
 import type { FC } from 'react';
@@ -20,11 +20,11 @@ const PageMenu: FC = () => {
             </Space>
           }
         >
-          <MenuTree />
+          <TreeMenu />
         </ProCard>
 
         <ProCard title="菜单详情">
-          <MenuDetails />
+          <DescDetails />
         </ProCard>
       </ProCard>
     </PageContainer>

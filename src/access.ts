@@ -19,6 +19,13 @@ const access = (initialState: InitialState) => {
     canAddSysMenu: checkPermission('system:menu:add', userPermissions),
     canEditSysMenu: checkPermission('system:menu:edit', userPermissions),
     canRemoveSysMenu: checkPermission('system:menu:remove', userPermissions),
+
+    // 系统管理-部门管理
+    canReadSysDept: checkPermission('system:dept:list', userPermissions),
+    canQuerySysDept: checkPermission('system:dept:query', userPermissions),
+    canAddSysDept: checkPermission('system:dept:add', userPermissions),
+    canEditSysDept: checkPermission('system:dept:edit', userPermissions),
+    canRemoveSysDept: checkPermission('system:dept:remove', userPermissions),
   };
 };
 

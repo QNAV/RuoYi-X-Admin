@@ -1,4 +1,4 @@
-import { AntdIcon } from '@/components';
+import { AntdIcon, EmptySimple } from '@/components';
 import { EnableDisableStatusMap, MenuType } from '@/constants';
 import {
   useDeleteMenu,
@@ -10,7 +10,7 @@ import {
 import { CaretDownOutlined, CaretRightOutlined, CopyOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';
-import { Button, Dropdown, Empty, Menu, message, Space, Tag, Tree } from 'antd';
+import { Button, Dropdown, Menu, message, Space, Tag, Tree } from 'antd';
 import copy from 'copy-to-clipboard';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -62,7 +62,7 @@ const TreeTitle: FC = () => (
   </div>
 );
 
-const MenuTree = () => {
+const TreeMenu = () => {
   const [searchParams, setSearchParams] = useState<API.SysMenuQueryBo>({});
 
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
@@ -170,7 +170,7 @@ const MenuTree = () => {
               onRightClick={(e) => setSelectedKeys([e.node.key] as number[])}
             />
           ) : (
-            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+            <EmptySimple />
           )}
         </div>
       </Dropdown>
@@ -178,4 +178,4 @@ const MenuTree = () => {
   );
 };
 
-export default MenuTree;
+export default TreeMenu;

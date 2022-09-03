@@ -1,6 +1,6 @@
 import { CCreateTime, CEnableDisableStatus, CRemark, CRoleId, CRoleKey, CRoleName, CRoleSort } from '@/columns';
 import { EmptySimple } from '@/components';
-import MenuTree from '@/pages/system/role/components/MenuTree';
+import MenuTree from '@/pages/system/role/components/TreeMenu';
 import { useRoleDetailsVisibleValue, useRoleListActions } from '@/pages/system/role/model';
 import { SysRoleGetInfo, SysRolePostEdit } from '@/services/sys/SysRoleService';
 import { useAccess } from '@@/plugin-access';
@@ -12,7 +12,7 @@ import { Divider, Form, message, Spin } from 'antd';
 import type { FC, Key } from 'react';
 import { useState } from 'react';
 
-const DescriptionsDetails: FC = () => {
+const DescDetails: FC = () => {
   const [editableKeys, setEditableKeys] = useState<Key[]>([]);
 
   const [form] = Form.useForm();
@@ -98,4 +98,4 @@ const DescriptionsDetails: FC = () => {
   );
 };
 
-export default DescriptionsDetails;
+export default DescDetails;

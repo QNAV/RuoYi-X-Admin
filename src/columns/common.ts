@@ -67,3 +67,11 @@ export const CRemark: ProItem = {
   valueType: 'textarea',
   hideInSearch: true,
 };
+
+// 排序
+export const COrderNum: ProItem = {
+  title: '排序',
+  dataIndex: 'orderNum',
+  key: 'orderNum',
+  valueType: 'digit',
+};

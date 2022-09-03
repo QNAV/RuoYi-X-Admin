@@ -82,7 +82,7 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
   }, [menuType]);
 };
 
-const MenuDetails: FC = () => {
+const DescDetails: FC = () => {
   const access = useAccess();
 
   const { refetch: reFetchMenuList } = useQueryMenuList();
@@ -187,4 +187,4 @@ const MenuDetails: FC = () => {
   );
 };
 
-export default MenuDetails;
+export default DescDetails;
