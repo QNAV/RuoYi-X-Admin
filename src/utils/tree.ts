@@ -139,7 +139,7 @@ export const treeToMap = (tree: TreeData[]): Map<number, TreeData> => {
   return map;
 };
 
-export const findParentIds = (tree: TreeData[], checkedKeys: number[]): number[] => {
+export const addParentIds = (tree: TreeData[], checkedKeys: number[]): number[] => {
   const mapData = treeToMap(tree);
 
   const parentIds: number[] = [];

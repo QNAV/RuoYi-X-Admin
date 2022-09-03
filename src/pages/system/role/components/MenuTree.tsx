@@ -1,7 +1,7 @@
 import { EmptySimple } from '@/components';
 import { SysMenuGetRoleMenuTreeSelect } from '@/services/sys/SysMenuService';
 import type { TreeData } from '@/utils';
-import { filterCheckedTree, findParentIds, getMenuIds } from '@/utils';
+import { addParentIds, filterCheckedTree, getMenuIds } from '@/utils';
 import { Access } from '@@/exports';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
@@ -68,10 +68,8 @@ const TreeTransferMenuTree: FC<{
   );
 
   const { isLoading, mutate } = useMutation(async () => {
-    console.log(findParentIds(data!.treeData, checkedKeys));
-
     await handleEdit({
-      menuIds: checkStrictly ? checkedKeys : findParentIds(data!.treeData, checkedKeys),
+      menuIds: checkStrictly ? checkedKeys : addParentIds(data!.treeData, checkedKeys),
       menuCheckStrictly: checkStrictly,
     });
 
@@ -174,6 +172,7 @@ const TreeTransferMenuTree: FC<{
         {treeData.length > 0 ? (
           <Tree<any>
             blockNode
+            showLine={{ showLeafIcon: false }}
             checkable={editable}
             checkStrictly={checkStrictly}
             fieldNames={fieldNames}
