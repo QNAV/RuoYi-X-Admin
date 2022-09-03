@@ -6,7 +6,6 @@ import { useAccess } from '@@/plugin-access';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormDigit, ProFormRadio, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
-import { useMutation } from '@tanstack/react-query';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
@@ -14,17 +13,9 @@ import { useRef } from 'react';
 const ButtonCreateRole: FC = () => {
   const access = useAccess();
 
-  const formRef = useRef<ProFormInstance>();
+  const formRef = useRef<ProFormInstance<API.SysRoleReq>>();
 
   const roleListActions = useRoleListActions();
-
-  const { mutateAsync } = useMutation(SysRolePostAdd, {
-    onSuccess: () => {
-      roleListActions?.reload();
-      formRef.current?.resetFields();
-      message.success('新建成功');
-    },
-  });
 
   return (
     <Access accessible={access.canAddSysRole}>
@@ -37,7 +28,13 @@ const ButtonCreateRole: FC = () => {
         }
         formRef={formRef}
         onFinish={async (values) => {
-          await mutateAsync({ ...values, menuIds: [], menuCheckStrictly: false });
+          await SysRolePostAdd({ ...values, menuIds: [], menuCheckStrictly: false });
+
+          roleListActions?.reload();
+
+          formRef.current?.resetFields();
+
+          message.success('新建成功');
 
           return true;
         }}

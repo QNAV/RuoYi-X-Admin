@@ -67,6 +67,20 @@ const TreeTransferMenuTree: FC<{
     },
   );
 
+  const { isLoading, mutate } = useMutation(async () => {
+    console.log(findParentIds(data!.treeData, checkedKeys));
+
+    await handleEdit({
+      menuIds: checkStrictly ? checkedKeys : findParentIds(data!.treeData, checkedKeys),
+      menuCheckStrictly: checkStrictly,
+    });
+
+    refresh();
+  });
+
+  const allExpandedKeys = getExpandedKeys(data?.treeData ?? []);
+  const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === allExpandedKeys?.length;
+
   // 全选/全不选
   const handleCheckedAllChange = (checked: boolean) => {
     if (checked || indeterminate) {
@@ -76,27 +90,6 @@ const TreeTransferMenuTree: FC<{
 
     setCheckedKeys([]);
   };
-
-  const { isLoading, mutate } = useMutation(async () => {
-    let menuIds: number[];
-
-    if (checkStrictly) {
-      menuIds = checkedKeys;
-    } else {
-      const parentIds = checkedKeys.reduce<number[]>((prev, curr) => {
-        return [...prev, ...findParentIds(data!.treeData, curr)];
-      }, []);
-
-      menuIds = Array.from(new Set([...checkedKeys, ...parentIds]));
-    }
-
-    await handleEdit({ menuIds, menuCheckStrictly: checkStrictly });
-
-    refresh();
-  });
-
-  const allExpandedKeys = getExpandedKeys(data?.treeData ?? []);
-  const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === allExpandedKeys?.length;
 
   useEffect(() => {
     if (data?.allMenuIds.length === checkedKeys.length) {

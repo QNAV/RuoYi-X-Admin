@@ -8,7 +8,7 @@ import type { FC } from 'react';
 const ButtonDeleteRole: FC = () => {
   const access = useAccess();
 
-  const listActions = useRoleListActions();
+  const roleListActions = useRoleListActions();
 
   const hideRoleDetails = useHideRoleDetails();
   const { roleId, roleName } = useRoleDetailsVisibleValue();
@@ -24,8 +24,8 @@ const ButtonDeleteRole: FC = () => {
       ),
       onOk: async () => {
         await SysRolePostRemove({ roleIds: roleId });
-        listActions?.reload();
-        listActions?.clearSelected?.();
+        roleListActions?.reload();
+        roleListActions?.clearSelected?.();
         hideRoleDetails();
         message.success('删除成功');
       },

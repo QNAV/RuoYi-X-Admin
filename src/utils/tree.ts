@@ -121,18 +121,41 @@ export const filterCheckedTree = (tree: TreeData[], checkedKeys: number[]): Tree
   return newTree;
 };
 
-export const findParentIds = (tree: TreeData[], id: number): number[] => {
-  const parentIds = tree.reduce<number[]>((acc, cur) => {
-    if (cur?.children) {
-      return [...acc, ...findParentIds(cur.children, id)];
-    }
+// 树形结构 转换为 Map
+export const treeToMap = (tree: TreeData[]): Map<number, TreeData> => {
+  const map = new Map<number, TreeData>();
 
-    if (cur.parentId === 0 || cur.id !== id) {
-      return acc;
-    }
+  const loop = (data: TreeData[]) => {
+    data.forEach((item) => {
+      map.set(item.id, item);
+      if (item.children) {
+        loop(item.children);
+      }
+    });
+  };
 
-    return [...acc, cur.parentId];
-  }, []);
+  loop(tree);
 
-  return Array.from(new Set(parentIds));
+  return map;
+};
+
+export const findParentIds = (tree: TreeData[], checkedKeys: number[]): number[] => {
+  const mapData = treeToMap(tree);
+
+  const parentIds: number[] = [];
+
+  const loop = (data: number[]) => {
+    data.forEach((currId) => {
+      const parent = mapData.get(currId)?.parentId;
+
+      if (parent) {
+        parentIds.push(parent);
+        loop([parent]);
+      }
+    });
+  };
+
+  loop(checkedKeys);
+
+  return Array.from(new Set([...checkedKeys, ...parentIds]));
 };
