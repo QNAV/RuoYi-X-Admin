@@ -1,7 +1,7 @@
-import ButtonCreateRole from '@/pages/system/role/components/ButtonCreateRole';
-import ButtonDeleteRole from '@/pages/system/role/components/ButtonDeleteRole';
-import DescriptionsRoleDetails from '@/pages/system/role/components/DescriptionsRoleDetails';
-import ListRole from '@/pages/system/role/components/ListRole';
+import ButtonCreate from '@/pages/system/role/components/ButtonCreate';
+import ButtonDelete from '@/pages/system/role/components/ButtonDelete';
+import DescriptionsDetails from '@/pages/system/role/components/DescriptionsDetails';
+import List from '@/pages/system/role/components/List';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
@@ -9,12 +9,12 @@ const PageRole: FC = () => {
   return (
     <PageContainer>
       <ProCard ghost gutter={24}>
-        <ProCard title="角色列表" colSpan="400px" extra={<ButtonCreateRole />}>
-          <ListRole />
+        <ProCard title="角色列表" colSpan="400px" extra={<ButtonCreate />}>
+          <List />
         </ProCard>
 
-        <ProCard title="角色详情" extra={<ButtonDeleteRole />}>
-          <DescriptionsRoleDetails />
+        <ProCard title="角色详情" extra={<ButtonDelete />}>
+          <DescriptionsDetails />
         </ProCard>
       </ProCard>
     </PageContainer>

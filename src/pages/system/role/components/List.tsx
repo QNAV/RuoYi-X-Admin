@@ -8,7 +8,7 @@ import { Tag } from 'antd';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 
-const ListRole: FC = () => {
+const List: FC = () => {
   const roleListActionRef = useRoleListActionRef();
 
   const showRoleDetails = useShowRoleDetails();
@@ -60,4 +60,4 @@ const ListRole: FC = () => {
   );
 };
 
-export default ListRole;
+export default List;

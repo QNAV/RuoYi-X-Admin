@@ -5,7 +5,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { Button, message, Modal, Typography } from 'antd';
 import type { FC } from 'react';
 
-const ButtonDeleteRole: FC = () => {
+const ButtonDelete: FC = () => {
   const access = useAccess();
 
   const roleListActions = useRoleListActions();
@@ -40,4 +40,4 @@ const ButtonDeleteRole: FC = () => {
   );
 };
 
-export default ButtonDeleteRole;
+export default ButtonDelete;

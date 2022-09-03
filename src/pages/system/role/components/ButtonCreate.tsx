@@ -10,7 +10,7 @@ import { Button, message } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
 
-const ButtonCreateRole: FC = () => {
+const ButtonCreate: FC = () => {
   const access = useAccess();
 
   const formRef = useRef<ProFormInstance<API.SysRoleReq>>();
@@ -28,7 +28,7 @@ const ButtonCreateRole: FC = () => {
         }
         formRef={formRef}
         onFinish={async (values) => {
-          await SysRolePostAdd({ ...values, menuIds: [], menuCheckStrictly: false });
+          await SysRolePostAdd({ ...values, menuIds: [], menuCheckStrictly: true });
 
           roleListActions?.reload();
 
@@ -64,4 +64,4 @@ const ButtonCreateRole: FC = () => {
   );
 };
 
-export default ButtonCreateRole;
+export default ButtonCreate;

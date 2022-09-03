@@ -1,7 +1,7 @@
 import { EmptySimple } from '@/components';
 import { SysMenuGetRoleMenuTreeSelect } from '@/services/sys/SysMenuService';
 import type { TreeData } from '@/utils';
-import { addParentIds, filterCheckedTree, getMenuIds } from '@/utils';
+import { filterCheckedTree, getMenuIds } from '@/utils';
 import { Access } from '@@/exports';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
@@ -32,11 +32,9 @@ const getExpandedKeys = (list: TreeData[]) => {
 
 const TreeTransferMenuTree: FC<{
   roleId: number;
-  menuCheckStrictly: boolean;
-  handleEdit: (e: { menuIds: number[]; menuCheckStrictly: boolean }) => Promise<any>;
-}> = ({ roleId, menuCheckStrictly, handleEdit }) => {
+  handleEdit: (e: { menuIds: number[] }) => Promise<any>;
+}> = ({ roleId, handleEdit }) => {
   const [checkedKeys, setCheckedKeys] = useState<number[]>([]);
-  const [checkStrictly, setCheckStrictly] = useState<boolean>(false);
   const [editable, setEditable] = useState(false);
   const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
   const [treeData, setTreeData] = useState<TreeData[]>([]);
@@ -69,8 +67,7 @@ const TreeTransferMenuTree: FC<{
 
   const { isLoading, mutate } = useMutation(async () => {
     await handleEdit({
-      menuIds: checkStrictly ? checkedKeys : addParentIds(data!.treeData, checkedKeys),
-      menuCheckStrictly: checkStrictly,
+      menuIds: checkedKeys,
     });
 
     refresh();
@@ -120,18 +117,13 @@ const TreeTransferMenuTree: FC<{
           )}
 
           {editable && (
-            <>
-              <Checkbox
-                indeterminate={indeterminate}
-                onChange={(e) => handleCheckedAllChange(e.target.checked)}
-                checked={checkAll}
-              >
-                全选/全不选
-              </Checkbox>
-              <Checkbox checked={!checkStrictly} onChange={(e) => setCheckStrictly(!e.target.checked)}>
-                父子联动
-              </Checkbox>
-            </>
+            <Checkbox
+              indeterminate={indeterminate}
+              onChange={(e) => handleCheckedAllChange(e.target.checked)}
+              checked={checkAll}
+            >
+              全选/全不选
+            </Checkbox>
           )}
         </Space>
 
@@ -158,7 +150,6 @@ const TreeTransferMenuTree: FC<{
               onClick={() => {
                 setEditable(true);
                 setCheckedKeys(data?.selectedMenuIds ?? []);
-                setCheckStrictly(menuCheckStrictly);
                 setTreeData(data?.treeData ?? []);
               }}
             >
@@ -174,19 +165,14 @@ const TreeTransferMenuTree: FC<{
             blockNode
             showLine={{ showLeafIcon: false }}
             checkable={editable}
-            checkStrictly={checkStrictly}
+            checkStrictly
             fieldNames={fieldNames}
             checkedKeys={checkedKeys}
             treeData={treeData}
             expandedKeys={expandedKeys}
             onExpand={(keys) => setExpandedKeys(keys)}
             onCheck={(_) => {
-              if (checkStrictly) {
-                setCheckedKeys((_ as { checked: number[]; halfChecked: number[] }).checked);
-                return;
-              }
-
-              setCheckedKeys(_ as number[]);
+              setCheckedKeys((_ as { checked: number[]; halfChecked: number[] }).checked);
             }}
           />
         ) : (

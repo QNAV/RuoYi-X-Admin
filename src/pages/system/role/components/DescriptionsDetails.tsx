@@ -12,7 +12,7 @@ import { Divider, Form, message, Spin } from 'antd';
 import type { FC, Key } from 'react';
 import { useState } from 'react';
 
-const DescriptionsRoleDetails: FC = () => {
+const DescriptionsDetails: FC = () => {
   const [editableKeys, setEditableKeys] = useState<Key[]>([]);
 
   const [form] = Form.useForm();
@@ -93,9 +93,9 @@ const DescriptionsRoleDetails: FC = () => {
 
       <Divider />
 
-      <MenuTree roleId={roleId} menuCheckStrictly={!!data?.menuCheckStrictly} handleEdit={(e) => mutateAsync(e)} />
+      <MenuTree roleId={roleId} handleEdit={(e) => mutateAsync(e)} />
     </Spin>
   );
 };
 
-export default DescriptionsRoleDetails;
+export default DescriptionsDetails;
