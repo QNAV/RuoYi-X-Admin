@@ -505,12 +505,6 @@ declare namespace API {
   type SysDept = {
     /** 祖级列表 */
     ancestors?: string;
-    /** 子部门 */
-    children?: SysDept[];
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
     /** 删除标志（0代表存在 2代表删除） */
     delFlag?: string;
     /** 部门id */
@@ -523,18 +517,10 @@ declare namespace API {
     leader?: string;
     /** 显示顺序 */
     orderNum: number;
-    /** 父菜单ID */
-    parentId?: number;
-    /** 父菜单名称 */
-    parentName?: string;
     /** 联系电话 */
     phone?: string;
     /** 部门状态:0正常,1停用 */
     status?: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
   };
 
   type SysDeptAddBo = {
@@ -579,8 +565,8 @@ declare namespace API {
     leader?: string;
     /** 显示顺序 */
     orderNum?: number;
-    /** 父菜单ID */
-    parentId?: number;
+    /** 父菜单ID, 无父级则传0 */
+    parentId: number;
     /** 父菜单名称 */
     parentName?: string;
     /** 联系电话 */
@@ -623,6 +609,12 @@ declare namespace API {
   type SysDeptVo = {
     /** 祖级列表 */
     ancestors?: string;
+    /** 子部门 */
+    children?: SysDeptVo[];
+    /** 创建者 */
+    createBy: string;
+    /** 创建时间 */
+    createTime: string;
     /** 删除标志（0代表存在 2代表删除） */
     delFlag: string;
     /** 部门id */
@@ -635,10 +627,18 @@ declare namespace API {
     leader?: string;
     /** 显示顺序 */
     orderNum: number;
+    /** 父菜单ID */
+    parentId?: number;
+    /** 父菜单名称 */
+    parentName?: string;
     /** 联系电话 */
     phone?: string;
     /** 部门状态:0正常,1停用 */
     status: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
   };
 
   type SysDictDataAddBo = {
@@ -912,14 +912,8 @@ declare namespace API {
   };
 
   type SysMenu = {
-    /** 子部门 */
-    children?: SysMenu[];
     /** 组件路径 */
     component?: string;
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
     /** 菜单图标 */
     icon?: string;
     /** 是否缓存（0缓存 1不缓存） */
@@ -934,10 +928,6 @@ declare namespace API {
     menuType: string;
     /** 显示顺序 */
     orderNum: number;
-    /** 父菜单ID */
-    parentId?: number;
-    /** 父菜单名称 */
-    parentName?: string;
     /** 路由地址 */
     path?: string;
     /** 权限字符串 */
@@ -948,10 +938,6 @@ declare namespace API {
     remark?: string;
     /** 菜单状态（0显示 1隐藏） */
     status?: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
     /** 显示状态（0显示 1隐藏） */
     visible?: string;
   };
