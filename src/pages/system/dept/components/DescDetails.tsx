@@ -1,8 +1,8 @@
-import { CEmail, CEnableDisableStatus, CLeader, COrderNum, CPhone } from '@/columns';
+import { CCreateTime, CEmail, CEnableDisableStatus, CLeader, COrderNum, CPhone, useCDeptParentId } from '@/columns';
 import { CDeptName } from '@/columns/dept';
 import { EmptySimple } from '@/components';
-import { queryDeptListKey, useQueryDeptList, useSelectedDeptIdValue } from '@/pages/system/dept/model';
-import { SysDeptGetInfo, SysDeptPostEdit } from '@/services/sys/SysDeptService';
+import { queryDeptListKey, useDeptDetailsVisibleValue } from '@/pages/system/dept/model';
+import { SysDeptGetExcludeChild, SysDeptGetInfo, SysDeptPostEdit } from '@/services/sys/SysDeptService';
 import { useAccess } from '@@/plugin-access';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
@@ -13,38 +13,22 @@ import type { FC } from 'react';
 
 type EditableKeys = keyof Omit<API.SysDeptEditBo, 'deptId'>;
 
-const findParentIds = (list: API.SysDeptVo[], deptId: number): string => {
-  const map = new Map<number, any>(list.map((item) => [item.deptId, item]));
-
-  const parentIds: number[] = [];
-
-  const loop = (currId: number) => {
-    const parentId = map.get(currId)?.parentId;
-
-    if (parentId) {
-      parentIds.push(parentId);
-      loop(parentId);
-    }
-  };
-
-  loop(deptId);
-
-  return [0, ...parentIds.reverse()].join(',');
-};
-
 const DescDetails: FC = () => {
   const access = useAccess();
 
   const queryClient = useQueryClient();
 
-  const { data: deptList } = useQueryDeptList();
-  const deptOptions = deptList?.treeData ?? [];
+  const { deptId, visible } = useDeptDetailsVisibleValue();
 
-  const selectedDeptIdValue = useSelectedDeptIdValue();
+  const { data: deptTreeData } = useRequest(async () => {
+    const data = await SysDeptGetExcludeChild({ deptId });
+    return data;
+  });
+  const CDeptParentId = useCDeptParentId(deptTreeData);
 
   const { data, loading, refreshAsync } = useRequest(
     async () => {
-      const { ancestors, ...rest } = await SysDeptGetInfo({ deptId: selectedDeptIdValue });
+      const { ancestors, ...rest } = await SysDeptGetInfo({ deptId });
 
       const ancestorsArr = ancestors?.split(',') ?? [];
 
@@ -54,27 +38,20 @@ const DescDetails: FC = () => {
       };
     },
     {
-      ready: selectedDeptIdValue > 0,
-      refreshDeps: [selectedDeptIdValue],
+      ready: visible && deptId > 0,
+      refreshDeps: [deptId],
     },
   );
 
   const editable: ProDescriptionsProps['editable'] = access?.canEditSysDept
     ? {
         onSave: async (key, record) => {
-          let value = record[key as EditableKeys];
-
-          if (key === 'ancestors') {
-            value = findParentIds(deptList?.list ?? [], value);
-          }
-
           await SysDeptPostEdit({
-            deptId: data!.deptId,
+            deptId,
             deptName: data!.deptName,
             orderNum: data!.orderNum,
-            // @ts-ignore
-            parentId: data!.parentId,
-            [key as EditableKeys]: value,
+            parentId: data!.parentId!,
+            [key as EditableKeys]: record[key as EditableKeys],
           });
 
           await Promise.all([queryClient.invalidateQueries(queryDeptListKey), refreshAsync()]);
@@ -84,39 +61,17 @@ const DescDetails: FC = () => {
       }
     : undefined;
 
-  if (selectedDeptIdValue === 0) {
+  if (!visible) {
     return <EmptySimple description="点击选择左侧部门项查看详情" />;
   }
 
   return (
     <Spin spinning={loading}>
-      <ProDescriptions editable={editable} dataSource={data} columns={[CEnableDisableStatus, COrderNum]} />
+      <ProDescriptions editable={editable} dataSource={data} columns={[CEnableDisableStatus, COrderNum, CCreateTime]} />
 
       <Divider />
 
-      <ProDescriptions
-        editable={editable}
-        dataSource={data}
-        columns={[
-          CDeptName,
-          {
-            title: '上级部门',
-            dataIndex: 'ancestors',
-            key: 'ancestors',
-            valueType: 'treeSelect',
-            fieldProps: {
-              span: 2,
-              options: deptOptions,
-              dropdownMatchSelectWidth: 300,
-              fieldNames: {
-                label: 'deptName',
-                value: 'deptId',
-                children: 'children',
-              },
-            },
-          },
-        ]}
-      />
+      <ProDescriptions editable={editable} dataSource={data} columns={[CDeptName, CDeptParentId]} />
 
       <Divider />
 
