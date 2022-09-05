@@ -1,5 +1,5 @@
 import { EnableDisableStatus, EnableDisableStatusMap } from '@/constants';
-import { useQueryDeptList } from '@/pages/system/dept/model';
+import { useQueryDeptTreeData } from '@/pages/system/dept/model';
 import { SysDeptPostAdd } from '@/services/sys/SysDeptService';
 import { Access } from '@@/exports';
 import { useAccess } from '@@/plugin-access';
@@ -16,7 +16,7 @@ const ButtonCreate: FC = () => {
   const access = useAccess();
   const formRef = useRef<ProFormInstance<API.SysDeptAddBo>>();
   const [open, { toggle }] = useBoolean();
-  const { data: deptList, refetch } = useQueryDeptList();
+  const { data: treeData, refetch } = useQueryDeptTreeData();
 
   const { mutate, isLoading } = useMutation(
     async () => {
@@ -46,7 +46,7 @@ const ButtonCreate: FC = () => {
       <Modal
         title="新建部门"
         okText="提交"
-        visible={open}
+        open={open}
         onCancel={toggle}
         onOk={() => mutate()}
         okButtonProps={{ loading: isLoading }}
@@ -64,11 +64,9 @@ const ButtonCreate: FC = () => {
             label="上级部门"
             rules={[{ required: true, message: '请选择上级部门' }]}
             fieldProps={{
-              treeData: deptList?.treeData ?? [],
+              treeData: treeData ?? [],
               fieldNames: {
-                label: 'deptName',
-                value: 'deptId',
-                children: 'children',
+                value: 'id',
               },
             }}
           />

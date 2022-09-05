@@ -1,4 +1,5 @@
-import { SysDeptPostList } from '@/services/sys/SysDeptService';
+import { SysDeptPostList, SysDeptPostTreeSelect } from '@/services/sys/SysDeptService';
+import type { TreeData } from '@/utils';
 import { parseSimpleTreeData } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
@@ -46,6 +47,13 @@ export const useQueryDeptList = () => {
       treeData,
       allParentIds: data.map((item) => item.parentId!),
     };
+  });
+};
+
+export const queryDeptTreeDataKey = [namespace, 'treeData'];
+export const useQueryDeptTreeData = () => {
+  return useQuery(queryDeptTreeDataKey, async () => {
+    return (await SysDeptPostTreeSelect({})) as TreeData[];
   });
 };
 

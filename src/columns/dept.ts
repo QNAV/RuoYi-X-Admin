@@ -1,4 +1,5 @@
 import type { ProItem } from '@/types';
+import type { TreeData } from '@/utils';
 import { useMemo } from 'react';
 
 // 部门名称
@@ -34,7 +35,7 @@ export const CEmail: ProItem = {
 };
 
 // 上级部门
-export const useCDeptParentId = (treeData: API.SysDeptVo[] = []): ProItem => {
+export const useCDeptParentId = (treeData: TreeData[] = []): ProItem => {
   return useMemo(() => {
     return {
       title: '上级部门',
@@ -45,9 +46,7 @@ export const useCDeptParentId = (treeData: API.SysDeptVo[] = []): ProItem => {
         treeData,
         dropdownMatchSelectWidth: 250,
         fieldNames: {
-          label: 'deptName',
-          value: 'deptId',
-          children: 'children',
+          value: 'id',
         },
       },
     };
