@@ -26,6 +26,14 @@ const access = (initialState: InitialState) => {
     canAddSysDept: checkPermission('system:dept:add', userPermissions),
     canEditSysDept: checkPermission('system:dept:edit', userPermissions),
     canRemoveSysDept: checkPermission('system:dept:remove', userPermissions),
+
+    // 系统管理-岗位管理
+    canReadSysPost: checkPermission('system:post:list', userPermissions),
+    canQuerySysPost: checkPermission('system:post:query', userPermissions),
+    canAddSysPost: checkPermission('system:post:add', userPermissions),
+    canEditSysPost: checkPermission('system:post:edit', userPermissions),
+    canRemoveSysPost: checkPermission('system:post:remove', userPermissions),
+    canExportSysPost: checkPermission('system:post:export', userPermissions),
   };
 };
 
