@@ -1,17 +1,8 @@
 import { useInitActionType } from '@/hooks';
-import { SysPostPostRemove } from '@/services/sys/SysPostService';
 import type { ActionType } from '@ant-design/pro-components';
-import { useMutation } from '@tanstack/react-query';
-import { message } from 'antd';
 import { atom, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 const namespace = 'systemPost';
-
-interface AtomAddOrEdit {
-  open: boolean;
-  record?: API.SysPostVo;
-  actionType: 'add' | 'edit';
-}
 
 // 主表格操作
 const AtomMainTableActions = atom<ActionType>({
@@ -19,10 +10,14 @@ const AtomMainTableActions = atom<ActionType>({
   default: undefined,
 });
 export const useMainTableActionRef = () => useInitActionType(AtomMainTableActions);
-export const useMainTableActions = () => useRecoilValue(AtomMainTableActions);
+export const useMainTableActionsRecoilValue = () => useRecoilValue(AtomMainTableActions);
 
 // 新建或编辑弹窗
-const AtomAddOrEditModal = atom<AtomAddOrEdit>({
+const AtomAddOrEditModal = atom<{
+  open: boolean;
+  record?: API.SysPostVo;
+  actionType: 'add' | 'edit';
+}>({
   key: `${namespace}AtomAddOrEditModal`,
   default: {
     open: false,
@@ -38,22 +33,4 @@ export const useShowEditModal = () => {
   return (record: API.SysPostVo) => showEditModal({ open: true, actionType: 'edit', record });
 };
 export const useHideAddOrEditModal = () => useResetRecoilState(AtomAddOrEditModal);
-export const useAtomAddOrEditModalState = () => useRecoilValue(AtomAddOrEditModal);
-
-// 删除岗位
-export const useRemovePost = () => {
-  const mainTableActions = useMainTableActions();
-
-  return useMutation(
-    async (postIds: number) => {
-      await SysPostPostRemove({ postIds });
-    },
-    {
-      onSuccess: () => {
-        mainTableActions?.reload();
-        mainTableActions?.clearSelected?.();
-        message.success('删除成功');
-      },
-    },
-  );
-};
+export const useAddOrEditModalRecoilValue = () => useRecoilValue(AtomAddOrEditModal);

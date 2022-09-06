@@ -6,6 +6,7 @@ import type { FC } from 'react';
 
 const ButtonAdd: FC = () => {
   const access = useAccess();
+
   const showAddModal = useShowAddModal();
 
   return (

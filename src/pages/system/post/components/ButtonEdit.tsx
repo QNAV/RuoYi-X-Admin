@@ -6,6 +6,7 @@ import type { FC } from 'react';
 
 const ButtonEdit: FC<{ record: API.SysPostVo }> = ({ record }) => {
   const access = useAccess();
+
   const showEditModal = useShowEditModal();
 
   return (
