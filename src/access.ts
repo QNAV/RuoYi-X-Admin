@@ -5,6 +5,16 @@ const access = (initialState: InitialState) => {
   const userPermissions = new Set(initialState?.userInfo?.permissions ?? []);
 
   return {
+    // 系统管理-用户管理
+    canReadSysUser: checkPermission('system:user:list', userPermissions),
+    canQuerySysUser: checkPermission('system:user:query', userPermissions),
+    canAddSysUser: checkPermission('system:user:add', userPermissions),
+    canEditSysUser: checkPermission('system:user:edit', userPermissions),
+    canRemoveSysUser: checkPermission('system:user:remove', userPermissions),
+    canExportSysUser: checkPermission('system:user:export', userPermissions),
+    canImportSysUser: checkPermission('system:user:import', userPermissions),
+    canResetSysUserPwd: checkPermission('system:user:resetPwd', userPermissions),
+
     // 系统管理-角色管理
     canReadSysRole: checkPermission('system:role:list', userPermissions),
     canQuerySysRole: checkPermission('system:role:query', userPermissions),
