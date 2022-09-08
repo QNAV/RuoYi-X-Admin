@@ -1,4 +1,5 @@
 import { CCreateTime, CEnableDisableStatus, CNickName, CUserDeptName, CUserId, CUserName, CUserPhone } from '@/columns';
+import ButtonAdd from '@/pages/system/user/components/ButtonAdd';
 import { useMainTableActionRef, useRecoilValueSelectedDeptId } from '@/pages/system/user/model';
 import { SysUserPostList } from '@/services/sys/SysUserService';
 import { convertParams } from '@/utils';
@@ -29,6 +30,9 @@ const TableMain: FC = () => {
         },
       }}
       request={(...p) => SysUserPostList(convertParams(...p))}
+      toolbar={{
+        actions: [<ButtonAdd key="ButtonAdd" />],
+      }}
     />
   );
 };
