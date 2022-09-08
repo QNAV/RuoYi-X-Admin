@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkruoyi_x_umi=self.webpackChunkruoyi_x_umi||[]).push([[144],{54144:function(O,u,t){t.r(u),t.d(u,{default:function(){return o}});var e=t(50959),n=t(99012),E=t(11527);function o(){var s=(0,n.useOutletContext)();return(0,E.jsx)(n.Outlet,{context:s})}}}]);
