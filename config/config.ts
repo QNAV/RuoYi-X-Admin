@@ -4,9 +4,9 @@ import routes from './routes';
 export default defineConfig({
   npmClient: 'pnpm',
   tailwindcss: {},
-  layout: {
-    title: 'RuoYi X Umi',
-  },
+  layout: {},
+  keepalive: [/./],
+  tabsLayout: {},
   antd: {},
   model: {},
   initialState: {},

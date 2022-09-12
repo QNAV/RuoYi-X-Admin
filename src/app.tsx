@@ -1,7 +1,7 @@
-import { BaseFooter, BaseHeaderRightContent } from '@/components';
+import { BaseFooter } from '@/components';
 import { SysLoginGetInfo, SysLoginGetRouters } from '@/services/sys/SysLoginService';
 import type { InitialState } from '@/types';
-import { checkToken, convertUserRoutesToMenus } from '@/utils';
+import { checkToken } from '@/utils';
 import type { ProLayoutProps } from '@ant-design/pro-components';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -12,7 +12,6 @@ import type { ReactNode } from 'react';
 import { createElement } from 'react';
 import type { RecoilRootProps } from 'recoil';
 import { RecoilRoot } from 'recoil';
-import { publicRoutes } from '../config/routes';
 
 dayjs.locale('zh-cn');
 
@@ -67,17 +66,10 @@ export const dataflowProvider = (container: ReactNode, opts: { children: ReactNo
 export const layout = ({ initialState }: { initialState?: InitialState }): ProLayoutProps => {
   if (!initialState) return {};
 
-  const { userInfo, userRoutes } = initialState;
-
   return {
+    title: 'RuoYi X Umi',
     onMenuHeaderClick: () => history.push('/'),
-    menuDataRender: () => [...publicRoutes, ...convertUserRoutesToMenus(userRoutes)],
-    rightContentRender: () => (
-      <BaseHeaderRightContent nickName={userInfo.user.nickName} avatar={userInfo.user.avatar} />
-    ),
+    rightContentRender: false,
     footerRender: BaseFooter,
-    layout: 'mix',
-    navTheme: 'light',
-    fixSiderbar: true,
   };
 };
