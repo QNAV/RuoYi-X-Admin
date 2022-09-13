@@ -1,13 +1,20 @@
 module.exports = {
-  extends: require.resolve('@umijs/max/eslint'),
+  extends: ['alloy', 'alloy/react', 'alloy/typescript'],
+  env: {
+    // 你的环境变量（包含多个预定义的全局变量）
+    //
+    // browser: true,
+    // node: true,
+    // mocha: true,
+    // jest: true,
+    // jquery: true
+  },
   globals: {
-    API_HOST: true,
-    TOKEN_KEY: true,
-    LOGIN_PATH_NAME: true,
+    // 你的全局变量（设置为 false 表示它不允许被重新赋值）
+    //
+    // myGlobal: false
   },
   rules: {
-    '@typescript-eslint/consistent-type-imports': 'error',
-    'react/jsx-curly-brace-presence': 'error',
-    'react/self-closing-comp': 'error',
+    // 自定义你的规则
   },
 };
