@@ -1,8 +1,6 @@
 module.exports = {
-  extends: ['stylelint-config-standard', 'stylelint-config-css-modules'],
-  customSyntax: 'postcss-less',
+  extends: require.resolve('@umijs/max/stylelint'),
   rules: {
-    'string-quotes': 'single',
     'at-rule-no-unknown': [
       true,
       {

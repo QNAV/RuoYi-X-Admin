@@ -1,24 +1,23 @@
 {
-  "name": "ruoyi-x-admin",
-  "version": "0.0.0",
+  "name": "ruoyi-x-umi",
   "private": true,
   "scripts": {
-    "build": "tsc && vite build",
-    "dev": "vite",
+    "ANALYZE": "cross-env ANALYZE=1 max build",
+    "build": "max build",
+    "build:gh": "cross-env UMI_ENV=gh max build",
+    "postinstall": "max setup",
+    "openapi": "max openapi",
     "prepare": "husky install",
-    "preview": "vite preview",
-    "vis": "tsc && cross-env vis=1 vite build"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "preview": "max preview",
+    "start": "max dev",
+    "start:local": "cross-env UMI_ENV=local max dev"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^2.3.7",
     "@tanstack/react-query": "^4.3.4",
     "@tanstack/react-query-devtools": "^4.3.5",
+    "@umijs/max": "^4.0.20",
     "ahooks": "^3.7.1",
     "antd": "^4.23.1",
     "axios": "^0.27.2",
@@ -27,44 +26,33 @@
     "dayjs": "^1.11.5",
     "file-saver": "^2.0.5",
     "highlight.js": "^11.6.0",
-    "lodash-es": "^4.17.21",
+    "lodash": "^4.17.21",
     "nprogress": "^0.2.0",
     "query-string": "^7.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "recoil": "^0.7.5",
-    "xlsx": "0.18.5"
+    "recoil": "^0.7.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@types/file-saver": "^2.0.5",
-    "@types/lodash-es": "^4.17.6",
+    "@types/lodash": "^4.14.185",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^18.0.19",
     "@types/react-dom": "^18.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.37.0",
-    "@typescript-eslint/parser": "^5.37.0",
-    "@vitejs/plugin-react": "^2.1.0",
-    "autoprefixer": "^10.4.9",
+    "@umijs/lint": "^4.0.20",
     "cross-env": "^7.0.3",
     "eslint": "^8.23.1",
-    "eslint-config-alloy": "^4.6.2",
-    "eslint-plugin-react": "^7.31.8",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "postcss": "^8.4.16",
-    "postcss-less": "^6.0.0",
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "^3.1.1",
     "prettier-plugin-packagejson": "^2.2.18",
-    "rollup-plugin-visualizer": "^5.8.1",
-    "standard-version": "^9.5.0",
     "stylelint": "^14.11.0",
-    "stylelint-config-css-modules": "^4.1.0",
-    "stylelint-config-standard": "^28.0.0",
+    "swagger-ui-dist": "^4.14.0",
     "tailwindcss": "^3.1.8",
     "typescript": "^4.8.3",
-    "vite": "^3.1.0"
+    "umi-presets-pro": "^1.0.5"
   }
 }
