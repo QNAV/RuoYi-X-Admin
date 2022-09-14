@@ -19,6 +19,17 @@ enum LoginType {
   USERNAME = 'USERNAME',
 }
 
+const items = [
+  {
+    label: '账号密码登录',
+    key: LoginType.USERNAME,
+  },
+  {
+    label: '手机号登录',
+    key: LoginType.MOBILE,
+  },
+];
+
 const LoginPage: FC = () => {
   const [loginType, setLoginType] = useState<LoginType>(LoginType.USERNAME);
 
@@ -88,10 +99,12 @@ const LoginPage: FC = () => {
         actions={<Actions />}
         onFinish={submit}
       >
-        <Tabs activeKey={loginType} onChange={(activeKey) => setLoginType(activeKey as LoginType)}>
-          <Tabs.TabPane key={LoginType.USERNAME} tab="账号密码登录" />
-          <Tabs.TabPane key={LoginType.MOBILE} tab="手机号登录" />
-        </Tabs>
+        <Tabs
+          centered
+          activeKey={loginType}
+          onChange={(activeKey) => setLoginType(activeKey as LoginType)}
+          items={items}
+        />
 
         {loginType === LoginType.USERNAME && (
           <>

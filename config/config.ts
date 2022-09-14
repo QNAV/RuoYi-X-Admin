@@ -5,7 +5,7 @@ export default defineConfig({
   npmClient: 'pnpm',
   tailwindcss: {},
   layout: {},
-  keepalive: [/./],
+  keepalive: [/^((?!.*login$))/],
   tabsLayout: {},
   antd: {},
   model: {},

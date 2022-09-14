@@ -71,5 +71,15 @@ export const layout = ({ initialState }: { initialState?: InitialState }): ProLa
     onMenuHeaderClick: () => history.push('/'),
     rightContentRender: false,
     footerRender: BaseFooter,
+    token: {
+      pageContainer: {
+        marginInlinePageContainerContent: 0,
+        marginBlockPageContainerContent: 0,
+      },
+    },
   };
+};
+
+export const tabsLayout = {
+  // local: convertRoutesToNameMap(routes),
 };
