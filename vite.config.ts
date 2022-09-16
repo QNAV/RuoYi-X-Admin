@@ -26,6 +26,6 @@ export default defineConfig({
     },
   },
   define: {
-    LOGIN_PATH_NAME: '/login',
+    LOGIN_PATH_NAME: JSON.stringify('/login'),
   },
 });
