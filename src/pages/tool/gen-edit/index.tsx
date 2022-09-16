@@ -1,9 +1,10 @@
+import { BasePageContainer } from '@/components/BasePageContainer';
 import DescBase from '@/pages/tool/gen-edit/components/DescBase';
 import EditableTableField from '@/pages/tool/gen-edit/components/EditableTableField';
 import type { GenInfoDto } from '@/pages/tool/gen-edit/data';
 import { GenGetInfo, GenPostEdit } from '@/services/gen/GenService';
 import { useParams } from '@@/exports';
-import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { ProCard } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
@@ -64,7 +65,7 @@ const GenEditPage: FC = () => {
   );
 
   return (
-    <PageContainer>
+    <BasePageContainer>
       <ProCard
         tabs={{
           activeKey: tab,
@@ -81,7 +82,7 @@ const GenEditPage: FC = () => {
           <EditableTableField dataSource={data?.rows} handleEdit={mutateAsync} loading={isLoading} />
         </ProCard.TabPane>
       </ProCard>
-    </PageContainer>
+    </BasePageContainer>
   );
 };
 

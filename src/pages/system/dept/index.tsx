@@ -1,13 +1,14 @@
+import { BasePageContainer } from '@/components/BasePageContainer';
 import ButtonCreate from '@/pages/system/dept/components/ButtonCreate';
 import ButtonDelete from '@/pages/system/dept/components/ButtonDelete';
 import DescDetails from '@/pages/system/dept/components/DescDetails';
 import TreeDept from '@/pages/system/dept/components/TreeDept';
-import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { ProCard } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
 const PageDept: FC = () => {
   return (
-    <PageContainer>
+    <BasePageContainer>
       <ProCard ghost gutter={24}>
         <ProCard title="部门列表" colSpan="500px" extra={<ButtonCreate />}>
           <TreeDept />
@@ -17,7 +18,7 @@ const PageDept: FC = () => {
           <DescDetails />
         </ProCard>
       </ProCard>
-    </PageContainer>
+    </BasePageContainer>
   );
 };
 

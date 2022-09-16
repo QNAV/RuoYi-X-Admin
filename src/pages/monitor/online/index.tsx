@@ -1,6 +1,7 @@
+import { BasePageContainer } from '@/components/BasePageContainer';
 import { SysUserOnlineGetList, SysUserOnlinePostForceLogout } from '@/services/sys/SysUserOnlineService';
 import type { ProColumns } from '@ant-design/pro-components';
-import { PageContainer, ProTable } from '@ant-design/pro-components';
+import { ProTable } from '@ant-design/pro-components';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
 
@@ -67,7 +68,7 @@ const columns: ProColumns[] = [
 
 const OnlinePage: FC = () => {
   return (
-    <PageContainer>
+    <BasePageContainer>
       <ProTable
         rowKey="tokenId"
         columns={columns}
@@ -81,7 +82,7 @@ const OnlinePage: FC = () => {
           };
         }}
       />
-    </PageContainer>
+    </BasePageContainer>
   );
 };
 

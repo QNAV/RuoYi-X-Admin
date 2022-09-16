@@ -30,11 +30,12 @@ export const render = (oldRender: () => void) => {
   oldRender();
 };
 
-export const getInitialState = async (): Promise<InitialState | undefined> => {
+export const getInitialState = async (): Promise<InitialState | Record<any, any>> => {
   const hasLogin = checkToken();
+  const isLoginPage = checkIsLoginPage();
 
-  if (!hasLogin) {
-    return;
+  if (!hasLogin || isLoginPage) {
+    return {};
   }
 
   const [userInfo, userRoutes] = await Promise.all([SysLoginGetInfo(), SysLoginGetRouters()]);
@@ -63,8 +64,6 @@ export const dataflowProvider = (container: ReactNode, opts: { children: ReactNo
 };
 
 export const layout = ({ initialState }: { initialState?: InitialState }): ProLayoutProps => {
-  if (!initialState) return {};
-  console.log(initialState?.userInfo?.user?.userName);
   return {
     title: 'RuoYi X Umi',
     onMenuHeaderClick: () => history.push('/'),

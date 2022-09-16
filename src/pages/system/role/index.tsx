@@ -1,13 +1,14 @@
+import { BasePageContainer } from '@/components/BasePageContainer';
 import ButtonCreate from '@/pages/system/role/components/ButtonCreate';
 import ButtonDelete from '@/pages/system/role/components/ButtonDelete';
 import DescDetails from '@/pages/system/role/components/DescDetails';
 import List from '@/pages/system/role/components/List';
-import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { ProCard } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
 const PageRole: FC = () => {
   return (
-    <PageContainer>
+    <BasePageContainer>
       <ProCard ghost gutter={24}>
         <ProCard title="角色列表" colSpan="400px" extra={<ButtonCreate />}>
           <List />
@@ -17,7 +18,7 @@ const PageRole: FC = () => {
           <DescDetails />
         </ProCard>
       </ProCard>
-    </PageContainer>
+    </BasePageContainer>
   );
 };
 

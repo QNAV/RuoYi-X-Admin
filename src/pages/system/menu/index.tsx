@@ -1,14 +1,15 @@
+import { BasePageContainer } from '@/components/BasePageContainer';
 import ButtonCreate from '@/pages/system/menu/components/ButtonCreate';
 import ButtonDelete from '@/pages/system/menu/components/ButtonDelete';
 import DescDetails from '@/pages/system/menu/components/DescDetails';
 import TreeMenu from '@/pages/system/menu/components/TreeMenu';
-import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { ProCard } from '@ant-design/pro-components';
 import { Space } from 'antd';
 import type { FC } from 'react';
 
 const PageMenu: FC = () => {
   return (
-    <PageContainer>
+    <BasePageContainer>
       <ProCard ghost gutter={24}>
         <ProCard
           title="菜单列表"
@@ -27,7 +28,7 @@ const PageMenu: FC = () => {
           <DescDetails />
         </ProCard>
       </ProCard>
-    </PageContainer>
+    </BasePageContainer>
   );
 };
 

@@ -1,6 +1,7 @@
+import { BasePageContainer } from '@/components/BasePageContainer';
 import PwdForm from '@/pages/settings/components/PwdForm';
 import UserDescriptions from '@/pages/settings/components/UserDescriptions';
-import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { ProCard } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -12,7 +13,7 @@ const SettingsPage: FC = () => {
   const [activeKey, setActiveKey] = useState<TabKey>(TabKey.PASSWORD);
 
   return (
-    <PageContainer title="个人中心">
+    <BasePageContainer title="个人中心">
       <ProCard ghost direction="column" gutter={[0, 24]}>
         <ProCard>
           <UserDescriptions />
@@ -24,7 +25,7 @@ const SettingsPage: FC = () => {
           </ProCard.TabPane>
         </ProCard>
       </ProCard>
-    </PageContainer>
+    </BasePageContainer>
   );
 };
 

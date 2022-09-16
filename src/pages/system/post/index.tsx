@@ -1,4 +1,5 @@
 import { CCreateTime, CEnableDisableStatus, CPostCode, CPostId, CPostName, CPostSort, CRemark } from '@/columns';
+import { BasePageContainer } from '@/components/BasePageContainer';
 import ButtonAdd from '@/pages/system/post/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/post/components/ButtonEdit';
 import type { SearchParams } from '@/pages/system/post/components/ButtonExport';
@@ -10,7 +11,7 @@ import { SysPostPostList } from '@/services/sys/SysPostService';
 import type { ProItem } from '@/types';
 import { convertParams } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
-import { PageContainer, ProTable } from '@ant-design/pro-components';
+import { ProTable } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 
@@ -45,7 +46,7 @@ const PagePost: FC = () => {
   const actionRef = useMainTableActionRef();
 
   return (
-    <PageContainer>
+    <BasePageContainer>
       <ProTable<API.SysPostVo>
         formRef={formRef}
         actionRef={actionRef}
@@ -76,7 +77,7 @@ const PagePost: FC = () => {
       />
 
       <ModalAddOrEdit />
-    </PageContainer>
+    </BasePageContainer>
   );
 };
 
