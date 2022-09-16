@@ -3,15 +3,15 @@
     "prettier --cache --write"
   ],
   "*.{js,jsx}": [
-    "max lint --fix --eslint-only",
+    "eslint --fix",
     "prettier --cache --write"
   ],
   "*.{css,less}": [
-    "max lint --fix --stylelint-only",
+    "stylelint --fix",
     "prettier --cache --write"
   ],
   "*.ts?(x)": [
-    "max lint --fix --eslint-only",
+    "eslint --fix",
     "prettier --cache --parser=typescript --write"
   ]
 }
