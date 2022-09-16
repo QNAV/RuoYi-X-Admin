@@ -1,11 +1,12 @@
+import { BasePageContainer } from '@/components/BasePageContainer';
 import TableMain from '@/pages/system/user/components/TableMain';
 import TreeDept from '@/pages/system/user/components/TreeDept';
-import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { ProCard } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
 const PageUser: FC = () => {
   return (
-    <PageContainer>
+    <BasePageContainer>
       <ProCard ghost gutter={24}>
         <ProCard colSpan="300px" className="h-full">
           <TreeDept />
@@ -15,7 +16,7 @@ const PageUser: FC = () => {
           <TableMain />
         </ProCard>
       </ProCard>
-    </PageContainer>
+    </BasePageContainer>
   );
 };
 

@@ -24,6 +24,8 @@ export const getToken = () => localStorage.getItem(TOKEN_KEY) || sessionStorage.
 
 export const checkToken = () => !!getToken();
 
+export const checkIsLoginPage = () => window.location.pathname === LOGIN_PATH_NAME;
+
 export const logout = async () => {
   await SysLoginPostLogout();
   clearToken();

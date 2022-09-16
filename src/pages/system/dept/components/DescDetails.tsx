@@ -1,4 +1,4 @@
-import { CCreateTime, CEmail, CEnableDisableStatus, CLeader, COrderNum, CPhone, useCDeptParentId } from '@/columns';
+import { CCreateTime, CEmail, CEnableDisableStatus, CLeader, COrderNum, CPhone, genCDeptParentId } from '@/columns';
 import { CDeptName } from '@/columns/dept';
 import { EmptySimple } from '@/components';
 import { queryDeptListKey, useDeptDetailsVisibleValue, useQueryDeptTreeData } from '@/pages/system/dept/model';
@@ -29,7 +29,7 @@ const DescDetails: FC = () => {
 
   const { data: deptTreeData } = useQueryDeptTreeData();
 
-  const CDeptParentId = useCDeptParentId(deptTreeData);
+  const CDeptParentId = genCDeptParentId(deptTreeData);
 
   const { data, loading, refreshAsync } = useRequest(
     async () => {
