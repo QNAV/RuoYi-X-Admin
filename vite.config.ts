@@ -13,7 +13,10 @@ if (process.env.vis) {
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: [{ find: '@/', replacement: '/src/' }],
+    alias: [
+      { find: '@/', replacement: '/src/' },
+      { find: /^~antd/, replacement: 'antd' },
+    ],
   },
   css: {
     preprocessorOptions: {
@@ -22,5 +25,7 @@ export default defineConfig({
       },
     },
   },
-  define: {},
+  define: {
+    LOGIN_PATH_NAME: '/login',
+  },
 });
