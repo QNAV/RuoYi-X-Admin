@@ -83,7 +83,7 @@ export const layoutRoutes: Route[] = [
               {
                 name: '登录日志',
                 path: 'logininfor',
-                element: lazyLoadPage('monitor/logininfo'),
+                element: lazyLoadPage('monitor/logininfor'),
                 isKeepAlive: true,
               },
             ],
@@ -211,7 +211,5 @@ export const routes: Route[] = [
 
 export const keepAliveRoutes = getRoutesKeepAliveKeys(layoutRoutes);
 export const keepAliveLocal = getRoutesKeepAliveLocal(layoutRoutes);
-console.log(keepAliveRoutes);
-console.log(keepAliveLocal);
-console.log(routes);
+
 export const Element = () => useRoutes(routes);
