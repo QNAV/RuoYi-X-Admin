@@ -1,8 +1,19 @@
 @import 'nprogress/nprogress.css';
 @import 'antd/dist/antd.less';
 
+@tailwind components;
+@tailwind utilities;
+
 html,
 body,
 #root {
   height: 100%;
+}
+
+:root {
+  .ant-pro-global-header {
+    .ant-tabs-nav {
+      margin: 0;
+    }
+  }
 }
