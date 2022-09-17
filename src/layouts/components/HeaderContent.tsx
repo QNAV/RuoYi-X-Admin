@@ -1,3 +1,4 @@
+import HeaderDropdown from '@/layouts/components/HeaderDropdown';
 import HeaderTabs from '@/layouts/components/HeaderTabs';
 import type { ProLayoutProps } from '@ant-design/pro-components';
 
@@ -6,7 +7,7 @@ const HeaderContent: ProLayoutProps['headerContentRender'] = () => {
     <div className="flex justify-between items-end">
       <HeaderTabs />
 
-      <span>2</span>
+      <HeaderDropdown />
     </div>
   );
 };

@@ -181,6 +181,12 @@ export const layoutRoutes: Route[] = [
           },
         ],
       },
+      {
+        name: '个人中心',
+        path: 'settings',
+        element: lazyLoadPage('settings'),
+        isKeepAlive: true,
+      },
     ],
   },
 ];
@@ -211,5 +217,6 @@ export const routes: Route[] = [
 
 export const keepAliveRoutes = getRoutesKeepAliveKeys(layoutRoutes);
 export const keepAliveLocal = getRoutesKeepAliveLocal(layoutRoutes);
+console.log(keepAliveRoutes, keepAliveLocal);
 
 export const Element = () => useRoutes(routes);
