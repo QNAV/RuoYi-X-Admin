@@ -11,24 +11,24 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3.0.2
 
       - name: Install PNPM
-        run: npm install pnpm -g
+        uses: pnpm/action-setup@v2.2.2
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16.x
           cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build:gh
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build GH
+        run: pnpm build:gh
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
