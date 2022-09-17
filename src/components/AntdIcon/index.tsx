@@ -5,7 +5,7 @@ import { createElement } from 'react';
 
 export const AntdIcon: FC<AntdIconProps & { name?: string }> = ({ name, ...props }) => {
   // @ts-ignore
-  if (!name || IconMap?.[name]) return null;
+  if (!name || !IconMap?.[name]) return null;
 
   // @ts-ignore
   return createElement(IconMap[name], props);
