@@ -8,6 +8,7 @@ const plugins: UserConfig['plugins'] = [react()];
 if (process.env.vis) {
   plugins.push(
     visualizer({
+      open: true,
       gzipSize: true,
     }),
   );
