@@ -1,0 +1,1 @@
+import{D as e}from"./index.f9a5094b.js";var i="/home/runner/work/RuoYi-X-Admin/RuoYi-X-Admin/src/pages/demo/demo/index.tsx";function m(){return e("h1",{children:"TODO"},void 0,!1,{fileName:i,lineNumber:2,columnNumber:10},this)}export{m as default};
