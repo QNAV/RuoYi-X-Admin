@@ -1,1 +1,0 @@
-import{D as e}from"./index.98ae5275.js";import{B as o}from"./index.4f67218f.js";import"./RouteContext.b3801464.js";var r="/home/runner/work/RuoYi-X-Admin/RuoYi-X-Admin/src/pages/home/index.tsx";const n=()=>e(o,{children:"TODO"},void 0,!1,{fileName:r,lineNumber:5,columnNumber:10},void 0);export{n as default};
