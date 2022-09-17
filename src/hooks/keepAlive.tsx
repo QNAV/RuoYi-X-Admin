@@ -60,12 +60,12 @@ export const useKeepAliveOutlets = (pathname: string) => {
 
   return (
     <>
-      {Object.entries(keepAliveElements).map(([pathname, children]: any) => (
+      {Object.entries(keepAliveElements).map(([key, children]: any) => (
         <div
-          key={`${pathname}:${keepAliveElements[pathname] || '_'}`}
+          key={`${key}:${keepAliveElements[key] || '_'}`}
           style={{ height: '100%', width: '100%', position: 'relative', overflow: 'hidden auto' }}
           className="runtime-keep-alive-layout"
-          hidden={!matchPath(location.pathname, pathname)}
+          hidden={!matchPath(pathname, key)}
         >
           {children}
         </div>
