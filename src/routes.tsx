@@ -1,5 +1,5 @@
 import Login from '@/pages/login';
-import { getRoutesKeepAliveKeys, getRoutesKeepAliveLocal, lazyLoadLayouts, lazyLoadPage } from '@/utils';
+import { getRoutesKeepAliveKeys, getRoutesKeepAliveLocal, joinBaseName, lazyLoadLayouts, lazyLoadPage } from '@/utils';
 import type { RouteObject } from 'react-router-dom';
 import { useRoutes } from 'react-router-dom';
 
@@ -215,8 +215,7 @@ export const routes: Route[] = [
   },
 ];
 
-export const keepAliveRoutes = getRoutesKeepAliveKeys(layoutRoutes);
+export const keepAliveRoutes = joinBaseName(getRoutesKeepAliveKeys(layoutRoutes));
 export const keepAliveLocal = getRoutesKeepAliveLocal(layoutRoutes);
-console.log(keepAliveRoutes, keepAliveLocal);
 
 export const Element = () => useRoutes(routes);

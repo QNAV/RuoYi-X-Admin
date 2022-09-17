@@ -10,9 +10,9 @@ const join = (path: string) => {
   return `${baseName}${path}`.replace(/\/+/g, '/');
 };
 
-function joinBaseName(path: string): string;
-function joinBaseName(path: string[]): string[];
-function joinBaseName(path: any): any {
+export function joinBaseName(path: string): string;
+export function joinBaseName(path: string[]): string[];
+export function joinBaseName(path: any): any {
   if (Array.isArray(path)) {
     return path.map((item) => join(item));
   }
@@ -37,7 +37,7 @@ export const getRoutesKeepAliveKeys = (routes: Route[], parentPath = ''): string
       keys.push(...getRoutesKeepAliveKeys(route.children, fullPath));
     }
   });
-  return joinBaseName(keys);
+  return keys;
 };
 
 export const getRoutesKeepAliveLocal = (routes: Route[], parentPath = ''): Record<string, string> => {

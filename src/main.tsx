@@ -18,7 +18,8 @@ const render = () => {
   const isLoginPage = checkIsLoginPage();
 
   if (!hasToken && !isLoginPage) {
-    window.location.replace(`${LOGIN_PATH_NAME}?redirect=${window.location.pathname}`);
+    const redirect = window.location.pathname === BASE_NAME ? '' : `?redirect=${window.location.pathname}`;
+    window.location.replace(`${LOGIN_PATH_NAME}${redirect}`);
     return;
   }
 
