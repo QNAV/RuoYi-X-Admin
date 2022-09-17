@@ -1,4 +1,3 @@
-import logo from '@/assets/react.svg';
 import { initialStateQueryKey } from '@/models';
 import Actions from '@/pages/login/components/Actions';
 import { CaptchaGetGetCode } from '@/services/sys/CaptchaService';
@@ -97,8 +96,8 @@ const LoginPage: FC = () => {
   return (
     <div className="h-[100vh]">
       <LoginFormPage<FormData>
-        backgroundImageUrl="/backgroundImage.png"
-        logo={logo}
+        backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
+        logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
         title="RuoYi X Umi"
         subTitle="若依后台管理系统"
         actions={<Actions />}

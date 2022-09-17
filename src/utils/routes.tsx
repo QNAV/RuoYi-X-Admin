@@ -4,6 +4,21 @@ import { isHttpUrl } from '@/utils';
 import type { MenuDataItem } from '@ant-design/pro-components';
 import qs from 'query-string';
 
+const baseName = import.meta.env.VITE_BASE_NAME;
+
+const join = (path: string) => {
+  return `${baseName}${path}`.replace(/\/+/g, '/');
+};
+
+function joinBaseName(path: string): string;
+function joinBaseName(path: string[]): string[];
+function joinBaseName(path: any): any {
+  if (Array.isArray(path)) {
+    return path.map((item) => join(item));
+  }
+  return join(path);
+}
+
 const getFullPath = (currPath = '', parentPath = ''): string => {
   if (currPath.startsWith('/')) {
     return currPath;
@@ -22,7 +37,7 @@ export const getRoutesKeepAliveKeys = (routes: Route[], parentPath = ''): string
       keys.push(...getRoutesKeepAliveKeys(route.children, fullPath));
     }
   });
-  return keys;
+  return joinBaseName(keys);
 };
 
 export const getRoutesKeepAliveLocal = (routes: Route[], parentPath = ''): Record<string, string> => {
@@ -30,7 +45,7 @@ export const getRoutesKeepAliveLocal = (routes: Route[], parentPath = ''): Recor
   routes.forEach((route) => {
     const fullPath = getFullPath(route.path, parentPath);
     if (route.isKeepAlive && route.path && route.name) {
-      local[fullPath] = route.name;
+      local[joinBaseName(fullPath)] = route.name;
     }
     if (route.children) {
       Object.assign(local, getRoutesKeepAliveLocal(route.children, fullPath));

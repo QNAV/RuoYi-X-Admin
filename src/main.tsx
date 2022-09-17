@@ -10,6 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import './global.less';
 
+const BASE_NAME = import.meta.env.VITE_BASE_NAME;
 const LOGIN_PATH_NAME = import.meta.env.VITE_LOGIN_PATH_NAME;
 
 const render = () => {
@@ -17,16 +18,15 @@ const render = () => {
   const isLoginPage = checkIsLoginPage();
 
   if (!hasToken && !isLoginPage) {
-    window.location.replace(LOGIN_PATH_NAME);
+    window.location.replace(`${LOGIN_PATH_NAME}?redirect=${window.location.pathname}`);
     return;
   }
 
-  const basename = LOGIN_PATH_NAME.replace('login', '');
   const queryClient = new QueryClient();
 
   ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <StrictMode>
-      <BrowserRouter basename={basename}>
+      <BrowserRouter basename={BASE_NAME}>
         <RecoilRoot>
           <QueryClientProvider client={queryClient}>
             <ConfigProvider>

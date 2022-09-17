@@ -1,7 +1,7 @@
 import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import type { UserConfig } from 'vite';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 
 const plugins: UserConfig['plugins'] = [react()];
 
@@ -15,9 +15,10 @@ if (process.env.vis) {
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd());
+
   return {
-    mode: mode === 'development' ? 'development' : 'production',
-    base: mode === 'gh' ? `/RuoYi-X-Admin/` : '/',
+    base: env.VITE_BASE_NAME,
     plugins,
     resolve: {
       alias: [
