@@ -217,5 +217,5 @@ export const routes: Route[] = [
 
 export const keepAliveRoutes = getRoutesKeepAliveKeys(layoutRoutes);
 export const keepAliveLocal = getRoutesKeepAliveLocal(layoutRoutes);
-console.log(keepAliveRoutes, keepAliveLocal);
+
 export const Element = () => useRoutes(routes);

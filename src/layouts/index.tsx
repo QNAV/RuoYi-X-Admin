@@ -20,6 +20,7 @@ const Layouts: FC = () => {
     <ProLayout
       title="RuoYi X Admin"
       onMenuHeaderClick={() => navigate('/')}
+      location={{ pathname }}
       menu={{ loading: isFetching }}
       loading={isFetching}
       headerContentRender={HeaderContent}

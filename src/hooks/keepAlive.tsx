@@ -49,7 +49,7 @@ export const useKeepAliveOutlets = (pathname: string) => {
   const [keepAliveElements, setKeepAliveElements] = useRecoilState(AtomKeepAliveElements);
 
   const element = useOutlet();
-  console.log(keepAliveElements, pathname);
+
   const isKeepAlive = keepAliveRoutes.some((key) => matchPath(key, pathname));
 
   useEffect(() => {
