@@ -10,16 +10,18 @@ import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import './global.less';
 
+const LOGIN_PATH_NAME = import.meta.env.VITE_LOGIN_PATH_NAME;
+
 const render = () => {
   const hasToken = checkToken();
   const isLoginPage = checkIsLoginPage();
 
   if (!hasToken && !isLoginPage) {
-    window.location.replace(`${import.meta.env.VITE_LOGIN_PATH_NAME}?redirect=${window.location.pathname}`);
+    window.location.replace(LOGIN_PATH_NAME);
     return;
   }
 
-  const basename = process.env.gh ? `/RuoYi-X-Admin/` : '';
+  const basename = LOGIN_PATH_NAME.replace('login', '');
   const queryClient = new QueryClient();
 
   ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
