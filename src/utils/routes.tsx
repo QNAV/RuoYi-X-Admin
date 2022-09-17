@@ -45,7 +45,7 @@ export const getRoutesKeepAliveLocal = (routes: Route[], parentPath = ''): Recor
   routes.forEach((route) => {
     const fullPath = getFullPath(route.path, parentPath);
     if (route.isKeepAlive && route.path && route.name) {
-      local[joinBaseName(fullPath)] = route.name;
+      local[fullPath] = route.name;
     }
     if (route.children) {
       Object.assign(local, getRoutesKeepAliveLocal(route.children, fullPath));
