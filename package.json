@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "build": "tsc && vite build",
+    "build:gh": "tsc && cross-env gh=1 vite build",
+    "build:staging": "tsc && vite build --mode staging",
     "dev": "vite",
     "preinstall": "npx only-allow pnpm",
     "openapi": "tsx openapi.config.ts",
