@@ -1,0 +1,1 @@
+import{j as u,L as t}from"./index.4e3b1969.js";import{R as r}from"./index.6c1fc8d5.js";const s=()=>u(r,{status:"500",title:"500",subTitle:"\u62B1\u6B49\uFF0C\u670D\u52A1\u5668\u51FA\u9519\u4E86",extra:u(t,{to:"/",reloadDocument:!0,children:"\u8FD4\u56DE\u9996\u9875"})});export{s as PageError,s as default};
