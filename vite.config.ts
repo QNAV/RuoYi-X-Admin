@@ -13,17 +13,12 @@ if (process.env.vis) {
   );
 }
 
-let LOGIN_PATH_NAME = '/login';
-let base = '/';
-
-if (process.env.gh) {
-  LOGIN_PATH_NAME = '/RuoYi-X-Admin/login';
-  base = '/RuoYi-X-Admin/';
-}
+const basename = process.env.gh ? `/RuoYi-X-Admin/` : '';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base,
+  mode: 'development',
+  base: basename,
   plugins,
   resolve: {
     alias: [
@@ -39,6 +34,6 @@ export default defineConfig({
     },
   },
   define: {
-    LOGIN_PATH_NAME: JSON.stringify(LOGIN_PATH_NAME),
+    LOGIN_PATH_NAME: JSON.stringify(`${basename}login`),
   },
 });

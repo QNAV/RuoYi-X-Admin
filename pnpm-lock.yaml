@@ -10,6 +10,7 @@ specifiers:
   '@tanstack/react-query-devtools': ^4.3.5
   '@types/file-saver': ^2.0.5
   '@types/lodash': ^4.14.185
+  '@types/node': ^18.7.18
   '@types/nprogress': ^0.2.0
   '@types/react': ^18.0.20
   '@types/react-dom': ^18.0.6
@@ -82,6 +83,7 @@ devDependencies:
   '@commitlint/config-conventional': 17.1.0
   '@types/file-saver': 2.0.5
   '@types/lodash': 4.14.185
+  '@types/node': 18.7.18
   '@types/nprogress': 0.2.0
   '@types/react': 18.0.20
   '@types/react-dom': 18.0.6

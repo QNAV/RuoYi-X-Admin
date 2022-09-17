@@ -19,11 +19,12 @@ const render = () => {
     return;
   }
 
+  const basename = process.env.gh ? `/RuoYi-X-Admin/` : '';
   const queryClient = new QueryClient();
 
   ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <StrictMode>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <RecoilRoot>
           <QueryClientProvider client={queryClient}>
             <ConfigProvider>
