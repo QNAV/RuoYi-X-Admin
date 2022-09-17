@@ -25,10 +25,10 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
       - name: Build GH
-        run: pnpm build:gh
+      - run: pnpm build:gh
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
