@@ -6,12 +6,16 @@ import { defineConfig } from 'vite';
 const plugins: UserConfig['plugins'] = [react()];
 
 if (process.env.vis) {
-  plugins.push(visualizer());
+  plugins.push(
+    visualizer({
+      gzipSize: true,
+    }),
+  );
 }
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins,
   resolve: {
     alias: [
       { find: '@/', replacement: '/src/' },
