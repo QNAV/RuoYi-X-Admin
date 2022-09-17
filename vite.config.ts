@@ -17,8 +17,8 @@ let LOGIN_PATH_NAME = '/login';
 let base = '/';
 
 if (process.env.gh) {
-  LOGIN_PATH_NAME = '/RuoYi-X-Umi/login';
-  base = '/RuoYi-X-Umi/';
+  LOGIN_PATH_NAME = '/RuoYi-X-Admin/login';
+  base = '/RuoYi-X-Admin/';
 }
 
 // https://vitejs.dev/config/
