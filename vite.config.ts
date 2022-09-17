@@ -15,6 +15,7 @@ if (process.env.vis) {
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
+  console.log('mode', mode);
   return {
     mode: mode === 'development' ? 'development' : 'production',
     base: mode === 'gh' ? `/RuoYi-X-Admin/` : '/',

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "tsc && vite build",
-    "build:gh": "tsc && vite build --mode staging",
+    "build:gh": "tsc && vite build --mode gh",
     "build:staging": "tsc && vite build --mode staging",
     "dev": "vite",
     "preinstall": "npx only-allow pnpm",
