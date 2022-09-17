@@ -12,10 +12,12 @@ module.exports = {
   globals: {
     // 你的全局变量（设置为 false 表示它不允许被重新赋值）
     //
+    API: false,
     LOGIN_PATH_NAME: false,
   },
   rules: {
     // 自定义你的规则
+    'max-params': ['error', { max: 4 }],
     '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/consistent-type-definitions': 'warn',
   },

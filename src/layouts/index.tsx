@@ -1,29 +1,30 @@
 import { useKeepAliveOutlets } from '@/hooks/keepAlive';
 import HeaderContent from '@/layouts/components/HeaderContent';
 import MenuItem from '@/layouts/components/MenuItem';
-import { ProLayout } from '@ant-design/pro-layout';
+import { useInitialState } from '@/models';
+import { convertUserRoutesToMenus } from '@/utils';
+import { ProLayout } from '@ant-design/pro-components';
 import type { FC } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Layouts: FC = () => {
   const { pathname } = useLocation();
 
+  const navigate = useNavigate();
+
   const element = useKeepAliveOutlets(pathname);
+
+  const { data: initialState, isFetching } = useInitialState();
 
   return (
     <ProLayout
+      title="RuoYi X Admin"
+      onMenuHeaderClick={() => navigate('/')}
+      menu={{ loading: isFetching }}
+      loading={isFetching}
       headerContentRender={HeaderContent}
       menuItemRender={MenuItem}
-      menuDataRender={() => [
-        {
-          name: 'demo1',
-          path: '/demo1',
-        },
-        {
-          name: 'demo2',
-          path: '/demo2',
-        },
-      ]}
+      menuDataRender={() => convertUserRoutesToMenus(initialState?.userRoutes ?? [])}
     >
       {element}
     </ProLayout>

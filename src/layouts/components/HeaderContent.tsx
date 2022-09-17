@@ -1,5 +1,5 @@
 import HeaderTabs from '@/layouts/components/HeaderTabs';
-import type { ProLayoutProps } from '@ant-design/pro-layout';
+import type { ProLayoutProps } from '@ant-design/pro-components';
 
 const HeaderContent: ProLayoutProps['headerContentRender'] = () => {
   return (

@@ -15,10 +15,19 @@ const AtomKeepAliveElements = atom<Record<string, ReturnType<typeof useOutlet>>>
 });
 
 export const useRecoilValueKeepAliveTabsItems = (): TabsProps['items'] => {
+  const dropKeepAliveElementByCacheKey = useDropKeepAliveElementByCacheKey();
+
   const keepAliveElements = useRecoilValue(AtomKeepAliveElements);
   const keepAliveLocal = useRecoilValue(AtomKeepAliveLocal);
 
-  return Object.keys(keepAliveElements).map((key) => ({
+  const keys = Object.keys(keepAliveElements);
+
+  if (keys.length > 5) {
+    dropKeepAliveElementByCacheKey(keys[0]);
+    keys.shift();
+  }
+
+  return keys.map((key) => ({
     label: keepAliveLocal?.[Object.keys(keepAliveLocal).find((k) => k === key) ?? ''] ?? key,
     key,
   }));
@@ -26,7 +35,6 @@ export const useRecoilValueKeepAliveTabsItems = (): TabsProps['items'] => {
 
 export const useDropKeepAliveElementByCacheKey = () => {
   const setKeepAliveElements = useSetRecoilState(AtomKeepAliveElements);
-  useRecoilValue(AtomKeepAliveLocal);
 
   return (targetKey: string) => {
     setKeepAliveElements((elements) => {
@@ -38,7 +46,6 @@ export const useDropKeepAliveElementByCacheKey = () => {
 };
 
 export const useKeepAliveOutlets = (pathname: string) => {
-  console.log(pathname);
   const [keepAliveElements, setKeepAliveElements] = useRecoilState(AtomKeepAliveElements);
 
   const element = useOutlet();
@@ -46,12 +53,11 @@ export const useKeepAliveOutlets = (pathname: string) => {
   const isKeepAlive = keepAliveRoutes.some((key) => matchPath(key, pathname));
 
   useEffect(() => {
-    console.log(pathname);
     if (isKeepAlive) {
       setKeepAliveElements({ ...keepAliveElements, [pathname]: element });
     }
   }, [pathname]);
-  console.log(111);
+
   return (
     <>
       {Object.entries(keepAliveElements).map(([pathname, children]: any) => (
