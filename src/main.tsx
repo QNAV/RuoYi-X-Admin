@@ -15,7 +15,7 @@ const render = () => {
   const isLoginPage = checkIsLoginPage();
 
   if (!hasToken && !isLoginPage) {
-    window.location.replace(`${LOGIN_PATH_NAME}?redirect=${window.location.pathname}`);
+    window.location.replace(`${import.meta.env.VITE_LOGIN_PATH_NAME}?redirect=${window.location.pathname}`);
     return;
   }
 

@@ -76,7 +76,7 @@ const errorHandler = (res: CustomResponseStructure) => {
     case ErrorShowType.REDIRECT:
       clearToken();
 
-      window.location.href = `${LOGIN_PATH_NAME}?${createSearchParams({
+      window.location.href = `${import.meta.env.VITE_LOGIN_PATH_NAME}?${createSearchParams({
         redirect: window.location.pathname,
         msg: '登录已过期，请重新登录',
       })}`;

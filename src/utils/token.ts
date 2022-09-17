@@ -1,6 +1,7 @@
 import { SysLoginPostLogout } from '@/services/sys/SysLoginService';
 
 const TOKEN_KEY = import.meta.env.VITE_TOKEN_KEY;
+const LOGIN_PATH_NAME = import.meta.env.VITE_LOGIN_PATH_NAME;
 
 export enum StorageType {
   LOCAL_STORAGE,

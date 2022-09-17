@@ -13,27 +13,24 @@ if (process.env.vis) {
   );
 }
 
-const basename = process.env.gh ? `/RuoYi-X-Admin/` : '';
-
 // https://vitejs.dev/config/
-export default defineConfig({
-  mode: 'development',
-  base: basename,
-  plugins,
-  resolve: {
-    alias: [
-      { find: '@/', replacement: '/src/' },
-      { find: /^~antd/, replacement: 'antd' },
-    ],
-  },
-  css: {
-    preprocessorOptions: {
-      less: {
-        javascriptEnabled: true,
+export default defineConfig(({ mode }) => {
+  return {
+    mode: mode === 'development' ? 'development' : 'production',
+    base: mode === 'gh' ? `/RuoYi-X-Admin/` : '/',
+    plugins,
+    resolve: {
+      alias: [
+        { find: '@/', replacement: '/src/' },
+        { find: /^~antd/, replacement: 'antd' },
+      ],
+    },
+    css: {
+      preprocessorOptions: {
+        less: {
+          javascriptEnabled: true,
+        },
       },
     },
-  },
-  define: {
-    LOGIN_PATH_NAME: JSON.stringify(`${basename}login`),
-  },
+  };
 });
