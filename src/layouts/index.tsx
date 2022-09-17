@@ -1,4 +1,4 @@
-import { useKeepAliveOutlets } from '@/hooks/keepAlive';
+import { useKeepAliveOutlets } from '@/hooks';
 import HeaderContent from '@/layouts/components/HeaderContent';
 import MenuItem from '@/layouts/components/MenuItem';
 import { useInitialState } from '@/models';

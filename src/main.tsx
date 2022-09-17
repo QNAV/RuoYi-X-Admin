@@ -1,4 +1,4 @@
-import { ProComponentsProvider } from '@/features/ProComponentsProvider';
+import { ProComponentsProvider } from '@/features';
 import { Element } from '@/routes';
 import { checkIsLoginPage, checkToken } from '@/utils';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

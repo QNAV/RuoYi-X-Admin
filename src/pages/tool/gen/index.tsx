@@ -1,5 +1,5 @@
 import { CClassName, CCreateTime, CCreateTimeRange, CIndex, CTableComment, CTableName, CUpdateTime } from '@/columns';
-import { BasePageContainer } from '@/components/BasePageContainer';
+import { BasePageContainer } from '@/components';
 import type { GenType } from '@/constants';
 import { useInitActionType } from '@/hooks';
 import ButtonDelete from '@/pages/tool/gen/components/ButtonDelete';

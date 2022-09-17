@@ -1,4 +1,4 @@
-import { BasePageContainer } from '@/components/BasePageContainer';
+import { BasePageContainer } from '@/components';
 import type { FC } from 'react';
 
 const HomePage: FC = () => {

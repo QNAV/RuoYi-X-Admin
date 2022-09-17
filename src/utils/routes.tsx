@@ -1,6 +1,6 @@
 import { AntdIcon } from '@/components';
 import type { Route } from '@/routes';
-import { isHttpUrl } from '@/utils/validator';
+import { isHttpUrl } from '@/utils';
 import type { MenuDataItem } from '@ant-design/pro-components';
 import qs from 'query-string';
 

@@ -1,4 +1,4 @@
-import { BasePageContainer } from '@/components/BasePageContainer';
+import { BasePageContainer } from '@/components';
 import ButtonCreate from '@/pages/system/role/components/ButtonCreate';
 import ButtonDelete from '@/pages/system/role/components/ButtonDelete';
 import DescDetails from '@/pages/system/role/components/DescDetails';

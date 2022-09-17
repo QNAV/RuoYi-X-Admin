@@ -1,5 +1,13 @@
-import { CCreateTime, CEmail, CEnableDisableStatus, CLeader, COrderNum, CPhone, genCDeptParentId } from '@/columns';
-import { CDeptName } from '@/columns/dept';
+import {
+  CCreateTime,
+  CDeptName,
+  CEmail,
+  CEnableDisableStatus,
+  CLeader,
+  COrderNum,
+  CPhone,
+  genCDeptParentId,
+} from '@/columns';
 import { EmptySimple } from '@/components';
 import { queryDeptListKey, useDeptDetailsVisibleValue, useQueryDeptTreeData } from '@/pages/system/dept/model';
 import { SysDeptGetInfo, SysDeptPostEdit } from '@/services/sys/SysDeptService';

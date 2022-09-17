@@ -1,4 +1,4 @@
-import { BasePageContainer } from '@/components/BasePageContainer';
+import { BasePageContainer } from '@/components';
 import PwdForm from '@/pages/settings/components/PwdForm';
 import UserDescriptions from '@/pages/settings/components/UserDescriptions';
 import { ProCard } from '@ant-design/pro-components';

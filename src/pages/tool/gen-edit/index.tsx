@@ -1,4 +1,4 @@
-import { BasePageContainer } from '@/components/BasePageContainer';
+import { BasePageContainer } from '@/components';
 import DescBase from '@/pages/tool/gen-edit/components/DescBase';
 import EditableTableField from '@/pages/tool/gen-edit/components/EditableTableField';
 import type { GenInfoDto } from '@/pages/tool/gen-edit/data';

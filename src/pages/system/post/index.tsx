@@ -1,5 +1,5 @@
 import { CCreateTime, CEnableDisableStatus, CPostCode, CPostId, CPostName, CPostSort, CRemark } from '@/columns';
-import { BasePageContainer } from '@/components/BasePageContainer';
+import { BasePageContainer } from '@/components';
 import ButtonAdd from '@/pages/system/post/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/post/components/ButtonEdit';
 import type { SearchParams } from '@/pages/system/post/components/ButtonExport';

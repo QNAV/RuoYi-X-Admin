@@ -1,4 +1,4 @@
-import { BasePageContainer } from '@/components/BasePageContainer';
+import { BasePageContainer } from '@/components';
 import TableMain from '@/pages/system/user/components/TableMain';
 import TreeDept from '@/pages/system/user/components/TreeDept';
 import { ProCard } from '@ant-design/pro-components';

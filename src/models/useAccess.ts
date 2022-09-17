@@ -1,4 +1,4 @@
-import { useInitialState } from '@/models/useInitialState';
+import { useInitialState } from '@/models';
 import { checkPermission } from '@/utils';
 import { useMemo } from 'react';
 
