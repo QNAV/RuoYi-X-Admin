@@ -1,15 +1,30 @@
-import { useDropKeepAliveElementByCacheKey, useRecoilValueKeepAliveTabsItems } from '@/models';
+import { useDropKeepAliveElementByCacheKey, useRecoilValueKeepAliveElements } from '@/models';
+import { keepAliveLocal } from '@/routes';
 import { Tabs } from 'antd';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const HeaderTabs: FC = () => {
   const [activeKey, setActiveKey] = useState<string>('');
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const items = useRecoilValueKeepAliveTabsItems();
+  const keepAliveElements = useRecoilValueKeepAliveElements();
   const dropKeepAliveElementByCacheKey = useDropKeepAliveElementByCacheKey();
+
+  const items = useMemo(() => {
+    const keys = Object.keys(keepAliveElements);
+
+    if (keys.length > 5) {
+      dropKeepAliveElementByCacheKey(keys[0]);
+      keys.shift();
+    }
+
+    return keys.map((key) => ({
+      label: keepAliveLocal?.[Object.keys(keepAliveLocal).find((k) => k === key) ?? ''] ?? key,
+      key,
+    }));
+  }, [keepAliveElements]);
 
   useEffect(() => {
     setActiveKey(pathname);
@@ -37,4 +52,4 @@ const HeaderTabs: FC = () => {
   );
 };
 
-export default HeaderTabs;
+export default memo(HeaderTabs);
