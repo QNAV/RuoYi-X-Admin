@@ -1,1 +1,0 @@
-import{j as u,U as t}from"./index.d5083833.js";import{R as e}from"./index.5462a7f9.js";const o=()=>u(e,{status:"403",title:"403",subTitle:"\u62B1\u6B49\uFF0C\u60A8\u65E0\u6743\u8BBF\u95EE\u6B64\u9875\u9762",extra:u(t,{to:"/",reloadDocument:!0,children:"\u8FD4\u56DE\u9996\u9875"})});export{o as default};
