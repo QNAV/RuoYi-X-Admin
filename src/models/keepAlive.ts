@@ -35,8 +35,9 @@ export const useDropKeepAliveElementByCacheKey = () => {
 
   return (targetKey: string) => {
     setKeepAliveElements((elements) => {
-      delete elements[targetKey];
-      return elements;
+      const newElements = { ...elements };
+      delete newElements[targetKey];
+      return newElements;
     });
   };
 };

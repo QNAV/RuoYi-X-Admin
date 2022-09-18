@@ -39,7 +39,7 @@ const HeaderDropdown: FC = () => {
         <Space>
           <Avatar src={initialState?.data?.userInfo?.user?.avatar} />
 
-          {initialState?.data?.userInfo?.user?.nickName}
+          <span>{initialState?.data?.userInfo?.user?.nickName}</span>
         </Space>
       </Dropdown>
     </div>
