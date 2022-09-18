@@ -5,11 +5,6 @@ import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
 const namespace = 'global';
 
-const AtomKeepAliveLocal = atom<Record<string, string>>({
-  key: `${namespace}KeepAliveLocal`,
-  default: keepAliveLocal,
-});
-
 const AtomKeepAliveElements = atom<Record<string, ReturnType<typeof useOutlet>>>({
   key: `${namespace}KeepAliveElements`,
   default: {},
@@ -21,7 +16,6 @@ export const useRecoilValueKeepAliveTabsItems = (): TabsProps['items'] => {
   const dropKeepAliveElementByCacheKey = useDropKeepAliveElementByCacheKey();
 
   const keepAliveElements = useRecoilValue(AtomKeepAliveElements);
-  const keepAliveLocal = useRecoilValue(AtomKeepAliveLocal);
 
   const keys = Object.keys(keepAliveElements);
 
