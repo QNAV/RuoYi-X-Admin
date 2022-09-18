@@ -1,4 +1,4 @@
-import { useDropKeepAliveElementByCacheKey, useRecoilValueKeepAliveTabsItems } from '@/hooks';
+import { useDropKeepAliveElementByCacheKey, useRecoilValueKeepAliveTabsItems } from '@/models';
 import { Tabs } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
