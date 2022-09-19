@@ -1,11 +1,13 @@
 import { useKeepAliveOutlets } from '@/hooks';
 import HeaderContent from '@/layouts/components/HeaderContent';
 import MenuItem from '@/layouts/components/MenuItem';
-import { useInitialState } from '@/models';
+import { useAccess, useInitialState } from '@/models';
+import { accessKeysMap } from '@/routes';
 import { convertUserRoutesToMenus } from '@/utils';
 import { ProLayout } from '@ant-design/pro-components';
 import type { FC } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useMemo } from 'react';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const Layouts: FC = () => {
   const { pathname } = useLocation();
@@ -14,7 +16,27 @@ const Layouts: FC = () => {
 
   const element = useKeepAliveOutlets(pathname);
 
-  const { data: initialState, isFetching } = useInitialState();
+  const { data: initialState, isFetching, isSuccess } = useInitialState();
+
+  const access = useAccess();
+
+  const hasAccess = useMemo(() => {
+    const accessKey = accessKeysMap?.[pathname];
+
+    if (accessKey === undefined) {
+      return true;
+    }
+
+    return !!access?.[accessKey as keyof typeof access];
+  }, [pathname, access]);
+
+  if (!isFetching && !isSuccess) {
+    return <Navigate to="/500" replace />;
+  }
+
+  if (!hasAccess && isSuccess) {
+    return <Navigate to="/403" replace />;
+  }
 
   return (
     <ProLayout

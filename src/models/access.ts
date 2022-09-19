@@ -46,6 +46,99 @@ const getAccess = (userPermissions: string[] = []) => {
     canEditSysPost: checkPermission('system:post:edit', userPermissionsSet),
     canRemoveSysPost: checkPermission('system:post:remove', userPermissionsSet),
     canExportSysPost: checkPermission('system:post:export', userPermissionsSet),
+
+    // 系统管理-字典管理
+    canReadSysDict: checkPermission('system:dict:list', userPermissionsSet),
+    canQuerySysDict: checkPermission('system:dict:query', userPermissionsSet),
+    canAddSysDict: checkPermission('system:dict:add', userPermissionsSet),
+    canEditSysDict: checkPermission('system:dict:edit', userPermissionsSet),
+    canRemoveSysDict: checkPermission('system:dict:remove', userPermissionsSet),
+    canExportSysDict: checkPermission('system:dict:export', userPermissionsSet),
+
+    // 系统管理-参数管理
+    canReadSysConfig: checkPermission('system:config:list', userPermissionsSet),
+    canQuerySysConfig: checkPermission('system:config:query', userPermissionsSet),
+    canAddSysConfig: checkPermission('system:config:add', userPermissionsSet),
+    canEditSysConfig: checkPermission('system:config:edit', userPermissionsSet),
+    canRemoveSysConfig: checkPermission('system:config:remove', userPermissionsSet),
+    canExportSysConfig: checkPermission('system:config:export', userPermissionsSet),
+
+    // 系统管理-通知公告
+    canReadSysNotice: checkPermission('system:notice:list', userPermissionsSet),
+    canQuerySysNotice: checkPermission('system:notice:query', userPermissionsSet),
+    canAddSysNotice: checkPermission('system:notice:add', userPermissionsSet),
+    canEditSysNotice: checkPermission('system:notice:edit', userPermissionsSet),
+    canRemoveSysNotice: checkPermission('system:notice:remove', userPermissionsSet),
+
+    // 系统管理-日志管理-操作日志
+    canReadSysOperLog: checkPermission('system:operlog:list', userPermissionsSet),
+    canQuerySysOperLog: checkPermission('system:operlog:query', userPermissionsSet),
+    canRemoveSysOperLog: checkPermission('system:operlog:remove', userPermissionsSet),
+    canExportSysOperLog: checkPermission('system:operlog:export', userPermissionsSet),
+
+    // 系统管理-日志管理-登录日志
+    canReadSysLogininfor: checkPermission('system:logininfor:list', userPermissionsSet),
+    canQuerySysLogininfor: checkPermission('system:logininfor:query', userPermissionsSet),
+    canRemoveSysLogininfor: checkPermission('system:logininfor:remove', userPermissionsSet),
+    canExportSysLogininfor: checkPermission('system:logininfor:export', userPermissionsSet),
+
+    // 系统管理-文件管理
+    canReadSysOSS: checkPermission('system:oss:list', userPermissionsSet),
+    canQuerySysOSS: checkPermission('system:oss:query', userPermissionsSet),
+    canRemoveSysOSS: checkPermission('system:oss:remove', userPermissionsSet),
+    canAddSysOSS: checkPermission('system:oss:add', userPermissionsSet),
+    canEditSysOSS: checkPermission('system:oss:edit', userPermissionsSet),
+    canUploadSysOSS: checkPermission('system:oss:upload', userPermissionsSet),
+    canDownloadSysOSS: checkPermission('system:oss:download', userPermissionsSet),
+
+    // 系统监控-在线用户
+    canReadMonitorOnline: checkPermission('monitor:online:list', userPermissionsSet),
+    canQueryMonitorOnline: checkPermission('monitor:online:query', userPermissionsSet),
+    canForceLogoutMonitorOnline: checkPermission('monitor:online:forceLogout', userPermissionsSet),
+    canBatchLogoutMonitorOnline: checkPermission('monitor:online:batchLogout', userPermissionsSet),
+
+    // 系统监控-数据监控
+    canReadMonitorDruid: checkPermission('monitor:druid:list', userPermissionsSet),
+
+    // 系统监控-缓存监控
+    canReadMonitorCache: checkPermission('monitor:cache:list', userPermissionsSet),
+
+    // 系统监控-Admin 监控
+    canReadMonitorAdmin: checkPermission('monitor:admin:list', userPermissionsSet),
+
+    // 系统监控-任务调度中心
+    canReadMonitorXxlJob: checkPermission('monitor:xxljob:list', userPermissionsSet),
+
+    // 系统工具-表单构建
+    canReadToolBuild: checkPermission('tool:build:list', userPermissionsSet),
+
+    // 系统工具-代码生成
+    canReadToolGen: checkPermission('tool:gen:list', userPermissionsSet),
+    canQueryToolGen: checkPermission('tool:gen:query', userPermissionsSet),
+    canPreviewToolGen: checkPermission('tool:gen:preview', userPermissionsSet),
+    canEditToolGen: checkPermission('tool:gen:edit', userPermissionsSet),
+    canRemoveToolGen: checkPermission('tool:gen:remove', userPermissionsSet),
+    canImportToolGen: checkPermission('tool:gen:import', userPermissionsSet),
+    canCodeToolGen: checkPermission('tool:gen:code', userPermissionsSet),
+
+    // 系统工具-系统接口
+    canReadToolSwagger: checkPermission('tool:swagger:list', userPermissionsSet),
+
+    // 测试菜单-测试单表
+    canReadDemoDemo: checkPermission('demo:demo:list', userPermissionsSet),
+    canQueryDemoDemo: checkPermission('demo:demo:query', userPermissionsSet),
+    canAddDemoDemo: checkPermission('demo:demo:add', userPermissionsSet),
+    canEditDemoDemo: checkPermission('demo:demo:edit', userPermissionsSet),
+    canRemoveDemoDemo: checkPermission('demo:demo:remove', userPermissionsSet),
+    canExportDemoDemo: checkPermission('demo:demo:export', userPermissionsSet),
+
+    // 测试菜单-测试树表
+    canReadDemoTree: checkPermission('demo:tree:list', userPermissionsSet),
+    canQueryDemoTree: checkPermission('demo:tree:query', userPermissionsSet),
+    canAddDemoTree: checkPermission('demo:tree:add', userPermissionsSet),
+    canEditDemoTree: checkPermission('demo:tree:edit', userPermissionsSet),
+    canRemoveDemoTree: checkPermission('demo:tree:remove', userPermissionsSet),
+    canExportDemoTree: checkPermission('demo:tree:export', userPermissionsSet),
   };
 };
 

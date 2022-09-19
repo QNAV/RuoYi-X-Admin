@@ -39,6 +39,20 @@ export const getRoutesKeepAliveLocal = (routes: Route[], parentPath = ''): Recor
   return local;
 };
 
+export const getRoutesAccessKeysMap = (routes: Route[], parentPath = ''): Record<string, string> => {
+  const map: Record<string, string> = {};
+  routes.forEach((route) => {
+    const fullPath = getFullPath(route.path, parentPath);
+    if (route.access && route.path) {
+      map[fullPath] = route.access;
+    }
+    if (route.children) {
+      Object.assign(map, getRoutesAccessKeysMap(route.children, fullPath));
+    }
+  });
+  return map;
+};
+
 export const convertUserRoutesToMenus = (userRoutes: API.RouterVo[], parentPath = ''): MenuDataItem[] => {
   const menus: MenuDataItem[] = [];
 
