@@ -1,4 +1,5 @@
 import { useKeepAliveOutlets } from '@/hooks';
+import Footer from '@/layouts/components/Footer';
 import HeaderContent from '@/layouts/components/HeaderContent';
 import MenuItem from '@/layouts/components/MenuItem';
 import { useAccess, useInitialState } from '@/models';
@@ -16,7 +17,7 @@ const Layouts: FC = () => {
 
   const element = useKeepAliveOutlets(pathname);
 
-  const { data: initialState, isFetching, isSuccess } = useInitialState();
+  const { data: initialState, isFetching, isSuccess, isLoading } = useInitialState();
 
   const access = useAccess();
 
@@ -34,7 +35,7 @@ const Layouts: FC = () => {
     return <Navigate to="/500" replace />;
   }
 
-  if (!hasAccess && isSuccess) {
+  if (!hasAccess && !isLoading && isSuccess) {
     return <Navigate to="/403" replace />;
   }
 
@@ -48,6 +49,7 @@ const Layouts: FC = () => {
       headerContentRender={HeaderContent}
       menuItemRender={MenuItem}
       menuDataRender={() => convertUserRoutesToMenus(initialState?.userRoutes ?? [])}
+      footerRender={Footer}
     >
       {element}
     </ProLayout>
