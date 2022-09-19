@@ -4,21 +4,6 @@ import { isHttpUrl } from '@/utils';
 import type { MenuDataItem } from '@ant-design/pro-components';
 import qs from 'query-string';
 
-const baseName = import.meta.env.VITE_BASE_NAME;
-
-const join = (path: string) => {
-  return `${baseName}${path}`.replace(/\/+/g, '/');
-};
-
-export function joinBaseName(path: string): string;
-export function joinBaseName(path: string[]): string[];
-export function joinBaseName(path: any): any {
-  if (Array.isArray(path)) {
-    return path.map((item) => join(item));
-  }
-  return join(path);
-}
-
 const getFullPath = (currPath = '', parentPath = ''): string => {
   if (currPath.startsWith('/')) {
     return currPath;
