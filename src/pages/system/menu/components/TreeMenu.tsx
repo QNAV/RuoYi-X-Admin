@@ -14,6 +14,7 @@ import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';
 import { Button, Dropdown, Menu, Tree } from 'antd';
+import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
 export const menuTypeColor: Record<MenuType | string, string> = {
@@ -22,7 +23,7 @@ export const menuTypeColor: Record<MenuType | string, string> = {
   F: 'red',
 };
 
-const TreeMenu = () => {
+const TreeMenu: FC = () => {
   const [searchParams, setSearchParams] = useState<API.SysMenuQueryBo>({});
 
   const [selectedKey, setSelectedKey] = useState<number>(0);
@@ -33,7 +34,9 @@ const TreeMenu = () => {
 
   const showCreateModal = useShowCreateModal();
 
-  const { data: menuData, refetch } = useQueryMenuList(searchParams);
+  const { data: menuData, refetch } = useQueryMenuList(searchParams, (e) => {
+    setExpandedKeys(e);
+  });
 
   const { mutate: deleteMenu } = useDeleteMenu();
 
@@ -119,7 +122,7 @@ const TreeMenu = () => {
         }
         trigger={['contextMenu']}
       >
-        <div className="max-h-[60vh] overflow-auto">
+        <div className="h-[calc(100vh-310px)] overflow-auto">
           {menuData?.treeData.length ? (
             <Tree<API.SysMenu>
               blockNode

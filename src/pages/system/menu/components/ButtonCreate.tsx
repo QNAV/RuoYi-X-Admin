@@ -40,7 +40,7 @@ export interface OptionsParentId {
   children?: OptionsParentId[];
 }
 
-const getSelectedParentIds = (data: Record<string, API.SysMenu>, menuId: number): number[] => {
+const getSelectedParentIds = (data: Map<number, API.SysMenu>, menuId: number): number[] => {
   const parentIds: number[] = [0];
 
   if (menuId === 0) {
@@ -48,7 +48,7 @@ const getSelectedParentIds = (data: Record<string, API.SysMenu>, menuId: number)
   }
 
   const findParentId = (id: number) => {
-    const menu = data[id.toString()];
+    const menu = data.get(id);
 
     if (!menu) return;
 

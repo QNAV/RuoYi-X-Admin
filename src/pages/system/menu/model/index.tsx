@@ -38,13 +38,13 @@ export const useStateSelectedMenuData = () => useRecoilState(AtomSelectedMenuDat
 export const useValueSelectedMenuData = () => useRecoilValue(AtomSelectedMenuData);
 
 // 新建菜单弹窗
-const AtomCreateModalState = atom<boolean>({ key: `${namespace}VisibleCreateModal`, default: false });
-export const useHideCreateModal = () => useResetRecoilState(AtomCreateModalState);
+const AtomCreateModal = atom<boolean>({ key: `${namespace}CreateModal`, default: false });
+export const useHideCreateModal = () => useResetRecoilState(AtomCreateModal);
 export const useShowCreateModal = () => {
-  const setRecoilState = useSetRecoilState(AtomCreateModalState);
+  const setRecoilState = useSetRecoilState(AtomCreateModal);
   return () => setRecoilState(true);
 };
-export const useValueCreateModal = () => useRecoilValue(AtomCreateModalState);
+export const useValueCreateModal = () => useRecoilValue(AtomCreateModal);
 
 // 查询菜单列表
 const queryMenuListKey = [namespace, 'list'];
@@ -52,29 +52,36 @@ export const useReFetchMenuList = () => {
   const queryClient = useQueryClient();
   return () => queryClient.invalidateQueries(queryMenuListKey);
 };
-export const useQueryMenuList = (params: API.SysMenuQueryBo = {}) => {
-  return useQuery(queryMenuListKey, async () => {
-    const data = await SysMenuPostList(params);
+export const useQueryMenuList = (params: API.SysMenuQueryBo = {}, onSuccess: (parentIds: number[]) => void) => {
+  return useQuery(
+    queryMenuListKey,
+    async () => {
+      const data = await SysMenuPostList(params);
 
-    const treeData: API.SysMenu[] = parseSimpleTreeData(data, {
-      id: 'menuId',
-      pId: 'parentId',
-      rootPId: null,
-    });
+      const treeData: API.SysMenu[] = parseSimpleTreeData(data, {
+        id: 'menuId',
+        pId: 'parentId',
+        rootPId: null,
+      });
 
-    return {
-      treeData: sortByOrderNum(treeData),
-      map: data.reduce<Map<number, API.SysMenu0>>((map, item) => {
-        return map.set(item.menuId, item);
-      }, new Map()),
-      parentIds: Array.from(
-        data.reduce<Set<number>>((set, item) => {
-          // @ts-ignore
-          return set.add(item.parentId);
-        }, new Set()),
-      ),
-    };
-  });
+      return {
+        treeData: sortByOrderNum(treeData),
+        map: data.reduce<Map<number, API.SysMenu>>((map, item) => {
+          return map.set(item.menuId, item);
+        }, new Map()),
+        parentIds: Array.from(
+          data.reduce<Set<number>>((set, item) => {
+            return set.add((item as unknown as { parentId: number }).parentId);
+          }, new Set()),
+        ),
+      };
+    },
+    {
+      onSuccess: (data) => {
+        onSuccess(data.parentIds);
+      },
+    },
+  );
 };
 
 // 查询菜单下拉列表
@@ -95,9 +102,9 @@ export const useQueryMenuOptions = () => {
 
     return {
       options: getOptions(sortByOrderNum(treeData)),
-      map: data.reduce((map, item) => {
-        return { ...map, [item.menuId]: item };
-      }, {}),
+      map: data.reduce<Map<number, API.SysMenu>>((map, item) => {
+        return map.set(item.menuId, item);
+      }, new Map()),
     };
   });
 };
@@ -106,7 +113,7 @@ export const useQueryMenuOptions = () => {
 export const useDeleteMenu = () => {
   const reFetchMenuList = useReFetchMenuList();
   const reFetchMenuOptions = useReFetchMenuOptions();
-  const resetSelectedMenuId = useResetSelectedMenuData();
+  const resetSelectedMenuData = useResetSelectedMenuData();
 
   return useMutation(async ({ menuId, menuName }: { menuId: number; menuName: string }) => {
     Modal.confirm({
@@ -119,9 +126,9 @@ export const useDeleteMenu = () => {
       onOk: async () => {
         await SysMenuPostRemove({ menuId });
 
-        await Promise.all([reFetchMenuList(), reFetchMenuOptions()]);
+        resetSelectedMenuData();
 
-        resetSelectedMenuId();
+        await Promise.all([reFetchMenuList(), reFetchMenuOptions()]);
 
         message.success('删除成功');
       },
