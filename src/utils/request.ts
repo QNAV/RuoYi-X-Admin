@@ -77,7 +77,7 @@ const errorHandler = (res: CustomResponseStructure) => {
       clearToken();
 
       window.location.href = `${import.meta.env.VITE_LOGIN_PATH_NAME}?${createSearchParams({
-        redirect: window.location.pathname,
+        redirect: `/${window.location.pathname.replace(import.meta.env.VITE_BASE_NAME, '')}`,
         msg: '登录已过期，请重新登录',
       })}`;
       break;
