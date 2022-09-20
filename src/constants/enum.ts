@@ -14,8 +14,11 @@ export const SexMap: ValueEnumMap<Sex> = new Map([
  * 菜单类型
  */
 export enum MenuType {
+  // 目录
   M = 'M',
+  // 菜单
   C = 'C',
+  // 按钮
   F = 'F',
 }
 export const MenuTypeMap = {

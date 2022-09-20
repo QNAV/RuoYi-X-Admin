@@ -1,6 +1,6 @@
 import { Access } from '@/components';
 import { useAccess } from '@/models';
-import { useDeleteMenu, useSelectedMenuIdValue } from '@/pages/system/menu/model';
+import { useDeleteMenu, useValueSelectedMenuData } from '@/pages/system/menu/model';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import type { FC } from 'react';
@@ -8,18 +8,22 @@ import type { FC } from 'react';
 const ButtonDelete: FC = () => {
   const access = useAccess();
 
-  const menuId = useSelectedMenuIdValue();
+  const { hasSelected, selectedMenuId, selectedMenuName } = useValueSelectedMenuData();
 
   const { mutate, isLoading } = useDeleteMenu();
 
   return (
-    <Access accessible={access.canRemoveSysMenu}>
+    <Access accessible={hasSelected && access.canRemoveSysMenu}>
       <Button
         icon={<DeleteOutlined />}
         loading={isLoading}
-        disabled={menuId === 0}
         danger
-        onClick={() => mutate(menuId)}
+        onClick={() =>
+          mutate({
+            menuId: selectedMenuId,
+            menuName: selectedMenuName,
+          })
+        }
       >
         删除
       </Button>

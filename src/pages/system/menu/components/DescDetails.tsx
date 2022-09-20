@@ -1,7 +1,7 @@
 import { EmptySimple } from '@/components';
 import { EnableDisableStatusMap, MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
 import { useAccess } from '@/models';
-import { useQueryMenuList, useSelectedMenuIdValue } from '@/pages/system/menu/model';
+import { useReFetchMenuList, useReFetchMenuOptions, useValueSelectedMenuData } from '@/pages/system/menu/model';
 import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
@@ -84,16 +84,16 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
 
 const DescDetails: FC = () => {
   const access = useAccess();
+  const reFetchMenuList = useReFetchMenuList();
+  const reFetchMenuOptions = useReFetchMenuOptions();
 
-  const { refetch: reFetchMenuList } = useQueryMenuList();
-
-  const selectedMenuId = useSelectedMenuIdValue();
+  const { hasSelected, selectedMenuId } = useValueSelectedMenuData();
   const { data, loading, refresh } = useRequest(
     async () => {
       return await SysMenuGetInfo({ menuId: selectedMenuId });
     },
     {
-      ready: selectedMenuId > 0,
+      ready: hasSelected,
       refreshDeps: [selectedMenuId],
     },
   );
@@ -102,6 +102,7 @@ const DescDetails: FC = () => {
     onSuccess: () => {
       refresh();
       reFetchMenuList();
+      reFetchMenuOptions();
       message.success('保存成功');
     },
   });

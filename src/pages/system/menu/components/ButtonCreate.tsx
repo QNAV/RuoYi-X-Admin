@@ -9,11 +9,12 @@ import {
 } from '@/constants';
 import { useAccess } from '@/models';
 import {
-  useCreateModalVisibleValue,
   useHideCreateModal,
-  useQueryMenuList,
-  useSelectedMenuIdValue,
+  useQueryMenuOptions,
+  useReFetchMenuList,
   useShowCreateModal,
+  useValueCreateModal,
+  useValueSelectedMenuData,
 } from '@/pages/system/menu/model';
 import { SysMenuPostAdd } from '@/services/sys/SysMenuService';
 import { PlusOutlined } from '@ant-design/icons';
@@ -46,21 +47,21 @@ const getSelectedParentIds = (data: Record<string, API.SysMenu>, menuId: number)
     return parentIds;
   }
 
-  const findParentId = (id: string) => {
-    if (!data?.[id]) {
-      return;
+  const findParentId = (id: number) => {
+    const menu = data[id.toString()];
+
+    if (!menu) return;
+
+    if (menu?.parentId !== undefined) {
+      findParentId(menu.parentId);
     }
 
-    if (data?.[id]?.parentId) {
-      findParentId(data[id].parentId!.toString());
-    }
-
-    if (data[id].menuType !== MenuType.F) {
-      parentIds.push(Number(id));
+    if (menu.menuType !== MenuType.F) {
+      parentIds.push(id);
     }
   };
 
-  findParentId(menuId.toString());
+  findParentId(menuId);
 
   return parentIds;
 };
@@ -68,15 +69,16 @@ const getSelectedParentIds = (data: Record<string, API.SysMenu>, menuId: number)
 const ButtonCreate: FC = () => {
   const access = useAccess();
 
-  const formRef = useRef<ProFormInstance<API.SysMenu>>();
+  const formRef = useRef<ProFormInstance>();
 
   const showCreateModal = useShowCreateModal();
   const hideCreateModal = useHideCreateModal();
-  const visible = useCreateModalVisibleValue();
+  const open = useValueCreateModal();
 
-  const selectedMenuId = useSelectedMenuIdValue();
+  const { selectedMenuId } = useValueSelectedMenuData();
 
-  const { data, refetch } = useQueryMenuList();
+  const { data, refetch } = useQueryMenuOptions();
+  const reFetchMenuList = useReFetchMenuList();
 
   const { isLoading, mutate: handleSubmit } = useMutation(
     async () => {
@@ -87,8 +89,8 @@ const ButtonCreate: FC = () => {
       await SysMenuPostAdd(formData);
     },
     {
-      onSuccess: () => {
-        refetch();
+      onSuccess: async () => {
+        await Promise.all([refetch(), reFetchMenuList()]);
 
         hideCreateModal();
 
@@ -100,21 +102,21 @@ const ButtonCreate: FC = () => {
   );
 
   useEffect(() => {
-    if (formRef?.current?.setFieldsValue && data?.map) {
-      formRef?.current?.setFieldsValue({
-        parentId: getSelectedParentIds(data.map, selectedMenuId) as unknown as number,
+    if (open && data?.map && formRef?.current?.setFieldsValue) {
+      formRef.current.setFieldsValue({
+        parentId: getSelectedParentIds(data.map, selectedMenuId),
       });
     }
-  }, [selectedMenuId, data?.map, formRef?.current]);
+  }, [open, formRef?.current?.setFieldsValue]);
 
   return (
     <Access accessible={access.canAddSysMenu}>
-      <Button type="primary" onClick={() => showCreateModal(true)} icon={<PlusOutlined />}>
+      <Button type="primary" onClick={showCreateModal} icon={<PlusOutlined />}>
         新建
       </Button>
 
       <Modal
-        open={visible}
+        open={open}
         onCancel={hideCreateModal}
         title="新建菜单"
         width={515}
@@ -128,9 +130,8 @@ const ButtonCreate: FC = () => {
           <ProFormCascader
             name="parentId"
             label="父级菜单"
-            initialValue={getSelectedParentIds(data?.map ?? {}, selectedMenuId)}
             fieldProps={{
-              options: data?.options,
+              options: data?.options ?? [],
               fieldNames: { label: 'menuName', value: 'menuId', children: 'children' },
               changeOnSelect: true,
             }}

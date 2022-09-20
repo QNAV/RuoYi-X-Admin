@@ -1,75 +1,35 @@
-import { AntdIcon, EmptySimple } from '@/components';
-import { EnableDisableStatusMap, MenuType } from '@/constants';
+import { EmptySimple } from '@/components';
+import type { MenuType } from '@/constants';
+import { EnableDisableStatusMap } from '@/constants';
+import TreeContent from '@/pages/system/menu/components/TreeContent';
+import TreeTitle from '@/pages/system/menu/components/TreeTitle';
 import {
   useDeleteMenu,
   useQueryMenuList,
-  useResetSelectedMenuId,
-  useSelectedMenuIdState,
+  useResetSelectedMenuData,
   useShowCreateModal,
+  useStateSelectedMenuData,
 } from '@/pages/system/menu/model';
-import { CaretDownOutlined, CaretRightOutlined, CopyOutlined } from '@ant-design/icons';
+import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';
-import { Button, Dropdown, Menu, message, Space, Tag, Tree } from 'antd';
-import copy from 'copy-to-clipboard';
-import type { FC } from 'react';
+import { Button, Dropdown, Menu, Tree } from 'antd';
 import { useEffect, useState } from 'react';
 
-const menuTypeColor: Record<MenuType | string, string> = {
+export const menuTypeColor: Record<MenuType | string, string> = {
   M: 'blue',
   C: 'green',
   F: 'red',
 };
 
-const titleRender: TreeProps<API.SysMenu>['titleRender'] = (item) => {
-  return (
-    <>
-      <Tag color="rgb(148 163 184)">{item.orderNum}</Tag>
-
-      {item?.icon && <AntdIcon name={item.icon} className="mr-1" />}
-
-      <Tag color={menuTypeColor[item.menuType]} style={{ margin: '0 0 2px 0' }}>
-        {item.menuName}
-      </Tag>
-
-      {item?.perms && (
-        <Tag style={{ margin: '0 0 2px 2px' }}>
-          <Space size="small">
-            {item.perms}
-            <CopyOutlined
-              style={{ color: '#1890ff' }}
-              onClick={(e) => {
-                copy(item.perms!);
-                message.success('复制成功');
-                e.stopPropagation();
-              }}
-            />
-          </Space>
-        </Tag>
-      )}
-    </>
-  );
-};
-
-const TreeTitle: FC = () => (
-  <div className="mb-2">
-    标签含义：
-    <Tag color="rgb(148 163 184)">显示顺序</Tag>
-    <Tag color={menuTypeColor[MenuType.M]}>目录</Tag>
-    <Tag color={menuTypeColor[MenuType.C]}>菜单</Tag>
-    <Tag color={menuTypeColor[MenuType.F]}>按钮</Tag>
-    <Tag>权限标识</Tag>
-  </div>
-);
-
 const TreeMenu = () => {
   const [searchParams, setSearchParams] = useState<API.SysMenuQueryBo>({});
 
-  const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
+  const [selectedKey, setSelectedKey] = useState<number>(0);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
 
-  const [selectedMenuId, setSelectedMenuId] = useSelectedMenuIdState();
-  const resetSelectedMenuId = useResetSelectedMenuId();
+  const [selectedMenuData, setSelectedMenuData] = useStateSelectedMenuData();
+  const resetSelectedMenuId = useResetSelectedMenuData();
 
   const showCreateModal = useShowCreateModal();
 
@@ -77,8 +37,8 @@ const TreeMenu = () => {
 
   const { mutate: deleteMenu } = useDeleteMenu();
 
-  const onSelect: TreeProps<API.SysMenu>['onSelect'] = (selectedKeys) => {
-    setSelectedKeys(selectedKeys as number[]);
+  const onSelect: TreeProps<API.SysMenu>['onSelect'] = (_, { node: { key } }) => {
+    setSelectedKey(key as number);
   };
 
   const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === menuData?.parentIds?.length;
@@ -88,12 +48,16 @@ const TreeMenu = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    if (selectedKeys?.[0]) {
-      setSelectedMenuId(selectedKeys[0]);
+    if (selectedKey > 0) {
+      setSelectedMenuData({
+        hasSelected: true,
+        selectedMenuId: selectedKey,
+        selectedMenuName: menuData!.map.get(selectedKey)!.menuName,
+      });
     } else {
       resetSelectedMenuId();
     }
-  }, [selectedKeys]);
+  }, [selectedKey]);
 
   return (
     <>
@@ -111,7 +75,7 @@ const TreeMenu = () => {
 
         <LightFilter<API.SysMenuQueryBo>
           onFinish={async (values) => {
-            setSelectedKeys([]);
+            setSelectedKey(0);
             setExpandedKeys([]);
             setSearchParams(values);
           }}
@@ -129,22 +93,26 @@ const TreeMenu = () => {
               {
                 label: '新建',
                 key: 'create',
-                onClick: () => showCreateModal(true),
+                onClick: () => showCreateModal(),
               },
               {
                 label: '在根目录下新建',
                 key: 'create',
                 onClick: () => {
                   resetSelectedMenuId();
-                  showCreateModal(true);
+                  showCreateModal();
                 },
               },
               {
                 label: '删除',
                 key: 'delete',
                 danger: true,
-                disabled: selectedKeys.length === 0,
-                onClick: () => deleteMenu(selectedMenuId),
+                disabled: !selectedMenuData.hasSelected,
+                onClick: () =>
+                  deleteMenu({
+                    menuId: selectedMenuData.selectedMenuId,
+                    menuName: selectedMenuData.selectedMenuName,
+                  }),
               },
             ]}
           />
@@ -155,10 +123,10 @@ const TreeMenu = () => {
           {menuData?.treeData.length ? (
             <Tree<API.SysMenu>
               blockNode
-              selectedKeys={selectedKeys}
+              selectedKeys={[selectedKey]}
               onSelect={onSelect}
               expandedKeys={expandedKeys}
-              titleRender={titleRender}
+              titleRender={TreeContent}
               onExpand={setExpandedKeys}
               showLine={{ showLeafIcon: false }}
               fieldNames={{
@@ -167,7 +135,7 @@ const TreeMenu = () => {
                 children: 'children',
               }}
               treeData={menuData?.treeData}
-              onRightClick={(e) => setSelectedKeys([e.node.key] as number[])}
+              onRightClick={({ node: { key } }) => setSelectedKey(key as number)}
             />
           ) : (
             <EmptySimple />
