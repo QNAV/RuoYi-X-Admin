@@ -43,6 +43,7 @@ const Layouts: FC = () => {
     <ProLayout
       title="RuoYi X Admin"
       layout="mix"
+      location={{ pathname }}
       onMenuHeaderClick={() => navigate('/')}
       menu={{ loading: isLoading }}
       loading={isLoading}
