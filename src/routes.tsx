@@ -105,7 +105,7 @@ export const layoutRoutes: Route[] = [
             name: '文件管理',
             path: 'oss',
             element: lazyLoadPage('system/oss'),
-            access: 'canReadSysOss',
+            access: 'canReadSysOSS',
             isKeepAlive: true,
           },
         ],

@@ -22,10 +22,7 @@ export default defineConfig(({ mode }) => {
     base: env.VITE_BASE_NAME,
     plugins,
     resolve: {
-      alias: [
-        { find: '@/', replacement: '/src/' },
-        { find: /^~antd/, replacement: 'antd' },
-      ],
+      alias: [{ find: '@/', replacement: '/src/' }],
     },
     css: {
       preprocessorOptions: {
