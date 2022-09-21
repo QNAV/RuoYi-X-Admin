@@ -1,1 +1,0 @@
-import{aw as d,a7 as P,a as m,b4 as l,a6 as o}from"./index.80762a21.js";var n=["fieldProps","min","proFieldProps","max"],F=function(r,i){var a=r.fieldProps,e=r.min,s=r.proFieldProps,p=r.max,t=P(r,n);return m(l,o({valueType:"digit",fieldProps:o({min:e,max:p},a),ref:i,filedConfig:{defaultProps:{width:"100%"}},proFieldProps:s},t))};const c=d.forwardRef(F);export{c as P};
