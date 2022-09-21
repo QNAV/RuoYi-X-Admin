@@ -1,21 +1,22 @@
 import { Access } from '@/components';
 import { useAccess } from '@/models';
-import { useMainTableActionsRecoilValue } from '@/pages/system/post/model';
+import { useValueMainTableActions } from '@/pages/system/post/model';
 import { SysPostPostRemove } from '@/services/sys/SysPostService';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal } from 'antd';
+import { Button, message, Modal, Typography } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
   postId: number;
+  postName: string;
   isBatch?: boolean;
   disabled?: boolean;
-}> = ({ postId, isBatch, disabled }) => {
+}> = ({ postId, postName, isBatch, disabled }) => {
   const text = isBatch ? '批量删除' : '删除';
   const access = useAccess();
 
-  const mainTableActions = useMainTableActionsRecoilValue();
+  const mainTableActions = useValueMainTableActions();
 
   const { mutateAsync, isLoading } = useMutation(
     async (postIds: number) => {
@@ -33,7 +34,11 @@ const ButtonRemove: FC<{
   const onRemove = () => {
     Modal.confirm({
       title: '删除岗位',
-      content: `确定删除 岗位编号 为 ${postId} 的岗位吗？`,
+      content: (
+        <>
+          确定删除岗位<Typography.Text code>{postName}</Typography.Text>吗？
+        </>
+      ),
       onOk: async () => mutateAsync(postId),
       okButtonProps: {
         loading: isLoading,

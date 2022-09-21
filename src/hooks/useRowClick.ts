@@ -4,7 +4,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import type { Key } from 'react';
 import { useState } from 'react';
 
-export const useRowClick = <T>(rowKey: keyof T, type: 'radio' | 'checkbox' = 'checkbox', alwaysShowAlert = false) => {
+export const useRowClick = <T>(rowKey: keyof T, type: 'radio' | 'checkbox' = 'checkbox', alwaysShowAlert = true) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
   const [selectedRows, setSelectedRows] = useState<T[]>([]);
 

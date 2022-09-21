@@ -9,8 +9,8 @@ const AtomMainTableActions = atom<ActionType>({
   key: `${namespace}AtomMainTableActions`,
   default: undefined,
 });
-export const useMainTableActionRef = () => useInitActionType(AtomMainTableActions);
-export const useMainTableActionsRecoilValue = () => useRecoilValue(AtomMainTableActions);
+export const useActionRefMainTable = () => useInitActionType(AtomMainTableActions);
+export const useValueMainTableActions = () => useRecoilValue(AtomMainTableActions);
 
 // 新建或编辑弹窗
 const AtomAddOrEditModal = atom<{
@@ -33,4 +33,4 @@ export const useShowEditModal = () => {
   return (record: API.SysPostVo) => showEditModal({ open: true, actionType: 'edit', record });
 };
 export const useHideAddOrEditModal = () => useResetRecoilState(AtomAddOrEditModal);
-export const useAddOrEditModalRecoilValue = () => useRecoilValue(AtomAddOrEditModal);
+export const useValueAddOrEditModal = () => useRecoilValue(AtomAddOrEditModal);
