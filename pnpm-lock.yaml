@@ -48,7 +48,7 @@ specifiers:
   recoil: ^0.7.5
   rollup-plugin-visualizer: ^5.8.1
   standard-version: ^9.5.0
-  stylelint: ^14.12.0
+  stylelint: ^14.12.1
   stylelint-config-css-modules: ^4.1.0
   stylelint-config-standard: ^28.0.0
   tailwindcss: ^3.1.8
@@ -107,9 +107,9 @@ devDependencies:
   prettier-plugin-packagejson: 2.2.18_prettier@2.7.1
   rollup-plugin-visualizer: 5.8.1
   standard-version: 9.5.0
-  stylelint: 14.12.0
-  stylelint-config-css-modules: 4.1.0_stylelint@14.12.0
-  stylelint-config-standard: 28.0.0_stylelint@14.12.0
+  stylelint: 14.12.1
+  stylelint-config-css-modules: 4.1.0_stylelint@14.12.1
+  stylelint-config-standard: 28.0.0_stylelint@14.12.1
   tailwindcss: 3.1.8_postcss@8.4.16
   tsx: 3.9.0
   typescript: 4.8.3
@@ -2702,12 +2702,12 @@ packages:
   /@esbuild-kit/cjs-loader/2.3.3:
     resolution: {integrity: sha512-Rt4O1mXlPEDVxvjsHLgbtHVdUXYK9C1/6ThpQnt7FaXIjUOsI6qhHYMgALhNnlIMZffag44lXd6Dqgx3xALbpQ==}
     dependencies:
-      '@esbuild-kit/core-utils': 2.3.1
+      '@esbuild-kit/core-utils': 2.3.2
       get-tsconfig: 4.2.0
     dev: true
 
-  /@esbuild-kit/core-utils/2.3.1:
-    resolution: {integrity: sha512-y2ThiUw/AkKCS7mIBF/EGce79aHIomOVFAIFmF5Z0DRZTNXVg9uFDXBkhAu7PAj64Po1ELfKJN9R7/zs3PIEAg==}
+  /@esbuild-kit/core-utils/2.3.2:
+    resolution: {integrity: sha512-aQwy1Hdd02ymjyMyyrhtyuZGv5W+mVZmj3DTKFV0TnB1AUgMBV40tXySpsGySe8vLvSe0c0TaqTc2FUo8/YlNQ==}
     dependencies:
       esbuild: 0.15.8
       source-map-support: 0.5.21
@@ -2716,7 +2716,7 @@ packages:
   /@esbuild-kit/esm-loader/2.4.2:
     resolution: {integrity: sha512-N9dPKAj8WOx6djVnStgILWXip4fjDcBk9L7azO0/uQDpu8Ee0eaL78mkN4Acid9BzvNAKWwdYXFJZnsVahNEew==}
     dependencies:
-      '@esbuild-kit/core-utils': 2.3.1
+      '@esbuild-kit/core-utils': 2.3.2
       get-tsconfig: 4.2.0
     dev: true
 
@@ -10046,14 +10046,14 @@ packages:
       stylelint: 13.13.1
     dev: true
 
-  /stylelint-config-css-modules/4.1.0_stylelint@14.12.0:
+  /stylelint-config-css-modules/4.1.0_stylelint@14.12.1:
     resolution: {integrity: sha512-w6d552NscwvpUEaUcmq8GgWXKRv6lVHLbDj6QIHSM2vCWr83qRqRvXBJCfXDyaG/J3Zojw2inU9VvU99ZlXuUw==}
     peerDependencies:
       stylelint: ^14.5.1
     dependencies:
-      stylelint: 14.12.0
+      stylelint: 14.12.1
     optionalDependencies:
-      stylelint-scss: 4.3.0_stylelint@14.12.0
+      stylelint-scss: 4.3.0_stylelint@14.12.1
     dev: true
 
   /stylelint-config-prettier/8.0.2_stylelint@13.13.1:
@@ -10074,12 +10074,12 @@ packages:
       stylelint: 13.13.1
     dev: true
 
-  /stylelint-config-recommended/9.0.0_stylelint@14.12.0:
+  /stylelint-config-recommended/9.0.0_stylelint@14.12.1:
     resolution: {integrity: sha512-9YQSrJq4NvvRuTbzDsWX3rrFOzOlYBmZP+o513BJN/yfEmGSr0AxdvrWs0P/ilSpVV/wisamAHu5XSk8Rcf4CQ==}
     peerDependencies:
       stylelint: ^14.10.0
     dependencies:
-      stylelint: 14.12.0
+      stylelint: 14.12.1
     dev: true
 
   /stylelint-config-standard/20.0.0_stylelint@13.13.1:
@@ -10091,13 +10091,13 @@ packages:
       stylelint-config-recommended: 3.0.0_stylelint@13.13.1
     dev: true
 
-  /stylelint-config-standard/28.0.0_stylelint@14.12.0:
+  /stylelint-config-standard/28.0.0_stylelint@14.12.1:
     resolution: {integrity: sha512-q/StuowDdDmFCravzGHAwgS9pjX0bdOQUEBBDIkIWsQuYGgYz/xsO8CM6eepmIQ1fc5bKdDVimlJZ6MoOUcJ5Q==}
     peerDependencies:
       stylelint: ^14.11.0
     dependencies:
-      stylelint: 14.12.0
-      stylelint-config-recommended: 9.0.0_stylelint@14.12.0
+      stylelint: 14.12.1
+      stylelint-config-recommended: 9.0.0_stylelint@14.12.1
     dev: true
 
   /stylelint-declaration-block-no-ignored-properties/2.5.0_stylelint@13.13.1:
@@ -10109,7 +10109,7 @@ packages:
       stylelint: 13.13.1
     dev: true
 
-  /stylelint-scss/4.3.0_stylelint@14.12.0:
+  /stylelint-scss/4.3.0_stylelint@14.12.1:
     resolution: {integrity: sha512-GvSaKCA3tipzZHoz+nNO7S02ZqOsdBzMiCx9poSmLlb3tdJlGddEX/8QzCOD8O7GQan9bjsvLMsO5xiw6IhhIQ==}
     requiresBuild: true
     peerDependencies:
@@ -10120,7 +10120,7 @@ packages:
       postcss-resolve-nested-selector: 0.1.1
       postcss-selector-parser: 6.0.10
       postcss-value-parser: 4.2.0
-      stylelint: 14.12.0
+      stylelint: 14.12.1
     dev: true
     optional: true
 
@@ -10183,8 +10183,8 @@ packages:
       - supports-color
     dev: true
 
-  /stylelint/14.12.0:
-    resolution: {integrity: sha512-9Sa+IsT31PN9zf9q5ZVZNvhT6jMVu6YhpI38g3Akn7vONipGL0GNd9QCblwtJ3ysaoM80P/+9mOcFB1xnytiQQ==}
+  /stylelint/14.12.1:
+    resolution: {integrity: sha512-ZEM4TuksChMBfuPadQsHUkbOoRySAT9QMfDvvYxdAchOJl0p+csTMBXOu6ORAAxKhwBmxqJiep8V88bXfNs3EQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     hasBin: true
     dependencies:
@@ -10529,7 +10529,7 @@ packages:
     hasBin: true
     dependencies:
       '@esbuild-kit/cjs-loader': 2.3.3
-      '@esbuild-kit/core-utils': 2.3.1
+      '@esbuild-kit/core-utils': 2.3.2
       '@esbuild-kit/esm-loader': 2.4.2
     optionalDependencies:
       fsevents: 2.3.2
