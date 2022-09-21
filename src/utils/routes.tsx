@@ -1,6 +1,5 @@
 import { AntdIcon } from '@/components';
 import type { Route } from '@/routes';
-import { isHttpUrl } from '@/utils';
 import type { MenuDataItem } from '@ant-design/pro-components';
 import qs from 'query-string';
 
@@ -53,28 +52,26 @@ export const getRoutesAccessKeysMap = (routes: Route[], parentPath = ''): Record
   return map;
 };
 
-export const convertUserRoutesToMenus = (userRoutes: API.RouterVo[], parentPath = ''): MenuDataItem[] => {
+export const convertUserRoutesToMenus = (userRoutes: API.RouterVo[]): MenuDataItem[] => {
   const menus: MenuDataItem[] = [];
 
   userRoutes.forEach((item) => {
     const { query, path, hidden, meta } = item;
 
-    let routes: MenuDataItem[] = [];
+    let children: MenuDataItem[] = [];
 
     const queryString = query ? `?${qs.stringify(JSON.parse(query))}` : '';
 
-    const curRoutePath = parentPath && !isHttpUrl(path) ? `${parentPath}/${path}` : path;
-
     if (item.children && item.children.length > 0) {
-      routes = convertUserRoutesToMenus(item.children, curRoutePath);
+      children = convertUserRoutesToMenus(item.children);
     }
 
     menus.push({
-      path: `${curRoutePath}${queryString}`,
+      path: `${path}${queryString}`,
       name: meta?.title,
       hideInMenu: hidden,
       icon: <AntdIcon name={meta?.icon} />,
-      routes,
+      children,
     });
   });
 
