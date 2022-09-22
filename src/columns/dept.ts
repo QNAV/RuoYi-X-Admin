@@ -1,5 +1,4 @@
 import type { ProItem } from '@/typings';
-import type { TreeData } from '@/utils';
 
 // 部门名称
 export const CDeptName: ProItem = {
@@ -34,7 +33,7 @@ export const CEmail: ProItem = {
 };
 
 // 上级部门
-export const genCDeptParentId = (treeData: TreeData[] = []): ProItem => {
+export const genCDeptParentId = (treeData: Record<any, any>[] = []): ProItem => {
   return {
     title: '上级部门',
     dataIndex: 'parentId',
@@ -44,7 +43,8 @@ export const genCDeptParentId = (treeData: TreeData[] = []): ProItem => {
       treeData,
       dropdownMatchSelectWidth: 250,
       fieldNames: {
-        value: 'id',
+        label: 'deptName',
+        value: 'deptId',
       },
     },
   };

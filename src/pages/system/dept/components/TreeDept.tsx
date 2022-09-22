@@ -1,28 +1,23 @@
 import { EmptySimple } from '@/components';
 import { EnableDisableStatus, EnableDisableStatusMap } from '@/constants';
-import {
-  useHandleSearchDeptList,
-  useHideDeptDetails,
-  useQueryDeptList,
-  useShowDeptDetails,
-} from '@/pages/system/dept/model';
+import { useQueryDeptList, useShowDeptDetails } from '@/pages/system/dept/model';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';
 import { Button, Space, Spin, Tag, Tree } from 'antd';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-const titleRender: TreeProps<any>['titleRender'] = (item: API.SysDeptVo) => {
+const titleRender: TreeProps<any>['titleRender'] = (itemData: API.SysDeptVo) => {
   return (
     <>
-      <Tag color="rgb(148 163 184)">{item.orderNum}</Tag>
+      <Tag color="rgb(148 163 184)">{itemData.orderNum}</Tag>
 
       <Space>
-        {item.deptName}
+        {itemData.deptName}
 
-        <Tag color={item.status === EnableDisableStatus.ENABLE ? 'success' : 'error'}>
-          {item.status === EnableDisableStatus.ENABLE ? '启用中' : '已禁用'}
+        <Tag color={itemData.status === EnableDisableStatus.ENABLE ? 'success' : 'error'}>
+          {itemData.status === EnableDisableStatus.ENABLE ? '启用中' : '已禁用'}
         </Tag>
       </Space>
     </>
@@ -31,21 +26,17 @@ const titleRender: TreeProps<any>['titleRender'] = (item: API.SysDeptVo) => {
 
 const TreeDept: FC = () => {
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
+  const [searchParams, setSearchParams] = useState<API.SysDeptQueryBo>({});
 
-  const handleSearchDeptList = useHandleSearchDeptList();
-
-  const { data, isFetching } = useQueryDeptList();
+  const { data, isFetching } = useQueryDeptList(searchParams, {
+    onSuccess: (allParentIds) => {
+      setExpandedKeys(allParentIds);
+    },
+  });
 
   const showDeptDetails = useShowDeptDetails();
-  const hideDeptDetails = useHideDeptDetails();
 
   const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === data?.allParentIds?.length;
-
-  useEffect(() => {
-    if (data?.allParentIds) {
-      setExpandedKeys(data.allParentIds);
-    }
-  }, [data?.allParentIds]);
 
   return (
     <>
@@ -59,11 +50,7 @@ const TreeDept: FC = () => {
           {isAllExpanded ? '全部折叠' : '全部展开'}
         </Button>
 
-        <LightFilter<API.SysDeptQueryBo>
-          onFinish={async (values) => {
-            handleSearchDeptList(values);
-          }}
-        >
+        <LightFilter<API.SysDeptQueryBo> onFinish={async (values) => setSearchParams(values)}>
           <ProFormText name="deptName" label="部门名称" />
 
           <ProFormSelect name="status" label="状态" valueEnum={EnableDisableStatusMap} />
@@ -72,31 +59,25 @@ const TreeDept: FC = () => {
 
       {data?.treeData ? (
         <Spin spinning={isFetching}>
-          <Tree<any>
-            blockNode
-            showLine={{ showLeafIcon: false }}
-            titleRender={titleRender}
-            treeData={data?.treeData ?? []}
-            expandedKeys={expandedKeys}
-            onExpand={setExpandedKeys}
-            fieldNames={{
-              title: 'deptName',
-              key: 'deptId',
-              children: 'children',
-            }}
-            onSelect={(selectedKeys, { selected, node: { key } }) => {
-              if (selected) {
-                showDeptDetails({
-                  visible: true,
-                  deptId: key,
-                  deptName: data!.data.find((item) => item.deptId === key)!.deptName,
-                });
-                return;
-              }
+          <div className="h-[calc(100vh-270px)]">
+            <Tree<any>
+              blockNode
+              showLine={{ showLeafIcon: false }}
+              titleRender={titleRender}
+              treeData={data.treeData}
+              expandedKeys={expandedKeys}
+              onExpand={setExpandedKeys}
+              fieldNames={{
+                title: 'deptName',
+                key: 'deptId',
+              }}
+              onSelect={(selectedKeys, { selected, node: { key } }) => {
+                if (!selected) return;
 
-              hideDeptDetails();
-            }}
-          />
+                showDeptDetails(key, data!.map.get(key)!.deptName);
+              }}
+            />
+          </div>
         </Spin>
       ) : (
         <EmptySimple />

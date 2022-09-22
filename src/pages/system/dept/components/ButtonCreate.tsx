@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { EnableDisableStatus, EnableDisableStatusMap } from '@/constants';
 import { useAccess } from '@/models';
-import { useQueryDeptTreeData } from '@/pages/system/dept/model';
+import { useQueryDeptOptions } from '@/pages/system/dept/model';
 import { SysDeptPostAdd } from '@/services/sys/SysDeptService';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
@@ -16,7 +16,7 @@ const ButtonCreate: FC = () => {
   const access = useAccess();
   const formRef = useRef<ProFormInstance<API.SysDeptAddBo>>();
   const [open, { toggle }] = useBoolean();
-  const { data: treeData, refetch } = useQueryDeptTreeData();
+  const { data: treeData, refetch } = useQueryDeptOptions();
 
   const { mutate, isLoading } = useMutation(
     async () => {
@@ -66,7 +66,8 @@ const ButtonCreate: FC = () => {
             fieldProps={{
               treeData: treeData ?? [],
               fieldNames: {
-                value: 'id',
+                label: 'deptName',
+                value: 'deptId',
               },
             }}
           />

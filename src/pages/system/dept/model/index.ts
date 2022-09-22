@@ -1,7 +1,6 @@
-import { SysDeptPostList, SysDeptPostTreeSelect } from '@/services/sys/SysDeptService';
-import type { TreeData } from '@/utils';
+import { SysDeptPostList } from '@/services/sys/SysDeptService';
 import { parseSimpleTreeData } from '@/utils';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { atom, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
@@ -11,30 +10,81 @@ const namespace = 'systemDept';
 const AtomDeptDetails = atom({
   key: `${namespace}AtomDeptDetails`,
   default: {
-    visible: false,
+    open: false,
     deptId: 0,
     deptName: '',
   },
 });
-export const useDeptDetailsVisibleValue = () => useRecoilValue(AtomDeptDetails);
-export const useShowDeptDetails = () => useSetRecoilState(AtomDeptDetails);
+export const useValueDeptDetails = () => useRecoilValue(AtomDeptDetails);
+export const useShowDeptDetails = () => {
+  const setRecoilState = useSetRecoilState(AtomDeptDetails);
+  return (deptId: number, deptName: string) => {
+    setRecoilState({
+      open: true,
+      deptId,
+      deptName,
+    });
+  };
+};
 export const useHideDeptDetails = () => useResetRecoilState(AtomDeptDetails);
 
-// 搜索部门列表
-const AtomSearchDeptListParams = atom<API.SysDeptQueryBo>({
-  key: `${namespace}AtomSearchDeptListParams`,
-  default: {},
-});
-export const useSearchDeptListParamsValue = () => useRecoilValue(AtomSearchDeptListParams);
-export const useSetSearchDeptListParams = () => useSetRecoilState(AtomSearchDeptListParams);
-
 // 部门列表
-export const queryDeptListKey = [namespace, 'list'];
-export const useQueryDeptList = () => {
-  const params = useSearchDeptListParamsValue();
+const queryDeptListKey = [namespace, 'list'];
+export const useQueryDeptList = (
+  params: API.SysDeptQueryBo,
+  options: { onSuccess: (allParentIds: number[]) => void },
+) => {
+  const e = useQuery(
+    queryDeptListKey,
+    async () => {
+      const data = await SysDeptPostList(params);
 
-  return useQuery(queryDeptListKey, async () => {
-    const data = await SysDeptPostList(params);
+      const treeData: API.SysDeptVo[] = parseSimpleTreeData(data, {
+        id: 'deptId',
+        pId: 'parentId',
+        rootPId: null,
+      });
+
+      return {
+        map: data.reduce<Map<number, API.SysDeptVo>>((prev, curr) => {
+          return prev.set(curr.deptId, curr);
+        }, new Map()),
+        treeData,
+        allParentIds: Array.from(
+          data.reduce<Set<number>>((prev, curr) => {
+            return prev.add(
+              (
+                curr as unknown as {
+                  parentId: number;
+                }
+              ).parentId,
+            );
+          }, new Set()),
+        ),
+      };
+    },
+    {
+      onSuccess: (data) => {
+        options.onSuccess(data.allParentIds);
+      },
+    },
+  );
+
+  useEffect(() => {
+    e.refetch();
+  }, [params]);
+
+  return e;
+};
+export const useReFetchDeptList = () => {
+  const queryClient = useQueryClient();
+  return () => queryClient.invalidateQueries(queryDeptListKey);
+};
+
+const queryDeptOptionsKey = [namespace, 'options'];
+export const useQueryDeptOptions = () => {
+  return useQuery(queryDeptOptionsKey, async () => {
+    const data = await SysDeptPostList({});
 
     const treeData: API.SysDeptVo[] = parseSimpleTreeData(data, {
       id: 'deptId',
@@ -42,33 +92,10 @@ export const useQueryDeptList = () => {
       rootPId: null,
     });
 
-    return {
-      data,
-      treeData,
-      // @ts-ignore
-      allParentIds: data.map((item) => item.parentId),
-    };
+    return treeData;
   });
 };
-
-export const queryDeptTreeDataKey = [namespace, 'treeData'];
-export const useQueryDeptTreeData = () => {
-  return useQuery(queryDeptTreeDataKey, async () => {
-    return (await SysDeptPostTreeSelect({})) as TreeData[];
-  });
-};
-
-export const useHandleSearchDeptList = () => {
-  const setSearchDeptListParams = useSetSearchDeptListParams();
-  const searchDeptListParamsValue = useSearchDeptListParamsValue();
-
-  const queryDeptList = useQueryDeptList();
-
-  useEffect(() => {
-    queryDeptList.refetch();
-  }, [searchDeptListParamsValue]);
-
-  return (params: API.SysDeptQueryBo) => {
-    setSearchDeptListParams(params);
-  };
+export const useReFetchDeptOptions = () => {
+  const queryClient = useQueryClient();
+  return () => queryClient.invalidateQueries(queryDeptOptionsKey);
 };

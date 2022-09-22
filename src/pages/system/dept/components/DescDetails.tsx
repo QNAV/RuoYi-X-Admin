@@ -9,13 +9,17 @@ import {
   genCDeptParentId,
 } from '@/columns';
 import { EmptySimple } from '@/components';
-import { queryDeptListKey, useDeptDetailsVisibleValue, useQueryDeptTreeData } from '@/pages/system/dept/model';
+import {
+  useQueryDeptOptions,
+  useReFetchDeptList,
+  useReFetchDeptOptions,
+  useValueDeptDetails,
+} from '@/pages/system/dept/model';
 import { SysDeptGetInfo, SysDeptPostEdit } from '@/services/sys/SysDeptService';
 
 import { useAccess } from '@/models';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
-import { useQueryClient } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { Divider, Form, message, Spin } from 'antd';
 import type { FC, Key } from 'react';
@@ -32,15 +36,16 @@ const DescDetails: FC = () => {
 
   const [form] = Form.useForm();
 
-  const queryClient = useQueryClient();
+  const reFetchDeptList = useReFetchDeptList();
+  const reFetchDeptOptions = useReFetchDeptOptions();
 
-  const { deptId, visible } = useDeptDetailsVisibleValue();
+  const { deptId, open } = useValueDeptDetails();
 
-  const { data: deptTreeData } = useQueryDeptTreeData();
+  const { data: treeData } = useQueryDeptOptions();
 
-  const CDeptParentId = genCDeptParentId(deptTreeData);
+  const CDeptParentId = genCDeptParentId(treeData);
 
-  const { data, loading, refreshAsync } = useRequest(
+  const { data, loading, refresh } = useRequest(
     async () => {
       const { ancestors, ...rest } = await SysDeptGetInfo({ deptId });
 
@@ -52,7 +57,7 @@ const DescDetails: FC = () => {
       };
     },
     {
-      ready: visible && deptId > 0,
+      ready: open && deptId > 0,
       refreshDeps: [deptId],
       onSuccess: () => {
         setEditableKeys([]);
@@ -81,15 +86,16 @@ const DescDetails: FC = () => {
             parentId: 0,
             [key as EditableKeys]: record[key as EditableKeys],
           });
-
-          await Promise.all([queryClient.invalidateQueries(queryDeptListKey), refreshAsync()]);
-
           message.success('保存成功');
+
+          refresh();
+          reFetchDeptList();
+          reFetchDeptOptions();
         },
       }
     : undefined;
 
-  if (!visible) {
+  if (!open) {
     return <EmptySimple description="点击选择左侧部门项查看详情" />;
   }
 

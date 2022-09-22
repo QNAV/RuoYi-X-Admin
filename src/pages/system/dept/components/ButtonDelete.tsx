@@ -1,42 +1,46 @@
 import { Access } from '@/components';
 import { useAccess } from '@/models';
-import { queryDeptListKey, useDeptDetailsVisibleValue, useHideDeptDetails } from '@/pages/system/dept/model';
+import {
+  useHideDeptDetails,
+  useReFetchDeptList,
+  useReFetchDeptOptions,
+  useValueDeptDetails,
+} from '@/pages/system/dept/model';
 import { SysDeptPostRemove } from '@/services/sys/SysDeptService';
 import { DeleteOutlined } from '@ant-design/icons';
-import { useQueryClient } from '@tanstack/react-query';
 import { Button, message, Modal, Typography } from 'antd';
 import type { FC } from 'react';
 
 const ButtonDelete: FC = () => {
   const access = useAccess();
 
-  const queryClient = useQueryClient();
-
-  const { deptId, deptName, visible } = useDeptDetailsVisibleValue();
+  const { deptId, deptName, open } = useValueDeptDetails();
 
   const hideDeptDetails = useHideDeptDetails();
+  const reFetchDeptList = useReFetchDeptList();
+  const reFetchDeptOptions = useReFetchDeptOptions();
 
   const handleDelete = () => {
     Modal.confirm({
       title: '删除确认',
       content: (
         <>
-          确定对<Typography.Text code>{deptName}</Typography.Text>进行
-          <Typography.Text code>删除</Typography.Text>操作吗？
+          确定删除部门<Typography.Text code>{deptName}</Typography.Text>吗？
         </>
       ),
       onOk: async () => {
         await SysDeptPostRemove({ deptId });
         message.success('删除成功');
         hideDeptDetails();
-        queryClient.invalidateQueries(queryDeptListKey);
+        reFetchDeptList();
+        reFetchDeptOptions();
       },
     });
   };
 
   return (
-    <Access accessible={access.canRemoveSysDept}>
-      <Button danger ghost icon={<DeleteOutlined />} disabled={!visible} onClick={handleDelete}>
+    <Access accessible={open && access.canRemoveSysDept}>
+      <Button danger ghost icon={<DeleteOutlined />} onClick={handleDelete}>
         删除
       </Button>
     </Access>
