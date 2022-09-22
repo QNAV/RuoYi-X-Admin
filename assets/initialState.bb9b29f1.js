@@ -1,0 +1,1 @@
+import{d as i}from"./keepAlive.59225f48.js";import{n as o,o as n}from"./index.fc61c384.js";import{u as a}from"./useQuery.esm.f13bcdf0.js";const r=["global","initialState"],f=()=>{const e=i();return a(r,async()=>{const[s,t]=await Promise.all([o(),n()]);return{userInfo:s,userRoutes:t}},{staleTime:1/0,cacheTime:1/0,onSuccess:s=>{e(s.userInfo.permissions)}})};export{r as i,f as u};
