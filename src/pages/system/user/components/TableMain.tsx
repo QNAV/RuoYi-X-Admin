@@ -11,9 +11,11 @@ import {
 import { WarpTableOption } from '@/components';
 import { useRowClick } from '@/hooks';
 import ButtonAdd from '@/pages/system/user/components/ButtonAdd';
+import ButtonEdit from '@/pages/system/user/components/ButtonEdit';
 import ButtonExport from '@/pages/system/user/components/ButtonExport';
 import ButtonImport from '@/pages/system/user/components/ButtonImport';
 import ButtonRemove from '@/pages/system/user/components/ButtonRemove';
+import ButtonResetPwd from '@/pages/system/user/components/ButtonResetPwd';
 import { useActionRefMainTable, useValueSelectedDeptId } from '@/pages/system/user/model';
 import { SysUserPostList } from '@/services/sys/SysUserService';
 import type { ProItem } from '@/typings';
@@ -34,11 +36,15 @@ const columns: ProItem[] = [
   {
     title: '操作',
     valueType: 'option',
-    width: 200,
+    width: 290,
     render: (dom, entity: API.SysUserVo) => {
       return (
         <WarpTableOption>
+          <ButtonEdit />
+
           <ButtonRemove userId={entity.userId} userName={entity.userName} />
+
+          <ButtonResetPwd userId={entity.userId} userName={entity.userName} />
         </WarpTableOption>
       );
     },

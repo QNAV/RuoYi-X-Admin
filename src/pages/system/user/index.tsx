@@ -1,4 +1,5 @@
 import { BasePageContainer } from '@/components';
+import ModalResetPwd from '@/pages/system/user/components/ModalResetPwd';
 import TableMain from '@/pages/system/user/components/TableMain';
 import TreeDept from '@/pages/system/user/components/TreeDept';
 import { ProCard } from '@ant-design/pro-components';
@@ -16,6 +17,8 @@ const PageUser: FC = () => {
           <TableMain />
         </ProCard>
       </ProCard>
+
+      <ModalResetPwd />
     </BasePageContainer>
   );
 };
