@@ -1,5 +1,5 @@
 import { EmptySimple } from '@/components';
-import { useSetRecoilSelectedDeptId } from '@/pages/system/user/model';
+import { useSetSelectedDeptId } from '@/pages/system/user/model';
 import { SysDeptPostTreeSelect } from '@/services/sys/SysDeptService';
 import { useRequest } from 'ahooks';
 import { Input, Spin, Tree } from 'antd';
@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 const TreeDept: FC = () => {
   const [deptName, setDeptName] = useState<string>('');
-  const setRecoilSelectedDeptId = useSetRecoilSelectedDeptId();
+  const setRecoilSelectedDeptId = useSetSelectedDeptId();
 
   const { data, loading } = useRequest(
     () =>

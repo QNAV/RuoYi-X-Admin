@@ -1,22 +1,76 @@
-import { CCreateTime, CEnableDisableStatus, CNickName, CUserDeptName, CUserId, CUserName, CUserPhone } from '@/columns';
+import {
+  CCreateTime,
+  CCreateTimeRange,
+  CEnableDisableStatus,
+  CNickName,
+  CUserDeptName,
+  CUserId,
+  CUserName,
+  CUserPhone,
+} from '@/columns';
+import { WarpTableOption } from '@/components';
+import { useRowClick } from '@/hooks';
 import ButtonAdd from '@/pages/system/user/components/ButtonAdd';
-import { useMainTableActionRef, useRecoilValueSelectedDeptId } from '@/pages/system/user/model';
+import ButtonExport from '@/pages/system/user/components/ButtonExport';
+import ButtonImport from '@/pages/system/user/components/ButtonImport';
+import ButtonRemove from '@/pages/system/user/components/ButtonRemove';
+import { useActionRefMainTable, useValueSelectedDeptId } from '@/pages/system/user/model';
 import { SysUserPostList } from '@/services/sys/SysUserService';
+import type { ProItem } from '@/typings';
 import { convertParams } from '@/utils';
+import type { ProTableProps } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
-const columns = [CUserId, CUserName, CNickName, CUserDeptName, CUserPhone, CEnableDisableStatus, CCreateTime];
+const columns: ProItem[] = [
+  CUserId,
+  CUserName,
+  CNickName,
+  CUserDeptName,
+  CUserPhone,
+  CEnableDisableStatus,
+  CCreateTime,
+  CCreateTimeRange,
+  {
+    title: '操作',
+    valueType: 'option',
+    width: 200,
+    render: (dom, entity: API.SysUserVo) => {
+      return (
+        <WarpTableOption>
+          <ButtonRemove userId={entity.userId} userName={entity.userName} />
+        </WarpTableOption>
+      );
+    },
+  },
+];
+
+const rowKey = 'userId';
+
+const tableAlertOptionRender: ProTableProps<API.SysUserVo, 'text'>['tableAlertOptionRender'] = ({ selectedRows }) => {
+  const disabled = selectedRows.length === 0;
+
+  return (
+    <ButtonRemove
+      disabled={disabled}
+      isBatch
+      userId={selectedRows.map((i) => i.userId).join(',') as unknown as number}
+      userName={selectedRows.map((i) => i.userName).join(',')}
+    />
+  );
+};
 
 const TableMain: FC = () => {
-  const mainTableActionRef = useMainTableActionRef();
-  const recoilValueSelectedDeptId = useRecoilValueSelectedDeptId();
-  const params = recoilValueSelectedDeptId > 0 ? { deptId: recoilValueSelectedDeptId } : {};
+  const actionRefMainTable = useActionRefMainTable();
+  const selectedDeptId = useValueSelectedDeptId();
+  const params = selectedDeptId > 0 ? { deptId: selectedDeptId } : {};
+
+  const { rowSelection, onClick } = useRowClick(rowKey);
 
   return (
     <ProTable
-      rowKey="userId"
-      actionRef={mainTableActionRef}
+      rowKey={rowKey}
+      actionRef={actionRefMainTable}
       columns={columns}
       params={params}
       search={{
@@ -29,9 +83,18 @@ const TableMain: FC = () => {
           xxl: 6,
         },
       }}
+      onRow={(record) => ({
+        onClick: () => onClick(record),
+      })}
+      rowSelection={rowSelection}
+      tableAlertOptionRender={tableAlertOptionRender}
       request={(...p) => SysUserPostList(convertParams(...p))}
       toolbar={{
-        actions: [<ButtonAdd key="ButtonAdd" />],
+        actions: [
+          <ButtonExport key="ButtonExport" />,
+          <ButtonImport key="ButtonImport" />,
+          <ButtonAdd key="ButtonAdd" />,
+        ],
       }}
     />
   );

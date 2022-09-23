@@ -1,6 +1,6 @@
 import { Access } from '@/components';
 import { useAccess } from '@/models';
-import { useRecoilValueMainTableActions } from '@/pages/system/user/model';
+import { useValueMainTableActions } from '@/pages/system/user/model';
 import { SysUserPostAdd } from '@/services/sys/SysUserService';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
@@ -18,19 +18,17 @@ const ButtonAdd: FC = () => {
 
   const formRef = useRef<ProFormInstance<API.SysUserAddBo>>();
 
-  const recoilValueMainTableActions = useRecoilValueMainTableActions();
+  const mainTableActions = useValueMainTableActions();
 
   const { isLoading, mutate } = useMutation(
     async () => {
       const values = await formRef.current?.validateFieldsReturnFormatValue?.();
 
-      if (!values) return;
-
-      await SysUserPostAdd(values);
+      await SysUserPostAdd(values!);
     },
     {
       onSuccess: () => {
-        recoilValueMainTableActions?.reload();
+        mainTableActions?.reload();
 
         message.success('添加成功');
       },

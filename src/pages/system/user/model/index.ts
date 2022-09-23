@@ -8,12 +8,12 @@ const AtomMainTableActions = atom<ActionType>({
   key: `${namespace}AtomMainTableActions`,
   default: undefined,
 });
-export const useRecoilValueMainTableActions = () => useRecoilValue(AtomMainTableActions);
-export const useMainTableActionRef = () => useInitActionType(AtomMainTableActions);
+export const useValueMainTableActions = () => useRecoilValue(AtomMainTableActions);
+export const useActionRefMainTable = () => useInitActionType(AtomMainTableActions);
 
 const AtomSelectedDeptId = atom<number>({
   key: `${namespace}AtomSelectedDeptId`,
   default: 0,
 });
-export const useRecoilValueSelectedDeptId = () => useRecoilValue(AtomSelectedDeptId);
-export const useSetRecoilSelectedDeptId = () => useSetRecoilState(AtomSelectedDeptId);
+export const useValueSelectedDeptId = () => useRecoilValue(AtomSelectedDeptId);
+export const useSetSelectedDeptId = () => useSetRecoilState(AtomSelectedDeptId);
