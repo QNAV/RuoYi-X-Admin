@@ -8,11 +8,15 @@ const MenuItem: ProLayoutProps['menuItemRender'] = (menuItemProps: MenuDataItem,
     return defaultDom;
   }
 
-  return (
-    <Link to={menuItemProps.path} target={isHttpUrl(menuItemProps.path) ? '_blank' : '_self'} rel="noopener noreferrer">
-      {defaultDom}
-    </Link>
-  );
+  if (isHttpUrl(menuItemProps.path)) {
+    return (
+      <a href={menuItemProps.path} target="_blank" rel="noopener noreferrer">
+        {defaultDom}
+      </a>
+    );
+  }
+
+  return <Link to={menuItemProps.path}>{defaultDom}</Link>;
 };
 
 export default MenuItem;
