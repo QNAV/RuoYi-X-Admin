@@ -7,8 +7,8 @@ specifiers:
   '@ant-design/pro-components': ^2.3.12
   '@commitlint/cli': ^17.1.2
   '@commitlint/config-conventional': ^17.1.0
-  '@tanstack/react-query': ^4.4.0
-  '@tanstack/react-query-devtools': ^4.4.0
+  '@tanstack/react-query': ^4.5.0
+  '@tanstack/react-query-devtools': ^4.5.0
   '@types/file-saver': ^2.0.5
   '@types/lodash': ^4.14.185
   '@types/nprogress': ^0.2.0
@@ -62,8 +62,8 @@ dependencies:
   '@ant-design/cssinjs': 0.0.0-alpha.45_biqbaboplfbrettd7655fr4n2y
   '@ant-design/icons': 4.7.0_biqbaboplfbrettd7655fr4n2y
   '@ant-design/pro-components': 2.3.12_elp4rueuph7qjxnnvfzlkecbcu
-  '@tanstack/react-query': 4.4.0_biqbaboplfbrettd7655fr4n2y
-  '@tanstack/react-query-devtools': 4.4.0_cxu7hrnh4segymm6m5lofu72zm
+  '@tanstack/react-query': 4.5.0_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query-devtools': 4.5.0_tpbjntr24xhnbl7xzbsucwb5om
   ahooks: 3.7.1_react@18.2.0
   antd: 4.23.2_biqbaboplfbrettd7655fr4n2y
   axios: 0.27.2
@@ -3027,26 +3027,26 @@ packages:
       remove-accents: 0.4.2
     dev: false
 
-  /@tanstack/query-core/4.4.0:
-    resolution: {integrity: sha512-YMJ1PWVfnLbQ9GPqPb9yniHKH0XKQgcjYNJuWyw47OWn9tTvvG16Muq3B6aTjKj3ce6cl1imBHoDUIbvK8PqXQ==}
+  /@tanstack/query-core/4.5.0:
+    resolution: {integrity: sha512-9pHE4TNlnBxdF24bTH3GGAJ4JdIDfJyuE/q+snyV425XEimPDe+OfofM8mVHfrn01Spvk9xAMpbqoEcmQG4kMg==}
     dev: false
 
-  /@tanstack/react-query-devtools/4.4.0_cxu7hrnh4segymm6m5lofu72zm:
-    resolution: {integrity: sha512-OBOKk08fyW+zkxMLRFSiRUjF4IImDvudryFknaKx4WaDb/L1NrX57EDLvKgClr/0UQPFeF6NsLWknzDjXZ6m8Q==}
+  /@tanstack/react-query-devtools/4.5.0_tpbjntr24xhnbl7xzbsucwb5om:
+    resolution: {integrity: sha512-eISF7VHIXDGk7lCTi1+NXDGh+tz114ZszA7icQ0ov1XE3fBhgiE9Yt9JW9l2zjklREYNZ3PtG4/hmiLC61pt0g==}
     peerDependencies:
-      '@tanstack/react-query': 4.4.0
+      '@tanstack/react-query': 4.5.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       '@tanstack/match-sorter-utils': 8.1.1
-      '@tanstack/react-query': 4.4.0_biqbaboplfbrettd7655fr4n2y
+      '@tanstack/react-query': 4.5.0_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
-  /@tanstack/react-query/4.4.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-z5DuDXUHiBAIHIef2LJDmApkUo3wKf0ONJY9astnkiSpnfxJemG3JyF63wtKZkcoQ0LxJmU2Vdk1hFWpSt0UkA==}
+  /@tanstack/react-query/4.5.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-58JRis0+1hdKe37L7ZAJex849mlqhBvpNwlOjz6KzEMXHH/b0AyUHp1YIqn6ULiw7YpZiheYpCkdB/7ArIgfrg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -3057,7 +3057,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 4.4.0
+      '@tanstack/query-core': 4.5.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
@@ -4076,7 +4076,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001410
-      electron-to-chromium: 1.4.260
+      electron-to-chromium: 1.4.261
       node-releases: 2.0.6
       update-browserslist-db: 1.0.9_browserslist@4.21.4
     dev: true
@@ -5050,8 +5050,8 @@ packages:
       jake: 10.8.5
     dev: true
 
-  /electron-to-chromium/1.4.260:
-    resolution: {integrity: sha512-1GxPM2Bdz1AjuNjho9/TqJfxM7KZ7R8s4vA5cbbIoVacQXfvZlV+d7Y1lu4BhGzEBfjjhakr3NXKqN0PxPXIsg==}
+  /electron-to-chromium/1.4.261:
+    resolution: {integrity: sha512-fVXliNUGJ7XUVJSAasPseBbVgJIeyw5M1xIkgXdTSRjlmCqBbiSTsEdLOCJS31Fc8B7CaloQ/BFAg8By3ODLdg==}
     dev: true
 
   /element-resize-event/3.0.6:
