@@ -6,7 +6,6 @@ import {
   lazyLoadPage,
 } from '@/utils';
 import type { RouteObject } from 'react-router-dom';
-import { useRoutes } from 'react-router-dom';
 
 export interface Route extends RouteObject {
   name?: string;
@@ -240,8 +239,5 @@ export const routes: Route[] = [
 ];
 
 export const accessKeysMap = getRoutesAccessKeysMap(routes);
-
 export const keepAliveRoutes = getRoutesKeepAliveKeys(layoutRoutes);
 export const keepAliveLocal = getRoutesKeepAliveLocal(layoutRoutes);
-
-export const Element = () => useRoutes(routes);
