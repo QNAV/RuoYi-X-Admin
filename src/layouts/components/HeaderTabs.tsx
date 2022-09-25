@@ -46,9 +46,9 @@ const HeaderTabs: FC = () => {
 
           if (currActiveKeyIndex === 0 && tabsKey.length === 1) {
             navigate('/');
+          } else {
+            navigate(tabsKey[currActiveKeyIndex > 0 ? currActiveKeyIndex - 1 : currActiveKeyIndex + 1]);
           }
-
-          navigate(tabsKey[currActiveKeyIndex > 0 ? currActiveKeyIndex - 1 : currActiveKeyIndex + 1]);
         }
 
         dropKeepAliveElementByCacheKey(targetKey as string);

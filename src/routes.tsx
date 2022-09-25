@@ -21,6 +21,11 @@ export const layoutRoutes: Route[] = [
     element: lazyLoadLayouts(),
     children: [
       {
+        name: '首页',
+        index: true,
+        element: lazyLoadPage('home'),
+      },
+      {
         name: '系统管理',
         path: 'system',
         children: [
