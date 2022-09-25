@@ -1,24 +1,19 @@
 import type { useOutlet } from 'react-router-dom';
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useRecoilState } from 'recoil';
 
 const namespace = 'global';
 
-const AtomKeepAliveElements = atom<Record<string, ReturnType<typeof useOutlet>>>({
+type AtomKeepAliveElements = Record<
+  string,
+  {
+    pathname: string;
+    children: ReturnType<typeof useOutlet>;
+  }
+>;
+
+const AtomKeepAliveElements = atom<AtomKeepAliveElements>({
   key: `${namespace}KeepAliveElements`,
   default: {},
 });
 
-export const useRecoilStateKeepAliveElements = () => useRecoilState(AtomKeepAliveElements);
-export const useRecoilValueKeepAliveElements = () => useRecoilValue(AtomKeepAliveElements);
-
-export const useDropKeepAliveElementByCacheKey = () => {
-  const setKeepAliveElements = useSetRecoilState(AtomKeepAliveElements);
-
-  return (targetKey: string) => {
-    setKeepAliveElements((elements) => {
-      const newElements = { ...elements };
-      delete newElements[targetKey];
-      return newElements;
-    });
-  };
-};
+export const useStateKeepAliveElements = () => useRecoilState(AtomKeepAliveElements);
