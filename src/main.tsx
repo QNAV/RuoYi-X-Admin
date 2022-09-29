@@ -4,6 +4,7 @@ import { checkIsLoginPage, checkToken } from '@/utils';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ConfigProvider } from 'antd';
+import { Provider } from 'jotai';
 import moment from 'moment';
 import 'moment/dist/locale/zh-cn';
 import ReactDOM from 'react-dom/client';
@@ -32,14 +33,16 @@ const render = () => {
 
   ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <ConfigProvider>
-          <ProComponentsProvider>
-            <RouterProvider router={router} />
-          </ProComponentsProvider>
-        </ConfigProvider>
-        <ReactQueryDevtools position="bottom-right" />
-      </QueryClientProvider>
+      <Provider>
+        <QueryClientProvider client={queryClient}>
+          <ConfigProvider>
+            <ProComponentsProvider>
+              <RouterProvider router={router} />
+            </ProComponentsProvider>
+          </ConfigProvider>
+          <ReactQueryDevtools position="bottom-right" />
+        </QueryClientProvider>
+      </Provider>
     </RecoilRoot>,
   );
 };
