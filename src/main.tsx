@@ -35,7 +35,7 @@ const render = () => {
       <QueryClientProvider client={queryClient}>
         <ConfigProvider>
           <ProComponentsProvider>
-            <RouterProvider router={router} />,
+            <RouterProvider router={router} />
           </ProComponentsProvider>
         </ConfigProvider>
         <ReactQueryDevtools position="bottom-right" />
