@@ -1,5 +1,5 @@
 import { CCreateTime, CCreateTimeRange, CIndex, CTableComment, CTableName, CUpdateTime } from '@/columns';
-import { tableActionsAtom } from '@/pages/tool/gen/model';
+import { useAtomValueMainTableActions } from '@/pages/tool/gen/model';
 import { GenPostDbList, GenPostImportTable } from '@/services/gen/GenService';
 import type { ProItem } from '@/typings';
 import { convertParams } from '@/utils';
@@ -11,14 +11,13 @@ import { useBoolean } from 'ahooks';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
-import { useRecoilValue } from 'recoil';
 
 const columns: ProItem[] = [CIndex, CTableName, CTableComment, CCreateTime, CUpdateTime, CCreateTimeRange];
 
 const ButtonImport: FC = () => {
   const actionRef = useRef<ActionType>();
 
-  const tableActions = useRecoilValue(tableActionsAtom);
+  const tableActions = useAtomValueMainTableActions();
 
   const [visible, { toggle }] = useBoolean();
 

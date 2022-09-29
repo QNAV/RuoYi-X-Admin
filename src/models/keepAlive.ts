@@ -1,7 +1,5 @@
+import { atom, useAtom } from 'jotai';
 import type { useOutlet } from 'react-router-dom';
-import { atom, useRecoilState } from 'recoil';
-
-const namespace = 'global';
 
 type AtomKeepAliveElements = Record<
   string,
@@ -10,10 +8,5 @@ type AtomKeepAliveElements = Record<
     children: ReturnType<typeof useOutlet>;
   }
 >;
-
-const AtomKeepAliveElements = atom<AtomKeepAliveElements>({
-  key: `${namespace}KeepAliveElements`,
-  default: {},
-});
-
-export const useStateKeepAliveElements = () => useRecoilState(AtomKeepAliveElements);
+const AtomKeepAliveElements = atom<AtomKeepAliveElements>({});
+export const useAtomKeepAliveElements = () => useAtom(AtomKeepAliveElements);

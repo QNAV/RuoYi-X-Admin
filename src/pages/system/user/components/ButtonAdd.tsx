@@ -1,5 +1,5 @@
 import { Access } from '@/components';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import { useValueMainTableActions } from '@/pages/system/user/model';
 import { SysUserPostAdd } from '@/services/sys/SysUserService';
 import { PlusOutlined } from '@ant-design/icons';
@@ -12,7 +12,7 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 
 const ButtonAdd: FC = () => {
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   const [open, { toggle }] = useBoolean();
 

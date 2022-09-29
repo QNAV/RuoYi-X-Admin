@@ -1,14 +1,13 @@
-import { previewIdAtom } from '@/pages/tool/gen/model';
+import { useShowPreviewModal } from '@/pages/tool/gen/model';
 import { CodeOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import type { FC } from 'react';
-import { useSetRecoilState } from 'recoil';
 
 const ButtonPreview: FC<{ tableId: number }> = ({ tableId }) => {
-  const setPreviewId = useSetRecoilState(previewIdAtom);
+  const showPreviewModal = useShowPreviewModal();
 
   return (
-    <Button onClick={() => setPreviewId(tableId)} type="link" icon={<CodeOutlined />}>
+    <Button onClick={() => showPreviewModal(tableId)} type="link" icon={<CodeOutlined />}>
       预览
     </Button>
   );

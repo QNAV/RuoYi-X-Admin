@@ -4,7 +4,7 @@ import IconLogout from '@/layouts/components/IconLogout';
 import IconSetting from '@/layouts/components/IconSetting';
 import KeepAliveTabs from '@/layouts/components/KeepAliveTabs';
 import MenuItem from '@/layouts/components/MenuItem';
-import { useAccess, useInitialState } from '@/models';
+import { useAtomValueAccess, useInitialState } from '@/models';
 import { accessKeysMap } from '@/routes';
 import { convertUserRoutesToMenus } from '@/utils';
 import { ProLayout } from '@ant-design/pro-components';
@@ -21,7 +21,7 @@ const Layouts: FC = () => {
 
   const { data: initialState, isSuccess, isLoading } = useInitialState();
 
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   const hasAccess = useMemo(() => {
     const accessKey = accessKeysMap?.[pathname];

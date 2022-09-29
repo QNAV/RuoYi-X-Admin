@@ -1,5 +1,5 @@
 import { Access } from '@/components';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import {
   useHideDeptDetails,
   useReFetchDeptList,
@@ -12,7 +12,7 @@ import { Button, message, Modal, Typography } from 'antd';
 import type { FC } from 'react';
 
 const ButtonDelete: FC = () => {
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   const { deptId, deptName, open } = useValueDeptDetails();
 

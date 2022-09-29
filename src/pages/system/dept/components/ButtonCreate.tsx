@@ -1,6 +1,6 @@
 import { Access } from '@/components';
 import { EnableDisableStatus, EnableDisableStatusMap } from '@/constants';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import { useQueryDeptOptions } from '@/pages/system/dept/model';
 import { SysDeptPostAdd } from '@/services/sys/SysDeptService';
 import { PlusOutlined } from '@ant-design/icons';
@@ -13,7 +13,7 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 
 const ButtonCreate: FC = () => {
-  const access = useAccess();
+  const access = useAtomValueAccess();
   const formRef = useRef<ProFormInstance<API.SysDeptAddBo>>();
   const [open, { toggle }] = useBoolean();
   const { data: treeData, refetch } = useQueryDeptOptions();

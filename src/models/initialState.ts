@@ -1,11 +1,11 @@
-import { useSetAccess } from '@/models/access';
+import { useSetAtomAccess } from '@/models/access';
 import { SysLoginGetInfo, SysLoginGetRouters } from '@/services/sys/SysLoginService';
 import { useQuery } from '@tanstack/react-query';
 
 export const initialStateQueryKey = ['global', 'initialState'];
 
 export const useInitialState = () => {
-  const setAccess = useSetAccess();
+  const setAccess = useSetAtomAccess();
 
   return useQuery<{ userInfo: API.UserInfoVo; userRoutes: API.RouterVo[] }>(
     initialStateQueryKey,

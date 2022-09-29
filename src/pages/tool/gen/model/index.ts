@@ -1,14 +1,13 @@
+import { useInitActionType } from '@/hooks';
 import type { ActionType } from '@ant-design/pro-components';
-import { atom } from 'recoil';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
+import { atomWithReset, useResetAtom } from 'jotai/utils';
 
-const key = 'toolGen';
+const AtomMainTableActions = atom<ActionType | undefined>(undefined);
+export const useActionRefMainTable = () => useInitActionType(AtomMainTableActions);
+export const useAtomValueMainTableActions = () => useAtomValue(AtomMainTableActions);
 
-export const tableActionsAtom = atom<ActionType>({
-  key: `${key}TableActions`,
-  default: undefined,
-});
-
-export const previewIdAtom = atom({
-  key: `${key}PreviewIdAtom`,
-  default: 0,
-});
+const AtomSelectedTableId = atomWithReset<number>(0);
+export const useAtomValueSelectedTableId = () => useAtomValue(AtomSelectedTableId);
+export const useShowPreviewModal = () => useSetAtom(AtomSelectedTableId);
+export const useHidePreviewModal = () => useResetAtom(AtomSelectedTableId);

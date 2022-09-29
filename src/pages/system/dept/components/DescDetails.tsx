@@ -17,7 +17,7 @@ import {
 } from '@/pages/system/dept/model';
 import { SysDeptGetInfo, SysDeptPostEdit } from '@/services/sys/SysDeptService';
 
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
@@ -32,7 +32,7 @@ const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl:
 const DescDetails: FC = () => {
   const [editableKeys, setEditableKeys] = useState<Key[]>([]);
 
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   const [form] = Form.useForm();
 

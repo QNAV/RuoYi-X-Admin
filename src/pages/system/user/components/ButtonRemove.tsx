@@ -1,5 +1,5 @@
 import { Access } from '@/components';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import { useValueMainTableActions } from '@/pages/system/user/model';
 import { SysUserPostRemove } from '@/services/sys/SysUserService';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -14,7 +14,7 @@ const ButtonRemove: FC<{
   disabled?: boolean;
 }> = ({ userId, userName, isBatch, disabled }) => {
   const text = isBatch ? '批量删除' : '删除';
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   const mainTableActions = useValueMainTableActions();
 

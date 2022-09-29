@@ -1,12 +1,12 @@
 import { Access } from '@/components';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import { useDeleteMenu, useValueSelectedMenuData } from '@/pages/system/menu/model';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonDelete: FC = () => {
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   const { hasSelected, selectedMenuId, selectedMenuName } = useValueSelectedMenuData();
 

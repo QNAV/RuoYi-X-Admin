@@ -1,12 +1,12 @@
 import { Access } from '@/components';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import { useShowAddModal } from '@/pages/system/post/model';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonAdd: FC = () => {
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   const showAddModal = useShowAddModal();
 

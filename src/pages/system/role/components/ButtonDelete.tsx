@@ -1,5 +1,5 @@
 import { Access } from '@/components';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import { useHideRoleDetails, useRoleDetailsVisibleValue, useRoleListActions } from '@/pages/system/role/model';
 import { SysRolePostRemove } from '@/services/sys/SysRoleService';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -7,7 +7,7 @@ import { Button, message, Modal, Typography } from 'antd';
 import type { FC } from 'react';
 
 const ButtonDelete: FC = () => {
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   const roleListActions = useRoleListActions();
 

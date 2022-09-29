@@ -1,15 +1,15 @@
 import type { ActionType } from '@ant-design/pro-components';
+import type { PrimitiveAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { useEffect, useRef } from 'react';
-import type { RecoilState } from 'recoil';
-import { useSetRecoilState } from 'recoil';
 
-export const useInitActionType = (atom: RecoilState<ActionType>) => {
+export const useInitActionType = (atom: PrimitiveAtom<ActionType | undefined>) => {
   const actionRef = useRef<ActionType>();
-  const setActionState = useSetRecoilState(atom);
+  const setAtom = useSetAtom(atom);
 
   useEffect(() => {
     if (actionRef?.current) {
-      setActionState(actionRef.current);
+      setAtom(actionRef.current);
     }
   }, []);
 

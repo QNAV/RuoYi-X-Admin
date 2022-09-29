@@ -14,7 +14,7 @@ import {
 } from '@/columns';
 import { EmptySimple } from '@/components';
 import { MenuType } from '@/constants';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import { useReFetchMenuList, useReFetchMenuOptions, useValueSelectedMenuData } from '@/pages/system/menu/model';
 import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
@@ -50,7 +50,7 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
 };
 
 const DescDetails: FC = () => {
-  const access = useAccess();
+  const access = useAtomValueAccess();
   const reFetchMenuList = useReFetchMenuList();
   const reFetchMenuOptions = useReFetchMenuOptions();
 

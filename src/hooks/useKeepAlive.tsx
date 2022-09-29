@@ -1,4 +1,4 @@
-import { useStateKeepAliveElements } from '@/models';
+import { useAtomKeepAliveElements } from '@/models';
 import { keepAliveRoutes } from '@/routes';
 import { useEffect, useState } from 'react';
 import type { PathPattern } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { matchPath, useLocation, useOutlet } from 'react-router-dom';
 const MAX_TABS = 5;
 
 export const useKeepAliveOutlets = (pathname: string) => {
-  const [keepAliveElements, setKeepAliveElements] = useStateKeepAliveElements();
+  const [keepAliveElements, setKeepAliveElements] = useAtomKeepAliveElements();
 
   const element = useOutlet();
 

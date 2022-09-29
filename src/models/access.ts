@@ -1,7 +1,5 @@
 import { checkPermission } from '@/utils';
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
-
-const namespace = 'global';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 
 const getAccess = (userPermissions: string[] = []) => {
   const userPermissionsSet = new Set(userPermissions);
@@ -142,14 +140,9 @@ const getAccess = (userPermissions: string[] = []) => {
   };
 };
 
-const AtomAccess = atom({
-  key: `${namespace}Access`,
-  default: getAccess(),
-});
-
-export const useAccess = () => useRecoilValue(AtomAccess);
-
-export const useSetAccess = () => {
-  const setRecoilState = useSetRecoilState(AtomAccess);
-  return (userPermissions: string[] = []) => setRecoilState(getAccess(userPermissions));
+const AtomAccess = atom(getAccess());
+export const useAtomValueAccess = () => useAtomValue(AtomAccess);
+export const useSetAtomAccess = () => {
+  const setAtom = useSetAtom(AtomAccess);
+  return (userPermissions: string[] = []) => setAtom(getAccess(userPermissions));
 };

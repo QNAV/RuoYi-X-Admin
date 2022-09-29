@@ -1,5 +1,5 @@
 import { Access } from '@/components';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import { SysUserPostImportTemplate } from '@/services/sys/SysUserService';
 import { UploadOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
@@ -11,7 +11,7 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 
 const ButtonImport: FC = () => {
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   const formRef = useRef<ProFormInstance>();
 

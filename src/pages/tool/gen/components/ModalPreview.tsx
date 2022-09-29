@@ -1,4 +1,4 @@
-import { previewIdAtom } from '@/pages/tool/gen/model';
+import { useAtomValueSelectedTableId, useHidePreviewModal } from '@/pages/tool/gen/model';
 import { GenGetPreview } from '@/services/gen/GenService';
 import { CopyOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
@@ -7,7 +7,6 @@ import copy from 'copy-to-clipboard';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import type { FC } from 'react';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 const { TabPane } = Tabs;
 
@@ -17,8 +16,8 @@ const copyToClipboard = (text: string) => {
 };
 
 const ModalPreview: FC = () => {
-  const onCancel = useResetRecoilState(previewIdAtom);
-  const previewId = useRecoilValue(previewIdAtom);
+  const onCancel = useHidePreviewModal();
+  const previewId = useAtomValueSelectedTableId();
   const visible = previewId > 0;
 
   const { data, loading } = useRequest(

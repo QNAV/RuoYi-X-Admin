@@ -1,4 +1,4 @@
-import { useStateKeepAliveElements } from '@/models';
+import { useAtomKeepAliveElements } from '@/models';
 import { keepAliveLocal } from '@/routes';
 import { Tabs } from 'antd';
 import type { FC } from 'react';
@@ -11,7 +11,7 @@ const KeepAliveTabs: FC = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const [keepAliveElements, setKeepAliveElements] = useStateKeepAliveElements();
+  const [keepAliveElements, setKeepAliveElements] = useAtomKeepAliveElements();
   const dropKeepAliveElementByCacheKey = (cacheKey: string) => {
     setKeepAliveElements((elements) => {
       const newElements = { ...elements };

@@ -1,6 +1,6 @@
 import { CCreateTime, CEnableDisableStatus, CRemark, CRoleId, CRoleKey, CRoleName, CRoleSort } from '@/columns';
 import { EmptySimple } from '@/components';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import MenuTree from '@/pages/system/role/components/TreeMenu';
 import { useRoleDetailsVisibleValue, useRoleListActions } from '@/pages/system/role/model';
 import { SysRoleGetInfo, SysRolePostEdit } from '@/services/sys/SysRoleService';
@@ -17,7 +17,7 @@ const DescDetails: FC = () => {
 
   const [form] = Form.useForm();
 
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   const roleListActions = useRoleListActions();
 

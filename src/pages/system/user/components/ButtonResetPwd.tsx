@@ -1,5 +1,5 @@
 import { Access } from '@/components';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import { useShowResetPasswordModal } from '@/pages/system/user/model';
 import { RestOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
@@ -9,7 +9,7 @@ const ButtonResetPwd: FC<{
   userId: number;
   userName: string;
 }> = ({ userId, userName }) => {
-  const access = useAccess();
+  const access = useAtomValueAccess();
   const showResetPasswordModal = useShowResetPasswordModal();
 
   return (

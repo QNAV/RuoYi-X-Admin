@@ -1,5 +1,5 @@
 import { Access } from '@/components';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import { SysPostPostExport } from '@/services/sys/SysPostService';
 import { DownloadOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
@@ -9,7 +9,7 @@ import type { FC } from 'react';
 export type SearchParams = Pick<API.SysPostPageQueryBo, 'postCode' | 'postName' | 'status' | 'pageNum' | 'pageSize'>;
 
 const ButtonExport: FC<{ searchParams: SearchParams }> = ({ searchParams }) => {
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   const { isLoading, mutate } = useMutation(() => SysPostPostExport(searchParams), {
     onSuccess: () => {

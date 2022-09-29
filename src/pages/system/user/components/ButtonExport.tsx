@@ -1,11 +1,11 @@
 import { Access } from '@/components';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import { DownloadOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonExport: FC = () => {
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   return (
     <Access accessible={access.canExportSysUser}>

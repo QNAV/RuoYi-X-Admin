@@ -7,7 +7,7 @@ import {
   YesNoStatus,
   YesNoStatusMap,
 } from '@/constants';
-import { useAccess } from '@/models';
+import { useAtomValueAccess } from '@/models';
 import {
   useHideCreateModal,
   useQueryMenuOptions,
@@ -67,7 +67,7 @@ const getSelectedParentIds = (data: Map<number, API.SysMenu>, menuId: number): n
 };
 
 const ButtonCreate: FC = () => {
-  const access = useAccess();
+  const access = useAtomValueAccess();
 
   const formRef = useRef<ProFormInstance>();
 
