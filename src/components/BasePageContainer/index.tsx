@@ -4,5 +4,5 @@ import type { FC } from 'react';
 import { cloneElement } from 'react';
 
 export const BasePageContainer: FC<PageContainerProps> = (props) => {
-  return cloneElement(<PageContainer header={{ title: '', breadcrumb: {} }} />, props);
+  return cloneElement(<PageContainer header={{ title: '', breadcrumb: {} }} className="px-4" />, props);
 };

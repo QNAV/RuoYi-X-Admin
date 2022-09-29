@@ -1,6 +1,8 @@
 import { useKeepAliveOutlets } from '@/hooks';
 import Footer from '@/layouts/components/Footer';
-import HeaderContent from '@/layouts/components/HeaderContent';
+import IconLogout from '@/layouts/components/IconLogout';
+import IconSetting from '@/layouts/components/IconSetting';
+import KeepAliveTabs from '@/layouts/components/KeepAliveTabs';
 import MenuItem from '@/layouts/components/MenuItem';
 import { useAccess, useInitialState } from '@/models';
 import { accessKeysMap } from '@/routes';
@@ -42,36 +44,27 @@ const Layouts: FC = () => {
   return (
     <ProLayout
       title="RuoYi X Admin"
-      layout="mix"
       location={{ pathname }}
       onMenuHeaderClick={() => navigate('/')}
       menu={{ loading: isLoading }}
       loading={isLoading}
-      headerContentRender={HeaderContent}
       menuItemRender={MenuItem}
       menuDataRender={() => convertUserRoutesToMenus(initialState?.userRoutes ?? [])}
       footerRender={Footer}
-      bgLayoutImgList={[
-        {
-          src: 'https://img.alicdn.com/imgextra/i2/O1CN01O4etvp1DvpFLKfuWq_!!6000000000279-2-tps-609-606.png',
-          left: 85,
-          bottom: 100,
-          height: '303px',
+      token={{
+        pageContainer: {
+          marginBlockPageContainerContent: 0,
+          marginInlinePageContainerContent: 0,
         },
-        {
-          src: 'https://img.alicdn.com/imgextra/i2/O1CN01O4etvp1DvpFLKfuWq_!!6000000000279-2-tps-609-606.png',
-          bottom: -68,
-          right: -45,
-          height: '303px',
-        },
-        {
-          src: 'https://img.alicdn.com/imgextra/i3/O1CN018NxReL1shX85Yz6Cx_!!6000000005798-2-tps-884-496.png',
-          bottom: 0,
-          left: 0,
-          width: '331px',
-        },
-      ]}
+      }}
+      avatarProps={{
+        size: 'small',
+        src: initialState?.userInfo?.user?.avatar,
+        title: initialState?.userInfo?.user?.nickName,
+      }}
+      actionsRender={() => [<IconSetting key="IconSetting" />, <IconLogout key="IconLogout" />]}
     >
+      <KeepAliveTabs />
       {element}
     </ProLayout>
   );
