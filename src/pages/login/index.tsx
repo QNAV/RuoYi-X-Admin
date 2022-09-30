@@ -1,13 +1,14 @@
 import { initialStateQueryKey } from '@/models';
 import Actions from '@/pages/login/components/Actions';
+import FormLoginByPhone from '@/pages/login/components/FormLoginByPhone';
+import FormLoginByPwd from '@/pages/login/components/FormLoginByPwd';
 import { CaptchaGetGetCode } from '@/services/sys/CaptchaService';
 import { SysLoginPostLogin, SysLoginPostSmsLogin } from '@/services/sys/SysLoginService';
-import { regPhone, setToken, StorageType } from '@/utils';
-import { LockOutlined, MobileOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons';
-import { LoginFormPage, ProFormCaptcha, ProFormCheckbox, ProFormGroup, ProFormText } from '@ant-design/pro-components';
+import { setToken, StorageType } from '@/utils';
+import { LoginFormPage, ProFormCheckbox } from '@ant-design/pro-components';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
-import { Image, message, Skeleton, Tabs } from 'antd';
+import { message, Tabs } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -21,18 +22,7 @@ enum LoginType {
   USERNAME = 'USERNAME',
 }
 
-const items = [
-  {
-    label: '账号密码登录',
-    key: LoginType.USERNAME,
-  },
-  {
-    label: '手机号登录',
-    key: LoginType.MOBILE,
-  },
-];
-
-const LoginPage: FC = () => {
+const PageLogin: FC = () => {
   const [loginType, setLoginType] = useState<LoginType>(LoginType.USERNAME);
 
   const queryClient = useQueryClient();
@@ -107,128 +97,21 @@ const LoginPage: FC = () => {
           centered
           activeKey={loginType}
           onChange={(activeKey) => setLoginType(activeKey as LoginType)}
-          items={items}
+          items={[
+            {
+              label: '账号密码登录',
+              key: LoginType.USERNAME,
+              children: (
+                <FormLoginByPwd captchaImageSrc={getCaptchaImageRes?.img} onCaptchaImageClick={getCaptchaImage} />
+              ),
+            },
+            {
+              label: '手机号登录',
+              key: LoginType.MOBILE,
+              children: <FormLoginByPhone />,
+            },
+          ]}
         />
-
-        {loginType === LoginType.USERNAME && (
-          <>
-            <ProFormText
-              name="username"
-              fieldProps={{
-                size: 'large',
-                prefix: <UserOutlined />,
-              }}
-              placeholder="admin"
-              initialValue="admin"
-              rules={[
-                {
-                  required: true,
-                  message: '请输入用户名',
-                },
-              ]}
-            />
-            <ProFormText.Password
-              name="password"
-              fieldProps={{
-                size: 'large',
-                prefix: <LockOutlined />,
-              }}
-              placeholder="admin123"
-              initialValue="admin123"
-              rules={[
-                {
-                  required: true,
-                  message: '请输入密码',
-                },
-              ]}
-            />
-
-            <ProFormGroup>
-              <ProFormText
-                width={160}
-                name="code"
-                placeholder="请输入验证码"
-                fieldProps={{
-                  size: 'large',
-                  prefix: <SafetyCertificateOutlined />,
-                }}
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入验证码',
-                  },
-                ]}
-              />
-
-              <div className="h-[40px] w-[135px] cursor-pointer border border-solid border-gray-300">
-                {getCaptchaImageRes?.img ? (
-                  <Image
-                    src={`data:image/png;base64,${getCaptchaImageRes?.img}`}
-                    preview={false}
-                    height={40}
-                    width={135}
-                    alt="图片验证码"
-                    onClick={getCaptchaImage}
-                  />
-                ) : (
-                  <Skeleton.Button active block size="large" />
-                )}
-              </div>
-            </ProFormGroup>
-          </>
-        )}
-
-        {loginType === LoginType.MOBILE && (
-          <>
-            <ProFormText
-              fieldProps={{
-                maxLength: 11,
-                size: 'large',
-                prefix: <MobileOutlined />,
-              }}
-              name="phoneNumber"
-              placeholder="请输入手机号"
-              rules={[
-                {
-                  required: true,
-                  message: '请输入手机号',
-                },
-                {
-                  pattern: regPhone,
-                  message: '手机号格式错误',
-                },
-              ]}
-            />
-            <ProFormCaptcha
-              fieldProps={{
-                size: 'large',
-                prefix: <LockOutlined />,
-              }}
-              captchaProps={{
-                size: 'large',
-              }}
-              placeholder="请输入验证码"
-              captchaTextRender={(timing, count) => {
-                if (timing) {
-                  return `${count} 获取验证码`;
-                }
-                return '获取验证码';
-              }}
-              name="smsCode"
-              rules={[
-                {
-                  required: true,
-                  message: '请输入验证码',
-                },
-              ]}
-              onGetCaptcha={async () => {
-                message.info('敬请期待');
-
-                return Promise.reject(new Error('敬请期待'));
-              }}
-            />
-          </>
-        )}
 
         <ProFormCheckbox name="autoLogin">自动登录</ProFormCheckbox>
       </LoginFormPage>
@@ -236,4 +119,4 @@ const LoginPage: FC = () => {
   );
 };
 
-export default LoginPage;
+export default PageLogin;

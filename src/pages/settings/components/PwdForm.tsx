@@ -1,5 +1,6 @@
+import { useLogout } from '@/hooks';
 import { SysProfilePostUpdatePwd } from '@/services/sys/SysProfileService';
-import { logout, regPassword } from '@/utils';
+import { regPassword } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormText } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
@@ -9,6 +10,8 @@ import { useRef } from 'react';
 
 const PwdForm: FC = () => {
   const formRef = useRef<ProFormInstance<API.UpdatePwdBo>>();
+
+  const logout = useLogout();
 
   const { mutate, isLoading } = useMutation(
     async () => {
