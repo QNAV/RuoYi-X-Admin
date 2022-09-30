@@ -1,1 +1,0 @@
-import{j as t,O as h}from"./index.70dcc9a1.js";globalThis.jotaiAtomCache=globalThis.jotaiAtomCache||{cache:new Map,get(e,a){return this.cache.has(e)?this.cache.get(e):(this.cache.set(e,a),a)}};const o=()=>t(h,{children:"TODO"});export{o as default};
