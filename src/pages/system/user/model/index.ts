@@ -1,34 +1,24 @@
 import { useInitActionType } from '@/hooks';
 import type { ActionType } from '@ant-design/pro-components';
-import { atom, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
+import { atomWithReset, useResetAtom } from 'jotai/utils';
 
-const namespace = 'systemUser';
-
-const AtomMainTableActions = atom<ActionType>({
-  key: `${namespace}AtomMainTableActions`,
-  default: undefined,
-});
-export const useValueMainTableActions = () => useRecoilValue(AtomMainTableActions);
+const AtomMainTableActions = atom<ActionType | undefined>(undefined);
+export const useValueMainTableActions = () => useAtomValue(AtomMainTableActions);
 export const useActionRefMainTable = () => useInitActionType(AtomMainTableActions);
 
-const AtomSelectedDeptId = atom<number>({
-  key: `${namespace}AtomSelectedDeptId`,
-  default: 0,
-});
-export const useValueSelectedDeptId = () => useRecoilValue(AtomSelectedDeptId);
-export const useSetSelectedDeptId = () => useSetRecoilState(AtomSelectedDeptId);
+const AtomSelectedDeptId = atom<number>(0);
+export const useValueSelectedDeptId = () => useAtomValue(AtomSelectedDeptId);
+export const useSetSelectedDeptId = () => useSetAtom(AtomSelectedDeptId);
 
 // 重置密码弹窗
-const AtomResetPasswordModal = atom({
-  key: `${namespace}AtomResetPasswordModal`,
-  default: {
-    open: false,
-    userId: 0,
-    userName: '',
-  },
+const AtomResetPasswordModal = atomWithReset({
+  open: false,
+  userId: 0,
+  userName: '',
 });
 export const useShowResetPasswordModal = () => {
-  const setRecoilState = useSetRecoilState(AtomResetPasswordModal);
+  const setRecoilState = useSetAtom(AtomResetPasswordModal);
 
   return (userId: number, userName: string) => {
     setRecoilState({
@@ -38,5 +28,5 @@ export const useShowResetPasswordModal = () => {
     });
   };
 };
-export const useHideResetPasswordModal = () => useResetRecoilState(AtomResetPasswordModal);
-export const useValueResetPasswordModal = () => useRecoilValue(AtomResetPasswordModal);
+export const useHideResetPasswordModal = () => useResetAtom(AtomResetPasswordModal);
+export const useValueResetPasswordModal = () => useAtomValue(AtomResetPasswordModal);

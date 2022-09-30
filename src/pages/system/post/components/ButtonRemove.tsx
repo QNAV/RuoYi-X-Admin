@@ -1,6 +1,6 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import { useValueMainTableActions } from '@/pages/system/post/model';
+import { useAtomValueMainTableActions } from '@/pages/system/post/model';
 import { SysPostPostRemove } from '@/services/sys/SysPostService';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
@@ -16,7 +16,7 @@ const ButtonRemove: FC<{
   const text = isBatch ? '批量删除' : '删除';
   const access = useAtomValueAccess();
 
-  const mainTableActions = useValueMainTableActions();
+  const mainTableActions = useAtomValueMainTableActions();
 
   const { mutateAsync, isLoading } = useMutation(
     async (postIds: number) => {

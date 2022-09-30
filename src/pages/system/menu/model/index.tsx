@@ -4,7 +4,8 @@ import { SysMenuPostList, SysMenuPostRemove } from '@/services/sys/SysMenuServic
 import { parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { message, Modal, Typography } from 'antd';
-import { atom, useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { atomWithReset, useResetAtom } from 'jotai/utils';
 
 const namespace = 'systemMenu';
 
@@ -21,30 +22,27 @@ const getOptions = (data?: API.SysMenu[]): OptionsParentId[] => {
 };
 
 // 已选中的菜单
-const AtomSelectedMenuData = atom<{
+const AtomSelectedMenuData = atomWithReset<{
   hasSelected: boolean;
   selectedMenuId: number;
   selectedMenuName: string;
 }>({
-  key: `${namespace}SelectedMenuData`,
-  default: {
-    hasSelected: false,
-    selectedMenuId: 0,
-    selectedMenuName: '根目录',
-  },
+  hasSelected: false,
+  selectedMenuId: 0,
+  selectedMenuName: '根目录',
 });
-export const useResetSelectedMenuData = () => useResetRecoilState(AtomSelectedMenuData);
-export const useStateSelectedMenuData = () => useRecoilState(AtomSelectedMenuData);
-export const useValueSelectedMenuData = () => useRecoilValue(AtomSelectedMenuData);
+export const useResetSelectedMenuData = () => useResetAtom(AtomSelectedMenuData);
+export const useStateSelectedMenuData = () => useAtom(AtomSelectedMenuData);
+export const useValueSelectedMenuData = () => useAtomValue(AtomSelectedMenuData);
 
 // 新建菜单弹窗
-const AtomCreateModal = atom<boolean>({ key: `${namespace}CreateModal`, default: false });
-export const useHideCreateModal = () => useResetRecoilState(AtomCreateModal);
+const AtomCreateModal = atomWithReset<boolean>(false);
+export const useHideCreateModal = () => useResetAtom(AtomCreateModal);
 export const useShowCreateModal = () => {
-  const setRecoilState = useSetRecoilState(AtomCreateModal);
+  const setRecoilState = useSetAtom(AtomCreateModal);
   return () => setRecoilState(true);
 };
-export const useValueCreateModal = () => useRecoilValue(AtomCreateModal);
+export const useValueCreateModal = () => useAtomValue(AtomCreateModal);
 
 // 查询菜单列表
 const queryMenuListKey = [namespace, 'list'];

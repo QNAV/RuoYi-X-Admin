@@ -1,23 +1,21 @@
 import { SysDeptPostList } from '@/services/sys/SysDeptService';
 import { parseSimpleTreeData } from '@/utils';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { atomWithReset, useResetAtom } from 'jotai/utils';
 import { useEffect } from 'react';
-import { atom, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 const namespace = 'systemDept';
 
 // 部门详情
-const AtomDeptDetails = atom({
-  key: `${namespace}AtomDeptDetails`,
-  default: {
-    open: false,
-    deptId: 0,
-    deptName: '',
-  },
+const AtomDeptDetails = atomWithReset({
+  open: false,
+  deptId: 0,
+  deptName: '',
 });
-export const useValueDeptDetails = () => useRecoilValue(AtomDeptDetails);
+export const useValueDeptDetails = () => useAtomValue(AtomDeptDetails);
 export const useShowDeptDetails = () => {
-  const setRecoilState = useSetRecoilState(AtomDeptDetails);
+  const setRecoilState = useSetAtom(AtomDeptDetails);
   return (deptId: number, deptName: string) => {
     setRecoilState({
       open: true,
@@ -26,7 +24,7 @@ export const useShowDeptDetails = () => {
     });
   };
 };
-export const useHideDeptDetails = () => useResetRecoilState(AtomDeptDetails);
+export const useHideDeptDetails = () => useResetAtom(AtomDeptDetails);
 
 // 部门列表
 const queryDeptListKey = [namespace, 'list'];

@@ -1,5 +1,5 @@
 import { MenuType } from '@/constants';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash-es';
 import type { Key } from 'react';
 
 export interface TreeData {

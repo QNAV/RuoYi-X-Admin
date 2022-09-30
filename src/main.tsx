@@ -4,12 +4,11 @@ import { checkIsLoginPage, checkToken } from '@/utils';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ConfigProvider } from 'antd';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import { Provider } from 'jotai';
-import moment from 'moment';
-import 'moment/dist/locale/zh-cn';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 import './global.less';
 
 const render = () => {
@@ -25,25 +24,23 @@ const render = () => {
     return;
   }
 
-  moment.locale('zh-cn');
+  dayjs.locale('zh-cn');
 
   const queryClient = new QueryClient();
 
   const router = createBrowserRouter(routes, { basename: BASE_NAME });
 
-  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <RecoilRoot>
-      <Provider>
-        <QueryClientProvider client={queryClient}>
-          <ConfigProvider>
-            <ProComponentsProvider>
-              <RouterProvider router={router} />
-            </ProComponentsProvider>
-          </ConfigProvider>
-          <ReactQueryDevtools position="bottom-right" />
-        </QueryClientProvider>
-      </Provider>
-    </RecoilRoot>,
+  createRoot(document.getElementById('root') as HTMLElement).render(
+    <Provider>
+      <QueryClientProvider client={queryClient}>
+        <ConfigProvider>
+          <ProComponentsProvider>
+            <RouterProvider router={router} />
+          </ProComponentsProvider>
+        </ConfigProvider>
+        <ReactQueryDevtools position="bottom-right" />
+      </QueryClientProvider>
+    </Provider>,
   );
 };
 

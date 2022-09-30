@@ -60,11 +60,11 @@ const errorHandler = (res: CustomResponseStructure) => {
       break;
 
     case ErrorShowType.WARN_MESSAGE:
-      message.warn(msg);
+      message.warning(msg);
       break;
 
     case ErrorShowType.NOTIFICATION:
-      notification.warn({
+      notification.warning({
         message: msg,
       });
       break;

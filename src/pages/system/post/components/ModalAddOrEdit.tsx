@@ -1,5 +1,5 @@
 import { EnableDisableStatus, EnableDisableStatusMap } from '@/constants';
-import { useHideAddOrEditModal, useValueAddOrEditModal, useValueMainTableActions } from '@/pages/system/post/model';
+import { useAtomValueMainTableActions, useHideAddOrEditModal, useValueAddOrEditModal } from '@/pages/system/post/model';
 import { SysPostPostAdd, SysPostPostEdit } from '@/services/sys/SysPostService';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormDigit, ProFormRadio, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
@@ -14,7 +14,7 @@ const ModalAddOrEdit: FC = () => {
   const { open, actionType, record } = useValueAddOrEditModal();
   const hideAddOrEditModal = useHideAddOrEditModal();
 
-  const mainTableActions = useValueMainTableActions();
+  const mainTableActions = useAtomValueMainTableActions();
 
   const onCancel = () => {
     hideAddOrEditModal();

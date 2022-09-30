@@ -1,6 +1,6 @@
 import type { ProTableProps } from '@ant-design/pro-components';
 import { message } from 'antd';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash-es';
 import type { Key } from 'react';
 import { useState } from 'react';
 
