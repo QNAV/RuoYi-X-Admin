@@ -1,1 +1,0 @@
-import{av as d,U as P,j as m,aw as l,_ as r}from"./index.c2965ede.js";var n=["fieldProps","min","proFieldProps","max"],F=function(o,i){var e=o.fieldProps,a=o.min,s=o.proFieldProps,p=o.max,t=P(o,n);return m(l,r({valueType:"digit",fieldProps:r({min:a,max:p},e),ref:i,filedConfig:{defaultProps:{width:"100%"}},proFieldProps:s},t))};const c=d.forwardRef(F);export{c as P};
