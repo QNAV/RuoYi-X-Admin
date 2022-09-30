@@ -19,7 +19,19 @@ const columns: ProDescriptionsItemProps[] = [
 ];
 
 const editableColumns: ProDescriptionsItemProps[] = [
-  { dataIndex: 'nickName', title: '用户昵称', valueType: 'text' },
+  {
+    dataIndex: 'nickName',
+    title: '用户昵称',
+    valueType: 'text',
+    formItemProps: {
+      rules: [
+        {
+          required: true,
+          message: '请输入用户昵称',
+        },
+      ],
+    },
+  },
   {
     dataIndex: 'phoneNumber',
     title: '手机号码',
@@ -63,20 +75,20 @@ const editableColumns: ProDescriptionsItemProps[] = [
   },
 ];
 
-const UserDescriptions: FC = () => {
+const DescriptionsUser: FC = () => {
   const { data: initialState, refetch } = useInitialState();
 
-  const updateUserProfile = useMutation(async (params: API.LoginUserUpdateBo) => {
-    await SysProfilePostUpdateProfile(params);
+  const { mutate, mutateAsync } = useMutation(SysProfilePostUpdateProfile, {
+    onSuccess: () => {
+      refetch();
 
-    await refetch();
-
-    message.success('修改成功');
+      message.success('保存成功');
+    },
   });
 
   const editable: ProDescriptionsProps['editable'] = {
     onSave: async (key, record) => {
-      await updateUserProfile.mutateAsync({
+      await mutateAsync({
         [key as keyof API.LoginUserUpdateBo]: record[key as keyof API.LoginUserUpdateBo],
       });
     },
@@ -107,8 +119,8 @@ const UserDescriptions: FC = () => {
                 return;
               }
 
-              // TODO 测试上传头像
-              updateUserProfile.mutate({ avatar: e.file.response.data });
+              // TODO: 测试上传头像
+              mutate({ avatar: e.file.response.data });
             }}
           >
             <Avatar icon={<CameraOutlined />} className="absolute bottom-0 right-0 bg-blue-500 cursor-pointer" />
@@ -135,4 +147,4 @@ const UserDescriptions: FC = () => {
   );
 };
 
-export default UserDescriptions;
+export default DescriptionsUser;

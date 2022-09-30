@@ -1,6 +1,6 @@
 import { BasePageContainer } from '@/components';
-import PwdForm from '@/pages/settings/components/PwdForm';
-import UserDescriptions from '@/pages/settings/components/UserDescriptions';
+import DescriptionsUser from '@/pages/settings/components/DescriptionsUser';
+import FormUpdatePwd from '@/pages/settings/components/FormUpdatePwd';
 import { ProCard } from '@ant-design/pro-components';
 import { Tabs } from 'antd';
 import type { FC } from 'react';
@@ -15,16 +15,12 @@ const SettingsPage: FC = () => {
 
   return (
     <BasePageContainer title="个人中心">
-      <ProCard ghost direction="column" gutter={[0, 24]}>
+      <ProCard ghost direction="column" gutter={[0, 16]}>
         <ProCard>
-          <UserDescriptions />
+          <DescriptionsUser />
         </ProCard>
 
-        <ProCard
-          bodyStyle={{
-            paddingTop: 0,
-          }}
-        >
+        <ProCard>
           <Tabs
             activeKey={activeKey}
             onChange={(e) => setActiveKey(e as TabKey)}
@@ -32,7 +28,7 @@ const SettingsPage: FC = () => {
               {
                 label: '安全设置',
                 key: TabKey.PASSWORD,
-                children: <PwdForm />,
+                children: <FormUpdatePwd />,
               },
             ]}
           />

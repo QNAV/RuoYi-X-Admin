@@ -8,7 +8,7 @@ import { Button, message } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
 
-const PwdForm: FC = () => {
+const FormUpdatePwd: FC = () => {
   const formRef = useRef<ProFormInstance<API.UpdatePwdBo>>();
 
   const logout = useLogout();
@@ -36,9 +36,10 @@ const PwdForm: FC = () => {
 
   return (
     <ProForm formRef={formRef} submitter={false}>
-      <ProFormText.Password name="oldPassword" label="旧密码" rules={[{ required: true }]} width="md" />
+      <ProFormText.Password allowClear name="oldPassword" label="旧密码" rules={[{ required: true }]} width="md" />
 
       <ProFormText.Password
+        allowClear
         name="newPassword"
         label="新密码"
         width="md"
@@ -47,10 +48,9 @@ const PwdForm: FC = () => {
           { pattern: regPassword, message: '长度在6-20之间，只能包含字母、数字和下划线' },
           ({ getFieldValue }) => ({
             validator(_, value) {
-              if (value !== getFieldValue('oldPassword')) {
+              if (!value || value !== getFieldValue('oldPassword')) {
                 return Promise.resolve();
               }
-
               return Promise.reject(new Error('新旧密码不能相同'));
             },
           }),
@@ -58,6 +58,7 @@ const PwdForm: FC = () => {
       />
 
       <ProFormText.Password
+        allowClear
         name="confirmPassword"
         label="确认密码"
         width="md"
@@ -81,4 +82,4 @@ const PwdForm: FC = () => {
   );
 };
 
-export default PwdForm;
+export default FormUpdatePwd;
