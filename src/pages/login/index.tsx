@@ -88,7 +88,7 @@ const PageLogin: FC = () => {
       <LoginFormPage<FormData>
         backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
         logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
-        title="RuoYi X Umi"
+        title="RuoYi X Admin"
         subTitle="若依后台管理系统"
         actions={<Actions />}
         onFinish={submit}
