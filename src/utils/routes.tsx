@@ -52,7 +52,7 @@ export const getRoutesAccessKeysMap = (routes: Route[], parentPath = ''): Record
   return map;
 };
 
-export const convertUserRoutesToMenus = (userRoutes: API.RouterVo[]): MenuDataItem[] => {
+export const convertUserRoutesToMenus = (userRoutes: API.RouterVo[] = []): MenuDataItem[] => {
   const menus: MenuDataItem[] = [];
 
   userRoutes.forEach((item) => {

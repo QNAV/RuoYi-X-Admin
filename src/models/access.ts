@@ -1,7 +1,7 @@
 import { checkPermission } from '@/utils';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 
-const getAccess = (userPermissions: string[] = []) => {
+export const getAccess = (userPermissions: string[] = []) => {
   const userPermissionsSet = new Set(userPermissions);
 
   return {
@@ -140,9 +140,8 @@ const getAccess = (userPermissions: string[] = []) => {
   };
 };
 
-const AtomAccess = atom(getAccess());
+export type AccessObject = ReturnType<typeof getAccess>;
+
+const AtomAccess = atom<AccessObject>(getAccess());
 export const useAtomValueAccess = () => useAtomValue(AtomAccess);
-export const useSetAtomAccess = () => {
-  const setAtom = useSetAtom(AtomAccess);
-  return (userPermissions: string[] = []) => setAtom(getAccess(userPermissions));
-};
+export const useSetAtomAccess = () => useSetAtom(AtomAccess);

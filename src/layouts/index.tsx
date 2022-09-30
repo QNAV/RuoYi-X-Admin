@@ -1,43 +1,30 @@
 import { useKeepAliveOutlets } from '@/hooks';
-import Footer from '@/layouts/components/Footer';
 import IconLogout from '@/layouts/components/IconLogout';
 import IconSetting from '@/layouts/components/IconSetting';
-import KeepAliveTabs from '@/layouts/components/KeepAliveTabs';
 import MenuItem from '@/layouts/components/MenuItem';
-import { useAtomValueAccess, useInitialState } from '@/models';
+import TabsKeepAlive from '@/layouts/components/TabsKeepAlive';
+import type { AccessObject } from '@/models';
+import { useInitialState } from '@/models';
 import { accessKeysMap } from '@/routes';
 import { convertUserRoutesToMenus } from '@/utils';
 import { ProLayout } from '@ant-design/pro-components';
 import type { FC } from 'react';
-import { useMemo } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const Layouts: FC = () => {
   const { pathname } = useLocation();
-
   const navigate = useNavigate();
-
   const element = useKeepAliveOutlets(pathname);
 
-  const { data: initialState, isSuccess, isLoading } = useInitialState();
+  const { data: initialState, isSuccess, isLoading, isError } = useInitialState();
+  const accessObject = initialState?.accessObject;
+  const accessible = accessKeysMap?.[pathname] ? !!accessObject?.[accessKeysMap[pathname] as keyof AccessObject] : true;
 
-  const access = useAtomValueAccess();
-
-  const hasAccess = useMemo(() => {
-    const accessKey = accessKeysMap?.[pathname];
-
-    if (accessKey === undefined) {
-      return true;
-    }
-
-    return !!access?.[accessKey as keyof typeof access];
-  }, [pathname, access]);
-
-  if (!isLoading && !isSuccess) {
+  if (isError) {
     return <Navigate to="/500" replace />;
   }
 
-  if (!hasAccess && !isLoading && isSuccess) {
+  if (isSuccess && !accessible) {
     return <Navigate to="/403" replace />;
   }
 
@@ -48,9 +35,8 @@ const Layouts: FC = () => {
       onMenuHeaderClick={() => navigate('/')}
       menu={{ loading: isLoading }}
       loading={isLoading}
+      menuDataRender={() => convertUserRoutesToMenus(initialState?.userRoutes)}
       menuItemRender={MenuItem}
-      menuDataRender={() => convertUserRoutesToMenus(initialState?.userRoutes ?? [])}
-      footerRender={Footer}
       token={{
         pageContainer: {
           marginBlockPageContainerContent: 0,
@@ -64,7 +50,7 @@ const Layouts: FC = () => {
       }}
       actionsRender={() => [<IconSetting key="IconSetting" />, <IconLogout key="IconLogout" />]}
     >
-      <KeepAliveTabs />
+      <TabsKeepAlive />
       {element}
     </ProLayout>
   );

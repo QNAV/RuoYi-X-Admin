@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const KeepAliveTabs: FC = () => {
+const TabsKeepAlive: FC = () => {
   const [activeKey, setActiveKey] = useState<string>('');
 
   const { pathname } = useLocation();
@@ -57,4 +57,4 @@ const KeepAliveTabs: FC = () => {
   );
 };
 
-export default KeepAliveTabs;
+export default TabsKeepAlive;

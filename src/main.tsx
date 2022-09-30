@@ -19,9 +19,9 @@ const render = () => {
   const isLoginPage = checkIsLoginPage();
 
   if (!hasToken && !isLoginPage) {
-    const redirect = window.location.pathname === BASE_NAME ? '' : `?redirect=${window.location.pathname}`;
-    window.location.replace(`${LOGIN_PATH_NAME}${redirect}`);
-    return;
+    return window.location.replace(
+      `${LOGIN_PATH_NAME}${window.location.pathname === BASE_NAME ? '' : `?redirect=${window.location.pathname}`}`,
+    );
   }
 
   dayjs.locale('zh-cn');
