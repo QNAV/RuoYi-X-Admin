@@ -23,7 +23,7 @@
     "@tanstack/react-query-devtools": "^4.8.0",
     "ahooks": "^3.7.1",
     "antd": "next",
-    "axios": "^0.27.2",
+    "axios": "^1.0.0",
     "classnames": "^2.3.2",
     "copy-to-clipboard": "^3.3.2",
     "dayjs": "^1.11.5",
