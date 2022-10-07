@@ -5,9 +5,10 @@ import {
   lazyLoadLayouts,
   lazyLoadPage,
 } from '@/utils';
-import type { RouteObject } from 'react-router-dom';
+import type { IndexRouteObject } from 'react-router-dom';
 
-export interface Route extends RouteObject {
+export interface Route extends Omit<IndexRouteObject, 'index' | 'children'> {
+  index?: boolean;
   name?: string;
   access?: string;
   isKeepAlive?: boolean;
