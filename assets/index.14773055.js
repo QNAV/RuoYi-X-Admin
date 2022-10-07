@@ -1,0 +1,1 @@
+import{a as e,R as a,H as t}from"./index.7e2e4aff.js";import{B as i}from"./index.0dac2af8.js";const s=()=>e(i,{children:e(a,{icon:e(t,{}),title:"Hi\uFF0C\u6B22\u8FCE\u56DE\u6765!"})});export{s as default};

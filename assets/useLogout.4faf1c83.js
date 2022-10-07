@@ -1,0 +1,1 @@
+import{S as t}from"./initialState.c69a0cd7.js";import{q as a,b as e,s as n}from"./index.7e2e4aff.js";const i="/RuoYi-X-Admin/login",c=()=>{const o=a(),s=e();return async()=>{await t(),n(),o.clear(),s(i)}};export{c as u};
