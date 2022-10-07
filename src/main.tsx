@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import { Provider } from 'jotai';
 import { createRoot } from 'react-dom/client';
+import type { RouteObject } from 'react-router-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './global.less';
 
@@ -28,7 +29,7 @@ const render = () => {
 
   const queryClient = new QueryClient();
 
-  const router = createBrowserRouter(routes, { basename: BASE_NAME });
+  const router = createBrowserRouter(routes as RouteObject[], { basename: BASE_NAME });
 
   createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider>
