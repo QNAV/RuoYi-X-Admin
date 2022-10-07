@@ -55,7 +55,7 @@ specifiers:
   stylelint-config-standard: ^28.0.0
   stylelint-order: ^5.0.0
   tailwindcss: ^3.1.8
-  tsx: ^3.9.0
+  tsx: ^3.10.0
   typescript: ^4.8.4
   vite: ^3.1.6
   vite-plugin-html: ^3.2.0
@@ -117,7 +117,7 @@ devDependencies:
   stylelint-config-standard: 28.0.0_stylelint@14.13.0
   stylelint-order: 5.0.0_stylelint@14.13.0
   tailwindcss: 3.1.8_postcss@8.4.17
-  tsx: 3.9.0
+  tsx: 3.10.0
   typescript: 4.8.4
   vite: 3.1.6_less@4.1.3
   vite-plugin-html: 3.2.0_vite@3.1.6
@@ -1955,24 +1955,24 @@ packages:
     resolution: {integrity: sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==}
     dev: false
 
-  /@esbuild-kit/cjs-loader/2.3.3:
-    resolution: {integrity: sha512-Rt4O1mXlPEDVxvjsHLgbtHVdUXYK9C1/6ThpQnt7FaXIjUOsI6qhHYMgALhNnlIMZffag44lXd6Dqgx3xALbpQ==}
+  /@esbuild-kit/cjs-loader/2.4.0:
+    resolution: {integrity: sha512-DBBCiHPgL2B/elUpvCDhNHXnlZQ9sfO2uyt1OJyAXKT41beQEFY4OxZ6gwS+ZesRCbZ6JV8M7GEyOPkjv8kdIw==}
     dependencies:
-      '@esbuild-kit/core-utils': 2.3.2
+      '@esbuild-kit/core-utils': 3.0.0
       get-tsconfig: 4.2.0
     dev: true
 
-  /@esbuild-kit/core-utils/2.3.2:
-    resolution: {integrity: sha512-aQwy1Hdd02ymjyMyyrhtyuZGv5W+mVZmj3DTKFV0TnB1AUgMBV40tXySpsGySe8vLvSe0c0TaqTc2FUo8/YlNQ==}
+  /@esbuild-kit/core-utils/3.0.0:
+    resolution: {integrity: sha512-TXmwH9EFS3DC2sI2YJWJBgHGhlteK0Xyu1VabwetMULfm3oYhbrsWV5yaSr2NTWZIgDGVLHbRf0inxbjXqAcmQ==}
     dependencies:
       esbuild: 0.15.10
       source-map-support: 0.5.21
     dev: true
 
-  /@esbuild-kit/esm-loader/2.4.2:
-    resolution: {integrity: sha512-N9dPKAj8WOx6djVnStgILWXip4fjDcBk9L7azO0/uQDpu8Ee0eaL78mkN4Acid9BzvNAKWwdYXFJZnsVahNEew==}
+  /@esbuild-kit/esm-loader/2.5.0:
+    resolution: {integrity: sha512-ySs0qOsiwj+hsgZM9/MniGdvfa9/WzqfFuIia8/5gSUPeIQIX2/tG91QakxPFOR35VFiwTB7wCiHtiS6dc6SkA==}
     dependencies:
-      '@esbuild-kit/core-utils': 2.3.2
+      '@esbuild-kit/core-utils': 3.0.0
       get-tsconfig: 4.2.0
     dev: true
 
@@ -3046,7 +3046,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.4
-      caniuse-lite: 1.0.30001416
+      caniuse-lite: 1.0.30001418
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -3059,7 +3059,7 @@ packages:
     hasBin: true
     dependencies:
       browserslist: 4.21.4
-      caniuse-lite: 1.0.30001416
+      caniuse-lite: 1.0.30001418
       normalize-range: 0.1.2
       num2fraction: 1.2.2
       picocolors: 0.2.1
@@ -3165,7 +3165,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001416
+      caniuse-lite: 1.0.30001418
       electron-to-chromium: 1.4.275
       node-releases: 2.0.6
       update-browserslist-db: 1.0.10_browserslist@4.21.4
@@ -3217,8 +3217,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /caniuse-lite/1.0.30001416:
-    resolution: {integrity: sha512-06wzzdAkCPZO+Qm4e/eNghZBDfVNDsCgw33T27OwBH9unE9S478OYw//Q2L7Npf/zBzs7rjZOszIFQkwQKAEqA==}
+  /caniuse-lite/1.0.30001418:
+    resolution: {integrity: sha512-oIs7+JL3K9JRQ3jPZjlH6qyYDp+nBTCais7hjh0s+fuBwufc7uZ7hPYMXrDOJhV360KGMTcczMRObk0/iMqZRg==}
     dev: true
 
   /chalk/2.4.2:
@@ -8953,13 +8953,13 @@ packages:
       typescript: 4.8.4
     dev: true
 
-  /tsx/3.9.0:
-    resolution: {integrity: sha512-ofxsE+qjqCYYq4UBt5khglvb+ESgxef1YpuNcdQI92kvcAT2tZVrnSK3g4bRXTUhLmKHcC5q8vIZA47os/stng==}
+  /tsx/3.10.0:
+    resolution: {integrity: sha512-ojkfrn6mPwdubwVRh+LXj8qgtFSoSz2bxs2Ad/0cFdW1lru/JoyDwWfnyLygETMM8qFmi/97mCJY3IguUF2XdQ==}
     hasBin: true
     dependencies:
-      '@esbuild-kit/cjs-loader': 2.3.3
-      '@esbuild-kit/core-utils': 2.3.2
-      '@esbuild-kit/esm-loader': 2.4.2
+      '@esbuild-kit/cjs-loader': 2.4.0
+      '@esbuild-kit/core-utils': 3.0.0
+      '@esbuild-kit/esm-loader': 2.5.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
