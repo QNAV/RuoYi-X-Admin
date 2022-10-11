@@ -22,7 +22,9 @@ const render = () => {
   const isLoginPage = window.location.pathname === fullLoginPathName;
 
   if (!hasToken && !isLoginPage) {
-    return window.location.replace(`${fullLoginPathName}?redirect=${window.location.pathname}`);
+    return window.location.replace(
+      `${fullLoginPathName}?redirect=${`/${window.location.pathname}`.replace(BASE_NAME, '')}`,
+    );
   }
 
   dayjs.locale('zh-cn');
