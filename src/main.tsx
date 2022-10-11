@@ -1,6 +1,6 @@
 import { ProComponentsProvider } from '@/features';
 import { routes } from '@/routes';
-import { checkIsLoginPage, checkToken } from '@/utils';
+import { checkToken } from '@/utils';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ConfigProvider } from 'antd';
@@ -17,12 +17,12 @@ const render = () => {
   const LOGIN_PATH_NAME = import.meta.env.VITE_LOGIN_PATH_NAME;
 
   const hasToken = checkToken();
-  const isLoginPage = checkIsLoginPage();
+
+  const fullLoginPathName = `${BASE_NAME}${LOGIN_PATH_NAME}`.replace(/\/{2,}/g, '/');
+  const isLoginPage = window.location.pathname === fullLoginPathName;
 
   if (!hasToken && !isLoginPage) {
-    return window.location.replace(
-      `${LOGIN_PATH_NAME}${window.location.pathname === BASE_NAME ? '' : `?redirect=${window.location.pathname}`}`,
-    );
+    return window.location.replace(`${fullLoginPathName}?redirect=${window.location.pathname}`);
   }
 
   dayjs.locale('zh-cn');
