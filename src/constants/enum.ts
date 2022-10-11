@@ -1,5 +1,7 @@
-import type { ValueEnumMap } from '@/typings';
-
+export type ValueEnumMap<K> = Map<
+  K,
+  { text: string; status?: 'Default' | 'Error' | 'Success' | 'Processing' | 'Warning' }
+>;
 // 性别枚举
 export enum Sex {
   MALE = '0',
