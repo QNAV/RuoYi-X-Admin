@@ -5,6 +5,7 @@ import type { FC } from 'react';
 
 const IconLogout: FC = () => {
   const logout = useLogout();
+
   return (
     <Tooltip title="退出登录">
       <LogoutOutlined onClick={logout} />

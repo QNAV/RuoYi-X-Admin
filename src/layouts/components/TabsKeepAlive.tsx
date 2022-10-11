@@ -15,7 +15,7 @@ const TabsKeepAlive: FC = () => {
   const dropKeepAliveElementByCacheKey = (cacheKey: string) => {
     setKeepAliveElements((elements) => {
       const newElements = { ...elements };
-      delete newElements[cacheKey];
+      delete newElements[Object.keys(newElements).find((key) => newElements[key].pathname === cacheKey)!];
       return newElements;
     });
   };

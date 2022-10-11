@@ -17,8 +17,9 @@ const Layouts: FC = () => {
   const element = useKeepAliveOutlets(pathname);
 
   const { data: initialState, isSuccess, isLoading, isError } = useInitialState();
-  const accessObject = initialState?.accessObject;
-  const accessible = accessKeysMap?.[pathname] ? !!accessObject?.[accessKeysMap[pathname] as keyof AccessObject] : true;
+  const accessible = accessKeysMap?.[pathname]
+    ? !!initialState?.accessObject?.[accessKeysMap[pathname] as keyof AccessObject]
+    : true;
 
   if (isError) {
     return <Navigate to="/500" replace />;
@@ -39,8 +40,8 @@ const Layouts: FC = () => {
       menuItemRender={MenuItem}
       token={{
         pageContainer: {
-          marginBlockPageContainerContent: 0,
-          marginInlinePageContainerContent: 0,
+          paddingBlockPageContainerContent: 0,
+          paddingInlinePageContainerContent: 0,
         },
       }}
       avatarProps={{
