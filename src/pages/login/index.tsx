@@ -101,17 +101,19 @@ const PageLogin: FC = () => {
             {
               label: '账号密码登录',
               key: LoginType.USERNAME,
-              children: (
-                <FormLoginByPwd captchaImageSrc={getCaptchaImageRes?.img} onCaptchaImageClick={getCaptchaImage} />
-              ),
             },
             {
               label: '手机号登录',
               key: LoginType.MOBILE,
-              children: <FormLoginByPhone />,
             },
           ]}
         />
+
+        {loginType === LoginType.USERNAME && (
+          <FormLoginByPwd captchaImageSrc={getCaptchaImageRes?.img} onCaptchaImageClick={getCaptchaImage} />
+        )}
+
+        {loginType === LoginType.MOBILE && <FormLoginByPhone />}
 
         <ProFormCheckbox name="autoLogin">自动登录</ProFormCheckbox>
       </LoginFormPage>
