@@ -73,6 +73,13 @@ export const layoutRoutes: Route[] = [
             isKeepAlive: true,
           },
           {
+            name: '字典详情',
+            path: 'dict/:dictId',
+            element: lazyLoadPage('system/dictDetails'),
+            access: 'canReadSysDict',
+            isKeepAlive: true,
+          },
+          {
             name: '参数管理',
             path: 'config',
             element: lazyLoadPage('system/config'),
