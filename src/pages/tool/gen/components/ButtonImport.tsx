@@ -50,7 +50,7 @@ const ButtonImport: FC = () => {
           ghost
           size="small"
           actionRef={actionRef}
-          pagination={{ pageSize: 10, current: 1 }}
+          pagination={{ defaultPageSize: 10, defaultCurrent: 1 }}
           columns={columns}
           rowKey="tableName"
           search={{ filterType: 'light' }}

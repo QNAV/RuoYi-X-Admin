@@ -53,7 +53,8 @@ const List: FC = () => {
       }}
       rowSelection={rowSelection}
       pagination={{
-        pageSize: 10,
+        defaultPageSize: 10,
+        defaultCurrent: 1,
       }}
       request={(...params) => SysRolePostList(convertParams(...params))}
     />
