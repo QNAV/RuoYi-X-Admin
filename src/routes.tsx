@@ -74,7 +74,7 @@ export const layoutRoutes: Route[] = [
           },
           {
             name: '字典详情',
-            path: 'dict/:dictId',
+            path: 'dict/:dictType',
             element: lazyLoadPage('system/dictDetails'),
             access: 'canReadSysDict',
             isKeepAlive: true,

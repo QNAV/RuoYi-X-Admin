@@ -38,7 +38,7 @@ export const CEnableDisableStatus: ProItem = {
   title: '状态',
   dataIndex: 'status',
   key: 'status',
-  valueType: 'radio',
+  valueType: 'select',
   valueEnum: EnableDisableStatusMap,
 };
 

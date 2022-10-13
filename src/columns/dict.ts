@@ -7,7 +7,6 @@ export const CDictId: ProItem = {
   key: 'dictId',
   valueType: 'text',
   hideInSearch: true,
-  editable: false,
 };
 
 // 字典名称
@@ -24,4 +23,39 @@ export const CDictType: ProItem = {
   dataIndex: 'dictType',
   key: 'dictType',
   valueType: 'text',
+};
+
+// 字典编码
+export const CDictCode: ProItem = {
+  title: '字典编码',
+  dataIndex: 'dictCode',
+  key: 'dictCode',
+  valueType: 'text',
+  hideInSearch: true,
+};
+
+// 字典排序
+export const CDictSort: ProItem = {
+  title: '字典排序',
+  dataIndex: 'dictSort',
+  key: 'dictSort',
+  valueType: 'text',
+  hideInSearch: true,
+};
+
+// 字典标签
+export const CDictLabel: ProItem = {
+  title: '字典标签',
+  dataIndex: 'dictLabel',
+  key: 'dictLabel',
+  valueType: 'text',
+};
+
+// 字典键值
+export const CDictValue: ProItem = {
+  title: '字典键值',
+  dataIndex: 'dictValue',
+  key: 'dictValue',
+  valueType: 'text',
+  hideInSearch: true,
 };

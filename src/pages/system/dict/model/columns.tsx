@@ -19,7 +19,7 @@ export const tableColumns: ProItem[] = [
     render: (dom, entity: API.SysDictTypeVo) => {
       return (
         <WarpTableOption>
-          <ButtonDetails dictId={entity.dictId} />
+          <ButtonDetails dictType={entity.dictType} />
           <ButtonEdit record={entity} />
           <ButtonRemove dictId={entity.dictId} dictName={entity.dictName} />
         </WarpTableOption>

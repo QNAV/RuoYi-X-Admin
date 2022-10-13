@@ -47,7 +47,7 @@ export const useKeepAliveOutlets = (pathname: string) => {
   );
 };
 
-export const useActivated = (pattern: string | PathPattern, callback: () => void, defaultActivatedValue = true) => {
+export const useActivated = (pattern: string | PathPattern, callback: () => void, defaultActivatedValue = false) => {
   const [isActivated, setIsActivated] = useState(defaultActivatedValue);
   const { pathname } = useLocation();
 

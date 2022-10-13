@@ -1,3 +1,4 @@
+import { BaseProTable } from '@/components';
 import { useRowClick } from '@/hooks';
 import ButtonAdd from '@/pages/system/dict/components/ButtonAdd';
 import ButtonExport from '@/pages/system/dict/components/ButtonExport';
@@ -7,7 +8,6 @@ import { tableColumns, useMainTableActionRef } from '@/pages/system/dict/model';
 import { SysDictTypePostList } from '@/services/sys/SysDictTypeService';
 import { convertParams } from '@/utils';
 import type { ProTableProps } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -34,7 +34,7 @@ const TableMain: FC = () => {
   const [searchParams, setSearchParams] = useState<API.SysDictTypeQueryBo>({});
 
   return (
-    <ProTable<API.SysDictTypeVo>
+    <BaseProTable<API.SysDictTypeVo>
       rowKey={rowKey}
       actionRef={actionRef}
       columns={tableColumns}
