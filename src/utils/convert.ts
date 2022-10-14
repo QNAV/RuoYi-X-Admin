@@ -66,7 +66,10 @@ export const convertParams = <T extends Record<string, any>>(
   };
 };
 
-export const convertDict2ValueEnum = (dict: API.SysDictDataVo[], valueType: 'number' | 'string'): ValueEnumMap<Key> => {
+export const convertDict2ValueEnum = (
+  dict: API.SysDictDataVo[],
+  valueType?: 'number' | 'string',
+): ValueEnumMap<Key> => {
   return dict.reduce((pre, item) => {
     return pre.set(item.dictValue, {
       text: valueType === 'number' ? Number(item.dictLabel) : item.dictLabel,
