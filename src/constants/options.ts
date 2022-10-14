@@ -1,26 +1,26 @@
 export const OptionsListClass = [
   {
-    value: 'default',
+    value: 'None',
+    label: '无',
+  },
+  {
+    value: 'Default',
     label: '默认',
   },
   {
-    value: 'primary',
-    label: '主要',
+    value: 'Error',
+    label: '错误',
   },
   {
-    value: 'success',
+    value: 'Success',
     label: '成功',
   },
   {
-    value: 'info',
-    label: '信息',
+    value: 'Processing',
+    label: '进行中',
   },
   {
-    value: 'warning',
+    value: 'Warning',
     label: '警告',
-  },
-  {
-    value: 'danger',
-    label: '危险',
   },
 ];

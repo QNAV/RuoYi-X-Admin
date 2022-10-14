@@ -64,3 +64,15 @@ export const convertParams = <T extends Record<string, any>>(
     ...convertFilterParams(filter),
   };
 };
+
+export const convertDict2ValueEnum = (dict: API.SysDictDataVo[]) => {
+  return dict.reduce((pre, item) => {
+    return {
+      ...pre,
+      [item.dictValue]: {
+        text: item.dictLabel,
+        status: item.listClass,
+      },
+    };
+  }, {});
+};

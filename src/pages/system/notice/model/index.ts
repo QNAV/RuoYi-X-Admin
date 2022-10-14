@@ -1,5 +1,6 @@
 import { useInitActionType } from '@/hooks';
 import { SysDictDataGetType } from '@/services/sys/SysDictDataService';
+import { convertDict2ValueEnum } from '@/utils';
 import type { ActionType } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
@@ -42,5 +43,9 @@ export const useHideAddOrEditModal = () => useResetAtom(atomAddOrEditModal);
 // 公告类型字典
 const queryKey = ['system', 'notice', 'dict'];
 export const useNoticeTypeDict = () => {
-  return useQuery(queryKey, () => SysDictDataGetType({ dictType: 'sys_notice_type' }));
+  return useQuery(queryKey, async () => {
+    const dict = await SysDictDataGetType({ dictType: 'sys_notice_type' });
+
+    return convertDict2ValueEnum(dict);
+  });
 };

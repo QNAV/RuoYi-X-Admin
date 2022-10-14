@@ -6,6 +6,7 @@ import {
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
   useHideAddOrEditModal,
+  useNoticeTypeDict,
 } from '@/pages/system/notice/model';
 import { SysNoticePostAdd, SysNoticePostEdit } from '@/services/sys/SysNoticeService';
 import type { ProFormInstance } from '@ant-design/pro-components';
@@ -15,6 +16,7 @@ import { useEffect, useRef } from 'react';
 
 const ModalAddOrEdit = () => {
   const formRef = useRef<ProFormInstance>();
+  const { data: valueEnum } = useNoticeTypeDict();
 
   const { canAddSysNotice, canEditSysConfig } = useAtomValueAccess();
 
@@ -80,7 +82,7 @@ const ModalAddOrEdit = () => {
           label="公告类型"
           required
           rules={[{ required: true }]}
-          valueEnum={{}}
+          valueEnum={valueEnum ?? {}}
           colProps={{
             span: 12,
           }}

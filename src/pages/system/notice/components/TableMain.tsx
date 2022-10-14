@@ -1,5 +1,5 @@
 import { CCreateBy, CCreateTime, CEnableDisableStatus } from '@/columns';
-import { CNoticeId, CNoticeTitle, CNoticeType } from '@/columns/notice';
+import { CNoticeId, CNoticeTitle } from '@/columns/notice';
 import { BaseProTable } from '@/components';
 import ButtonAdd from '@/pages/system/notice/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/notice/components/ButtonEdit';
@@ -31,8 +31,8 @@ const tableAlertRender: ProTableProps<API.SysNoticeVo, any>['tableAlertRender'] 
 const TableMain: FC = () => {
   const actionRef = useMainTableActionRef();
 
-  const { data } = useNoticeTypeDict();
-  console.log(data);
+  const { data: valueEnum } = useNoticeTypeDict();
+
   return (
     <BaseProTable
       rowKey={rowKey}
@@ -40,7 +40,13 @@ const TableMain: FC = () => {
       columns={[
         CNoticeId,
         CNoticeTitle,
-        CNoticeType,
+        {
+          title: '公告类型',
+          dataIndex: 'noticeType',
+          key: 'noticeType',
+          valueType: 'select',
+          valueEnum: valueEnum ?? {},
+        },
         CCreateBy,
         CEnableDisableStatus,
         CCreateTime,
