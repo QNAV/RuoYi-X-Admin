@@ -16,9 +16,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@ant-design/pro-components": "^2.3.17",
+    "@ant-design/pro-components": "^2.3.18",
     "@tanstack/react-query": "^4.10.3",
     "@tanstack/react-query-devtools": "^4.11.0",
+    "@wangeditor/editor": "^5.1.21",
+    "@wangeditor/editor-for-react": "^1.0.5",
     "ahooks": "^3.7.1",
     "antd": "next",
     "axios": "^1.1.2",

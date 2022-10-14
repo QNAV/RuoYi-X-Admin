@@ -75,3 +75,11 @@ export const COrderNum: ProItem = {
   key: 'orderNum',
   valueType: 'digit',
 };
+
+// 创建者
+export const CCreateBy: ProItem = {
+  title: '创建者',
+  dataIndex: 'createBy',
+  key: 'createBy',
+  valueType: 'text',
+};
