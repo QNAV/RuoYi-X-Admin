@@ -49,6 +49,16 @@ export const YesNoStatusMap: ValueEnumMap<YesNoStatus> = new Map([
   [YesNoStatus.NO, { text: '否', status: 'Error' }],
 ]);
 
+// 是/否
+export enum YNStatus {
+  YES = 'Y',
+  NO = 'N',
+}
+export const YNStatusMap: ValueEnumMap<YNStatus> = new Map([
+  [YNStatus.YES, { text: '是', status: 'Success' }],
+  [YNStatus.NO, { text: '否', status: 'Error' }],
+]);
+
 // 显示/隐藏
 export enum ShowHideStatus {
   SHOW = '0',
