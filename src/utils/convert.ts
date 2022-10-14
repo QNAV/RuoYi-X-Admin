@@ -1,3 +1,4 @@
+import type { ValueEnumMap } from '@/constants';
 import type { SortOrder } from 'antd/es/table/interface';
 import type { Key } from 'react';
 
@@ -65,14 +66,11 @@ export const convertParams = <T extends Record<string, any>>(
   };
 };
 
-export const convertDict2ValueEnum = (dict: API.SysDictDataVo[]) => {
+export const convertDict2ValueEnum = (dict: API.SysDictDataVo[], valueType: 'number' | 'string'): ValueEnumMap<Key> => {
   return dict.reduce((pre, item) => {
-    return {
-      ...pre,
-      [item.dictValue]: {
-        text: item.dictLabel,
-        status: item.listClass,
-      },
-    };
-  }, {});
+    return pre.set(item.dictValue, {
+      text: valueType === 'number' ? Number(item.dictLabel) : item.dictLabel,
+      status: item.listClass,
+    });
+  }, new Map());
 };

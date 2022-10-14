@@ -1,3 +1,4 @@
+export * from './columns';
 export * from './convert';
 export * from './lazyLoad';
 export * from './permissions';
