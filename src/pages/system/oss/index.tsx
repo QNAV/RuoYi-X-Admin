@@ -1,3 +1,13 @@
-export default function () {
-  return <h1>TODO</h1>;
-}
+import { BasePageContainer } from '@/components';
+import TableMain from '@/pages/system/oss/components/TableMain';
+import type { FC } from 'react';
+
+const PageOss: FC = () => {
+  return (
+    <BasePageContainer>
+      <TableMain />
+    </BasePageContainer>
+  );
+};
+
+export default PageOss;
