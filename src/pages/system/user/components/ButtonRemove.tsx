@@ -1,6 +1,6 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import { useValueMainTableActions } from '@/pages/system/user/model';
+import { useAtomValueMainTableActions } from '@/pages/system/user/model';
 import { SysUserPostRemove } from '@/services/sys/SysUserService';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
@@ -14,22 +14,18 @@ const ButtonRemove: FC<{
   disabled?: boolean;
 }> = ({ userId, userName, isBatch, disabled }) => {
   const text = isBatch ? '批量删除' : '删除';
-  const access = useAtomValueAccess();
 
-  const mainTableActions = useValueMainTableActions();
+  const { canRemoveSysUser } = useAtomValueAccess();
 
-  const { mutateAsync, isLoading } = useMutation(
-    async (userIds: number) => {
-      await SysUserPostRemove({ userIds });
+  const mainTableActions = useAtomValueMainTableActions();
+
+  const { mutateAsync, isLoading } = useMutation((userIds: number) => SysUserPostRemove({ userIds }), {
+    onSuccess: () => {
+      mainTableActions?.reload();
+      mainTableActions?.clearSelected?.();
+      message.success('删除成功');
     },
-    {
-      onSuccess: () => {
-        mainTableActions?.reload();
-        mainTableActions?.clearSelected?.();
-        message.success('删除成功');
-      },
-    },
-  );
+  });
 
   const onRemove = () => {
     Modal.confirm({
@@ -39,7 +35,7 @@ const ButtonRemove: FC<{
           确定删除用户<Typography.Text code>{userName}</Typography.Text>吗？
         </>
       ),
-      onOk: async () => mutateAsync(userId),
+      onOk: () => mutateAsync(userId),
       okButtonProps: {
         loading: isLoading,
       },
@@ -47,7 +43,7 @@ const ButtonRemove: FC<{
   };
 
   return (
-    <Access accessible={access.canRemoveSysUser}>
+    <Access accessible={canRemoveSysUser}>
       <Button type="link" danger disabled={disabled} icon={<DeleteOutlined />} onClick={onRemove}>
         {text}
       </Button>

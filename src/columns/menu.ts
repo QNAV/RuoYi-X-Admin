@@ -1,5 +1,6 @@
 import { MenuTypeMap, YesNoStatusMap } from '@/constants';
 import type { ProItem } from '@/typings';
+import { getColumn } from '@/utils';
 
 // 是否显示
 export const CVisible: ProItem = {
@@ -58,14 +59,14 @@ export const CPerms: ProItem = {
 };
 
 // 菜单类型
-export const CMenuType: ProItem = {
+export const CMenuType = getColumn('table', {
   title: '类型',
   dataIndex: 'menuType',
   key: 'menuType',
   valueType: 'select',
   valueEnum: MenuTypeMap,
   editable: false,
-};
+});
 
 // 菜单名称
 export const CMenuName: ProItem = {

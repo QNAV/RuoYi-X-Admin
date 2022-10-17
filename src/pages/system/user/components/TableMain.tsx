@@ -1,107 +1,79 @@
-import {
-  CCreateTime,
-  CCreateTimeRange,
-  CEnableDisableStatus,
-  CNickName,
-  CUserDeptName,
-  CUserId,
-  CUserName,
-  CUserPhone,
-} from '@/columns';
-import { WarpTableOption } from '@/components';
-import { useRowClick } from '@/hooks';
+import { BaseProTable } from '@/components';
 import ButtonAdd from '@/pages/system/user/components/ButtonAdd';
-import ButtonEdit from '@/pages/system/user/components/ButtonEdit';
 import ButtonExport from '@/pages/system/user/components/ButtonExport';
 import ButtonImport from '@/pages/system/user/components/ButtonImport';
 import ButtonRemove from '@/pages/system/user/components/ButtonRemove';
-import ButtonResetPwd from '@/pages/system/user/components/ButtonResetPwd';
-import { useActionRefMainTable, useValueSelectedDeptId } from '@/pages/system/user/model';
+import TreeDept from '@/pages/system/user/components/TreeDept';
+import { useActionRefMainTable, useAtomValueSelectedDeptId, useTableColumns } from '@/pages/system/user/model';
 import { SysUserPostList } from '@/services/sys/SysUserService';
-import type { ProItem } from '@/typings';
 import { convertParams } from '@/utils';
 import type { ProTableProps } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
+import { Space } from 'antd';
 import type { FC } from 'react';
+import { useState } from 'react';
 
-const columns: ProItem[] = [
-  CUserId,
-  CUserName,
-  CNickName,
-  CUserDeptName,
-  CUserPhone,
-  CEnableDisableStatus,
-  CCreateTime,
-  CCreateTimeRange,
-  {
-    title: '操作',
-    valueType: 'option',
-    width: 290,
-    render: (dom, entity: API.SysUserVo) => {
-      return (
-        <WarpTableOption>
-          <ButtonEdit />
-
-          <ButtonRemove userId={entity.userId} userName={entity.userName} />
-
-          <ButtonResetPwd userId={entity.userId} userName={entity.userName} />
-        </WarpTableOption>
-      );
-    },
-  },
-];
-
-const rowKey = 'userId';
-
-const tableAlertOptionRender: ProTableProps<API.SysUserVo, 'text'>['tableAlertOptionRender'] = ({ selectedRows }) => {
-  const disabled = selectedRows.length === 0;
-
+const tableAlertRender: ProTableProps<API.SysUserVo, API.SysUserPageQueryBo>['tableAlertRender'] = ({
+  selectedRows,
+}) => {
   return (
-    <ButtonRemove
-      disabled={disabled}
-      isBatch
-      userId={selectedRows.map((i) => i.userId).join(',') as unknown as number}
-      userName={selectedRows.map((i) => i.userName).join(',')}
-    />
+    <Space>
+      <span>已选择 {selectedRows.length} 项</span>
+
+      <ButtonRemove
+        disabled={selectedRows.length === 0}
+        isBatch
+        userId={selectedRows.map((i) => i.userId).join(',') as unknown as number}
+        userName={selectedRows.map((i) => i.userName).join(',')}
+      />
+    </Space>
+  );
+};
+
+const tableRender: ProTableProps<API.SysUserVo, API.SysUserPageQueryBo>['tableRender'] = (props, defaultDom) => {
+  return (
+    <div className="flex gap-4 w-full">
+      <div className="bg-white p-4">
+        <TreeDept />
+      </div>
+
+      <div className="overflow-auto w-full">{defaultDom}</div>
+    </div>
   );
 };
 
 const TableMain: FC = () => {
-  const actionRefMainTable = useActionRefMainTable();
-  const selectedDeptId = useValueSelectedDeptId();
+  const actionRef = useActionRefMainTable();
+
+  const [searchParams, setSearchParams] = useState<API.SysUserQueryBo>({});
+
+  const selectedDeptId = useAtomValueSelectedDeptId();
   const params = selectedDeptId > 0 ? { deptId: selectedDeptId } : {};
 
-  const { rowSelection, onClick } = useRowClick(rowKey);
+  const columns = useTableColumns();
 
   return (
-    <ProTable
-      rowKey={rowKey}
-      actionRef={actionRefMainTable}
+    <BaseProTable<API.SysUserVo, API.SysUserPageQueryBo>
+      rowKey="userId"
+      actionRef={actionRef}
       columns={columns}
       params={params}
-      search={{
-        span: {
-          xs: 24,
-          sm: 24,
-          md: 12,
-          lg: 12,
-          xl: 12,
-          xxl: 6,
-        },
+      rowSelection={{
+        alwaysShowAlert: true,
       }}
-      onRow={(record) => ({
-        onClick: () => onClick(record),
-      })}
-      rowSelection={rowSelection}
-      tableAlertOptionRender={tableAlertOptionRender}
-      request={(...p) => SysUserPostList(convertParams(...p))}
+      tableAlertRender={tableAlertRender}
+      request={async (...p) => {
+        const params = convertParams(...p);
+        setSearchParams(params);
+        return await SysUserPostList(params);
+      }}
       toolbar={{
         actions: [
-          <ButtonExport key="ButtonExport" />,
+          <ButtonExport key="ButtonExport" searchParams={searchParams} />,
           <ButtonImport key="ButtonImport" />,
           <ButtonAdd key="ButtonAdd" />,
         ],
       }}
+      tableRender={tableRender}
     />
   );
 };

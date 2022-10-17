@@ -1,22 +1,15 @@
 import { BasePageContainer } from '@/components';
+import ModalAddOrEdit from '@/pages/system/user/components/ModalAddOrEdit';
 import ModalResetPwd from '@/pages/system/user/components/ModalResetPwd';
 import TableMain from '@/pages/system/user/components/TableMain';
-import TreeDept from '@/pages/system/user/components/TreeDept';
-import { ProCard } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
 const PageUser: FC = () => {
   return (
     <BasePageContainer>
-      <ProCard ghost gutter={24}>
-        <ProCard colSpan="300px" className="h-full">
-          <TreeDept />
-        </ProCard>
+      <TableMain />
 
-        <ProCard ghost className="h-full">
-          <TableMain />
-        </ProCard>
-      </ProCard>
+      <ModalAddOrEdit />
 
       <ModalResetPwd />
     </BasePageContainer>

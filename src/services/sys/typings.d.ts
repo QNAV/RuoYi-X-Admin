@@ -982,8 +982,14 @@ declare namespace API {
   }
 
   interface SysMenu {
+    /** 子部门 */
+    children?: SysMenu[];
     /** 组件路径 */
     component?: string;
+    /** 创建者 */
+    createBy?: string;
+    /** 创建时间 */
+    createTime?: string;
     /** 菜单图标 */
     icon?: string;
     /** 是否缓存（0缓存 1不缓存） */
@@ -998,6 +1004,10 @@ declare namespace API {
     menuType: string;
     /** 显示顺序 */
     orderNum: number;
+    /** 父菜单ID */
+    parentId?: number;
+    /** 父菜单名称 */
+    parentName?: string;
     /** 路由地址 */
     path?: string;
     /** 权限字符串 */
@@ -1008,13 +1018,23 @@ declare namespace API {
     remark?: string;
     /** 菜单状态（0显示 1隐藏） */
     status?: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
     /** 显示状态（0显示 1隐藏） */
     visible?: string;
   }
 
   interface SysMenu0 {
+    /** 子部门 */
+    children?: SysMenu0[];
     /** 组件路径 */
     component?: string;
+    /** 创建者 */
+    createBy: string;
+    /** 创建时间 */
+    createTime: string;
     /** 菜单图标 */
     icon?: string;
     /** 是否缓存（0缓存 1不缓存） */
@@ -1029,6 +1049,10 @@ declare namespace API {
     menuType: string;
     /** 显示顺序 */
     orderNum: number;
+    /** 父菜单ID */
+    parentId?: number;
+    /** 父菜单名称 */
+    parentName?: string;
     /** 路由地址 */
     path?: string;
     /** 权限字符串 */
@@ -1039,6 +1063,10 @@ declare namespace API {
     remark?: string;
     /** 菜单状态（0显示 1隐藏） */
     status: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
     /** 显示状态（0显示 1隐藏） */
     visible: string;
   }
@@ -1843,9 +1871,14 @@ declare namespace API {
     userId: number;
   }
 
+  interface SysUserGetInfo1Params {
+    /** 用户ID */
+    userId?: number;
+  }
+
   interface SysUserGetInfoParams {
     /** 用户ID */
-    userId: number;
+    userId?: number;
   }
 
   interface SysUserOnlineGetListParams {

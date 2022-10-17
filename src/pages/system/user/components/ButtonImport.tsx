@@ -11,7 +11,7 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 
 const ButtonImport: FC = () => {
-  const access = useAtomValueAccess();
+  const { canImportSysUser } = useAtomValueAccess();
 
   const formRef = useRef<ProFormInstance>();
 
@@ -20,7 +20,7 @@ const ButtonImport: FC = () => {
   const { mutate: onDownLoad, isLoading: isDownLoadLoading } = useMutation(SysUserPostImportTemplate);
 
   return (
-    <Access accessible={access.canImportSysUser}>
+    <Access accessible={canImportSysUser}>
       <Button icon={<UploadOutlined />} onClick={toggle}>
         导入
       </Button>

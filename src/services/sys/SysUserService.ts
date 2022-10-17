@@ -2,6 +2,21 @@
 /* eslint-disable */
 import { request } from '@/utils';
 
+/** 根据用户编号获取详细信息 GET /system/user/ */
+export async function SysUserGetInfo(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.SysUserGetInfoParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.ResponseUserDetailVo>('/system/user/', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** 新增用户 POST /system/user/add */
 export async function SysUserPostAdd(body: API.SysUserAddBo, options?: { [key: string]: any }) {
   return request<API.ResponseVoid>('/system/user/add', {
@@ -107,9 +122,9 @@ export async function SysUserPostImportTemplate(options?: { [key: string]: any }
 }
 
 /** 根据用户编号获取详细信息 GET /system/user/info */
-export async function SysUserGetInfo(
+export async function SysUserGetInfo1(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.SysUserGetInfoParams,
+  params: API.SysUserGetInfo1Params,
   options?: { [key: string]: any },
 ) {
   return request<API.ResponseUserDetailVo>('/system/user/info', {
