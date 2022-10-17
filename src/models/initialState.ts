@@ -1,11 +1,11 @@
 import type { AccessObject } from '@/models/access';
 import { getAccess, useSetAtomAccess } from '@/models/access';
 import { SysLoginGetInfo, SysLoginGetRouters } from '@/services/sys/SysLoginService';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-export const initialStateQueryKey = ['global', 'initialState'];
+const initialStateQueryKey = ['global', 'initialState'];
 
-export const useInitialState = () => {
+export const useQueryInitialState = () => {
   const setAtomAccess = useSetAtomAccess();
 
   return useQuery<{ userInfo: API.UserInfoVo; userRoutes: API.RouterVo[]; accessObject: AccessObject }>(
@@ -22,4 +22,9 @@ export const useInitialState = () => {
       },
     },
   );
+};
+
+export const useRefreshInitialState = () => {
+  const queryClient = useQueryClient();
+  return () => queryClient.invalidateQueries(initialStateQueryKey);
 };

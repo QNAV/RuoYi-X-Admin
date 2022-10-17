@@ -1,5 +1,5 @@
 import { SexMap } from '@/constants';
-import { useInitialState } from '@/models';
+import { useQueryInitialState } from '@/models';
 import { SysProfilePostUpdateProfile } from '@/services/sys/SysProfileService';
 import { getToken, regEmail, regPhone } from '@/utils';
 import { CameraOutlined } from '@ant-design/icons';
@@ -76,7 +76,7 @@ const editableColumns: ProDescriptionsItemProps[] = [
 ];
 
 const DescriptionsUser: FC = () => {
-  const { data: initialState, refetch } = useInitialState();
+  const { data: initialState, refetch } = useQueryInitialState();
 
   const { mutate, mutateAsync } = useMutation(SysProfilePostUpdateProfile, {
     onSuccess: () => {

@@ -1,4 +1,4 @@
-import { initialStateQueryKey } from '@/models';
+import { useRefreshInitialState } from '@/models';
 import Actions from '@/pages/login/components/Actions';
 import FormLoginByPhone from '@/pages/login/components/FormLoginByPhone';
 import FormLoginByPwd from '@/pages/login/components/FormLoginByPwd';
@@ -6,7 +6,6 @@ import { CaptchaGetGetCode } from '@/services/sys/CaptchaService';
 import { SysLoginPostLogin, SysLoginPostSmsLogin } from '@/services/sys/SysLoginService';
 import { setToken, StorageType } from '@/utils';
 import { LoginFormPage, ProFormCheckbox } from '@ant-design/pro-components';
-import { useQueryClient } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { message, Tabs } from 'antd';
 import type { FC } from 'react';
@@ -25,7 +24,7 @@ enum LoginType {
 const PageLogin: FC = () => {
   const [loginType, setLoginType] = useState<LoginType>(LoginType.USERNAME);
 
-  const queryClient = useQueryClient();
+  const refreshInitialState = useRefreshInitialState();
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -35,7 +34,7 @@ const PageLogin: FC = () => {
   const handleLoginSuccess = async (autoLogin: boolean, token: string) => {
     setToken(autoLogin ? StorageType.LOCAL_STORAGE : StorageType.SESSION_STORAGE, `Bearer ${token}`);
 
-    await queryClient.invalidateQueries(initialStateQueryKey);
+    await refreshInitialState();
 
     navigate(searchParams.get('redirect') ?? '/');
   };

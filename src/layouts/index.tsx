@@ -4,7 +4,7 @@ import IconSetting from '@/layouts/components/IconSetting';
 import MenuItem from '@/layouts/components/MenuItem';
 import TabsKeepAlive from '@/layouts/components/TabsKeepAlive';
 import type { AccessObject } from '@/models';
-import { useInitialState } from '@/models';
+import { useQueryInitialState } from '@/models';
 import { accessKeysMap } from '@/routes';
 import { convertUserRoutesToMenus } from '@/utils';
 import { ProLayout } from '@ant-design/pro-components';
@@ -16,7 +16,7 @@ const Layouts: FC = () => {
   const navigate = useNavigate();
   const element = useKeepAliveOutlets(pathname);
 
-  const { data: initialState, isSuccess, isLoading, isError } = useInitialState();
+  const { data: initialState, isSuccess, isLoading, isError } = useQueryInitialState();
   const accessible = accessKeysMap?.[pathname]
     ? !!initialState?.accessObject?.[accessKeysMap[pathname] as keyof AccessObject]
     : true;

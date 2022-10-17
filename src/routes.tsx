@@ -5,15 +5,22 @@ import {
   lazyLoadLayouts,
   lazyLoadPage,
 } from '@/utils';
-import type { IndexRouteObject } from 'react-router-dom';
+import type { IndexRouteObject, NonIndexRouteObject } from 'react-router-dom';
 
-export interface Route extends Omit<IndexRouteObject, 'index' | 'children'> {
-  index?: boolean;
+interface CustomIndexRouteObject extends IndexRouteObject {
+  name?: string;
+  access?: string;
+  isKeepAlive?: boolean;
+}
+
+interface CustomNonIndexRouteObject extends NonIndexRouteObject {
   name?: string;
   access?: string;
   isKeepAlive?: boolean;
   children?: Route[];
 }
+
+export type Route = CustomIndexRouteObject | CustomNonIndexRouteObject;
 
 export const layoutRoutes: Route[] = [
   {
