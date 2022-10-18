@@ -40,7 +40,7 @@ const TreeMenu: FC = () => {
 
   const { mutate: deleteMenu } = useDeleteMenu();
 
-  const onSelect: TreeProps<API.SysMenu>['onSelect'] = (_, { node: { key } }) => {
+  const onSelect: TreeProps<API.SysMenuVo>['onSelect'] = (_, { node: { key } }) => {
     setSelectedKey(key as number);
   };
 
@@ -124,7 +124,7 @@ const TreeMenu: FC = () => {
       >
         <div className="h-[calc(100vh-310px)] overflow-auto">
           {menuData?.treeData.length ? (
-            <Tree<API.SysMenu>
+            <Tree<API.SysMenuVo>
               blockNode
               selectedKeys={[selectedKey]}
               onSelect={onSelect}

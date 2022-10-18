@@ -75,7 +75,7 @@ const COption = getColumn('table', {
 
         <ButtonRemove userId={entity.userId} userName={entity.userName} />
 
-        <ButtonResetPwd userId={entity.userId} userName={entity.userName} />
+        <ButtonResetPwd record={entity} />
       </>
     );
   },

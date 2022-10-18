@@ -9,8 +9,8 @@ import { atomWithReset, useResetAtom } from 'jotai/utils';
 
 const namespace = 'systemMenu';
 
-const getOptions = (data?: API.SysMenu[]): OptionsParentId[] => {
-  const formatOptions = (items: API.SysMenu[]): OptionsParentId[] => {
+const getOptions = (data?: API.SysMenuVo[]): OptionsParentId[] => {
+  const formatOptions = (items: API.SysMenuVo[]): OptionsParentId[] => {
     return items
       .filter((item) => item.menuType !== MenuType.F)
       .map(({ menuId, menuName, children }) => {
@@ -56,7 +56,7 @@ export const useQueryMenuList = (params: API.SysMenuQueryBo = {}, onSuccess: (pa
     async () => {
       const data = await SysMenuPostList(params);
 
-      const treeData: API.SysMenu[] = parseSimpleTreeData(data, {
+      const treeData: API.SysMenuVo[] = parseSimpleTreeData(data, {
         id: 'menuId',
         pId: 'parentId',
         rootPId: null,
@@ -64,7 +64,7 @@ export const useQueryMenuList = (params: API.SysMenuQueryBo = {}, onSuccess: (pa
 
       return {
         treeData: sortByOrderNum(treeData),
-        map: data.reduce<Map<number, API.SysMenu>>((map, item) => {
+        map: data.reduce<Map<number, API.SysMenuVo>>((map, item) => {
           return map.set(item.menuId, item);
         }, new Map()),
         parentIds: Array.from(
@@ -92,7 +92,7 @@ export const useQueryMenuOptions = () => {
   return useQuery(queryMenuOptionsKey, async () => {
     const data = await SysMenuPostList({});
 
-    const treeData: API.SysMenu[] = parseSimpleTreeData(data, {
+    const treeData: API.SysMenuVo[] = parseSimpleTreeData(data, {
       id: 'menuId',
       pId: 'parentId',
       rootPId: null,
@@ -100,7 +100,7 @@ export const useQueryMenuOptions = () => {
 
     return {
       options: getOptions(sortByOrderNum(treeData)),
-      map: data.reduce<Map<number, API.SysMenu>>((map, item) => {
+      map: data.reduce<Map<number, API.SysMenuVo>>((map, item) => {
         return map.set(item.menuId, item);
       }, new Map()),
     };

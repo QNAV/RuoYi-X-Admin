@@ -1,9 +1,20 @@
-import { BaseProTable } from '@/components';
+import {
+  CCreateTime,
+  CCreateTimeRange,
+  CDictCode,
+  CDictLabel,
+  CDictSort,
+  CDictValue,
+  CEnableDisableStatus,
+  CRemark,
+} from '@/columns';
+import { BaseProTable, WarpTableOption } from '@/components';
 import { useActivated, useRowClick } from '@/hooks';
 import ButtonAdd from '@/pages/system/dictDetails/components/ButtonAdd';
+import ButtonEdit from '@/pages/system/dictDetails/components/ButtonEdit';
 import ButtonExport from '@/pages/system/dictDetails/components/ButtonExport';
 import ButtonRemove from '@/pages/system/dictDetails/components/ButtonRemove';
-import { tableColumns, useAtomCurDictType, useMainTableActionRef } from '@/pages/system/dictDetails/model';
+import { useAtomCurDictType, useMainTableActionRef } from '@/pages/system/dictDetails/model';
 import { SysDictDataPostList } from '@/services/sys/SysDictDataService';
 import { optionSelectUsingGET } from '@/services/sys/SysDictTypeService';
 import { convertParams } from '@/utils';
@@ -72,7 +83,28 @@ const TableMain: FC = () => {
     <BaseProTable<API.SysDictDataVo>
       rowKey={rowKey}
       actionRef={actionRef}
-      columns={tableColumns}
+      columns={[
+        CDictCode,
+        CDictLabel,
+        CDictValue,
+        CDictSort,
+        CEnableDisableStatus,
+        CRemark,
+        CCreateTime,
+        CCreateTimeRange,
+        {
+          title: '操作',
+          valueType: 'option',
+          render: (dom, entity: API.SysDictDataVo) => {
+            return (
+              <WarpTableOption>
+                <ButtonEdit record={entity} />
+                <ButtonRemove dictCode={entity.dictCode} dictLabel={entity.dictLabel} />
+              </WarpTableOption>
+            );
+          },
+        },
+      ]}
       params={curDictType}
       request={async (...p) => {
         const params = convertParams(...p);

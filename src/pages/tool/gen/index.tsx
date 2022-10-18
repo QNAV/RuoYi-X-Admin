@@ -10,40 +10,10 @@ import ButtonSync from '@/pages/tool/gen/components/ButtonSync';
 import ModalPreview from '@/pages/tool/gen/components/ModalPreview';
 import { useActionRefMainTable } from '@/pages/tool/gen/model';
 import { GenPostList } from '@/services/gen/GenService';
-import type { ProItem } from '@/typings';
 import { convertParams } from '@/utils';
 import { ProTable } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
-
-const columns: ProItem[] = [
-  CIndex,
-  CTableName,
-  CTableComment,
-  CClassName,
-  CCreateTime,
-  CUpdateTime,
-  CCreateTimeRange,
-  {
-    title: '操作',
-    valueType: 'option',
-    render: (dom, entity) => {
-      return (
-        <>
-          <ButtonPreview tableId={entity.tableId} />
-
-          <ButtonEdit tableId={entity.tableId} />
-
-          <ButtonDelete tableIds={[entity.tableId]} />
-
-          <ButtonSync tableName={entity.tableName} />
-
-          <ButtonDownload rows={[{ tableName: entity.tableName, genType: entity.genType, genPath: entity.genPath }]} />
-        </>
-      );
-    },
-  },
-];
 
 const GenPage: FC = () => {
   const actionRef = useActionRefMainTable();
@@ -70,7 +40,7 @@ const GenPage: FC = () => {
 
   return (
     <BasePageContainer>
-      <ProTable<API.GenTableRes>
+      <ProTable<API.GenTableRes, API.GenTablePageQuery>
         actionRef={actionRef}
         rowKey="tableId"
         rowSelection={{
@@ -81,7 +51,38 @@ const GenPage: FC = () => {
           },
         }}
         tableAlertOptionRender={tableAlertOptionRender}
-        columns={columns}
+        columns={[
+          CIndex,
+          CTableName,
+          CTableComment,
+          CClassName,
+          CCreateTime,
+          CUpdateTime,
+          CCreateTimeRange,
+          {
+            title: '操作',
+            valueType: 'option',
+            render: (dom, entity) => {
+              return (
+                <>
+                  <ButtonPreview tableId={entity.tableId!} />
+
+                  <ButtonEdit tableId={entity.tableId!} />
+
+                  <ButtonDelete tableIds={[entity.tableId!]} />
+
+                  <ButtonSync tableName={entity.tableName} />
+
+                  <ButtonDownload
+                    rows={[
+                      { tableName: entity.tableName, genType: entity.genType as GenType, genPath: entity.genPath! },
+                    ]}
+                  />
+                </>
+              );
+            },
+          },
+        ]}
         toolbar={{ actions: [<ButtonImport key="ButtonImport" />] }}
         request={(...params) => GenPostList(convertParams(...params))}
       />

@@ -1,4 +1,4 @@
-import { CCreateTime, CEnableDisableStatus, CRemark, CRoleId, CRoleKey, CRoleName, CRoleSort } from '@/columns';
+import { CEnableDisableStatus, CRemark, CRoleId, CRoleKey, CRoleName, CRoleSort } from '@/columns';
 import { EmptySimple } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import MenuTree from '@/pages/system/role/components/TreeMenu';
@@ -80,7 +80,22 @@ const DescDetails: FC = () => {
 
   return (
     <Spin spinning={loading}>
-      <ProDescriptions column={2} columns={[CRoleId, CCreateTime]} dataSource={data} />
+      <ProDescriptions
+        column={2}
+        columns={[
+          CRoleId,
+          {
+            title: '创建时间',
+            dataIndex: 'createTime',
+            key: 'createTime',
+            valueType: 'dateTime',
+            editable: false,
+            hideInSearch: true,
+            sorter: true,
+          },
+        ]}
+        dataSource={data}
+      />
 
       <Divider />
 

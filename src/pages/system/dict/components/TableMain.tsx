@@ -1,10 +1,13 @@
-import { BaseProTable } from '@/components';
+import { CCreateTime, CCreateTimeRange, CDictId, CDictName, CDictType, CEnableDisableStatus, CRemark } from '@/columns';
+import { BaseProTable, WarpTableOption } from '@/components';
 import { useRowClick } from '@/hooks';
 import ButtonAdd from '@/pages/system/dict/components/ButtonAdd';
+import ButtonDetails from '@/pages/system/dict/components/ButtonDetails';
+import ButtonEdit from '@/pages/system/dict/components/ButtonEdit';
 import ButtonExport from '@/pages/system/dict/components/ButtonExport';
 import ButtonRefresh from '@/pages/system/dict/components/ButtonRefresh';
 import ButtonRemove from '@/pages/system/dict/components/ButtonRemove';
-import { tableColumns, useMainTableActionRef } from '@/pages/system/dict/model';
+import { useMainTableActionRef } from '@/pages/system/dict/model';
 import { SysDictTypePostList } from '@/services/sys/SysDictTypeService';
 import { convertParams } from '@/utils';
 import type { ProTableProps } from '@ant-design/pro-components';
@@ -37,7 +40,28 @@ const TableMain: FC = () => {
     <BaseProTable<API.SysDictTypeVo>
       rowKey={rowKey}
       actionRef={actionRef}
-      columns={tableColumns}
+      columns={[
+        CDictId,
+        CDictName,
+        CDictType,
+        CEnableDisableStatus,
+        CRemark,
+        CCreateTime,
+        CCreateTimeRange,
+        {
+          title: '操作',
+          valueType: 'option',
+          render: (dom, entity: API.SysDictTypeVo) => {
+            return (
+              <WarpTableOption>
+                <ButtonDetails dictType={entity.dictType} />
+                <ButtonEdit record={entity} />
+                <ButtonRemove dictId={entity.dictId} dictName={entity.dictName} />
+              </WarpTableOption>
+            );
+          },
+        },
+      ]}
       tableAlertOptionRender={tableAlertOptionRender}
       rowSelection={rowSelection}
       onRow={(record) => {

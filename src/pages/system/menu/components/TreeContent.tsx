@@ -5,7 +5,7 @@ import type { TreeProps } from 'antd';
 import { message, Space, Tag } from 'antd';
 import copy from 'copy-to-clipboard';
 
-const TreeContent: TreeProps<API.SysMenu>['titleRender'] = (item) => {
+const TreeContent: TreeProps<API.SysMenuVo>['titleRender'] = (item) => {
   return (
     <>
       <Tag color="rgb(148 163 184)">{item.orderNum}</Tag>

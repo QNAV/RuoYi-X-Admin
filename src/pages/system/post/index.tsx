@@ -9,35 +9,11 @@ import ButtonRemove from '@/pages/system/post/components/ButtonRemove';
 import ModalAddOrEdit from '@/pages/system/post/components/ModalAddOrEdit';
 import { useActionRefMainTable } from '@/pages/system/post/model';
 import { SysPostPostList } from '@/services/sys/SysPostService';
-import type { ProItem } from '@/typings';
 import { convertParams } from '@/utils';
 import type { ProFormInstance, ProTableProps } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
-
-const columns: ProItem[] = [
-  CPostId,
-  CPostCode,
-  CPostName,
-  CPostSort,
-  CEnableDisableStatus,
-  CRemark,
-  CCreateTime,
-  {
-    title: '操作',
-    valueType: 'option',
-    render: (dom, entity: API.SysPostVo) => {
-      return (
-        <>
-          <ButtonEdit record={entity} />
-
-          <ButtonRemove postId={entity.postId} postName={entity.postName} />
-        </>
-      );
-    },
-  },
-];
 
 const rowKey = 'postId';
 
@@ -78,7 +54,28 @@ const PagePost: FC = () => {
           setSearchParams(params);
           return await SysPostPostList(params);
         }}
-        columns={columns}
+        columns={[
+          CPostId,
+          CPostCode,
+          CPostName,
+          CPostSort,
+          CEnableDisableStatus,
+          CRemark,
+          CCreateTime,
+          {
+            title: '操作',
+            valueType: 'option',
+            render: (dom, entity: API.SysPostVo) => {
+              return (
+                <>
+                  <ButtonEdit record={entity} />
+
+                  <ButtonRemove postId={entity.postId} postName={entity.postName} />
+                </>
+              );
+            },
+          },
+        ]}
         toolbar={{
           actions: [<ButtonAdd key="ButtonAdd" />],
         }}

@@ -1,13 +1,4 @@
-import {
-  CCreateTime,
-  CDeptName,
-  CEmail,
-  CEnableDisableStatus,
-  CLeader,
-  COrderNum,
-  CPhone,
-  genCDeptParentId,
-} from '@/columns';
+import { CDeptName, CEmail, CEnableDisableStatus, CLeader, COrderNum, CPhone, genCDeptParentId } from '@/columns';
 import { EmptySimple } from '@/components';
 import {
   useQueryDeptOptions,
@@ -105,7 +96,19 @@ const DescDetails: FC = () => {
         column={column}
         editable={editable}
         dataSource={data}
-        columns={[CEnableDisableStatus, COrderNum, CCreateTime]}
+        columns={[
+          CEnableDisableStatus,
+          COrderNum,
+          {
+            title: '创建时间',
+            dataIndex: 'createTime',
+            key: 'createTime',
+            valueType: 'dateTime',
+            editable: false,
+            hideInSearch: true,
+            sorter: true,
+          },
+        ]}
       />
 
       <Divider />

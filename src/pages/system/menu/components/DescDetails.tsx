@@ -1,10 +1,8 @@
 import {
-  CCreateTime,
   CEnableDisableStatus,
   CIcon,
   CIsFrame,
   CMenuName,
-  CMenuType,
   COrderNum,
   CPath,
   CPathParams,
@@ -13,7 +11,7 @@ import {
   CVisible,
 } from '@/columns';
 import { EmptySimple } from '@/components';
-import { MenuType } from '@/constants';
+import { MenuType, MenuTypeMap } from '@/constants';
 import { useAtomValueAccess } from '@/models';
 import { useReFetchMenuList, useReFetchMenuOptions, useValueSelectedMenuData } from '@/pages/system/menu/model';
 import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
@@ -86,7 +84,7 @@ const DescDetails: FC = () => {
             menuType,
             orderNum,
             menuName,
-            [key as keyof API.SysMenu]: record[key as keyof API.SysMenu],
+            [key as keyof API.SysMenuVo]: record[key as keyof API.SysMenuVo],
           });
         },
       }
@@ -96,7 +94,28 @@ const DescDetails: FC = () => {
 
   return (
     <Spin spinning={loading}>
-      <ProDescriptions columns={[CMenuType, CCreateTime]} dataSource={data} column={column} />
+      <ProDescriptions
+        columns={[
+          {
+            title: '类型',
+            dataIndex: 'menuType',
+            key: 'menuType',
+            valueType: 'select',
+            valueEnum: MenuTypeMap,
+            editable: false,
+          },
+          {
+            title: '创建时间',
+            dataIndex: 'createTime',
+            key: 'createTime',
+            valueType: 'dateTime',
+            editable: false,
+            hideInSearch: true,
+          },
+        ]}
+        dataSource={data}
+        column={column}
+      />
 
       <Divider />
 

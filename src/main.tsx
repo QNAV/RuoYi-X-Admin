@@ -12,25 +12,22 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './global.less';
 
 const render = () => {
-  const BASE_NAME = import.meta.env.VITE_BASE_NAME;
-  const LOGIN_PATH_NAME = import.meta.env.VITE_LOGIN_PATH_NAME;
+  const basename = import.meta.env.VITE_BASE_NAME;
+  const pathname = window.location.pathname.replace(basename, '/');
 
   const hasToken = checkToken();
-
-  const fullLoginPathName = `${BASE_NAME}${LOGIN_PATH_NAME}`.replace(/\/{2,}/g, '/');
-  const isLoginPage = window.location.pathname === fullLoginPathName;
+  const isLoginPage = pathname === '/login';
 
   if (!hasToken && !isLoginPage) {
-    return window.location.replace(
-      `${fullLoginPathName}?redirect=${`/${window.location.pathname}`.replace(BASE_NAME, '')}`,
-    );
+    window.location.replace(`${basename}login?redirect=${pathname}`);
+    return;
   }
 
   dayjs.locale('zh-cn');
 
   const queryClient = new QueryClient();
 
-  const router = createBrowserRouter(routes, { basename: BASE_NAME });
+  const router = createBrowserRouter(routes, { basename: basename });
 
   createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider>

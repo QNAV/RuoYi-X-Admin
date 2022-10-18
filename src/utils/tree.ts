@@ -46,7 +46,7 @@ export const parseSimpleTreeData = (
   return rootNodeList;
 };
 
-const handleSort = (data: API.SysMenu[]) => {
+const handleSort = (data: API.SysMenuVo[]) => {
   return data.sort((a, b) => {
     if (a.orderNum === b.orderNum) {
       return new Date(a.createTime!).getTime() - new Date(b.createTime!).getTime();
@@ -57,7 +57,7 @@ const handleSort = (data: API.SysMenu[]) => {
 };
 
 // 数组按 orderNum 排序
-export const sortByOrderNum = (data: API.SysMenu[]): API.SysMenu[] => {
+export const sortByOrderNum = (data: API.SysMenuVo[]): API.SysMenuVo[] => {
   const newData = data.map((item) => {
     if (item.children) {
       item.children = sortByOrderNum(item.children);

@@ -10,7 +10,7 @@ const ModalResetPwd: FC = () => {
 
   const formRef = useRef<ProFormInstance>();
 
-  const { open, userId, userName } = useAtomValueResetPwdModal();
+  const { open, record } = useAtomValueResetPwdModal();
 
   useEffect(() => {
     if (open) {
@@ -18,7 +18,7 @@ const ModalResetPwd: FC = () => {
 
       const timer = setTimeout(() => {
         formRef.current?.setFieldsValue({
-          userName,
+          userName: record!.userName,
         });
         clearTimeout(timer);
       }, 0);
@@ -38,7 +38,7 @@ const ModalResetPwd: FC = () => {
       }}
       onFinish={async ({ password }) => {
         await SysUserPostResetPwd({
-          userId,
+          ...record!,
           password,
         });
       }}

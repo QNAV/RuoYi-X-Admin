@@ -40,7 +40,7 @@ export interface OptionsParentId {
   children?: OptionsParentId[];
 }
 
-const getSelectedParentIds = (data: Map<number, API.SysMenu>, menuId: number): number[] => {
+const getSelectedParentIds = (data: Map<number, API.SysMenuVo>, menuId: number): number[] => {
   const parentIds: number[] = [0];
 
   if (menuId === 0) {
@@ -126,7 +126,7 @@ const ButtonCreate: FC = () => {
           loading: isLoading,
         }}
       >
-        <ProForm<API.SysMenu> submitter={false} formRef={formRef}>
+        <ProForm<API.SysMenuVo> submitter={false} formRef={formRef}>
           <ProFormCascader
             name="parentId"
             label="父级菜单"

@@ -14,18 +14,18 @@ export const useAtomValueSelectedDeptId = () => useAtomValue(atomSelectedDeptId)
 export const useSetAtomSelectedDeptId = () => useSetAtom(atomSelectedDeptId);
 
 // 重置密码弹窗
-const atomResetPwdModal = atomWithReset({
+const atomResetPwdModal = atomWithReset<{
+  open: boolean;
+  record?: API.SysUserVo;
+}>({
   open: false,
-  userId: 0,
-  userName: '',
 });
 export const useShowResetPwdModal = () => {
   const setRecoilState = useSetAtom(atomResetPwdModal);
-  return (userId: number, userName: string) => {
+  return (record: API.SysUserVo) => {
     setRecoilState({
       open: true,
-      userId,
-      userName,
+      record,
     });
   };
 };

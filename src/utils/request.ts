@@ -2,8 +2,9 @@ import { clearToken, getToken } from '@/utils';
 import { message, notification } from 'antd';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
-
 import { createSearchParams } from 'react-router-dom';
+
+const basename = import.meta.env.VITE_BASE_NAME;
 
 enum ErrorShowType {
   /**
@@ -76,8 +77,8 @@ const errorHandler = (res: CustomResponseStructure) => {
     case ErrorShowType.REDIRECT:
       clearToken();
 
-      window.location.href = `${import.meta.env.VITE_LOGIN_PATH_NAME}?${createSearchParams({
-        redirect: `/${window.location.pathname.replace(import.meta.env.VITE_BASE_NAME, '')}`,
+      window.location.href = `${basename}login?${createSearchParams({
+        redirect: window.location.pathname.replace(basename, '/'),
         msg: '登录已过期，请重新登录',
       })}`;
       break;

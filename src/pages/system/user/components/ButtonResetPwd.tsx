@@ -6,16 +6,15 @@ import { Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonResetPwd: FC<{
-  userId: number;
-  userName: string;
-}> = ({ userId, userName }) => {
+  record: API.SysUserVo;
+}> = ({ record }) => {
   const { canResetSysUserPwd } = useAtomValueAccess();
 
   const showResetPasswordModal = useShowResetPwdModal();
 
   return (
     <Access accessible={canResetSysUserPwd}>
-      <Button type="link" danger icon={<RestOutlined />} onClick={() => showResetPasswordModal(userId, userName)}>
+      <Button type="link" danger icon={<RestOutlined />} onClick={() => showResetPasswordModal(record)}>
         重置密码
       </Button>
     </Access>

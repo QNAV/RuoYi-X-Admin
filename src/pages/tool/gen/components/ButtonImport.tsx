@@ -1,7 +1,6 @@
 import { CCreateTime, CCreateTimeRange, CIndex, CTableComment, CTableName, CUpdateTime } from '@/columns';
 import { useAtomValueMainTableActions } from '@/pages/tool/gen/model';
 import { GenPostDbList, GenPostImportTable } from '@/services/gen/GenService';
-import type { ProItem } from '@/typings';
 import { convertParams } from '@/utils';
 import { CloudUploadOutlined } from '@ant-design/icons';
 import type { ActionType } from '@ant-design/pro-components';
@@ -11,8 +10,6 @@ import { useBoolean } from 'ahooks';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
-
-const columns: ProItem[] = [CIndex, CTableName, CTableComment, CCreateTime, CUpdateTime, CCreateTimeRange];
 
 const ButtonImport: FC = () => {
   const actionRef = useRef<ActionType>();
@@ -51,7 +48,7 @@ const ButtonImport: FC = () => {
           size="small"
           actionRef={actionRef}
           pagination={{ defaultPageSize: 10, defaultCurrent: 1 }}
-          columns={columns}
+          columns={[CIndex, CTableName, CTableComment, CCreateTime, CUpdateTime, CCreateTimeRange]}
           rowKey="tableName"
           search={{ filterType: 'light' }}
           rowSelection={{
