@@ -4,7 +4,7 @@ import { request } from '@/utils';
 
 /** 访问首页，提示语 GET / */
 export async function SysIndexGetIndex(options?: { [key: string]: any }) {
-  return request<any>('/', {
+  return request<string>('/', {
     method: 'GET',
     ...(options || {}),
   });
