@@ -18,6 +18,9 @@ export const BaseProTable = <
       defaultPageSize: 10,
       showSizeChanger: true,
     },
+    rowSelection: {
+      alwaysShowAlert: true,
+    },
     search: {
       defaultCollapsed: false,
       span: {

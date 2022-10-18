@@ -1,4 +1,4 @@
-import { useQueryDict, useQueryInitialState } from '@/models';
+import { useQueryDict } from '@/models';
 import {
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
@@ -6,7 +6,7 @@ import {
 } from '@/pages/system/user/model';
 import { SysConfigGetConfigKey } from '@/services/sys/SysConfigService';
 import { SysDeptPostTreeSelect } from '@/services/sys/SysDeptService';
-import { SysUserGetInfo, SysUserPostAdd } from '@/services/sys/SysUserService';
+import { SysUserGetInfo, SysUserGetInfo1, SysUserPostAdd, SysUserPostEdit } from '@/services/sys/SysUserService';
 import { regEmail, regPhone } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormSelect, ProFormText, ProFormTextArea, ProFormTreeSelect } from '@ant-design/pro-components';
@@ -14,25 +14,29 @@ import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import type { FC } from 'react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 const ModalAddOrEdit: FC = () => {
   const formRef = useRef<ProFormInstance<API.SysUserAddBo>>();
 
   const mainTableActions = useAtomValueMainTableActions();
 
+  const { open, actionType, userId } = useAtomValueAddOrEditModal();
   const hideAddOrEditModal = useHideAddOrEditModal();
-  const { open, actionType, record } = useAtomValueAddOrEditModal();
-
-  const initialState = useQueryInitialState();
+  const onCancel = () => {
+    if (actionType === 'edit') {
+      formRef.current?.resetFields();
+    }
+    hideAddOrEditModal();
+  };
 
   const { data: dictNormalDisable } = useQueryDict('sys_normal_disable');
   const { data: dictSex } = useQueryDict('sys_user_sex');
   const { data: dictUserInfo } = useRequest(async () => {
-    const { posts, roles } = await SysUserGetInfo({ userId: initialState.data!.userInfo.user.userId });
+    const { posts, roles } = await SysUserGetInfo({});
     return {
-      posts: posts.reduce((pre, cur) => ({ ...pre, [cur.postId]: cur.postName }), {}),
-      roles: roles.reduce((pre, cur) => ({ ...pre, [cur.roleId]: cur.roleName }), {}),
+      posts: posts.reduce((pre, cur) => pre.set(cur.postId, cur.postName), new Map()),
+      roles: roles.reduce((pre, cur) => pre.set(cur.roleId, cur.roleName), new Map()),
     };
   });
 
@@ -44,33 +48,47 @@ const ModalAddOrEdit: FC = () => {
 
   const { data: treeData } = useRequest(() => SysDeptPostTreeSelect({}), {});
 
+  const { data: record } = useRequest(
+    async () => {
+      const { postIds, roleIds, user } = await SysUserGetInfo1({ userId });
+
+      return {
+        ...user,
+        postIds,
+        roleIds,
+      };
+    },
+    {
+      ready: open && actionType === 'edit' && userId > 0,
+      onSuccess: (data) => {
+        formRef.current?.setFieldsValue(data);
+      },
+      refreshDeps: [userId],
+    },
+  );
+
   const { isLoading, mutateAsync } = useMutation(
     async () => {
       const values = await formRef.current?.validateFieldsReturnFormatValue?.();
 
-      await SysUserPostAdd(values!);
+      if (actionType === 'add') {
+        const { roleIds = [], postIds = [], ...restValues } = values!;
+        await SysUserPostAdd({ roleIds, postIds, ...restValues });
+      } else {
+        await SysUserPostEdit({ ...record, ...values!, userId });
+      }
     },
     {
       onSuccess: () => {
+        hideAddOrEditModal();
+
         mainTableActions?.reload();
+        formRef.current?.resetFields();
 
         message.success(actionType === 'add' ? '新增成功' : '编辑成功');
       },
     },
   );
-
-  useEffect(() => {
-    if (open && actionType === 'edit') {
-      const timer = setTimeout(() => {
-        formRef.current?.setFieldsValue(record!);
-        clearTimeout(timer);
-      }, 0);
-    }
-
-    if (!open && actionType === 'edit') {
-      formRef.current?.resetFields();
-    }
-  }, [open]);
 
   return (
     <ModalForm
@@ -82,7 +100,7 @@ const ModalAddOrEdit: FC = () => {
       }}
       modalProps={{
         okText: '提交',
-        onCancel: hideAddOrEditModal,
+        onCancel,
         confirmLoading: isLoading,
       }}
       width={600}
@@ -123,37 +141,9 @@ const ModalAddOrEdit: FC = () => {
 
       <ProFormSelect name="status" label="状态" valueEnum={dictNormalDisable ?? {}} rules={[{ required: true }]} />
 
-      <ProFormSelect
-        name="postIds"
-        label="岗位"
-        valueEnum={dictUserInfo?.posts ?? {}}
-        mode="multiple"
-        transform={(value) => {
-          let postIds = value;
-          if (Array.isArray(value)) {
-            postIds = value.map((item) => Number(item));
-          }
-          return {
-            postIds,
-          };
-        }}
-      />
+      <ProFormSelect name="postIds" label="岗位" valueEnum={dictUserInfo?.posts ?? {}} mode="multiple" />
 
-      <ProFormSelect
-        name="userType"
-        label="角色"
-        valueEnum={dictUserInfo?.roles ?? {}}
-        mode="multiple"
-        transform={(value) => {
-          let roleIds = value;
-          if (Array.isArray(value)) {
-            roleIds = value.map((item) => Number(item));
-          }
-          return {
-            roleIds,
-          };
-        }}
-      />
+      <ProFormSelect name="roleIds" label="角色" valueEnum={dictUserInfo?.roles ?? {}} mode="multiple" />
 
       <ProFormTextArea name="remark" label="备注" colProps={{ span: 24 }} />
     </ModalForm>

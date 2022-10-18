@@ -1,4 +1,4 @@
-import { BaseProTable } from '@/components';
+import { BaseProTable, BaseTableAlert } from '@/components';
 import ButtonAdd from '@/pages/system/user/components/ButtonAdd';
 import ButtonExport from '@/pages/system/user/components/ButtonExport';
 import ButtonImport from '@/pages/system/user/components/ButtonImport';
@@ -8,7 +8,6 @@ import { useActionRefMainTable, useAtomValueSelectedDeptId, useTableColumns } fr
 import { SysUserPostList } from '@/services/sys/SysUserService';
 import { convertParams } from '@/utils';
 import type { ProTableProps } from '@ant-design/pro-components';
-import { Space } from 'antd';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -16,22 +15,20 @@ const tableAlertRender: ProTableProps<API.SysUserVo, API.SysUserPageQueryBo>['ta
   selectedRows,
 }) => {
   return (
-    <Space>
-      <span>已选择 {selectedRows.length} 项</span>
-
+    <BaseTableAlert selectedNum={selectedRows.length}>
       <ButtonRemove
         disabled={selectedRows.length === 0}
         isBatch
         userId={selectedRows.map((i) => i.userId).join(',') as unknown as number}
         userName={selectedRows.map((i) => i.userName).join(',')}
       />
-    </Space>
+    </BaseTableAlert>
   );
 };
 
 const tableRender: ProTableProps<API.SysUserVo, API.SysUserPageQueryBo>['tableRender'] = (props, defaultDom) => {
   return (
-    <div className="flex gap-4 w-full">
+    <div className="flex gap-4">
       <div className="bg-white p-4">
         <TreeDept />
       </div>
@@ -55,11 +52,8 @@ const TableMain: FC = () => {
     <BaseProTable<API.SysUserVo, API.SysUserPageQueryBo>
       rowKey="userId"
       actionRef={actionRef}
-      columns={columns as any}
+      columns={columns}
       params={params}
-      rowSelection={{
-        alwaysShowAlert: true,
-      }}
       tableAlertRender={tableAlertRender}
       request={async (...p) => {
         const params = convertParams(...p);

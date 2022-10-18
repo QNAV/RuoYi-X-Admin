@@ -6,7 +6,7 @@ import ButtonResetPwd from '@/pages/system/user/components/ButtonResetPwd';
 import { generateColumns } from '@/utils';
 
 // 用户编号
-const [TUserId, FUserId, DUserId] = generateColumns({
+const [TUserId] = generateColumns({
   dataIndex: 'userId',
   key: 'userId',
   title: '用户编号',
@@ -55,26 +55,29 @@ const [TPhoneNumber] = generateColumns(
 );
 
 // 启用禁用状态
-const useCStatusNormalDisable = () => {
+const useTStatusNormalDisable = () => {
   const { data } = useQueryDict('sys_normal_disable');
-  return generateColumns({
+
+  const [TStatusNormalDisable] = generateColumns({
     title: '状态',
     dataIndex: 'status',
     key: 'status',
     valueType: 'select',
     valueEnum: data ?? {},
   });
+
+  return TStatusNormalDisable;
 };
 
 // 操作
-const COption = generateColumns(
+const [TOption] = generateColumns(
   {
     title: '操作',
     valueType: 'option',
     render: (dom, entity: API.SysUserVo) => {
       return (
         <>
-          <ButtonEdit record={entity} />
+          <ButtonEdit userId={entity.userId} />
 
           <ButtonRemove userId={entity.userId} userName={entity.userName} />
 
@@ -98,9 +101,9 @@ export const useTableColumns = () => {
     TNickName,
     TDeptDeptName,
     TPhoneNumber,
-    useCStatusNormalDisable(),
+    useTStatusNormalDisable(),
     TCreateTime,
-    COption,
+    TOption,
     TCreateTimeRange,
   ];
 };

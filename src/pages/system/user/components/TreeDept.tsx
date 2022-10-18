@@ -8,6 +8,7 @@ import { useState } from 'react';
 
 const TreeDept: FC = () => {
   const [deptName, setDeptName] = useState<string>('');
+
   const setRecoilSelectedDeptId = useSetAtomSelectedDeptId();
 
   const { data, loading } = useRequest(
@@ -17,12 +18,9 @@ const TreeDept: FC = () => {
       }),
     {
       refreshDeps: [deptName],
+      debounceWait: 500,
     },
   );
-
-  if (!data) {
-    return <EmptySimple />;
-  }
 
   return (
     <Spin spinning={loading}>
@@ -35,17 +33,22 @@ const TreeDept: FC = () => {
         }}
       />
 
-      <Tree
-        treeData={data}
-        defaultExpandAll
-        fieldNames={{
-          title: 'label',
-          key: 'id',
-        }}
-        onSelect={(_, { node: { key } }) => {
-          setRecoilSelectedDeptId(key as number);
-        }}
-      />
+      {!data || data.length === 0 ? (
+        <EmptySimple />
+      ) : (
+        <Tree
+          treeData={data}
+          defaultExpandAll
+          fieldNames={{
+            title: 'label',
+            key: 'id',
+          }}
+          onSelect={(_, { node: { key } }) => {
+            setRecoilSelectedDeptId(key as number);
+          }}
+          blockNode
+        />
+      )}
     </Spin>
   );
 };

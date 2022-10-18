@@ -5,14 +5,14 @@ import { EditOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import type { FC } from 'react';
 
-const ButtonEdit: FC<{ record: API.SysUserVo }> = ({ record }) => {
+const ButtonEdit: FC<{ userId: number }> = ({ userId }) => {
   const { canEditSysUser } = useAtomValueAccess();
 
   const showEditModal = useShowEditModal();
 
   return (
     <Access accessible={canEditSysUser}>
-      <Button type="link" icon={<EditOutlined />} onClick={() => showEditModal(record)}>
+      <Button type="link" icon={<EditOutlined />} onClick={() => showEditModal(userId)}>
         编辑
       </Button>
     </Access>
