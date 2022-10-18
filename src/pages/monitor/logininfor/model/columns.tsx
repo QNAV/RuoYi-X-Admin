@@ -1,9 +1,9 @@
 import { EnableDisableStatusMap } from '@/constants';
 import ButtonRemove from '@/pages/monitor/logininfor/components/ButtonRemove';
-import { getColumn } from '@/utils';
+import { generateColumns } from '@/utils';
 
 // 访问编号
-const CInfoId = getColumn('table', {
+const [TInfoId, FInfoId, DInfoId] = generateColumns({
   title: '访问编号',
   dataIndex: 'infoId',
   key: 'infoId',
@@ -12,7 +12,7 @@ const CInfoId = getColumn('table', {
 });
 
 // 用户名称
-const CUserName = getColumn('table', {
+const [TUserName, FUserName, DUserName] = generateColumns({
   title: '用户名称',
   dataIndex: 'userName',
   key: 'userName',
@@ -20,7 +20,7 @@ const CUserName = getColumn('table', {
 });
 
 // 登录地址
-const CIpaddr = getColumn('table', {
+const [TIpaddr, FIpaddr, DIpaddr] = generateColumns({
   title: '登录地址',
   dataIndex: 'ipaddr',
   key: 'ipaddr',
@@ -28,7 +28,7 @@ const CIpaddr = getColumn('table', {
 });
 
 // 登录地点
-const CLoginLocation = getColumn('table', {
+const [TLoginLocation, FLoginLocation, DLoginLocation] = generateColumns({
   title: '登录地点',
   dataIndex: 'loginLocation',
   key: 'loginLocation',
@@ -37,7 +37,7 @@ const CLoginLocation = getColumn('table', {
 });
 
 // 浏览器
-const CBrowser = getColumn('table', {
+const [TBrowser, FBrowser, DBrowser] = generateColumns({
   title: '浏览器',
   dataIndex: 'browser',
   key: 'browser',
@@ -46,7 +46,7 @@ const CBrowser = getColumn('table', {
 });
 
 // 操作系统
-const COs = getColumn('table', {
+const [TOs, FOs, DOs] = generateColumns({
   title: '操作系统',
   dataIndex: 'os',
   key: 'os',
@@ -55,7 +55,7 @@ const COs = getColumn('table', {
 });
 
 // 操作信息
-const CMsg = getColumn('table', {
+const [TMsg, FMsg, DMsg] = generateColumns({
   title: '操作信息',
   dataIndex: 'msg',
   key: 'msg',
@@ -63,7 +63,7 @@ const CMsg = getColumn('table', {
   hideInSearch: true,
 });
 
-const CStatus = getColumn('table', {
+const [TStatus, FStatus, DStatus] = generateColumns({
   title: '操作状态',
   dataIndex: 'status',
   key: 'status',
@@ -72,7 +72,7 @@ const CStatus = getColumn('table', {
 });
 
 // 登录日期
-const CLoginTime = getColumn('table', {
+const [TLoginTime, FLoginTime, DLoginTime] = generateColumns({
   title: '登录日期',
   dataIndex: 'loginTime',
   key: 'loginTime',
@@ -81,17 +81,23 @@ const CLoginTime = getColumn('table', {
 });
 
 // 操作
-const COption = getColumn('table', {
-  title: '操作',
-  dataIndex: 'option',
-  key: 'option',
-  valueType: 'option',
-  fixed: 'right',
-  render: (dom, entity) => {
-    return <ButtonRemove infoId={entity.infoId} />;
+const COption = generateColumns(
+  {
+    title: '操作',
+    dataIndex: 'option',
+    key: 'option',
+    valueType: 'option',
+    render: (dom, entity) => {
+      return <ButtonRemove infoId={entity.infoId} />;
+    },
   },
-});
+  {
+    table: {
+      fixed: 'right',
+    },
+  },
+);
 
 export const useTableColumns = () => {
-  return [CInfoId, CUserName, CIpaddr, CLoginLocation, CBrowser, COs, CStatus, CMsg, CLoginTime, COption];
+  return [TInfoId, TUserName, TIpaddr, TLoginLocation, TBrowser, TOs, TStatus, TMsg, TLoginTime, COption];
 };

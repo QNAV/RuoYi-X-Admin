@@ -55,7 +55,7 @@ const TableMain: FC = () => {
     <BaseProTable<API.SysUserVo, API.SysUserPageQueryBo>
       rowKey="userId"
       actionRef={actionRef}
-      columns={columns}
+      columns={columns as any}
       params={params}
       rowSelection={{
         alwaysShowAlert: true,

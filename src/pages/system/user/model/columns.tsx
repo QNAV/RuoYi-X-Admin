@@ -1,12 +1,12 @@
-import { CCreateTime, CCreateTimeRange } from '@/columns';
+import { TCreateTime, TCreateTimeRange } from '@/columns';
 import { useQueryDict } from '@/models';
 import ButtonEdit from '@/pages/system/user/components/ButtonEdit';
 import ButtonRemove from '@/pages/system/user/components/ButtonRemove';
 import ButtonResetPwd from '@/pages/system/user/components/ButtonResetPwd';
-import { getColumn } from '@/utils';
+import { generateColumns } from '@/utils';
 
 // 用户编号
-const CUserId = getColumn('table', {
+const [TUserId, FUserId, DUserId] = generateColumns({
   dataIndex: 'userId',
   key: 'userId',
   title: '用户编号',
@@ -16,7 +16,7 @@ const CUserId = getColumn('table', {
 });
 
 // 用户名称
-const CUserName = getColumn('table', {
+const [TUserName] = generateColumns({
   dataIndex: 'userName',
   key: 'userName',
   title: '用户名称',
@@ -24,7 +24,7 @@ const CUserName = getColumn('table', {
 });
 
 // 用户昵称
-const CNickName = getColumn('table', {
+const [TNickName] = generateColumns({
   dataIndex: 'nickName',
   key: 'nickName',
   title: '用户昵称',
@@ -33,7 +33,7 @@ const CNickName = getColumn('table', {
 });
 
 // 部门名称
-const CUserDeptName = getColumn('table', {
+const [TDeptDeptName] = generateColumns({
   dataIndex: ['dept', 'deptName'],
   key: 'deptDeptName',
   title: '部门名称',
@@ -42,18 +42,22 @@ const CUserDeptName = getColumn('table', {
 });
 
 // 手机号码
-const CUserPhone = getColumn('table', {
-  dataIndex: 'phoneNumber',
-  key: 'phoneNumber',
-  title: '手机号码',
-  valueType: 'text',
-  copyable: true,
-});
+const [TPhoneNumber] = generateColumns(
+  {
+    dataIndex: 'phoneNumber',
+    key: 'phoneNumber',
+    title: '手机号码',
+    valueType: 'text',
+  },
+  {
+    table: { copyable: true },
+  },
+);
 
 // 启用禁用状态
 const useCStatusNormalDisable = () => {
   const { data } = useQueryDict('sys_normal_disable');
-  return getColumn('table', {
+  return generateColumns({
     title: '状态',
     dataIndex: 'status',
     key: 'status',
@@ -63,34 +67,40 @@ const useCStatusNormalDisable = () => {
 };
 
 // 操作
-const COption = getColumn('table', {
-  title: '操作',
-  valueType: 'option',
-  fixed: 'right',
-  width: 300,
-  render: (dom, entity: API.SysUserVo) => {
-    return (
-      <>
-        <ButtonEdit record={entity} />
+const COption = generateColumns(
+  {
+    title: '操作',
+    valueType: 'option',
+    render: (dom, entity: API.SysUserVo) => {
+      return (
+        <>
+          <ButtonEdit record={entity} />
 
-        <ButtonRemove userId={entity.userId} userName={entity.userName} />
+          <ButtonRemove userId={entity.userId} userName={entity.userName} />
 
-        <ButtonResetPwd record={entity} />
-      </>
-    );
+          <ButtonResetPwd record={entity} />
+        </>
+      );
+    },
   },
-});
+  {
+    table: {
+      fixed: 'right',
+      width: 300,
+    },
+  },
+);
 
 export const useTableColumns = () => {
   return [
-    CUserId,
-    CUserName,
-    CNickName,
-    CUserDeptName,
-    CUserPhone,
+    TUserId,
+    TUserName,
+    TNickName,
+    TDeptDeptName,
+    TPhoneNumber,
     useCStatusNormalDisable(),
-    CCreateTime,
+    TCreateTime,
     COption,
-    CCreateTimeRange,
+    TCreateTimeRange,
   ];
 };

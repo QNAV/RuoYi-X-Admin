@@ -1,4 +1,4 @@
-import { CCreateTime, CCreateTimeRange, CRemark } from '@/columns';
+import { CRemark, TCreateTime, TCreateTimeRange } from '@/columns';
 import { CConfigId, CConfigKey, CConfigName, CConfigType, CConfigValue } from '@/columns/config';
 import { BaseProTable, WarpTableOption } from '@/components';
 import { useRowClick } from '@/hooks';
@@ -42,8 +42,8 @@ const TableMain: FC = () => {
         CConfigValue,
         CConfigType,
         CRemark,
-        CCreateTime,
-        CCreateTimeRange,
+        TCreateTime,
+        TCreateTimeRange,
         {
           title: '操作',
           valueType: 'option',

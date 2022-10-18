@@ -1,4 +1,4 @@
-import { CCreateTime, CCreateTimeRange, CDictId, CDictName, CDictType, CEnableDisableStatus, CRemark } from '@/columns';
+import { CDictId, CDictName, CDictType, CEnableDisableStatus, CRemark, TCreateTime, TCreateTimeRange } from '@/columns';
 import { BaseProTable, WarpTableOption } from '@/components';
 import { useRowClick } from '@/hooks';
 import ButtonAdd from '@/pages/system/dict/components/ButtonAdd';
@@ -46,8 +46,8 @@ const TableMain: FC = () => {
         CDictType,
         CEnableDisableStatus,
         CRemark,
-        CCreateTime,
-        CCreateTimeRange,
+        TCreateTime,
+        TCreateTimeRange,
         {
           title: '操作',
           valueType: 'option',

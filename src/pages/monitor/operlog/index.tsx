@@ -37,7 +37,7 @@ const PageOperlog: FC = () => {
       <BaseProTable
         rowKey="operId"
         actionRef={actionRef}
-        columns={tableColumns}
+        columns={tableColumns as any}
         request={async (...p) => {
           const params = convertParams(...p);
           setSearchParams(params as API.SysOperLogPageQueryBo);

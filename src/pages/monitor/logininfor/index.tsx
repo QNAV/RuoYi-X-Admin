@@ -36,7 +36,7 @@ const PageLoginInfo: FC = () => {
       <BaseProTable
         rowKey="infoId"
         actionRef={actionRef}
-        columns={tableColumns}
+        columns={tableColumns as any}
         request={async (...p) => {
           const params = convertParams(...p);
           setSearchParams(params as API.SysLogininforPageQueryBo);

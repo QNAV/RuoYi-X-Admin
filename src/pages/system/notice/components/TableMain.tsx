@@ -1,4 +1,4 @@
-import { CCreateBy, CCreateTime, CEnableDisableStatus } from '@/columns';
+import { CCreateBy, CEnableDisableStatus, TCreateTime } from '@/columns';
 import { CNoticeId, CNoticeTitle } from '@/columns/notice';
 import { BaseProTable } from '@/components';
 import ButtonAdd from '@/pages/system/notice/components/ButtonAdd';
@@ -49,7 +49,7 @@ const TableMain: FC = () => {
         },
         CCreateBy,
         CEnableDisableStatus,
-        CCreateTime,
+        TCreateTime,
         {
           title: '操作',
           valueType: 'option',

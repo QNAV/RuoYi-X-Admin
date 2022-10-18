@@ -1,4 +1,4 @@
-import { CClassName, CCreateTime, CCreateTimeRange, CIndex, CTableComment, CTableName, CUpdateTime } from '@/columns';
+import { CClassName, CIndex, CTableComment, CTableName, CUpdateTime, TCreateTime, TCreateTimeRange } from '@/columns';
 import { BasePageContainer } from '@/components';
 import type { GenType } from '@/constants';
 import ButtonDelete from '@/pages/tool/gen/components/ButtonDelete';
@@ -56,9 +56,9 @@ const GenPage: FC = () => {
           CTableName,
           CTableComment,
           CClassName,
-          CCreateTime,
+          TCreateTime,
           CUpdateTime,
-          CCreateTimeRange,
+          TCreateTimeRange,
           {
             title: '操作',
             valueType: 'option',

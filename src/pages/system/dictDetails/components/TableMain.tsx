@@ -1,12 +1,12 @@
 import {
-  CCreateTime,
-  CCreateTimeRange,
   CDictCode,
   CDictLabel,
   CDictSort,
   CDictValue,
   CEnableDisableStatus,
   CRemark,
+  TCreateTime,
+  TCreateTimeRange,
 } from '@/columns';
 import { BaseProTable, WarpTableOption } from '@/components';
 import { useActivated, useRowClick } from '@/hooks';
@@ -90,8 +90,8 @@ const TableMain: FC = () => {
         CDictSort,
         CEnableDisableStatus,
         CRemark,
-        CCreateTime,
-        CCreateTimeRange,
+        TCreateTime,
+        TCreateTimeRange,
         {
           title: '操作',
           valueType: 'option',

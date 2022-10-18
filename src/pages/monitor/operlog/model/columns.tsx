@@ -1,9 +1,9 @@
 // 日志编号
 import { useQueryDict } from '@/models';
 import ButtonRemove from '@/pages/monitor/operlog/components/ButtonRemove';
-import { getColumn } from '@/utils';
+import { generateColumns } from '@/utils';
 
-const COperId = getColumn('table', {
+const [TOperId] = generateColumns({
   title: '日志编号',
   dataIndex: 'operId',
   key: 'operId',
@@ -12,7 +12,7 @@ const COperId = getColumn('table', {
 });
 
 // 系统模块
-const CTitle = getColumn('table', {
+const [TTitle] = generateColumns({
   title: '系统模块',
   dataIndex: 'title',
   key: 'title',
@@ -20,7 +20,7 @@ const CTitle = getColumn('table', {
 });
 
 // 请求方式
-const CMethod = getColumn('table', {
+const [TMethod] = generateColumns({
   title: '请求方式',
   dataIndex: 'requestMethod',
   key: 'requestMethod',
@@ -29,7 +29,7 @@ const CMethod = getColumn('table', {
 });
 
 // 操作人员
-const COperName = getColumn('table', {
+const [TOperName] = generateColumns({
   title: '操作人员',
   dataIndex: 'operName',
   key: 'operName',
@@ -37,7 +37,7 @@ const COperName = getColumn('table', {
 });
 
 // 操作地址
-const COperIp = getColumn('table', {
+const [TOperIp] = generateColumns({
   title: '操作地址',
   dataIndex: 'operIp',
   key: 'operIp',
@@ -46,7 +46,7 @@ const COperIp = getColumn('table', {
 });
 
 // 操作地点
-const COperLocation = getColumn('table', {
+const [TOperLocation] = generateColumns({
   title: '操作地点',
   dataIndex: 'operLocation',
   key: 'operLocation',
@@ -55,7 +55,7 @@ const COperLocation = getColumn('table', {
 });
 
 // 操作日期
-const COperTime = getColumn('table', {
+const COperTime = generateColumns({
   title: '操作日期',
   dataIndex: 'operTime',
   key: 'operTime',
@@ -64,22 +64,28 @@ const COperTime = getColumn('table', {
 });
 
 // 操作
-const COption = getColumn('table', {
-  title: '操作',
-  dataIndex: 'option',
-  key: 'option',
-  valueType: 'option',
-  fixed: 'right',
-  render: (dom, entity) => {
-    return <ButtonRemove title={entity.title} operId={entity.operId} />;
+const [TOption] = generateColumns(
+  {
+    title: '操作',
+    dataIndex: 'option',
+    key: 'option',
+    valueType: 'option',
+    render: (dom, entity) => {
+      return <ButtonRemove title={entity.title} operId={entity.operId} />;
+    },
   },
-});
+  {
+    table: {
+      fixed: 'right',
+    },
+  },
+);
 
 // 操作类型
 const useCBusinessType = () => {
   const { data } = useQueryDict('sys_oper_type');
 
-  return getColumn('table', {
+  return generateColumns({
     title: '操作类型',
     dataIndex: 'businessType',
     key: 'businessType',
@@ -92,7 +98,7 @@ const useCBusinessType = () => {
 const useCStatus = () => {
   const { data } = useQueryDict('sys_common_status');
 
-  return getColumn('table', {
+  return generateColumns({
     title: '操作状态',
     dataIndex: 'status',
     key: 'status',
@@ -103,15 +109,15 @@ const useCStatus = () => {
 
 export const useTableColumns = () => {
   return [
-    COperId,
-    CTitle,
+    TOperId,
+    TTitle,
     useCBusinessType(),
-    CMethod,
-    COperName,
-    COperIp,
-    COperLocation,
+    TMethod,
+    TOperName,
+    TOperIp,
+    TOperLocation,
     useCStatus(),
     COperTime,
-    COption,
+    TOption,
   ];
 };

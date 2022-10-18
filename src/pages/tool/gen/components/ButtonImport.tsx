@@ -1,4 +1,4 @@
-import { CCreateTime, CCreateTimeRange, CIndex, CTableComment, CTableName, CUpdateTime } from '@/columns';
+import { CIndex, CTableComment, CTableName, CUpdateTime, TCreateTime, TCreateTimeRange } from '@/columns';
 import { useAtomValueMainTableActions } from '@/pages/tool/gen/model';
 import { GenPostDbList, GenPostImportTable } from '@/services/gen/GenService';
 import { convertParams } from '@/utils';
@@ -48,7 +48,7 @@ const ButtonImport: FC = () => {
           size="small"
           actionRef={actionRef}
           pagination={{ defaultPageSize: 10, defaultCurrent: 1 }}
-          columns={[CIndex, CTableName, CTableComment, CCreateTime, CUpdateTime, CCreateTimeRange]}
+          columns={[CIndex, CTableName, CTableComment, TCreateTime, CUpdateTime, TCreateTimeRange]}
           rowKey="tableName"
           search={{ filterType: 'light' }}
           rowSelection={{

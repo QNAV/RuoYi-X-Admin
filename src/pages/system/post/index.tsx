@@ -1,4 +1,4 @@
-import { CCreateTime, CEnableDisableStatus, CPostCode, CPostId, CPostName, CPostSort, CRemark } from '@/columns';
+import { CEnableDisableStatus, CPostCode, CPostId, CPostName, CPostSort, CRemark, TCreateTime } from '@/columns';
 import { BasePageContainer } from '@/components';
 import { useRowClick } from '@/hooks';
 import ButtonAdd from '@/pages/system/post/components/ButtonAdd';
@@ -61,7 +61,7 @@ const PagePost: FC = () => {
           CPostSort,
           CEnableDisableStatus,
           CRemark,
-          CCreateTime,
+          TCreateTime,
           {
             title: '操作',
             valueType: 'option',
