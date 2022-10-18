@@ -141,9 +141,21 @@ const ModalAddOrEdit: FC = () => {
 
       <ProFormSelect name="status" label="状态" valueEnum={dictNormalDisable ?? {}} rules={[{ required: true }]} />
 
-      <ProFormSelect name="postIds" label="岗位" valueEnum={dictUserInfo?.posts ?? {}} mode="multiple" />
+      <ProFormSelect
+        name="postIds"
+        label="岗位"
+        valueEnum={dictUserInfo?.posts ?? {}}
+        mode="multiple"
+        colProps={{ span: 24 }}
+      />
 
-      <ProFormSelect name="roleIds" label="角色" valueEnum={dictUserInfo?.roles ?? {}} mode="multiple" />
+      <ProFormSelect
+        name="roleIds"
+        label="角色"
+        valueEnum={dictUserInfo?.roles ?? {}}
+        mode="multiple"
+        colProps={{ span: 24 }}
+      />
 
       <ProFormTextArea name="remark" label="备注" colProps={{ span: 24 }} />
     </ModalForm>
