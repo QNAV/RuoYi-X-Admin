@@ -1,4 +1,6 @@
+import { useQueryDict } from '@/models';
 import type { ProItem } from '@/typings';
+import { generateColumns } from '@/utils';
 
 // 字典编号
 export const CDictId: ProItem = {
@@ -58,4 +60,28 @@ export const CDictValue: ProItem = {
   key: 'dictValue',
   valueType: 'text',
   hideInSearch: true,
+};
+
+// 启用禁用状态
+export const useStatusNormalDisable = () => {
+  const { data } = useQueryDict('sys_normal_disable');
+
+  return generateColumns(
+    {
+      title: '状态',
+      dataIndex: 'status',
+      key: 'status',
+      valueType: 'select',
+      valueEnum: data ?? {},
+    },
+    {
+      form: {
+        valueType: 'radio',
+        formItemProps: {
+          required: true,
+          rules: [{ required: true, message: '请选择状态' }],
+        },
+      },
+    },
+  );
 };

@@ -1,36 +1,62 @@
-import type { ProItem } from '@/typings';
+import { generateColumns } from '@/utils';
 
-// 角色名称
-export const CRoleName: ProItem = {
-  title: '角色名称',
-  dataIndex: 'roleName',
-  key: 'roleName',
-  valueType: 'text',
-};
+export const [TRoleName, FRoleName, DRoleName] = generateColumns(
+  {
+    title: '角色名称',
+    dataIndex: 'roleName',
+    key: 'roleName',
+    valueType: 'text',
+  },
+  {
+    form: {
+      formItemProps: {
+        required: true,
+        rules: [{ required: true, message: '请输入角色名称' }],
+      },
+    },
+  },
+);
 
-// 角色ID
-export const CRoleId: ProItem = {
+export const [TRoleKey, FRoleKey, DRoleKey] = generateColumns(
+  {
+    title: '权限字符',
+    dataIndex: 'roleKey',
+    key: 'roleKey',
+    valueType: 'text',
+    tooltip: "控制器中定义的权限字符，如：@PreAuthorize(`@ss.hasRole('admin')`)",
+  },
+  {
+    form: {
+      formItemProps: {
+        required: true,
+        rules: [{ required: true, message: '请输入权限字符' }],
+      },
+    },
+  },
+);
+
+export const [, , DRoleId] = generateColumns({
   title: '角色编号',
   dataIndex: 'roleId',
   key: 'roleId',
   valueType: 'text',
-  hideInSearch: true,
   editable: false,
-};
-
-// 权限字符
-export const CRoleKey: ProItem = {
-  title: '权限字符',
-  dataIndex: 'roleKey',
-  key: 'roleKey',
-  valueType: 'text',
-};
+});
 
 // 角色排序
-export const CRoleSort: ProItem = {
-  title: '显示排序',
-  dataIndex: 'roleSort',
-  key: 'roleSort',
-  valueType: 'text',
-  hideInSearch: true,
-};
+export const [, FDRoleSort, DRoleSort] = generateColumns(
+  {
+    title: '显示排序',
+    dataIndex: 'roleSort',
+    key: 'roleSort',
+    valueType: 'digit',
+  },
+  {
+    form: {
+      formItemProps: {
+        required: true,
+        rules: [{ required: true, message: '请输入显示排序' }],
+      },
+    },
+  },
+);

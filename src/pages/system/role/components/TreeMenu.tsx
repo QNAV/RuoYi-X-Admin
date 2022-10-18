@@ -1,9 +1,9 @@
 import { Access, EmptySimple } from '@/components';
+import { useAtomValueRoleDetails, useEditRoleDetails } from '@/pages/system/role/model';
 import { SysMenuGetRoleMenuTreeSelect } from '@/services/sys/SysMenuService';
 import type { TreeData } from '@/utils';
 import { filterCheckedTree, getMenuIds } from '@/utils';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
-import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { Button, Checkbox, Space, Tree } from 'antd';
 import type { FC, Key } from 'react';
@@ -29,16 +29,15 @@ const getExpandedKeys = (list: TreeData[]) => {
   return result;
 };
 
-const TreeTransferMenuTree: FC<{
-  roleId: number;
-  handleEdit: (e: { menuIds: number[] }) => Promise<any>;
-}> = ({ roleId, handleEdit }) => {
+const TreeTransferMenuTree: FC = () => {
   const [checkedKeys, setCheckedKeys] = useState<number[]>([]);
   const [editable, setEditable] = useState(false);
   const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
   const [treeData, setTreeData] = useState<TreeData[]>([]);
   const [checkAll, setCheckAll] = useState(false);
   const [indeterminate, setIndeterminate] = useState(true);
+
+  const { roleId } = useAtomValueRoleDetails();
 
   const { data, refresh } = useRequest(
     async () => {
@@ -64,13 +63,7 @@ const TreeTransferMenuTree: FC<{
     },
   );
 
-  const { isLoading, mutate } = useMutation(async () => {
-    await handleEdit({
-      menuIds: checkedKeys,
-    });
-
-    refresh();
-  });
+  const { isLoading, mutate } = useEditRoleDetails();
 
   const allExpandedKeys = getExpandedKeys(data?.treeData ?? []);
   const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === allExpandedKeys?.length;
@@ -138,7 +131,7 @@ const TreeTransferMenuTree: FC<{
               >
                 取消编辑
               </Button>
-              <Button type="primary" ghost loading={isLoading} onClick={() => mutate()}>
+              <Button type="primary" ghost loading={isLoading} onClick={() => mutate({ menuIds: checkedKeys })}>
                 保存
               </Button>
             </Space>
@@ -152,7 +145,7 @@ const TreeTransferMenuTree: FC<{
                 setTreeData(data?.treeData ?? []);
               }}
             >
-              编辑权限
+              编辑菜单权限
             </Button>
           )}
         </Access>

@@ -1,14 +1,10 @@
-import { CEnableDisableStatus, CRemark, CRoleId, CRoleKey, CRoleName, CRoleSort } from '@/columns';
+import { DCreateTime, DRemark, DRoleId, DRoleKey, DRoleName, DRoleSort, useStatusNormalDisable } from '@/columns';
 import { EmptySimple } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import MenuTree from '@/pages/system/role/components/TreeMenu';
-import { useRoleDetailsVisibleValue, useRoleListActions } from '@/pages/system/role/model';
-import { SysRoleGetInfo, SysRolePostEdit } from '@/services/sys/SysRoleService';
+import { useAtomValueRoleDetails, useEditRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
-import { useMutation } from '@tanstack/react-query';
-import { useRequest } from 'ahooks';
-import { Divider, Form, message, Spin } from 'antd';
+import { Divider, Form, Spin } from 'antd';
 import type { FC, Key } from 'react';
 import { useState } from 'react';
 
@@ -19,40 +15,13 @@ const DescDetails: FC = () => {
 
   const access = useAtomValueAccess();
 
-  const roleListActions = useRoleListActions();
+  const { open } = useAtomValueRoleDetails();
 
-  const { roleId, visible } = useRoleDetailsVisibleValue();
+  const [, , DStatusNormalDisable] = useStatusNormalDisable();
 
-  const { data, loading, refresh } = useRequest(() => SysRoleGetInfo({ roleId }), {
-    ready: visible && roleId > 0,
-    refreshDeps: [roleId],
-    onSuccess: () => {
-      setEditableKeys([]);
-    },
-  });
+  const { data, loading } = useQueryRoleDetails();
 
-  const { mutateAsync } = useMutation(
-    async (params: Partial<API.SysRole>) => {
-      await SysRolePostEdit({
-        roleId,
-        menuIds: data?.menuIds ?? [],
-        roleKey: data!.roleKey,
-        roleName: data!.roleName,
-        roleSort: data!.roleSort,
-        status: data!.status,
-        ...params,
-      });
-    },
-    {
-      onSuccess: () => {
-        refresh();
-
-        roleListActions?.reload();
-
-        message.success('保存成功');
-      },
-    },
-  );
+  const { mutateAsync } = useEditRoleDetails();
 
   const editable: ProDescriptionsProps<API.SysRoleVo>['editable'] =
     access.canEditSysRole && data
@@ -76,39 +45,20 @@ const DescDetails: FC = () => {
         }
       : undefined;
 
-  if (!visible) return <EmptySimple description="点击选择左侧角色查看详情" />;
+  if (!open) return <EmptySimple description="点击选择左侧角色查看详情" />;
 
   return (
     <Spin spinning={loading}>
-      <ProDescriptions
-        column={2}
-        columns={[
-          CRoleId,
-          {
-            title: '创建时间',
-            dataIndex: 'createTime',
-            key: 'createTime',
-            valueType: 'dateTime',
-            editable: false,
-            hideInSearch: true,
-            sorter: true,
-          },
-        ]}
-        dataSource={data}
-      />
+      <ProDescriptions column={2} columns={[DRoleId, DCreateTime]} dataSource={data} />
 
       <Divider />
 
       <ProDescriptions
         column={2}
-        columns={[CEnableDisableStatus, CRoleSort, CRoleName, CRemark, CRoleKey]}
+        columns={[DStatusNormalDisable, DRoleSort, DRoleName, DRemark, DRoleKey]}
         dataSource={data}
         editable={editable}
       />
-
-      <Divider />
-
-      <MenuTree roleId={roleId} handleEdit={(e) => mutateAsync(e)} />
     </Spin>
   );
 };

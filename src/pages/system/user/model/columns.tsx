@@ -1,5 +1,4 @@
-import { TCreateTime, TCreateTimeRange } from '@/columns';
-import { useQueryDict } from '@/models';
+import { TCreateTime, TCreateTimeRange, useStatusNormalDisable } from '@/columns';
 import ButtonEdit from '@/pages/system/user/components/ButtonEdit';
 import ButtonRemove from '@/pages/system/user/components/ButtonRemove';
 import ButtonResetPwd from '@/pages/system/user/components/ButtonResetPwd';
@@ -54,21 +53,6 @@ const [TPhoneNumber] = generateColumns(
   },
 );
 
-// 启用禁用状态
-const useTStatusNormalDisable = () => {
-  const { data } = useQueryDict('sys_normal_disable');
-
-  const [TStatusNormalDisable] = generateColumns({
-    title: '状态',
-    dataIndex: 'status',
-    key: 'status',
-    valueType: 'select',
-    valueEnum: data ?? {},
-  });
-
-  return TStatusNormalDisable;
-};
-
 // 操作
 const [TOption] = generateColumns(
   {
@@ -95,13 +79,15 @@ const [TOption] = generateColumns(
 );
 
 export const useTableColumns = () => {
+  const [TStatusNormalDisable] = useStatusNormalDisable();
+
   return [
     TUserId,
     TUserName,
     TNickName,
     TDeptDeptName,
     TPhoneNumber,
-    useTStatusNormalDisable(),
+    TStatusNormalDisable,
     TCreateTime,
     TOption,
     TCreateTimeRange,

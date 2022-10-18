@@ -1,29 +1,18 @@
-import { EnableDisableStatus } from '@/constants';
-import { useRowClick } from '@/hooks';
-import { useRoleListActionRef, useShowRoleDetails } from '@/pages/system/role/model';
+import { TRoleKey, TRoleName, useStatusNormalDisable } from '@/columns';
+import { useActionRefRoleList, useSetSearchParams, useShowRoleDetails } from '@/pages/system/role/model';
 import { SysRolePostList } from '@/services/sys/SysRoleService';
 import { convertParams } from '@/utils';
 import { ProList } from '@ant-design/pro-components';
-import { Tag } from 'antd';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 
 const List: FC = () => {
-  const roleListActionRef = useRoleListActionRef();
+  const roleListActionRef = useActionRefRoleList();
 
   const showRoleDetails = useShowRoleDetails();
 
-  const { onClick, rowSelection, selectedRows } = useRowClick<API.SysRoleVo>('roleId', 'radio');
+  const setSearchParams = useSetSearchParams();
 
-  useEffect(() => {
-    if (selectedRows.length === 1) {
-      showRoleDetails({
-        roleId: selectedRows[0].roleId,
-        roleName: selectedRows[0].roleName,
-        visible: true,
-      });
-    }
-  }, [selectedRows]);
+  const [TStatusNormalDisable] = useStatusNormalDisable();
 
   return (
     <ProList<API.SysRoleVo>
@@ -31,32 +20,30 @@ const List: FC = () => {
       rowKey="roleId"
       actionRef={roleListActionRef}
       metas={{
-        title: {
-          dataIndex: 'roleName',
-        },
-        subTitle: {
-          dataIndex: 'status',
-          render: (e) => {
-            return e === EnableDisableStatus.ENABLE ? (
-              <Tag color="success">启用中</Tag>
-            ) : (
-              <Tag color="error">已禁用</Tag>
-            );
-          },
-        },
+        title: TRoleName,
+        subTitle: TStatusNormalDisable,
+        description: TRoleKey,
       }}
       tableAlertRender={false}
-      onRow={(record) => {
-        return {
-          onClick: () => onClick(record),
-        };
+      rowSelection={{
+        type: 'radio',
+        onChange: (_, selectedRows) => {
+          showRoleDetails(selectedRows[0].roleId, selectedRows[0].roleName);
+        },
       }}
-      rowSelection={rowSelection}
+      search={{
+        filterType: 'light',
+      }}
       pagination={{
         defaultPageSize: 10,
         defaultCurrent: 1,
+        showSizeChanger: true,
       }}
-      request={(...params) => SysRolePostList(convertParams(...params))}
+      request={async (...p) => {
+        const params = convertParams(...p);
+        setSearchParams(params);
+        return await SysRolePostList(params);
+      }}
     />
   );
 };

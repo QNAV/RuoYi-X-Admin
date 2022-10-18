@@ -1,5 +1,6 @@
 import { EnableDisableStatusMap } from '@/constants';
 import type { ProItem } from '@/typings';
+import { generateColumns } from '@/utils';
 
 // 序号
 export const CIndex: ProItem = {
@@ -39,6 +40,14 @@ export const CRemark: ProItem = {
   valueType: 'textarea',
   hideInSearch: true,
 };
+
+export const [TRemark, FRemark, DRemark] = generateColumns({
+  title: '备注',
+  dataIndex: 'remark',
+  key: 'remark',
+  valueType: 'textarea',
+  hideInSearch: true,
+});
 
 // 排序
 export const COrderNum: ProItem = {

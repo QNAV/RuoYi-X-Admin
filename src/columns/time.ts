@@ -18,7 +18,7 @@ export const [TCreateTime, FCreateTime, DCreateTime] = generateColumns(
 );
 
 // 创建时间范围
-export const [TCreateTimeRange] = generateColumns(
+export const [TCreateTimeRange, FCreateTimeRange] = generateColumns(
   {
     title: '创建时间',
     dataIndex: 'createTimeRange',

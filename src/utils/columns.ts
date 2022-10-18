@@ -14,25 +14,12 @@ type ProSchemaCommon<T = Record<string, any>, ValueType = 'text'> = ProSchema<
   ValueType,
   any
 >;
-type ProSchemaTable<T = Record<string, any>, ValueType = 'text'> = Omit<
-  ProColumns<T, ValueType>,
-  keyof ProSchemaCommon<T, ValueType>
->;
-type ProSchemaForm<T = Record<string, any>, ValueType = 'text'> = Omit<
-  ProFormColumnsType<T, ValueType>,
-  keyof ProSchemaCommon<T, ValueType>
->;
-type ProSchemaDescriptions<T = Record<string, any>, ValueType = 'text'> = Omit<
-  ProDescriptionsItemProps<T, ValueType>,
-  keyof ProSchemaCommon<T, ValueType>
->;
-
 export const generateColumns = <T = any, ValueType = 'text'>(
   commonSchema: ProSchemaCommon<T, ValueType>,
   schema?: {
-    table?: ProSchemaTable<T, ValueType>;
-    form?: ProSchemaForm<T, ValueType>;
-    descriptions?: ProSchemaDescriptions<T, ValueType>;
+    table?: ProColumns<T, ValueType>;
+    form?: ProFormColumnsType<T, ValueType>;
+    descriptions?: ProDescriptionsItemProps<T, ValueType>;
   },
 ): [ProColumns<T, ValueType>, ProFormColumnsType<T, ValueType>, ProDescriptionsItemProps<T, ValueType>] => {
   return [
