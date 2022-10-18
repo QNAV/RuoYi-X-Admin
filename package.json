@@ -19,7 +19,7 @@
     "@ant-design/pro-components": "^2.3.19",
     "@tanstack/react-query": "^4.12.0",
     "@tanstack/react-query-devtools": "^4.12.0",
-    "@wangeditor/editor": "^5.1.21",
+    "@wangeditor/editor": "^5.1.22",
     "@wangeditor/editor-for-react": "^1.0.5",
     "ahooks": "^3.7.1",
     "antd": "next",
