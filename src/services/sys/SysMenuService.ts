@@ -32,7 +32,7 @@ export async function SysMenuGetInfo(
   params: API.SysMenuGetInfoParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ResponseSysMenu>('/system/menu/info', {
+  return request<API.ResponseSysMenuVo>('/system/menu/info', {
     method: 'GET',
     params: {
       ...params,
@@ -43,7 +43,7 @@ export async function SysMenuGetInfo(
 
 /** 获取菜单列表 POST /system/menu/list */
 export async function SysMenuPostList(body: API.SysMenuQueryBo, options?: { [key: string]: any }) {
-  return request<API.ResponseListSysMenu>('/system/menu/list', {
+  return request<API.ResponseListSysMenuVo>('/system/menu/list', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

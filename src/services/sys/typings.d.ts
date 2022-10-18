@@ -155,11 +155,11 @@ declare namespace API {
     msg: string;
   }
 
-  interface ResponseListSysMenu {
+  interface ResponseListSysMenuVo {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysMenu0[];
+    data: SysMenuVo[];
     /** 消息内容 */
     msg: string;
   }
@@ -281,11 +281,11 @@ declare namespace API {
     msg: string;
   }
 
-  interface ResponseSysMenu {
+  interface ResponseSysMenuVo {
     /** 消息状态码 */
     code: number;
     /** 数据对象 */
-    data: SysMenu0;
+    data: SysMenuVo;
     /** 消息内容 */
     msg: string;
   }
@@ -679,12 +679,6 @@ declare namespace API {
   interface SysDeptVo {
     /** 祖级列表 */
     ancestors?: string;
-    /** 子部门 */
-    children?: SysDeptVo[];
-    /** 创建者 */
-    createBy: string;
-    /** 创建时间 */
-    createTime: string;
     /** 删除标志（0代表存在 2代表删除） */
     delFlag: string;
     /** 部门id */
@@ -697,18 +691,10 @@ declare namespace API {
     leader?: string;
     /** 显示顺序 */
     orderNum: number;
-    /** 父菜单ID */
-    parentId?: number;
-    /** 父菜单名称 */
-    parentName?: string;
     /** 联系电话 */
     phone?: string;
     /** 部门状态:0正常,1停用 */
     status: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
   }
 
   interface SysDictDataAddBo {
@@ -982,14 +968,8 @@ declare namespace API {
   }
 
   interface SysMenu {
-    /** 子部门 */
-    children?: SysMenu[];
     /** 组件路径 */
     component?: string;
-    /** 创建者 */
-    createBy?: string;
-    /** 创建时间 */
-    createTime?: string;
     /** 菜单图标 */
     icon?: string;
     /** 是否缓存（0缓存 1不缓存） */
@@ -1004,10 +984,6 @@ declare namespace API {
     menuType: string;
     /** 显示顺序 */
     orderNum: number;
-    /** 父菜单ID */
-    parentId?: number;
-    /** 父菜单名称 */
-    parentName?: string;
     /** 路由地址 */
     path?: string;
     /** 权限字符串 */
@@ -1018,57 +994,8 @@ declare namespace API {
     remark?: string;
     /** 菜单状态（0显示 1隐藏） */
     status?: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
     /** 显示状态（0显示 1隐藏） */
     visible?: string;
-  }
-
-  interface SysMenu0 {
-    /** 子部门 */
-    children?: SysMenu0[];
-    /** 组件路径 */
-    component?: string;
-    /** 创建者 */
-    createBy: string;
-    /** 创建时间 */
-    createTime: string;
-    /** 菜单图标 */
-    icon?: string;
-    /** 是否缓存（0缓存 1不缓存） */
-    isCache: string;
-    /** 是否为外链（0是 1否） */
-    isFrame: string;
-    /** 菜单ID */
-    menuId: number;
-    /** 菜单名称 */
-    menuName: string;
-    /** 类型（M目录 C菜单 F按钮） */
-    menuType: string;
-    /** 显示顺序 */
-    orderNum: number;
-    /** 父菜单ID */
-    parentId?: number;
-    /** 父菜单名称 */
-    parentName?: string;
-    /** 路由地址 */
-    path?: string;
-    /** 权限字符串 */
-    perms?: string;
-    /** 路由参数 */
-    queryParam?: string;
-    /** 备注 */
-    remark?: string;
-    /** 菜单状态（0显示 1隐藏） */
-    status: string;
-    /** 更新者 */
-    updateBy?: string;
-    /** 更新时间 */
-    updateTime?: string;
-    /** 显示状态（0显示 1隐藏） */
-    visible: string;
   }
 
   interface SysMenuAddBo {
@@ -1173,6 +1100,51 @@ declare namespace API {
     status?: string;
     /** 显示状态（0显示 1隐藏） */
     visible?: string;
+  }
+
+  interface SysMenuVo {
+    /** 子部门 */
+    children?: SysMenuVo[];
+    /** 组件路径 */
+    component?: string;
+    /** 创建者 */
+    createBy: string;
+    /** 创建时间 */
+    createTime: string;
+    /** 菜单图标 */
+    icon?: string;
+    /** 是否缓存（0缓存 1不缓存） */
+    isCache: string;
+    /** 是否为外链（0是 1否） */
+    isFrame: string;
+    /** 菜单ID */
+    menuId: number;
+    /** 菜单名称 */
+    menuName: string;
+    /** 类型（M目录 C菜单 F按钮） */
+    menuType: string;
+    /** 显示顺序 */
+    orderNum: number;
+    /** 父菜单ID */
+    parentId?: number;
+    /** 父菜单名称 */
+    parentName?: string;
+    /** 路由地址 */
+    path?: string;
+    /** 权限字符串 */
+    perms?: string;
+    /** 路由参数 */
+    queryParam?: string;
+    /** 备注 */
+    remark?: string;
+    /** 菜单状态（0显示 1隐藏） */
+    status: string;
+    /** 更新者 */
+    updateBy?: string;
+    /** 更新时间 */
+    updateTime?: string;
+    /** 显示状态（0显示 1隐藏） */
+    visible: string;
   }
 
   interface SysNoticeAddBo {
