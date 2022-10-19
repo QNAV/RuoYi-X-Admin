@@ -91,6 +91,9 @@ const errorHandler = (res: CustomResponseStructure) => {
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_HOST,
   timeout: 1000 * 3,
+  paramsSerializer: {
+    indexes: null,
+  },
 });
 
 instance.interceptors.request.use((config) => {
