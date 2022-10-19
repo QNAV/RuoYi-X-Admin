@@ -37,7 +37,7 @@ export const useSetSearchParams = () => useSetAtom(atomSearchParams);
 
 const namespace = 'sysRole';
 const queryKey = [namespace, 'details'];
-export const useQueryRoleDetails = (onSuccess: () => void) => {
+export const useQueryRoleDetails = (onSuccess: (details: API.SysRoleVo) => void) => {
   const { roleId } = useAtomValueRoleDetails();
 
   const query = useQuery(queryKey, () => SysRoleGetInfo({ roleId }), {

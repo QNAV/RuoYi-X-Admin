@@ -1,12 +1,19 @@
 import { Access, EmptySimple } from '@/components';
+import { OptionsDataScope } from '@/constants';
 import { useAtomValueAccess } from '@/models';
-import { useEditRoleDetails, useQueryRoleTree } from '@/pages/system/role/model';
+import { useAtomValueRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
+import { SysDeptGetRoleDeptTreeSelect } from '@/services/sys/SysDeptService';
+import { SysRolePostDataScope } from '@/services/sys/SysRoleService';
 import type { TreeData } from '@/utils';
-import { getExpandedKeys } from '@/utils';
+import { filterCheckedTree, getExpandedKeys, getMenuIds } from '@/utils';
 import { CaretDownOutlined, CaretRightOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Space, Spin, Tree } from 'antd';
+import type { ProFormInstance } from '@ant-design/pro-components';
+import { ProForm, ProFormSelect } from '@ant-design/pro-components';
+import { useMutation } from '@tanstack/react-query';
+import { useRequest } from 'ahooks';
+import { Button, Checkbox, message, Space, Spin, Tree } from 'antd';
 import type { FC, Key } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const TreeDept: FC = () => {
   const [checkedKeys, setCheckedKeys] = useState<number[]>([]);
@@ -16,16 +23,58 @@ const TreeDept: FC = () => {
   const [checkAll, setCheckAll] = useState(false);
   const [indeterminate, setIndeterminate] = useState(true);
 
+  const [dataScope, setDataScope] = useState<string>();
+  const formRef = useRef<ProFormInstance>();
+
   const { canEditSysRole } = useAtomValueAccess();
 
-  const { isFetching, data, refetch } = useQueryRoleTree((selectedTreeData) => {
-    setCheckable(false);
-    setTreeData(selectedTreeData);
+  const { open, roleId } = useAtomValueRoleDetails();
+
+  const { refetch } = useQueryRoleDetails(({ dataScope }) => {
+    setDataScope(dataScope);
+    formRef.current?.setFieldsValue({ dataScope });
   });
 
-  const { isLoading, mutate } = useEditRoleDetails(() => {
-    refetch();
-  });
+  const { loading, refresh, data } = useRequest(
+    async () => {
+      const { depts, checkedKeys } = (await SysDeptGetRoleDeptTreeSelect({ roleId })) as {
+        depts: TreeData[];
+        checkedKeys: number[];
+      };
+
+      return {
+        treeData: depts,
+        selectedMenuIds: checkedKeys,
+        selectedTreeData: filterCheckedTree(depts, checkedKeys),
+        allMenuIds: getMenuIds(depts),
+      };
+    },
+    {
+      ready: open,
+      refreshDeps: [roleId],
+      onSuccess: (res) => {
+        setCheckable(false);
+        setTreeData(res.selectedTreeData);
+      },
+    },
+  );
+
+  const { isLoading, mutate } = useMutation(
+    async () => {
+      await SysRolePostDataScope({
+        roleId,
+        dataScope,
+        deptIds: checkedKeys,
+      } as any);
+    },
+    {
+      onSuccess: () => {
+        refresh();
+        refetch();
+        message.success('保存成功');
+      },
+    },
+  );
 
   const allExpandedKeys = getExpandedKeys(data?.treeData ?? []);
   const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === allExpandedKeys?.length;
@@ -58,32 +107,25 @@ const TreeDept: FC = () => {
 
   return (
     <>
-      <header className="flex justify-between mb-2">
-        <Space wrap>
-          {treeData.length > 0 && (
-            <Button
-              size="small"
-              icon={isAllExpanded ? <CaretDownOutlined /> : <CaretRightOutlined />}
-              onClick={() => setExpandedKeys(isAllExpanded ? [] : allExpandedKeys)}
-            >
-              {isAllExpanded ? '全部折叠' : '全部展开'}
-            </Button>
-          )}
-
-          {checkable && (
-            <Checkbox
-              indeterminate={indeterminate}
-              onChange={(e) => handleCheckedAllChange(e.target.checked)}
-              checked={checkAll}
-            >
-              全选/全不选
-            </Checkbox>
-          )}
-        </Space>
+      <header className="flex justify-between items-start flex-wrap">
+        <ProForm formRef={formRef} submitter={false} layout="horizontal">
+          <ProFormSelect
+            name="dataScope"
+            label="数据权限范围"
+            fieldProps={{
+              options: OptionsDataScope,
+              onChange: (value) => {
+                console.log(value);
+                setDataScope(value);
+              },
+            }}
+            readonly={!checkable}
+          />
+        </ProForm>
 
         <Access accessible={canEditSysRole}>
           {checkable ? (
-            <Space wrap>
+            <Space>
               <Button
                 loading={isLoading}
                 onClick={() => {
@@ -93,13 +135,7 @@ const TreeDept: FC = () => {
               >
                 取消编辑
               </Button>
-              <Button
-                type="primary"
-                ghost
-                icon={<SaveOutlined />}
-                loading={isLoading}
-                onClick={() => mutate({ menuIds: checkedKeys })}
-              >
+              <Button type="primary" ghost icon={<SaveOutlined />} loading={isLoading} onClick={() => mutate()}>
                 保存
               </Button>
             </Space>
@@ -120,31 +156,56 @@ const TreeDept: FC = () => {
         </Access>
       </header>
 
-      <Spin spinning={isFetching}>
-        <div className="h-[calc(100vh-450px)] overflow-y-auto">
-          {treeData.length > 0 ? (
-            <Tree<any>
-              blockNode
-              showLine={{ showLeafIcon: false }}
-              checkable={checkable}
-              checkStrictly
-              fieldNames={{
-                title: 'label',
-                key: 'id',
-              }}
-              checkedKeys={checkedKeys}
-              treeData={treeData}
-              expandedKeys={expandedKeys}
-              onExpand={(keys) => setExpandedKeys(keys)}
-              onCheck={(_) => {
-                setCheckedKeys((_ as { checked: number[]; halfChecked: number[] }).checked);
-              }}
-            />
-          ) : (
-            <EmptySimple description="暂未分配数据权限" />
-          )}
-        </div>
-      </Spin>
+      {dataScope === '2' && (
+        <>
+          <Space wrap className="mb-2">
+            {treeData.length > 0 && (
+              <Button
+                size="small"
+                icon={isAllExpanded ? <CaretDownOutlined /> : <CaretRightOutlined />}
+                onClick={() => setExpandedKeys(isAllExpanded ? [] : allExpandedKeys)}
+              >
+                {isAllExpanded ? '全部折叠' : '全部展开'}
+              </Button>
+            )}
+
+            {checkable && (
+              <Checkbox
+                indeterminate={indeterminate}
+                onChange={(e) => handleCheckedAllChange(e.target.checked)}
+                checked={checkAll}
+              >
+                全选/全不选
+              </Checkbox>
+            )}
+          </Space>
+          <Spin spinning={loading}>
+            <div className="h-[calc(100vh-450px)] overflow-y-auto">
+              {treeData.length > 0 ? (
+                <Tree<any>
+                  blockNode
+                  showLine={{ showLeafIcon: false }}
+                  checkable={checkable}
+                  checkStrictly
+                  fieldNames={{
+                    title: 'label',
+                    key: 'id',
+                  }}
+                  checkedKeys={checkedKeys}
+                  treeData={treeData}
+                  expandedKeys={expandedKeys}
+                  onExpand={(keys) => setExpandedKeys(keys)}
+                  onCheck={(_) => {
+                    setCheckedKeys((_ as { checked: number[]; halfChecked: number[] }).checked);
+                  }}
+                />
+              ) : (
+                <EmptySimple description="暂未分配数据权限" />
+              )}
+            </div>
+          </Spin>
+        </>
+      )}
     </>
   );
 };
