@@ -7,7 +7,7 @@ import { Button, message, Modal, Typography } from 'antd';
 import type { FC } from 'react';
 
 const ButtonDelete: FC = () => {
-  const access = useAtomValueAccess();
+  const { canRemoveSysRole } = useAtomValueAccess();
 
   const roleListActions = useAtomValueRoleListActions();
 
@@ -16,11 +16,10 @@ const ButtonDelete: FC = () => {
 
   const handleDel = () =>
     Modal.confirm({
-      title: '删除确认',
+      title: '删除角色',
       content: (
         <>
-          确定对角色<Typography.Text code>{roleName}</Typography.Text>进行<Typography.Text code>删除</Typography.Text>
-          操作吗？
+          确定<Typography.Text code>删除</Typography.Text>角色<Typography.Text code>{roleName}</Typography.Text>吗？
         </>
       ),
       onOk: async () => {
@@ -33,7 +32,7 @@ const ButtonDelete: FC = () => {
     });
 
   return (
-    <Access accessible={access.canRemoveSysRole}>
+    <Access accessible={canRemoveSysRole}>
       <Button danger ghost icon={<DeleteOutlined />} onClick={handleDel}>
         删除
       </Button>

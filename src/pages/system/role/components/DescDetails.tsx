@@ -1,7 +1,6 @@
 import { DCreateTime, DRemark, DRoleId, DRoleKey, DRoleName, DRoleSort, useStatusNormalDisable } from '@/columns';
-import { EmptySimple } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import { useAtomValueRoleDetails, useEditRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
+import { useEditRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { Divider, Form, Spin } from 'antd';
@@ -15,13 +14,16 @@ const DescDetails: FC = () => {
 
   const access = useAtomValueAccess();
 
-  const { open } = useAtomValueRoleDetails();
-
   const [, , DStatusNormalDisable] = useStatusNormalDisable();
 
-  const { data, loading } = useQueryRoleDetails();
+  const { data, isFetching, refetch } = useQueryRoleDetails(() => {
+    setEditableKeys([]);
+    form.resetFields();
+  });
 
-  const { mutateAsync } = useEditRoleDetails();
+  const { mutateAsync } = useEditRoleDetails(() => {
+    refetch();
+  });
 
   const editable: ProDescriptionsProps<API.SysRoleVo>['editable'] =
     access.canEditSysRole && data
@@ -45,10 +47,8 @@ const DescDetails: FC = () => {
         }
       : undefined;
 
-  if (!open) return <EmptySimple description="点击选择左侧角色查看详情" />;
-
   return (
-    <Spin spinning={loading}>
+    <Spin spinning={isFetching}>
       <ProDescriptions column={2} columns={[DRoleId, DCreateTime]} dataSource={data} />
 
       <Divider />

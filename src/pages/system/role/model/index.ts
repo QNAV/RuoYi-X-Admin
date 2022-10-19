@@ -1,5 +1,8 @@
 import { useInitActionType } from '@/hooks';
+import { SysMenuGetRoleMenuTreeSelect } from '@/services/sys/SysMenuService';
 import { SysRoleGetInfo, SysRolePostEdit } from '@/services/sys/SysRoleService';
+import type { TreeData } from '@/utils';
+import { filterCheckedTree, getMenuIds } from '@/utils';
 import type { ActionType } from '@ant-design/pro-components';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { message } from 'antd';
@@ -34,45 +37,81 @@ export const useSetSearchParams = () => useSetAtom(atomSearchParams);
 
 const namespace = 'sysRole';
 const queryKey = [namespace, 'details'];
-export const useQueryRoleDetails = () => {
+export const useQueryRoleDetails = (onSuccess: () => void) => {
   const { roleId } = useAtomValueRoleDetails();
 
-  const { data, isFetching, refetch } = useQuery(queryKey, () => SysRoleGetInfo({ roleId }), {
+  const query = useQuery(queryKey, () => SysRoleGetInfo({ roleId }), {
+    onSuccess,
     enabled: false,
   });
 
   useEffect(() => {
     if (roleId > 0) {
-      refetch();
+      query.refetch();
     }
   }, [roleId]);
 
-  return { data, loading: isFetching, refetch };
+  return query;
 };
 
-export const useEditRoleDetails = () => {
-  const queryClient = useQueryClient();
+const queryTreeKey = [namespace, 'tree'];
+export const useQueryRoleTree = (onSuccess: (selectedTreeData: TreeData[]) => void) => {
+  const { roleId } = useAtomValueRoleDetails();
 
-  const roleListActions = useAtomValueRoleListActions();
+  const query = useQuery(
+    queryTreeKey,
+    async () => {
+      const { menus, checkedKeys } = (await SysMenuGetRoleMenuTreeSelect({ roleId })) as {
+        menus: TreeData[];
+        checkedKeys: number[];
+      };
+
+      return {
+        treeData: menus,
+        selectedMenuIds: checkedKeys,
+        selectedTreeData: filterCheckedTree(menus, checkedKeys),
+        allMenuIds: getMenuIds(menus),
+      };
+    },
+    {
+      onSuccess: (data) => {
+        onSuccess(data.selectedTreeData);
+      },
+      enabled: false,
+    },
+  );
+
+  useEffect(() => {
+    if (roleId > 0) {
+      query.refetch();
+    }
+  }, [roleId]);
+
+  return query;
+};
+
+export const useEditRoleDetails = (onSuccess: () => void) => {
+  const queryClient = useQueryClient();
 
   return useMutation(
     async (params: Partial<API.SysRole>) => {
       const detailsData = queryClient.getQueryData<API.SysRoleVo>(queryKey);
+      const treeData = queryClient.getQueryData<{ selectedMenuIds: number[] }>(queryTreeKey);
 
       await SysRolePostEdit({
         roleId: detailsData!.roleId,
-        menuIds: detailsData?.menuIds ?? [],
         roleKey: detailsData!.roleKey,
         roleName: detailsData!.roleName,
         roleSort: detailsData!.roleSort,
         status: detailsData!.status,
+        menuIds: treeData!.selectedMenuIds,
+        menuCheckStrictly: false,
         ...params,
       });
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(queryKey);
-        roleListActions?.reload();
+        onSuccess();
         message.success('保存成功');
       },
     },

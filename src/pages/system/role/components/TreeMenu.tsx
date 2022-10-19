@@ -1,19 +1,11 @@
 import { Access, EmptySimple } from '@/components';
-import { useAtomValueRoleDetails, useEditRoleDetails } from '@/pages/system/role/model';
-import { SysMenuGetRoleMenuTreeSelect } from '@/services/sys/SysMenuService';
+import { useAtomValueAccess } from '@/models';
+import { useEditRoleDetails, useQueryRoleTree } from '@/pages/system/role/model';
 import type { TreeData } from '@/utils';
-import { filterCheckedTree, getMenuIds } from '@/utils';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
-import { useRequest } from 'ahooks';
-import { Button, Checkbox, Space, Tree } from 'antd';
+import { Button, Checkbox, Space, Spin, Tree } from 'antd';
 import type { FC, Key } from 'react';
 import { useEffect, useState } from 'react';
-
-const fieldNames = {
-  title: 'label',
-  key: 'id',
-  children: 'children',
-};
 
 const getExpandedKeys = (list: TreeData[]) => {
   const result: number[] = [];
@@ -31,39 +23,26 @@ const getExpandedKeys = (list: TreeData[]) => {
 
 const TreeTransferMenuTree: FC = () => {
   const [checkedKeys, setCheckedKeys] = useState<number[]>([]);
-  const [editable, setEditable] = useState(false);
+  const [checkable, setCheckable] = useState(false);
   const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
   const [treeData, setTreeData] = useState<TreeData[]>([]);
   const [checkAll, setCheckAll] = useState(false);
   const [indeterminate, setIndeterminate] = useState(true);
 
-  const { roleId } = useAtomValueRoleDetails();
+  const { canEditSysRole } = useAtomValueAccess();
 
-  const { data, refresh } = useRequest(
-    async () => {
-      const { menus, checkedKeys } = (await SysMenuGetRoleMenuTreeSelect({ roleId })) as {
-        menus: TreeData[];
-        checkedKeys: number[];
-      };
+  const {
+    isLoading: queryLoading,
+    data,
+    refetch,
+  } = useQueryRoleTree((selectedTreeData) => {
+    setCheckable(false);
+    setTreeData(selectedTreeData);
+  });
 
-      return {
-        treeData: menus,
-        selectedMenuIds: checkedKeys,
-        selectedTreeData: filterCheckedTree(menus, checkedKeys),
-        allMenuIds: getMenuIds(menus),
-      };
-    },
-    {
-      ready: roleId > 0,
-      refreshDeps: [roleId],
-      onSuccess: (v) => {
-        setEditable(false);
-        setTreeData(v.selectedTreeData);
-      },
-    },
-  );
-
-  const { isLoading, mutate } = useEditRoleDetails();
+  const { isLoading, mutate } = useEditRoleDetails(() => {
+    refetch();
+  });
 
   const allExpandedKeys = getExpandedKeys(data?.treeData ?? []);
   const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === allExpandedKeys?.length;
@@ -97,7 +76,7 @@ const TreeTransferMenuTree: FC = () => {
   return (
     <>
       <header className="flex justify-between mb-2">
-        <Space>
+        <Space wrap>
           {treeData.length > 0 && (
             <Button
               size="small"
@@ -108,7 +87,7 @@ const TreeTransferMenuTree: FC = () => {
             </Button>
           )}
 
-          {editable && (
+          {checkable && (
             <Checkbox
               indeterminate={indeterminate}
               onChange={(e) => handleCheckedAllChange(e.target.checked)}
@@ -119,13 +98,13 @@ const TreeTransferMenuTree: FC = () => {
           )}
         </Space>
 
-        <Access accessible>
-          {editable ? (
-            <Space>
+        <Access accessible={canEditSysRole}>
+          {checkable ? (
+            <Space wrap>
               <Button
                 loading={isLoading}
                 onClick={() => {
-                  setEditable(false);
+                  setCheckable(false);
                   setTreeData(data?.selectedTreeData ?? []);
                 }}
               >
@@ -140,7 +119,7 @@ const TreeTransferMenuTree: FC = () => {
               type="primary"
               ghost
               onClick={() => {
-                setEditable(true);
+                setCheckable(true);
                 setCheckedKeys(data?.selectedMenuIds ?? []);
                 setTreeData(data?.treeData ?? []);
               }}
@@ -151,26 +130,31 @@ const TreeTransferMenuTree: FC = () => {
         </Access>
       </header>
 
-      <div className="h-[390px] overflow-y-auto">
-        {treeData.length > 0 ? (
-          <Tree<any>
-            blockNode
-            showLine={{ showLeafIcon: false }}
-            checkable={editable}
-            checkStrictly
-            fieldNames={fieldNames}
-            checkedKeys={checkedKeys}
-            treeData={treeData}
-            expandedKeys={expandedKeys}
-            onExpand={(keys) => setExpandedKeys(keys)}
-            onCheck={(_) => {
-              setCheckedKeys((_ as { checked: number[]; halfChecked: number[] }).checked);
-            }}
-          />
-        ) : (
-          <EmptySimple description="暂未分配权限" />
-        )}
-      </div>
+      <Spin spinning={queryLoading}>
+        <div className="h-[calc(100vh-450px)] overflow-y-auto">
+          {treeData.length > 0 ? (
+            <Tree<any>
+              blockNode
+              showLine={{ showLeafIcon: false }}
+              checkable={checkable}
+              checkStrictly
+              fieldNames={{
+                title: 'label',
+                key: 'id',
+              }}
+              checkedKeys={checkedKeys}
+              treeData={treeData}
+              expandedKeys={expandedKeys}
+              onExpand={(keys) => setExpandedKeys(keys)}
+              onCheck={(_) => {
+                setCheckedKeys((_ as { checked: number[]; halfChecked: number[] }).checked);
+              }}
+            />
+          ) : (
+            <EmptySimple description="暂未分配权限" />
+          )}
+        </div>
+      </Spin>
     </>
   );
 };
