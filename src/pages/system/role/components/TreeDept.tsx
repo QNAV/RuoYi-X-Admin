@@ -8,7 +8,7 @@ import { Button, Checkbox, Space, Spin, Tree } from 'antd';
 import type { FC, Key } from 'react';
 import { useEffect, useState } from 'react';
 
-const TreeTransferMenuTree: FC = () => {
+const TreeDept: FC = () => {
   const [checkedKeys, setCheckedKeys] = useState<number[]>([]);
   const [checkable, setCheckable] = useState(false);
   const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
@@ -114,7 +114,7 @@ const TreeTransferMenuTree: FC = () => {
                 setTreeData(data?.treeData ?? []);
               }}
             >
-              编辑菜单权限
+              编辑数据权限
             </Button>
           )}
         </Access>
@@ -141,7 +141,7 @@ const TreeTransferMenuTree: FC = () => {
               }}
             />
           ) : (
-            <EmptySimple description="暂未分配菜单权限" />
+            <EmptySimple description="暂未分配数据权限" />
           )}
         </div>
       </Spin>
@@ -149,4 +149,4 @@ const TreeTransferMenuTree: FC = () => {
   );
 };
 
-export default TreeTransferMenuTree;
+export default TreeDept;

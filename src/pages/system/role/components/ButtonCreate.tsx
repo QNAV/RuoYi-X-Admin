@@ -30,7 +30,12 @@ const ButtonCreate: FC = () => {
         }
         formRef={formRef}
         onFinish={async (values) => {
-          await SysRolePostAdd({ ...values, menuIds: [], menuCheckStrictly: false });
+          await SysRolePostAdd({
+            ...values,
+            menuIds: [],
+            menuCheckStrictly: false,
+            deptCheckStrictly: false,
+          });
 
           roleListActions?.reload();
 

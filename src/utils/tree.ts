@@ -120,3 +120,17 @@ export const filterCheckedTree = (tree: TreeData[], checkedKeys: number[]): Tree
 
   return newTree;
 };
+
+export const getExpandedKeys = (list: TreeData[]) => {
+  const result: number[] = [];
+
+  list.forEach(({ id, children }) => {
+    result.push(id);
+
+    if (children) {
+      result.push(...getExpandedKeys(children));
+    }
+  });
+
+  return result;
+};

@@ -106,6 +106,7 @@ export const useEditRoleDetails = (onSuccess: () => void) => {
         status: detailsData!.status,
         menuIds: treeData!.selectedMenuIds,
         menuCheckStrictly: false,
+        deptCheckStrictly: false,
         ...params,
       });
     },

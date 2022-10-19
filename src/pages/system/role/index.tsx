@@ -5,7 +5,7 @@ import ButtonDelete from '@/pages/system/role/components/ButtonDelete';
 import ButtonExport from '@/pages/system/role/components/ButtonExport';
 import DescDetails from '@/pages/system/role/components/DescDetails';
 import List from '@/pages/system/role/components/List';
-import TreeData from '@/pages/system/role/components/TreeData';
+import TreeDept from '@/pages/system/role/components/TreeDept';
 import MenuTree from '@/pages/system/role/components/TreeMenu';
 import { useAtomValueRoleDetails } from '@/pages/system/role/model';
 import { ProCard } from '@ant-design/pro-components';
@@ -55,7 +55,7 @@ const PageRole: FC = () => {
               </ProCard>
 
               <ProCard>
-                <TreeData />
+                <TreeDept />
               </ProCard>
             </ProCard>
           </ProCard>
