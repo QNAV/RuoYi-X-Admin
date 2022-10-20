@@ -1,15 +1,68 @@
+import {
+  TCreateTime,
+  TCreateTimeRange,
+  TDeptDeptName,
+  TNickName,
+  TPhoneNumber,
+  TUserId,
+  TUserName,
+  useStatusNormalDisable,
+} from '@/columns';
 import { BaseProTable, BaseTableAlert } from '@/components';
 import ButtonAdd from '@/pages/system/user/components/ButtonAdd';
+import ButtonEdit from '@/pages/system/user/components/ButtonEdit';
 import ButtonExport from '@/pages/system/user/components/ButtonExport';
 import ButtonImport from '@/pages/system/user/components/ButtonImport';
 import ButtonRemove from '@/pages/system/user/components/ButtonRemove';
+import ButtonResetPwd from '@/pages/system/user/components/ButtonResetPwd';
 import TreeDept from '@/pages/system/user/components/TreeDept';
-import { useActionRefMainTable, useAtomValueSelectedDeptId, useTableColumns } from '@/pages/system/user/model';
+import { useActionRefMainTable, useAtomValueSelectedDeptId } from '@/pages/system/user/model';
 import { SysUserPostList } from '@/services/sys/SysUserService';
-import { convertParams } from '@/utils';
+import { convertParams, generateColumns } from '@/utils';
 import type { ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
+
+// 操作
+const [TOption] = generateColumns(
+  {
+    title: '操作',
+    valueType: 'option',
+    render: (dom, entity: API.SysUserVo) => {
+      return (
+        <>
+          <ButtonEdit userId={entity.userId} />
+
+          <ButtonRemove userId={entity.userId} userName={entity.userName} />
+
+          <ButtonResetPwd record={entity} />
+        </>
+      );
+    },
+  },
+  {
+    table: {
+      fixed: 'right',
+      width: 300,
+    },
+  },
+);
+
+const useTableColumns = () => {
+  const [TStatusNormalDisable] = useStatusNormalDisable();
+
+  return [
+    TUserId,
+    TUserName,
+    TNickName,
+    TDeptDeptName,
+    TPhoneNumber,
+    TStatusNormalDisable,
+    TCreateTime,
+    TOption,
+    TCreateTimeRange,
+  ];
+};
 
 const tableAlertRender: ProTableProps<API.SysUserVo, API.SysUserPageQueryBo>['tableAlertRender'] = ({
   selectedRows,

@@ -1,5 +1,6 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
+import { useAtomValueRoleDetails } from '@/pages/system/role/model';
 import { UserOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import type { FC } from 'react';
@@ -10,9 +11,11 @@ const ButtonAssignUser: FC = () => {
 
   const navigate = useNavigate();
 
+  const { roleId } = useAtomValueRoleDetails();
+
   return (
     <Access accessible={canEditSysRole}>
-      <Button type="primary" ghost onClick={() => navigate('/')} icon={<UserOutlined />}>
+      <Button type="primary" ghost onClick={() => navigate(`/system/role-auth/${roleId}`)} icon={<UserOutlined />}>
         分配用户
       </Button>
     </Access>

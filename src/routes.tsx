@@ -52,6 +52,13 @@ export const layoutRoutes: Route[] = [
             isKeepAlive: true,
           },
           {
+            name: '角色授权',
+            path: 'role-auth/:roleId',
+            element: lazyLoadPage('system/roleAuth'),
+            access: 'canEditSysRole',
+            isKeepAlive: true,
+          },
+          {
             name: '菜单管理',
             path: 'menu',
             element: lazyLoadPage('system/menu'),
