@@ -1,4 +1,5 @@
 import type { ValueEnumMap } from '@/constants';
+import { YNStatus } from '@/constants';
 import type { SortOrder } from 'antd/es/table/interface';
 import type { Key } from 'react';
 
@@ -66,14 +67,22 @@ export const convertParams = <T extends Record<string, any>>(
   };
 };
 
-export const convertDict2ValueEnum = (
-  dict: API.SysDictDataVo[],
-  valueType?: 'number' | 'string',
-): ValueEnumMap<Key> => {
-  return dict.reduce((pre, item) => {
+export const convertDict2ValueEnum = (dict: API.SysDictDataVo[], valueType?: 'number' | 'string') => {
+  let defaultValue: null | Key = null;
+
+  const mapData: ValueEnumMap<Key> = dict.reduce((pre, item) => {
+    if (item.isDefault === YNStatus.YES) {
+      defaultValue = item.dictValue;
+    }
+
     return pre.set(item.dictValue, {
       text: valueType === 'number' ? Number(item.dictLabel) : item.dictLabel,
       status: item.listClass,
     });
   }, new Map());
+
+  return {
+    defaultValue,
+    mapData,
+  };
 };

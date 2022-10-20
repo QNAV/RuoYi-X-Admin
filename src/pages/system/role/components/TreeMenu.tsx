@@ -2,7 +2,6 @@ import { Access, EmptySimple } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useEditRoleDetails, useQueryRoleTree } from '@/pages/system/role/model';
 import type { TreeData } from '@/utils';
-import { getExpandedKeys } from '@/utils';
 import { CaretDownOutlined, CaretRightOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Space, Spin, Tree } from 'antd';
 import type { FC, Key } from 'react';
@@ -11,8 +10,11 @@ import { useEffect, useState } from 'react';
 const TreeTransferMenuTree: FC = () => {
   const [checkedKeys, setCheckedKeys] = useState<number[]>([]);
   const [checkable, setCheckable] = useState(false);
+
   const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
+
   const [treeData, setTreeData] = useState<TreeData[]>([]);
+
   const [checkAll, setCheckAll] = useState(false);
   const [indeterminate, setIndeterminate] = useState(true);
 
@@ -27,8 +29,7 @@ const TreeTransferMenuTree: FC = () => {
     refetch();
   });
 
-  const allExpandedKeys = getExpandedKeys(data?.treeData ?? []);
-  const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === allExpandedKeys?.length;
+  const isAllExpanded = expandedKeys.length === data?.allExpandedKeys.length;
 
   // 全选/全不选
   const handleCheckedAllChange = (checked: boolean) => {
@@ -64,20 +65,10 @@ const TreeTransferMenuTree: FC = () => {
             <Button
               size="small"
               icon={isAllExpanded ? <CaretDownOutlined /> : <CaretRightOutlined />}
-              onClick={() => setExpandedKeys(isAllExpanded ? [] : allExpandedKeys)}
+              onClick={() => setExpandedKeys(isAllExpanded ? [] : data!.allExpandedKeys)}
             >
               {isAllExpanded ? '全部折叠' : '全部展开'}
             </Button>
-          )}
-
-          {checkable && (
-            <Checkbox
-              indeterminate={indeterminate}
-              onChange={(e) => handleCheckedAllChange(e.target.checked)}
-              checked={checkAll}
-            >
-              全选/全不选
-            </Checkbox>
           )}
         </Space>
 
@@ -121,6 +112,18 @@ const TreeTransferMenuTree: FC = () => {
       </header>
 
       <Spin spinning={isFetching}>
+        <div className="pl-1 mb-2">
+          {checkable && (
+            <Checkbox
+              indeterminate={indeterminate}
+              onChange={(e) => handleCheckedAllChange(e.target.checked)}
+              checked={checkAll}
+            >
+              全选/全不选
+            </Checkbox>
+          )}
+        </div>
+
         <div className="h-[calc(100vh-450px)] overflow-y-auto">
           {treeData.length > 0 ? (
             <Tree<any>
@@ -137,7 +140,7 @@ const TreeTransferMenuTree: FC = () => {
               expandedKeys={expandedKeys}
               onExpand={(keys) => setExpandedKeys(keys)}
               onCheck={(_) => {
-                setCheckedKeys((_ as { checked: number[]; halfChecked: number[] }).checked);
+                setCheckedKeys((_ as { checked: number[] }).checked);
               }}
             />
           ) : (

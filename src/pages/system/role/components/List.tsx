@@ -34,6 +34,12 @@ const List: FC = () => {
       search={{
         filterType: 'light',
       }}
+      options={{
+        setting: false,
+        fullScreen: false,
+        density: false,
+        reload: true,
+      }}
       pagination={{
         defaultPageSize: 10,
         defaultCurrent: 1,

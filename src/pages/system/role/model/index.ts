@@ -2,7 +2,7 @@ import { useInitActionType } from '@/hooks';
 import { SysMenuGetRoleMenuTreeSelect } from '@/services/sys/SysMenuService';
 import { SysRoleGetInfo, SysRolePostEdit } from '@/services/sys/SysRoleService';
 import type { TreeData } from '@/utils';
-import { filterCheckedTree, getMenuIds } from '@/utils';
+import { filterCheckedTree, getExpandedKeys, getMenuIds } from '@/utils';
 import type { ActionType } from '@ant-design/pro-components';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { message } from 'antd';
@@ -71,6 +71,7 @@ export const useQueryRoleTree = (onSuccess: (selectedTreeData: TreeData[]) => vo
         selectedMenuIds: checkedKeys,
         selectedTreeData: filterCheckedTree(menus, checkedKeys),
         allMenuIds: getMenuIds(menus),
+        allExpandedKeys: getExpandedKeys(menus),
       };
     },
     {

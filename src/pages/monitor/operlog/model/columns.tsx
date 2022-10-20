@@ -90,7 +90,7 @@ const useCBusinessType = () => {
     dataIndex: 'businessType',
     key: 'businessType',
     valueType: 'select',
-    valueEnum: data ?? {},
+    valueEnum: data?.mapData ?? {},
   });
 };
 
@@ -103,7 +103,7 @@ const useCStatus = () => {
     dataIndex: 'status',
     key: 'status',
     valueType: 'select',
-    valueEnum: data ?? {},
+    valueEnum: data?.mapData ?? {},
   });
 };
 

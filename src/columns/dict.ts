@@ -72,12 +72,13 @@ export const useStatusNormalDisable = () => {
       dataIndex: 'status',
       key: 'status',
       valueType: 'select',
-      valueEnum: data ?? {},
+      valueEnum: data?.mapData ?? {},
     },
     {
       form: {
         valueType: 'radio',
         formItemProps: {
+          initialValue: data?.defaultValue,
           required: true,
           rules: [{ required: true, message: '请选择状态' }],
         },

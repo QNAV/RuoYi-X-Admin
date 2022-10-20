@@ -22,10 +22,10 @@ const ButtonCreate: FC = () => {
   return (
     <Access accessible={canAddSysRole}>
       <BetaSchemaForm
-        title="新建角色"
+        title="新增角色"
         trigger={
           <Button type="primary" icon={<PlusOutlined />}>
-            新建
+            新增
           </Button>
         }
         formRef={formRef}
@@ -39,7 +39,7 @@ const ButtonCreate: FC = () => {
 
           roleListActions?.reload();
 
-          message.success('新建成功');
+          message.success('新增成功');
 
           formRef.current?.resetFields();
 

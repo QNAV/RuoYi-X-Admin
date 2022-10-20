@@ -1,6 +1,6 @@
 import { DCreateTime, DRemark, DRoleId, DRoleKey, DRoleName, DRoleSort, useStatusNormalDisable } from '@/columns';
 import { useAtomValueAccess } from '@/models';
-import { useEditRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
+import { useAtomValueRoleListActions, useEditRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { Divider, Form, Spin } from 'antd';
@@ -16,6 +16,8 @@ const DescDetails: FC = () => {
 
   const [, , DStatusNormalDisable] = useStatusNormalDisable();
 
+  const actions = useAtomValueRoleListActions();
+
   const { data, isFetching, refetch } = useQueryRoleDetails(() => {
     setEditableKeys([]);
     form.resetFields();
@@ -23,6 +25,7 @@ const DescDetails: FC = () => {
 
   const { mutateAsync } = useEditRoleDetails(() => {
     refetch();
+    actions?.reload();
   });
 
   const editable: ProDescriptionsProps<API.SysRoleVo>['editable'] =
@@ -30,14 +33,14 @@ const DescDetails: FC = () => {
       ? {
           form,
           editableKeys,
-          onChange: (values, editableRows) => {
-            setEditableKeys(values);
+          onChange: (keys, editableRows) => {
+            setEditableKeys(keys);
 
-            if (values.length === 1 && !Array.isArray(editableRows)) {
-              form.setFieldsValue({
-                [values[0]]: editableRows[values[0] as keyof API.SysRoleVo],
-              });
-            }
+            const key = keys[0] as keyof API.SysRoleVo;
+
+            form.setFieldsValue({
+              [key]: (editableRows as API.SysRoleVo)[key],
+            });
           },
           onSave: async (key, record) => {
             await mutateAsync({

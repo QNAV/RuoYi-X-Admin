@@ -15,6 +15,7 @@ import type { FC } from 'react';
 
 const PageRole: FC = () => {
   const { xl } = useResponsive();
+
   const { open } = useAtomValueRoleDetails();
 
   return (
@@ -43,7 +44,6 @@ const PageRole: FC = () => {
                 <ButtonAssignUser />
               </Space>
             }
-            className="h-full"
           >
             <ProCard>
               <DescDetails />
