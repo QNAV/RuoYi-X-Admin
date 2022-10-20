@@ -5,7 +5,7 @@ import { convertParams } from '@/utils';
 import { ProList } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
-const List: FC = () => {
+const ListRole: FC = () => {
   const roleListActionRef = useActionRefRoleList();
 
   const showRoleDetails = useShowRoleDetails();
@@ -54,4 +54,4 @@ const List: FC = () => {
   );
 };
 
-export default List;
+export default ListRole;

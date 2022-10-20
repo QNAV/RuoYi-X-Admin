@@ -1,7 +1,7 @@
 import { DCreateTime, DRemark, DRoleId, DRoleKey, DRoleName, DRoleSort, useStatusNormalDisable } from '@/columns';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueRoleListActions, useEditRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
-import type { ProDescriptionsProps } from '@ant-design/pro-components';
+import type { RowEditableConfig } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { Divider, Form, Spin } from 'antd';
 import type { FC, Key } from 'react';
@@ -28,7 +28,7 @@ const DescDetails: FC = () => {
     actions?.reload();
   });
 
-  const editable: ProDescriptionsProps<API.SysRoleVo>['editable'] =
+  const editable: RowEditableConfig<API.SysRoleVo> | undefined =
     access.canEditSysRole && data
       ? {
           form,

@@ -96,16 +96,16 @@ export const useEditRoleDetails = (onSuccess: () => void) => {
 
   return useMutation(
     async (params: Partial<API.SysRole>) => {
-      const detailsData = queryClient.getQueryData<API.SysRoleVo>(queryKey);
-      const treeData = queryClient.getQueryData<{ selectedMenuIds: number[] }>(queryTreeKey);
+      const roleDetailsData = queryClient.getQueryData<API.SysRoleVo>(queryKey);
+      const deptTreeData = queryClient.getQueryData<{ selectedMenuIds: number[] }>(queryTreeKey);
 
       await SysRolePostEdit({
-        roleId: detailsData!.roleId,
-        roleKey: detailsData!.roleKey,
-        roleName: detailsData!.roleName,
-        roleSort: detailsData!.roleSort,
-        status: detailsData!.status,
-        menuIds: treeData!.selectedMenuIds,
+        roleId: roleDetailsData!.roleId,
+        roleKey: roleDetailsData!.roleKey,
+        roleName: roleDetailsData!.roleName,
+        roleSort: roleDetailsData!.roleSort,
+        status: roleDetailsData!.status,
+        menuIds: deptTreeData!.selectedMenuIds,
         menuCheckStrictly: false,
         deptCheckStrictly: false,
         ...params,

@@ -124,29 +124,27 @@ const TreeTransferMenuTree: FC = () => {
           )}
         </div>
 
-        <div className="h-[calc(100vh-450px)] overflow-y-auto">
-          {treeData.length > 0 ? (
-            <Tree<any>
-              blockNode
-              showLine={{ showLeafIcon: false }}
-              checkable={checkable}
-              checkStrictly
-              fieldNames={{
-                title: 'label',
-                key: 'id',
-              }}
-              checkedKeys={checkedKeys}
-              treeData={treeData}
-              expandedKeys={expandedKeys}
-              onExpand={(keys) => setExpandedKeys(keys)}
-              onCheck={(_) => {
-                setCheckedKeys((_ as { checked: number[] }).checked);
-              }}
-            />
-          ) : (
-            <EmptySimple description="暂未分配菜单权限" />
-          )}
-        </div>
+        {treeData.length > 0 ? (
+          <Tree<any>
+            blockNode
+            showLine={{ showLeafIcon: false }}
+            checkable={checkable}
+            checkStrictly
+            fieldNames={{
+              title: 'label',
+              key: 'id',
+            }}
+            checkedKeys={checkedKeys}
+            treeData={treeData}
+            expandedKeys={expandedKeys}
+            onExpand={(keys) => setExpandedKeys(keys)}
+            onCheck={(_) => {
+              setCheckedKeys((_ as { checked: number[] }).checked);
+            }}
+          />
+        ) : (
+          <EmptySimple description="暂未分配菜单权限" />
+        )}
       </Spin>
     </>
   );

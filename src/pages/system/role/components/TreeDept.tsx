@@ -47,6 +47,7 @@ const TreeDept: FC = () => {
         selectedMenuIds: checkedKeys,
         selectedTreeData: filterCheckedTree(depts, checkedKeys),
         allMenuIds: getMenuIds(depts),
+        allExpandedKeys: getExpandedKeys(depts),
       };
     },
     {
@@ -76,8 +77,7 @@ const TreeDept: FC = () => {
     },
   );
 
-  const allExpandedKeys = getExpandedKeys(data?.treeData ?? []);
-  const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === allExpandedKeys?.length;
+  const isAllExpanded = expandedKeys.length === data?.allExpandedKeys.length;
 
   // 全选/全不选
   const handleCheckedAllChange = (checked: boolean) => {
@@ -163,7 +163,7 @@ const TreeDept: FC = () => {
               <Button
                 size="small"
                 icon={isAllExpanded ? <CaretDownOutlined /> : <CaretRightOutlined />}
-                onClick={() => setExpandedKeys(isAllExpanded ? [] : allExpandedKeys)}
+                onClick={() => setExpandedKeys(isAllExpanded ? [] : data!.allExpandedKeys)}
               >
                 {isAllExpanded ? '全部折叠' : '全部展开'}
               </Button>
@@ -180,29 +180,27 @@ const TreeDept: FC = () => {
             )}
           </Space>
           <Spin spinning={loading}>
-            <div className="h-[calc(100vh-450px)] overflow-y-auto">
-              {treeData.length > 0 ? (
-                <Tree<any>
-                  blockNode
-                  showLine={{ showLeafIcon: false }}
-                  checkable={checkable}
-                  checkStrictly
-                  fieldNames={{
-                    title: 'label',
-                    key: 'id',
-                  }}
-                  checkedKeys={checkedKeys}
-                  treeData={treeData}
-                  expandedKeys={expandedKeys}
-                  onExpand={(keys) => setExpandedKeys(keys)}
-                  onCheck={(_) => {
-                    setCheckedKeys((_ as { checked: number[]; halfChecked: number[] }).checked);
-                  }}
-                />
-              ) : (
-                <EmptySimple description="暂未分配数据权限" />
-              )}
-            </div>
+            {treeData.length > 0 ? (
+              <Tree<any>
+                blockNode
+                showLine={{ showLeafIcon: false }}
+                checkable={checkable}
+                checkStrictly
+                fieldNames={{
+                  title: 'label',
+                  key: 'id',
+                }}
+                checkedKeys={checkedKeys}
+                treeData={treeData}
+                expandedKeys={expandedKeys}
+                onExpand={(keys) => setExpandedKeys(keys)}
+                onCheck={(_) => {
+                  setCheckedKeys((_ as { checked: number[]; halfChecked: number[] }).checked);
+                }}
+              />
+            ) : (
+              <EmptySimple description="暂未分配数据权限" />
+            )}
           </Spin>
         </>
       )}

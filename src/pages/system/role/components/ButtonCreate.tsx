@@ -47,7 +47,7 @@ const ButtonCreate: FC = () => {
         }}
         width={500}
         layoutType="ModalForm"
-        columns={[FRoleName, FRoleKey, FDRoleSort, FStatusNormalDisable, FRemark]}
+        columns={[FRoleName, FRoleKey, { valueType: 'group', columns: [FStatusNormalDisable, FDRoleSort] }, FRemark]}
       />
     </Access>
   );

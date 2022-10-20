@@ -4,7 +4,7 @@ import ButtonCreate from '@/pages/system/role/components/ButtonCreate';
 import ButtonDelete from '@/pages/system/role/components/ButtonDelete';
 import ButtonExport from '@/pages/system/role/components/ButtonExport';
 import DescDetails from '@/pages/system/role/components/DescDetails';
-import List from '@/pages/system/role/components/List';
+import ListRole from '@/pages/system/role/components/ListRole';
 import TreeDept from '@/pages/system/role/components/TreeDept';
 import MenuTree from '@/pages/system/role/components/TreeMenu';
 import { useAtomValueRoleDetails } from '@/pages/system/role/model';
@@ -14,13 +14,13 @@ import { Space } from 'antd';
 import type { FC } from 'react';
 
 const PageRole: FC = () => {
-  const { xl } = useResponsive();
+  const { md, xl } = useResponsive();
 
   const { open } = useAtomValueRoleDetails();
 
   return (
     <BasePageContainer>
-      <ProCard ghost gutter={16}>
+      <ProCard ghost gutter={[16, 16]} wrap={!md}>
         <ProCard
           title="角色列表"
           colSpan="450px"
@@ -31,7 +31,7 @@ const PageRole: FC = () => {
             </Space>
           }
         >
-          <List />
+          <ListRole />
         </ProCard>
 
         {open ? (
