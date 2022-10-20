@@ -41,8 +41,8 @@ export const EnableDisableStatusMap: ValueEnumMap<EnableDisableStatus> = new Map
 
 // 是/否
 export enum YesNoStatus {
-  YES = '0',
-  NO = '1',
+  NO = '0',
+  YES = '1',
 }
 export const YesNoStatusMap: ValueEnumMap<YesNoStatus> = new Map([
   [YesNoStatus.YES, { text: '是', status: 'Success' }],
