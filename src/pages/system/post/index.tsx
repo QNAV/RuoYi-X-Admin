@@ -1,6 +1,5 @@
-import { CEnableDisableStatus, CPostCode, CPostId, CPostName, CPostSort, CRemark, TCreateTime } from '@/columns';
 import { BasePageContainer } from '@/components';
-import { useRowClick } from '@/hooks';
+import { EnableDisableStatusMap } from '@/constants';
 import ButtonAdd from '@/pages/system/post/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/post/components/ButtonEdit';
 import type { SearchParams } from '@/pages/system/post/components/ButtonExport';
@@ -23,8 +22,6 @@ const PagePost: FC = () => {
   const formRef = useRef<ProFormInstance<API.SysPostQueryBo>>();
 
   const actionRef = useActionRefMainTable();
-
-  const { rowSelection, onClick } = useRowClick<API.SysPostVo>(rowKey);
 
   const tableAlertOptionRender: ProTableProps<API.SysPostVo, 'text'>['tableAlertOptionRender'] = ({ selectedRows }) => {
     const disabled = selectedRows.length === 0;
@@ -55,13 +52,21 @@ const PagePost: FC = () => {
           return await SysPostPostList(params);
         }}
         columns={[
-          CPostId,
-          CPostCode,
-          CPostName,
-          CPostSort,
-          CEnableDisableStatus,
-          CRemark,
-          TCreateTime,
+          { dataIndex: 'postId', key: 'postId', title: '岗位编号', valueType: 'text', hideInSearch: true },
+          { dataIndex: 'postCode', key: 'postCode', title: '岗位编码', valueType: 'text' },
+          { dataIndex: 'postName', key: 'postName', title: '岗位名称', valueType: 'text' },
+          { dataIndex: 'postSort', key: 'postSort', title: '显示顺序', valueType: 'text', hideInSearch: true },
+          { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: EnableDisableStatusMap },
+          { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
+          {
+            title: '创建时间',
+            dataIndex: 'createTime',
+            key: 'createTime',
+            valueType: 'dateTime',
+            editable: false,
+            hideInSearch: true,
+            sorter: true,
+          },
           {
             title: '操作',
             valueType: 'option',
@@ -79,10 +84,6 @@ const PagePost: FC = () => {
         toolbar={{
           actions: [<ButtonAdd key="ButtonAdd" />],
         }}
-        rowSelection={rowSelection}
-        onRow={(record) => ({
-          onClick: () => onClick(record),
-        })}
         tableAlertOptionRender={tableAlertOptionRender}
       />
 

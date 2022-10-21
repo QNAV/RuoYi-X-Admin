@@ -1,17 +1,5 @@
-import {
-  CEnableDisableStatus,
-  CIcon,
-  CIsFrame,
-  CMenuName,
-  COrderNum,
-  CPath,
-  CPathParams,
-  CPerms,
-  CRemark,
-  CVisible,
-} from '@/columns';
 import { EmptySimple } from '@/components';
-import { MenuType, MenuTypeMap } from '@/constants';
+import { EnableDisableStatusMap, MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
 import { useAtomValueAccess } from '@/models';
 import { useReFetchMenuList, useReFetchMenuOptions, useValueSelectedMenuData } from '@/pages/system/menu/model';
 import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
@@ -32,15 +20,53 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
     if (!menuType) return [];
 
     if (menuType !== MenuType.F) {
-      columns.push(CEnableDisableStatus, CVisible, CIsFrame, CIcon, CPath);
+      columns.push(
+        { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: EnableDisableStatusMap },
+        {
+          title: '是否显示',
+          dataIndex: 'visible',
+          key: 'visible',
+          valueType: 'radio',
+          valueEnum: YesNoStatusMap,
+          tooltip: '选择否则路由将不会出现在侧边栏，但仍然可以访问',
+        },
+        {
+          title: '是否外链',
+          dataIndex: 'isFrame',
+          key: 'isFrame',
+          valueType: 'radio',
+          valueEnum: YesNoStatusMap,
+          tooltip: '选择是外链则路由地址需要以`http(s)://`开头',
+        },
+        {
+          title: '图标',
+          dataIndex: 'icon',
+          key: 'icon',
+          valueType: 'text',
+          tooltip: 'https://ant.design/components/icon-cn/',
+        },
+        {
+          title: '路由地址',
+          dataIndex: 'path',
+          key: 'path',
+          valueType: 'text',
+          tooltip: '访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头',
+        },
+      );
     }
 
     if (menuType === MenuType.C) {
-      columns.push(CPathParams);
+      columns.push({
+        title: '路由参数',
+        dataIndex: 'queryParam',
+        key: 'queryParam',
+        valueType: 'code',
+        tooltip: '访问路由的默认传递参数，如：{"id": 1, "name": "ry"}',
+      });
     }
 
     if (menuType !== MenuType.M) {
-      columns.push(CPerms);
+      columns.push({ title: '权限标识', dataIndex: 'perms', key: 'perms', valueType: 'text', copyable: true });
     }
 
     return columns;
@@ -120,7 +146,11 @@ const DescDetails: FC = () => {
       <Divider />
 
       <ProDescriptions
-        columns={[CMenuName, COrderNum, CRemark]}
+        columns={[
+          { title: '名称', dataIndex: 'menuName', key: 'menuName', valueType: 'text' },
+          { title: '排序', dataIndex: 'orderNum', key: 'orderNum', valueType: 'digit' },
+          { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
+        ]}
         dataSource={data}
         editable={editable}
         column={column}

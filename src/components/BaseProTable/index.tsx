@@ -1,3 +1,4 @@
+import { BaseTableAlert } from '@/components';
 import type { ProTableProps } from '@ant-design/pro-components';
 import { ProTable as Table } from '@ant-design/pro-components';
 import { cloneElement } from 'react';
@@ -39,6 +40,9 @@ export const BaseProTable = <
       density: true,
     },
     defaultSize: 'small',
+    tableAlertRender: ({ selectedRowKeys, onCleanSelected }) => {
+      return <BaseTableAlert selectedNum={selectedRowKeys.length} onCleanSelected={onCleanSelected} />;
+    },
   };
 
   return cloneElement(<Table {...DefaultTableProps} />, props);

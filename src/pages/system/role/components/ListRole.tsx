@@ -1,4 +1,4 @@
-import { TRoleKey, TRoleName, useStatusNormalDisable } from '@/columns';
+import { useQueryDict } from '@/models';
 import { useActionRefRoleList, useSetSearchParams, useShowRoleDetails } from '@/pages/system/role/model';
 import { SysRolePostList } from '@/services/sys/SysRoleService';
 import { convertParams } from '@/utils';
@@ -12,7 +12,7 @@ const ListRole: FC = () => {
 
   const setSearchParams = useSetSearchParams();
 
-  const [TStatusNormalDisable] = useStatusNormalDisable();
+  const { data } = useQueryDict('sys_normal_disable');
 
   return (
     <ProList<API.SysRoleVo>
@@ -20,9 +20,34 @@ const ListRole: FC = () => {
       rowKey="roleId"
       actionRef={roleListActionRef}
       metas={{
-        title: TRoleName,
-        subTitle: TStatusNormalDisable,
-        description: TRoleKey,
+        title: {
+          title: '角色名称',
+          dataIndex: 'roleName',
+          key: 'roleName',
+          valueType: 'text',
+          formItemProps: {
+            required: true,
+            rules: [{ required: true, message: '请输入角色名称' }],
+          },
+        },
+        subTitle: {
+          title: '状态',
+          dataIndex: 'status',
+          key: 'status',
+          valueType: 'select',
+          valueEnum: data?.mapData ?? {},
+        },
+        description: {
+          title: '权限字符',
+          dataIndex: 'roleKey',
+          key: 'roleKey',
+          valueType: 'text',
+          tooltip: "控制器中定义的权限字符，如：@PreAuthorize(`@ss.hasRole('admin')`)",
+          formItemProps: {
+            required: true,
+            rules: [{ required: true, message: '请输入权限字符' }],
+          },
+        },
       }}
       tableAlertRender={false}
       rowSelection={{

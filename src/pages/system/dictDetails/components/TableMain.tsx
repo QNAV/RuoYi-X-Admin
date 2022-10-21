@@ -1,15 +1,6 @@
-import {
-  CDictCode,
-  CDictLabel,
-  CDictSort,
-  CDictValue,
-  CEnableDisableStatus,
-  CRemark,
-  TCreateTime,
-  TCreateTimeRange,
-} from '@/columns';
-import { BaseProTable, WarpTableOption } from '@/components';
-import { useActivated, useRowClick } from '@/hooks';
+import { BaseProTable } from '@/components';
+import { EnableDisableStatusMap } from '@/constants';
+import { useActivated } from '@/hooks';
 import ButtonAdd from '@/pages/system/dictDetails/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/dictDetails/components/ButtonEdit';
 import ButtonExport from '@/pages/system/dictDetails/components/ButtonExport';
@@ -41,8 +32,6 @@ const tableAlertOptionRender: ProTableProps<API.SysDictDataVo, 'text'>['tableAle
 };
 
 const TableMain: FC = () => {
-  const { rowSelection, onClick } = useRowClick<API.SysDictDataVo>(rowKey);
-
   const params = useParams<{ dictType: string }>();
 
   const [searchParams, setSearchParams] = useState<API.SysDictDataQueryBo>({});
@@ -84,23 +73,37 @@ const TableMain: FC = () => {
       rowKey={rowKey}
       actionRef={actionRef}
       columns={[
-        CDictCode,
-        CDictLabel,
-        CDictValue,
-        CDictSort,
-        CEnableDisableStatus,
-        CRemark,
-        TCreateTime,
-        TCreateTimeRange,
+        { title: '字典编码', dataIndex: 'dictCode', key: 'dictCode', valueType: 'text', hideInSearch: true },
+        { title: '字典标签', dataIndex: 'dictLabel', key: 'dictLabel', valueType: 'text' },
+        { title: '字典键值', dataIndex: 'dictValue', key: 'dictValue', valueType: 'text', hideInSearch: true },
+        { title: '字典排序', dataIndex: 'dictSort', key: 'dictSort', valueType: 'text', hideInSearch: true },
+        { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: EnableDisableStatusMap },
+        { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
+        {
+          title: '创建时间',
+          dataIndex: 'createTime',
+          key: 'createTime',
+          valueType: 'dateTime',
+          editable: false,
+          hideInSearch: true,
+          sorter: true,
+        },
+        {
+          title: '创建时间',
+          dataIndex: 'createTimeRange',
+          key: 'createTimeRange',
+          valueType: 'dateTimeRange',
+          hideInTable: true,
+        },
         {
           title: '操作',
           valueType: 'option',
           render: (dom, entity: API.SysDictDataVo) => {
             return (
-              <WarpTableOption>
+              <>
                 <ButtonEdit record={entity} />
                 <ButtonRemove dictCode={entity.dictCode} dictLabel={entity.dictLabel} />
-              </WarpTableOption>
+              </>
             );
           },
         },
@@ -112,14 +115,6 @@ const TableMain: FC = () => {
         return await SysDictDataPostList(convertParams(...p));
       }}
       tableAlertOptionRender={tableAlertOptionRender}
-      rowSelection={rowSelection}
-      onRow={(record) => {
-        return {
-          onClick: () => {
-            onClick(record);
-          },
-        };
-      }}
       manualRequest
       toolbar={{
         actions: [<ButtonExport key="ButtonExport" searchParams={searchParams} />, <ButtonAdd key="ButtonAdd" />],

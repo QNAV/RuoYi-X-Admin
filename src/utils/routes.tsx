@@ -1,4 +1,4 @@
-import { AntdIcon } from '@/components';
+import { IconAntd } from '@/components';
 import type { Route } from '@/routes';
 import type { MenuDataItem } from '@ant-design/pro-components';
 import qs from 'query-string';
@@ -70,7 +70,7 @@ export const convertUserRoutesToMenus = (userRoutes: API.RouterVo[] = []): MenuD
       path: `${path}${queryString}`,
       name: meta?.title,
       hideInMenu: hidden,
-      icon: <AntdIcon name={meta?.icon} />,
+      icon: <IconAntd name={meta?.icon} />,
       children,
     });
   });

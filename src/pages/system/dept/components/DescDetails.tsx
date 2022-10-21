@@ -1,4 +1,3 @@
-import { CDeptName, CEmail, CEnableDisableStatus, CLeader, COrderNum, CPhone, genCDeptParentId } from '@/columns';
 import { EmptySimple } from '@/components';
 import {
   useQueryDeptOptions,
@@ -8,6 +7,7 @@ import {
 } from '@/pages/system/dept/model';
 import { SysDeptGetInfo, SysDeptPostEdit } from '@/services/sys/SysDeptService';
 
+import { EnableDisableStatusMap } from '@/constants';
 import { useAtomValueAccess } from '@/models';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
@@ -33,8 +33,6 @@ const DescDetails: FC = () => {
   const { deptId, open } = useValueDeptDetails();
 
   const { data: treeData } = useQueryDeptOptions();
-
-  const CDeptParentId = genCDeptParentId(treeData);
 
   const { data, loading, refresh } = useRequest(
     async () => {
@@ -97,8 +95,14 @@ const DescDetails: FC = () => {
         editable={editable}
         dataSource={data}
         columns={[
-          CEnableDisableStatus,
-          COrderNum,
+          {
+            title: '状态',
+            dataIndex: 'status',
+            key: 'status',
+            valueType: 'select',
+            valueEnum: EnableDisableStatusMap,
+          },
+          { title: '排序', dataIndex: 'orderNum', key: 'orderNum', valueType: 'digit' },
           {
             title: '创建时间',
             dataIndex: 'createTime',
@@ -106,18 +110,47 @@ const DescDetails: FC = () => {
             valueType: 'dateTime',
             editable: false,
             hideInSearch: true,
-            sorter: true,
           },
         ]}
       />
 
       <Divider />
 
-      <ProDescriptions column={column} editable={editable} dataSource={data} columns={[CDeptName, CDeptParentId]} />
+      <ProDescriptions
+        column={column}
+        editable={editable}
+        dataSource={data}
+        columns={[
+          { title: '部门名称', dataIndex: 'deptName', key: 'deptName', valueType: 'text' },
+          {
+            title: '上级部门',
+            dataIndex: 'parentId',
+            key: 'parentId',
+            valueType: 'treeSelect',
+            fieldProps: {
+              treeData,
+              dropdownMatchSelectWidth: 250,
+              fieldNames: {
+                label: 'deptName',
+                value: 'deptId',
+              },
+            },
+          },
+        ]}
+      />
 
       <Divider />
 
-      <ProDescriptions column={column} editable={editable} dataSource={data} columns={[CLeader, CPhone, CEmail]} />
+      <ProDescriptions
+        column={column}
+        editable={editable}
+        dataSource={data}
+        columns={[
+          { title: '负责人', dataIndex: 'leader', key: 'leader', valueType: 'text' },
+          { title: '联系电话', dataIndex: 'phone', key: 'phone', valueType: 'text' },
+          { title: '邮箱', dataIndex: 'email', key: 'email', valueType: 'text' },
+        ]}
+      />
     </Spin>
   );
 };

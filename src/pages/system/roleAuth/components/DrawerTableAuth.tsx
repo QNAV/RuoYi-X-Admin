@@ -1,8 +1,8 @@
-import { TCreateTime, TEmail, TNickName, TPhoneNumber, TUserName, useStatusNormalDisable } from '@/columns';
 import { BaseProTable } from '@/components';
+import { useQueryDict } from '@/models';
 import { useActionsMainTable } from '@/pages/system/roleAuth/model';
 import { SysRolePostUnallocatedList, SysUserPostSelectAuthUserAll } from '@/services/sys/SysRoleService';
-import { convertParams } from '@/utils';
+import { convertParams, regEmail } from '@/utils';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
@@ -17,8 +17,6 @@ const DrawerTableAuth: FC = () => {
   const roleId = Number(params.roleId);
 
   const [open, { toggle }] = useBoolean();
-
-  const [TStatusNormalDisable] = useStatusNormalDisable();
 
   const actionRef = useRef<ActionType>();
 
@@ -35,6 +33,7 @@ const DrawerTableAuth: FC = () => {
       message.success('授权成功');
     },
   });
+  const { data: dictSysCommonStatus } = useQueryDict('sys_common_status');
 
   return (
     <>
@@ -68,7 +67,50 @@ const DrawerTableAuth: FC = () => {
           ghost
           rowKey="userId"
           actionRef={actionRef}
-          columns={[TUserName, TNickName, TEmail, TPhoneNumber, TStatusNormalDisable, TCreateTime]}
+          columns={[
+            { dataIndex: 'userName', key: 'userName', title: '用户名称', valueType: 'text' },
+            { dataIndex: 'nickName', key: 'nickName', title: '用户昵称', valueType: 'text', hideInSearch: true },
+            {
+              dataIndex: 'email',
+              title: '邮箱',
+              valueType: 'text',
+              hideInSearch: true,
+              formItemProps: {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入邮箱',
+                  },
+                  {
+                    pattern: regEmail,
+                    message: '邮箱格式错误',
+                  },
+                ],
+              },
+            },
+            { dataIndex: 'phoneNumber', key: 'phoneNumber', title: '手机号码', valueType: 'text', copyable: true },
+            {
+              title: '状态',
+              dataIndex: 'status',
+              key: 'status',
+              valueType: 'select',
+              valueEnum: dictSysCommonStatus?.mapData ?? {},
+              formItemProps: {
+                initialValue: dictSysCommonStatus?.defaultValue,
+                required: true,
+                rules: [{ required: true, message: '请选择状态' }],
+              },
+            },
+            {
+              title: '创建时间',
+              dataIndex: 'createTime',
+              key: 'createTime',
+              valueType: 'dateTime',
+              editable: false,
+              hideInSearch: true,
+              sorter: true,
+            },
+          ]}
           tableAlertRender={false}
           rowSelection={{
             onChange: (_) => {

@@ -1,10 +1,9 @@
-import { CIndex, CTableComment, CTableName, CUpdateTime, TCreateTime, TCreateTimeRange } from '@/columns';
+import { BaseProTable } from '@/components';
 import { useAtomValueMainTableActions } from '@/pages/tool/gen/model';
 import { GenPostDbList, GenPostImportTable } from '@/services/gen/GenService';
 import { convertParams } from '@/utils';
 import { CloudUploadOutlined } from '@ant-design/icons';
 import type { ActionType } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useBoolean } from 'ahooks';
 import { Button, message, Modal } from 'antd';
@@ -43,12 +42,55 @@ const ButtonImport: FC = () => {
         width={900}
         okText="提交"
       >
-        <ProTable<API.GenTableRes>
+        <BaseProTable<API.GenTableRes>
           ghost
           size="small"
           actionRef={actionRef}
-          pagination={{ defaultPageSize: 10, defaultCurrent: 1 }}
-          columns={[CIndex, CTableName, CTableComment, TCreateTime, CUpdateTime, TCreateTimeRange]}
+          columns={[
+            { title: '序号', dataIndex: 'index', key: 'index', valueType: 'indexBorder' },
+            { title: '表名称', dataIndex: 'tableName', key: 'tableName', valueType: 'text' },
+            { title: '表描述', dataIndex: 'tableComment', key: 'tableComment', valueType: 'text' },
+            {
+              title: '创建时间',
+              dataIndex: 'createTime',
+              key: 'createTime',
+              valueType: 'dateTime',
+              hideInSearch: true,
+              sorter: true,
+            },
+            {
+              title: '更新时间',
+              dataIndex: 'updateTime',
+              key: 'updateTime',
+              valueType: 'dateTime',
+              hideInSearch: true,
+              sorter: true,
+            },
+            {
+              title: '创建时间',
+              dataIndex: 'createTimeRange',
+              key: 'createTimeRange',
+              valueType: 'dateTimeRange',
+              hideInTable: true,
+            },
+          ]}
+          beforeSearchSubmit={(params) => {
+            const { createTimeRange, ...rest } = params;
+
+            let createTimeParams = {};
+
+            if (createTimeRange) {
+              createTimeParams = {
+                beginCreateTime: createTimeRange[0],
+                endCreateTime: createTimeRange[1],
+              };
+            }
+
+            return {
+              ...rest,
+              ...createTimeParams,
+            };
+          }}
           rowKey="tableName"
           search={{ filterType: 'light' }}
           rowSelection={{

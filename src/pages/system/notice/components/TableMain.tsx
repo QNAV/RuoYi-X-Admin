@@ -1,6 +1,5 @@
-import { CCreateBy, CEnableDisableStatus, TCreateTime } from '@/columns';
-import { CNoticeId, CNoticeTitle } from '@/columns/notice';
 import { BaseProTable } from '@/components';
+import { EnableDisableStatusMap } from '@/constants';
 import ButtonAdd from '@/pages/system/notice/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/notice/components/ButtonEdit';
 import ButtonRemove from '@/pages/system/notice/components/ButtonRemove';
@@ -38,8 +37,8 @@ const TableMain: FC = () => {
       rowKey={rowKey}
       actionRef={actionRef}
       columns={[
-        CNoticeId,
-        CNoticeTitle,
+        { title: '序号', dataIndex: 'noticeId', key: 'noticeId', valueType: 'text', hideInSearch: true },
+        { title: '公告标题', dataIndex: 'noticeTitle', key: 'noticeTitle', valueType: 'text' },
         {
           title: '公告类型',
           dataIndex: 'noticeType',
@@ -47,9 +46,17 @@ const TableMain: FC = () => {
           valueType: 'select',
           valueEnum: valueEnum ?? {},
         },
-        CCreateBy,
-        CEnableDisableStatus,
-        TCreateTime,
+        { title: '创建者', dataIndex: 'createBy', key: 'createBy', valueType: 'text' },
+        { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: EnableDisableStatusMap },
+        {
+          title: '创建时间',
+          dataIndex: 'createTime',
+          key: 'createTime',
+          valueType: 'dateTime',
+          editable: false,
+          hideInSearch: true,
+          sorter: true,
+        },
         {
           title: '操作',
           valueType: 'option',

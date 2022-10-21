@@ -1,14 +1,5 @@
-import {
-  TCreateTime,
-  TCreateTimeRange,
-  TDeptDeptName,
-  TNickName,
-  TPhoneNumber,
-  TUserId,
-  TUserName,
-  useStatusNormalDisable,
-} from '@/columns';
-import { BaseProTable, BaseTableAlert } from '@/components';
+import { BaseProTable } from '@/components';
+import { useQueryDict } from '@/models';
 import ButtonAdd from '@/pages/system/user/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/user/components/ButtonEdit';
 import ButtonExport from '@/pages/system/user/components/ButtonExport';
@@ -18,64 +9,21 @@ import ButtonResetPwd from '@/pages/system/user/components/ButtonResetPwd';
 import TreeDept from '@/pages/system/user/components/TreeDept';
 import { useActionRefMainTable, useAtomValueSelectedDeptId } from '@/pages/system/user/model';
 import { SysUserPostList } from '@/services/sys/SysUserService';
-import { convertParams, generateColumns } from '@/utils';
+import { convertParams } from '@/utils';
 import type { ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
 
-// 操作
-const [TOption] = generateColumns(
-  {
-    title: '操作',
-    valueType: 'option',
-    render: (dom, entity: API.SysUserVo) => {
-      return (
-        <>
-          <ButtonEdit userId={entity.userId} />
-
-          <ButtonRemove userId={entity.userId} userName={entity.userName} />
-
-          <ButtonResetPwd record={entity} />
-        </>
-      );
-    },
-  },
-  {
-    table: {
-      fixed: 'right',
-      width: 300,
-    },
-  },
-);
-
-const useTableColumns = () => {
-  const [TStatusNormalDisable] = useStatusNormalDisable();
-
-  return [
-    TUserId,
-    TUserName,
-    TNickName,
-    TDeptDeptName,
-    TPhoneNumber,
-    TStatusNormalDisable,
-    TCreateTime,
-    TOption,
-    TCreateTimeRange,
-  ];
-};
-
-const tableAlertRender: ProTableProps<API.SysUserVo, API.SysUserPageQueryBo>['tableAlertRender'] = ({
+const tableAlertOptionRender: ProTableProps<API.SysUserVo, API.SysUserPageQueryBo>['tableAlertOptionRender'] = ({
   selectedRows,
 }) => {
   return (
-    <BaseTableAlert selectedNum={selectedRows.length}>
-      <ButtonRemove
-        disabled={selectedRows.length === 0}
-        isBatch
-        userId={selectedRows.map((i) => i.userId).join(',') as unknown as number}
-        userName={selectedRows.map((i) => i.userName).join(',')}
-      />
-    </BaseTableAlert>
+    <ButtonRemove
+      disabled={selectedRows.length === 0}
+      isBatch
+      userId={selectedRows.map((i) => i.userId).join(',') as unknown as number}
+      userName={selectedRows.map((i) => i.userName).join(',')}
+    />
   );
 };
 
@@ -99,15 +47,78 @@ const TableMain: FC = () => {
   const selectedDeptId = useAtomValueSelectedDeptId();
   const params = selectedDeptId > 0 ? { deptId: selectedDeptId } : {};
 
-  const columns = useTableColumns();
+  const { data } = useQueryDict('sys_normal_disable');
 
   return (
     <BaseProTable<API.SysUserVo, API.SysUserPageQueryBo>
       rowKey="userId"
       actionRef={actionRef}
-      columns={columns}
+      columns={[
+        {
+          dataIndex: 'userId',
+          key: 'userId',
+          title: '用户编号',
+          valueType: 'text',
+          editable: false,
+          hideInSearch: true,
+        },
+        { dataIndex: 'userName', key: 'userName', title: '用户名称', valueType: 'text' },
+        { dataIndex: 'nickName', key: 'nickName', title: '用户昵称', valueType: 'text', hideInSearch: true },
+        {
+          dataIndex: ['dept', 'deptName'],
+          key: 'deptDeptName',
+          title: '部门名称',
+          valueType: 'text',
+          hideInSearch: true,
+        },
+        { dataIndex: 'phoneNumber', key: 'phoneNumber', title: '手机号码', valueType: 'text', copyable: true },
+        {
+          title: '状态',
+          dataIndex: 'status',
+          key: 'status',
+          valueType: 'select',
+          valueEnum: data?.mapData ?? {},
+          formItemProps: {
+            initialValue: data?.defaultValue,
+            required: true,
+            rules: [{ required: true, message: '请选择状态' }],
+          },
+        },
+        {
+          title: '创建时间',
+          dataIndex: 'createTime',
+          key: 'createTime',
+          valueType: 'dateTime',
+          editable: false,
+          hideInSearch: true,
+          sorter: true,
+        },
+        {
+          title: '操作',
+          valueType: 'option',
+          render: (dom, entity: API.SysUserVo) => {
+            return (
+              <>
+                <ButtonEdit userId={entity.userId} />
+
+                <ButtonRemove userId={entity.userId} userName={entity.userName} />
+
+                <ButtonResetPwd record={entity} />
+              </>
+            );
+          },
+          fixed: 'right',
+          width: 300,
+        },
+        {
+          title: '创建时间',
+          dataIndex: 'createTimeRange',
+          key: 'createTimeRange',
+          valueType: 'dateTimeRange',
+          hideInTable: true,
+        },
+      ]}
       params={params}
-      tableAlertRender={tableAlertRender}
       request={async (...p) => {
         const params = convertParams(...p);
         setSearchParams(params);
@@ -121,6 +132,7 @@ const TableMain: FC = () => {
         ],
       }}
       tableRender={tableRender}
+      tableAlertOptionRender={tableAlertOptionRender}
     />
   );
 };

@@ -1,18 +1,4 @@
-import {
-  CBusinessName,
-  CClassName,
-  CFunctionAuthor,
-  CFunctionName,
-  CGenPath,
-  CGenType,
-  CModuleName,
-  CPackageName,
-  CRemark,
-  CTableComment,
-  CTableName,
-  CTplCategory,
-} from '@/columns';
-import { GenType } from '@/constants';
+import { GenType, GenTypeMap, TemplateTypeMap } from '@/constants';
 import type { GenTableRes } from '@/pages/tool/gen-edit/data';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
@@ -35,7 +21,13 @@ const DescBase: FC<{
     <>
       <ProDescriptions
         dataSource={dataSource}
-        columns={[CTableName, CTableComment, CClassName, CFunctionAuthor, CRemark]}
+        columns={[
+          { title: '表名称', dataIndex: 'tableName', key: 'tableName', valueType: 'text' },
+          { title: '表描述', dataIndex: 'tableComment', key: 'tableComment', valueType: 'text' },
+          { title: '实体名称', dataIndex: 'className', key: 'className', valueType: 'text', hideInSearch: true },
+          { title: '作者', dataIndex: 'functionAuthor', key: 'functionAuthor', valueType: 'text' },
+          { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
+        ]}
         editable={editable}
       />
 
@@ -43,13 +35,21 @@ const DescBase: FC<{
 
       <ProDescriptions
         columns={[
-          CTplCategory,
-          CPackageName,
-          CModuleName,
-          CBusinessName,
-          CFunctionName,
-          CGenType,
-          ...(dataSource?.genType === GenType.ZIP ? [] : [CGenPath]),
+          {
+            title: '生成模版',
+            dataIndex: 'tplCategory',
+            key: 'tplCategory',
+            valueType: 'select',
+            valueEnum: TemplateTypeMap,
+          },
+          { title: '生成包路径', dataIndex: 'packageName', key: 'packageName', valueType: 'text' },
+          { title: '生成模块名', dataIndex: 'moduleName', key: 'moduleName', valueType: 'text' },
+          { title: '生成业务名', dataIndex: 'businessName', key: 'businessName', valueType: 'text' },
+          { title: '生成功能名', dataIndex: 'functionName', key: 'functionName', valueType: 'text' },
+          { title: '生成代码方式', dataIndex: 'genType', key: 'genType', valueType: 'select', valueEnum: GenTypeMap },
+          ...(dataSource?.genType === GenType.ZIP
+            ? []
+            : [{ title: '自定义路径', dataIndex: 'genPath', key: 'genPath', valueType: 'text' }]),
         ]}
         dataSource={dataSource}
         editable={editable}

@@ -2,7 +2,7 @@ import { BasePageContainer, BaseProTable } from '@/components';
 import ButtonCleanUp from '@/pages/monitor/logininfor/components/ButtonCleanUp';
 import ButtonExport from '@/pages/monitor/logininfor/components/ButtonExport';
 import ButtonRemove from '@/pages/monitor/logininfor/components/ButtonRemove';
-import { useMainTableActionRef, useTableColumns } from '@/pages/monitor/logininfor/model';
+import { useMainTableActionRef } from '@/pages/monitor/logininfor/model';
 import { SysLogininforPostList } from '@/services/sys/SysLoginService';
 import { convertParams } from '@/utils';
 import type { ProTableProps } from '@ant-design/pro-components';
@@ -25,8 +25,6 @@ const tableAlertRender: ProTableProps<any, any>['tableAlertRender'] = ({ selecte
 };
 
 const PageLoginInfo: FC = () => {
-  const tableColumns = useTableColumns();
-
   const actionRef = useMainTableActionRef();
 
   const [searchParams, setSearchParams] = useState<API.SysLogininforPageQueryBo>({});
@@ -36,7 +34,33 @@ const PageLoginInfo: FC = () => {
       <BaseProTable
         rowKey="infoId"
         actionRef={actionRef}
-        columns={tableColumns as any}
+        columns={[
+          { title: '访问编号', dataIndex: 'infoId', key: 'infoId', valueType: 'text', hideInSearch: true },
+          { title: '用户名称', dataIndex: 'userName', key: 'userName', valueType: 'text' },
+          { title: '登录地址', dataIndex: 'ipaddr', key: 'ipaddr', valueType: 'text' },
+          {
+            title: '登录地点',
+            dataIndex: 'loginLocation',
+            key: 'loginLocation',
+            valueType: 'text',
+            hideInSearch: true,
+          },
+          { title: '浏览器', dataIndex: 'browser', key: 'browser', valueType: 'text', hideInSearch: true },
+          { title: '操作信息', dataIndex: 'msg', key: 'msg', valueType: 'text', hideInSearch: true },
+          { title: '操作信息', dataIndex: 'msg', key: 'msg', valueType: 'text', hideInSearch: true },
+          { title: '操作信息', dataIndex: 'msg', key: 'msg', valueType: 'text', hideInSearch: true },
+          { title: '登录日期', dataIndex: 'loginTime', key: 'loginTime', valueType: 'dateTime', hideInSearch: true },
+          {
+            title: '操作',
+            dataIndex: 'option',
+            key: 'option',
+            valueType: 'option',
+            render: (dom, entity) => {
+              return <ButtonRemove infoId={entity.infoId} />;
+            },
+            fixed: 'right',
+          },
+        ]}
         request={async (...p) => {
           const params = convertParams(...p);
           setSearchParams(params as API.SysLogininforPageQueryBo);

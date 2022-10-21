@@ -1,6 +1,5 @@
-import { CDictId, CDictName, CDictType, CEnableDisableStatus, CRemark, TCreateTime, TCreateTimeRange } from '@/columns';
-import { BaseProTable, WarpTableOption } from '@/components';
-import { useRowClick } from '@/hooks';
+import { BaseProTable } from '@/components';
+import { EnableDisableStatusMap } from '@/constants';
 import ButtonAdd from '@/pages/system/dict/components/ButtonAdd';
 import ButtonDetails from '@/pages/system/dict/components/ButtonDetails';
 import ButtonEdit from '@/pages/system/dict/components/ButtonEdit';
@@ -30,8 +29,6 @@ const tableAlertOptionRender: ProTableProps<API.SysDictTypeVo, 'text'>['tableAle
 };
 
 const TableMain: FC = () => {
-  const { rowSelection, onClick } = useRowClick<API.SysDictTypeVo>(rowKey);
-
   const actionRef = useMainTableActionRef();
 
   const [searchParams, setSearchParams] = useState<API.SysDictTypeQueryBo>({});
@@ -41,36 +38,42 @@ const TableMain: FC = () => {
       rowKey={rowKey}
       actionRef={actionRef}
       columns={[
-        CDictId,
-        CDictName,
-        CDictType,
-        CEnableDisableStatus,
-        CRemark,
-        TCreateTime,
-        TCreateTimeRange,
+        { title: '字典编号', dataIndex: 'dictId', key: 'dictId', valueType: 'text', hideInSearch: true },
+        { title: '字典名称', dataIndex: 'dictName', key: 'dictName', valueType: 'text' },
+        { title: '字典类型', dataIndex: 'dictType', key: 'dictType', valueType: 'text' },
+        { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: EnableDisableStatusMap },
+        { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
+        {
+          title: '创建时间',
+          dataIndex: 'createTime',
+          key: 'createTime',
+          valueType: 'dateTime',
+          editable: false,
+          hideInSearch: true,
+          sorter: true,
+        },
+        {
+          title: '创建时间',
+          dataIndex: 'createTimeRange',
+          key: 'createTimeRange',
+          valueType: 'dateTimeRange',
+          hideInTable: true,
+        },
         {
           title: '操作',
           valueType: 'option',
           render: (dom, entity: API.SysDictTypeVo) => {
             return (
-              <WarpTableOption>
+              <>
                 <ButtonDetails dictType={entity.dictType} />
                 <ButtonEdit record={entity} />
                 <ButtonRemove dictId={entity.dictId} dictName={entity.dictName} />
-              </WarpTableOption>
+              </>
             );
           },
         },
       ]}
       tableAlertOptionRender={tableAlertOptionRender}
-      rowSelection={rowSelection}
-      onRow={(record) => {
-        return {
-          onClick: () => {
-            onClick(record);
-          },
-        };
-      }}
       request={async (...p) => {
         const params = convertParams(...p);
         setSearchParams(params as API.SysDictTypeQueryBo);

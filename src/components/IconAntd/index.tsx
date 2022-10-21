@@ -3,7 +3,7 @@ import type { AntdIconProps } from '@ant-design/icons/es/components/AntdIcon';
 import type { FC } from 'react';
 import { createElement } from 'react';
 
-export const AntdIcon: FC<AntdIconProps & { name?: string }> = ({ name, ...props }) => {
+export const IconAntd: FC<AntdIconProps & { name?: string }> = ({ name, ...props }) => {
   // @ts-ignore
   if (!name || !IconMap?.[name]) return null;
 

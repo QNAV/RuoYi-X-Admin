@@ -10,12 +10,14 @@ import type { IndexRouteObject, NonIndexRouteObject } from 'react-router-dom';
 interface CustomIndexRouteObject extends IndexRouteObject {
   name?: string;
   access?: string;
+  hideInTab?: boolean;
   isKeepAlive?: boolean;
 }
 
 interface CustomNonIndexRouteObject extends NonIndexRouteObject {
   name?: string;
   access?: string;
+  hideInTab?: boolean;
   isKeepAlive?: boolean;
   children?: Route[];
 }

@@ -1,8 +1,9 @@
 import { BasePageContainer, BaseProTable } from '@/components';
+import { useQueryDict } from '@/models';
 import ButtonCleanUp from '@/pages/monitor/operlog/components/ButtonCleanUp';
 import ButtonExport from '@/pages/monitor/operlog/components/ButtonExport';
 import ButtonRemove from '@/pages/monitor/operlog/components/ButtonRemove';
-import { useMainTableActionRef, useTableColumns } from '@/pages/monitor/operlog/model';
+import { useMainTableActionRef } from '@/pages/monitor/operlog/model';
 import { SysOperLogPostList } from '@/services/sys/SysOperlogService';
 import { convertParams } from '@/utils';
 import type { ProTableProps } from '@ant-design/pro-components';
@@ -26,18 +27,57 @@ const tableAlertRender: ProTableProps<any, any>['tableAlertRender'] = ({ selecte
 };
 
 const PageOperlog: FC = () => {
-  const tableColumns = useTableColumns();
-
   const actionRef = useMainTableActionRef();
 
   const [searchParams, setSearchParams] = useState<API.SysOperLogPageQueryBo>({});
+
+  const { data: dictSysCommonStatus } = useQueryDict('sys_common_status');
+  const { data: dictSysOperType } = useQueryDict('sys_oper_type');
 
   return (
     <BasePageContainer>
       <BaseProTable
         rowKey="operId"
         actionRef={actionRef}
-        columns={tableColumns as any}
+        columns={[
+          { title: '日志编号', dataIndex: 'operId', key: 'operId', valueType: 'text', hideInSearch: true },
+          { title: '系统模块', dataIndex: 'title', key: 'title', valueType: 'text' },
+          {
+            title: '操作类型',
+            dataIndex: 'businessType',
+            key: 'businessType',
+            valueType: 'select',
+            valueEnum: dictSysOperType?.mapData ?? {},
+          },
+          {
+            title: '请求方式',
+            dataIndex: 'requestMethod',
+            key: 'requestMethod',
+            valueType: 'text',
+            hideInSearch: true,
+          },
+          { title: '操作人员', dataIndex: 'operName', key: 'operName', valueType: 'text' },
+          { title: '操作地址', dataIndex: 'operIp', key: 'operIp', valueType: 'text', hideInSearch: true },
+          { title: '操作地点', dataIndex: 'operLocation', key: 'operLocation', valueType: 'text', hideInSearch: true },
+          {
+            title: '操作状态',
+            dataIndex: 'status',
+            key: 'status',
+            valueType: 'select',
+            valueEnum: dictSysCommonStatus?.mapData ?? {},
+          },
+          { title: '操作日期', dataIndex: 'operTime', key: 'operTime', valueType: 'dateTime', hideInSearch: true },
+          {
+            title: '操作',
+            dataIndex: 'option',
+            key: 'option',
+            valueType: 'option',
+            fixed: 'right',
+            render: (dom, entity) => {
+              return <ButtonRemove title={entity.title} operId={entity.operId} />;
+            },
+          },
+        ]}
         request={async (...p) => {
           const params = convertParams(...p);
           setSearchParams(params as API.SysOperLogPageQueryBo);

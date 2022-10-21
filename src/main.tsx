@@ -27,7 +27,7 @@ const render = () => {
 
   const queryClient = new QueryClient();
 
-  const router = createBrowserRouter(routes, { basename: basename });
+  const router = createBrowserRouter(routes, { basename });
 
   createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider>
