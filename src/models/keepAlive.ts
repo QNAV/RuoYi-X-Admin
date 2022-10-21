@@ -8,5 +8,5 @@ type AtomKeepAliveElements = Record<
     children: ReturnType<typeof useOutlet>;
   }
 >;
-const AtomKeepAliveElements = atom<AtomKeepAliveElements>({});
-export const useAtomKeepAliveElements = () => useAtom(AtomKeepAliveElements);
+const atomKeepAliveElements = atom<AtomKeepAliveElements>({});
+export const useAtomKeepAliveElements = () => useAtom(atomKeepAliveElements);

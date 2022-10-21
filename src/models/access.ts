@@ -142,6 +142,6 @@ export const getAccess = (userPermissions: string[] = []) => {
 
 export type AccessObject = ReturnType<typeof getAccess>;
 
-const AtomAccess = atom<AccessObject>(getAccess());
-export const useAtomValueAccess = () => useAtomValue(AtomAccess);
-export const useSetAtomAccess = () => useSetAtom(AtomAccess);
+const atomAccess = atom<AccessObject>(getAccess());
+export const useAtomValueAccess = () => useAtomValue(atomAccess);
+export const useSetAtomAccess = () => useSetAtom(atomAccess);
