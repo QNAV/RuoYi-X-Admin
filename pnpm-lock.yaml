@@ -9,7 +9,7 @@ specifiers:
   '@tanstack/react-query-devtools': ^4.12.0
   '@types/file-saver': ^2.0.5
   '@types/lodash-es': ^4.17.6
-  '@types/node': ^18.11.2
+  '@types/node': ^18.11.3
   '@types/nprogress': ^0.2.0
   '@types/react': ^18.0.21
   '@types/react-dom': ^18.0.6
@@ -59,7 +59,7 @@ specifiers:
   tailwindcss: ^3.2.0
   tsx: ^3.10.1
   typescript: ^4.8.4
-  vite: ^3.1.8
+  vite: beta
   vite-plugin-html: ^3.2.0
 
 dependencies:
@@ -90,14 +90,14 @@ devDependencies:
   '@commitlint/config-conventional': 17.1.0
   '@types/file-saver': 2.0.5
   '@types/lodash-es': 4.17.6
-  '@types/node': 18.11.2
+  '@types/node': 18.11.3
   '@types/nprogress': 0.2.0
   '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
   '@typescript-eslint/eslint-plugin': 5.40.1_ukgdydjtebaxmxfqp5v5ulh64y
   '@typescript-eslint/parser': 5.40.1_z4bbprzjrhnsfa24uvmcbu7f5q
   '@umijs/openapi': 1.7.0
-  '@vitejs/plugin-react': 2.1.0_vite@3.1.8
+  '@vitejs/plugin-react': 2.1.0_vite@3.2.0-beta.3
   autoprefixer: 10.4.12_postcss@8.4.18
   cross-env: 7.0.3
   eslint: 8.25.0
@@ -123,8 +123,8 @@ devDependencies:
   tailwindcss: 3.2.0_postcss@8.4.18
   tsx: 3.10.1
   typescript: 4.8.4
-  vite: 3.1.8_less@4.1.3
-  vite-plugin-html: 3.2.0_vite@3.1.8
+  vite: 3.2.0-beta.3_less@4.1.3
+  vite-plugin-html: 3.2.0_vite@3.2.0-beta.3
 
 packages:
 
@@ -304,7 +304,7 @@ packages:
       '@ant-design/pro-provider': 2.0.7_xjvoqm3wanz3el7oyiwtewakua
       '@ant-design/pro-utils': 2.2.7_xjvoqm3wanz3el7oyiwtewakua
       '@babel/runtime': 7.19.4
-      '@umijs/route-utils': 2.2.0
+      '@umijs/route-utils': 2.2.1
       '@umijs/ssr-darkreader': 4.9.45
       '@umijs/use-params': 1.0.9_react@18.2.0
       antd: 5.0.0-alpha.3_biqbaboplfbrettd7655fr4n2y
@@ -817,8 +817,8 @@ packages:
       - supports-color
     dev: true
 
-  /@babel/plugin-proposal-decorators/7.19.3_@babel+core@7.19.6:
-    resolution: {integrity: sha512-MbgXtNXqo7RTKYIXVchVJGPvaVufQH3pxvQyfbGvNw1DObIhph+PesYXJTcd8J4DdWibvf6Z2eanOyItX8WnJg==}
+  /@babel/plugin-proposal-decorators/7.19.6_@babel+core@7.19.6:
+    resolution: {integrity: sha512-PKWforYpkVkogpOW0RaPuh7eQ7AoFgBJP+d87tQCRY2LVbvyGtfRM7RtrhCBsNgZb+2EY28SeWB6p2xe1Z5oAw==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2297,7 +2297,7 @@ packages:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 18.11.2
+      '@types/node': 18.11.3
     dev: true
 
   /@types/js-cookie/2.2.7:
@@ -2336,8 +2336,8 @@ packages:
     resolution: {integrity: sha512-Y6S38pFr04yb13qqHf8uk1nHE3lXgQ30WZbv1mLliV9pt0NjvqdWttLcrOYLnXbOafknVYRHZGoMSpR9UwfYow==}
     dev: true
 
-  /@types/node/18.11.2:
-    resolution: {integrity: sha512-BWN3M23gLO2jVG8g/XHIRFWiiV4/GckeFIqbU/C4V3xpoBBWSMk4OZomouN0wCkfQFPqgZikyLr7DOYDysIkkw==}
+  /@types/node/18.11.3:
+    resolution: {integrity: sha512-fNjDQzzOsZeKZu5NATgXUPsaFaTxeRgFXoosrHivTl8RGeV733OLawXsGfEk9a8/tySyZUyiZ6E8LcjPFZ2y1A==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -2663,7 +2663,7 @@ packages:
       '@babel/core': 7.19.6
       '@babel/eslint-parser': 7.19.1_mgnruehwwwnc5e6kz5xt6nx3ru
       '@babel/plugin-proposal-class-properties': 7.18.6_@babel+core@7.19.6
-      '@babel/plugin-proposal-decorators': 7.19.3_@babel+core@7.19.6
+      '@babel/plugin-proposal-decorators': 7.19.6_@babel+core@7.19.6
       '@babel/preset-env': 7.19.4_@babel+core@7.19.6
       '@babel/preset-react': 7.18.6_@babel+core@7.19.6
       '@babel/preset-typescript': 7.18.6_@babel+core@7.19.6
@@ -2721,8 +2721,8 @@ packages:
       - supports-color
     dev: true
 
-  /@umijs/route-utils/2.2.0:
-    resolution: {integrity: sha512-1t/A5+KuoK+AX0FcddNbUKMpMskuDsSSZRlQoTXDBBTDKUgWwG8KSX/NnfTCYJQrntL4A9WYymygop1jAw+Wdw==}
+  /@umijs/route-utils/2.2.1:
+    resolution: {integrity: sha512-MSkqBGRU+pThh8HE7UOfLal2WUBxJKpkuf+E/DxNrbfct4YJBv9Gv5fvueYTnZXoBAJVlTq01rHNtzVddTRggA==}
     dependencies:
       '@qixian.cs/path-to-regexp': 6.1.0
       fast-deep-equal: 3.1.3
@@ -2783,7 +2783,7 @@ packages:
       nanoid: 3.3.4
     dev: false
 
-  /@vitejs/plugin-react/2.1.0_vite@3.1.8:
+  /@vitejs/plugin-react/2.1.0_vite@3.2.0-beta.3:
     resolution: {integrity: sha512-am6rPyyU3LzUYne3Gd9oj9c4Rzbq5hQnuGXSMT6Gujq45Il/+bunwq3lrB7wghLkiF45ygMwft37vgJ/NE8IAA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -2796,7 +2796,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.18.6_@babel+core@7.19.6
       magic-string: 0.26.7
       react-refresh: 0.14.0
-      vite: 3.1.8_less@4.1.3
+      vite: 3.2.0-beta.3_less@4.1.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -8362,8 +8362,8 @@ packages:
       yargs: 17.6.0
     dev: true
 
-  /rollup/2.78.1:
-    resolution: {integrity: sha512-VeeCgtGi4P+o9hIg+xz4qQpRl6R401LWEXBmxYKOV4zlF82lyhgh2hTZnheFUbANE8l2A41F458iwj2vEYaXJg==}
+  /rollup/2.79.1:
+    resolution: {integrity: sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
@@ -9508,7 +9508,7 @@ packages:
       vfile-message: 2.0.4
     dev: true
 
-  /vite-plugin-html/3.2.0_vite@3.1.8:
+  /vite-plugin-html/3.2.0_vite@3.2.0-beta.3:
     resolution: {integrity: sha512-2VLCeDiHmV/BqqNn5h2V+4280KRgQzCFN47cst3WiNK848klESPQnzuC3okH5XHtgwHH/6s1Ho/YV6yIO0pgoQ==}
     peerDependencies:
       vite: '>=2.0.0'
@@ -9525,17 +9525,18 @@ packages:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 3.1.8_less@4.1.3
+      vite: 3.2.0-beta.3_less@4.1.3
     dev: true
 
-  /vite/3.1.8_less@4.1.3:
-    resolution: {integrity: sha512-m7jJe3nufUbuOfotkntGFupinL/fmuTNuQmiVE7cH2IZMuf4UbfbGYMUT3jVWgGYuRVLY9j8NnrRqgw5rr5QTg==}
+  /vite/3.2.0-beta.3_less@4.1.3:
+    resolution: {integrity: sha512-c9KRnMUlbxLNqzCihTozhKlRdOzjAWsO3H9cC/ej+JuvL4rnIxSvv+9m5Wz2PAs9lgDD7Yk0VZuzKYSSk3peWw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
       less: '*'
       sass: '*'
       stylus: '*'
+      sugarss: '*'
       terser: ^5.4.0
     peerDependenciesMeta:
       less:
@@ -9544,6 +9545,8 @@ packages:
         optional: true
       stylus:
         optional: true
+      sugarss:
+        optional: true
       terser:
         optional: true
     dependencies:
@@ -9551,7 +9554,7 @@ packages:
       less: 4.1.3
       postcss: 8.4.18
       resolve: 1.22.1
-      rollup: 2.78.1
+      rollup: 2.79.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
