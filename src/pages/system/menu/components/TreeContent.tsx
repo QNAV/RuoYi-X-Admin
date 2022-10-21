@@ -3,7 +3,7 @@ import { menuTypeColor } from '@/pages/system/menu/components/TreeMenu';
 import { CopyOutlined } from '@ant-design/icons';
 import type { TreeProps } from 'antd';
 import { message, Space, Tag } from 'antd';
-import copy from 'copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const TreeContent: TreeProps<API.SysMenuVo>['titleRender'] = (item) => {
   return (
@@ -20,14 +20,22 @@ const TreeContent: TreeProps<API.SysMenuVo>['titleRender'] = (item) => {
         <Tag style={{ margin: '0 0 2px 2px' }}>
           <Space size="small">
             {item.perms}
-            <CopyOutlined
-              style={{ color: '#1890ff' }}
+            <div
               onClick={(e) => {
-                copy(item.perms!);
-                message.success('复制成功');
                 e.stopPropagation();
               }}
-            />
+            >
+              <CopyToClipboard
+                text={item.perms}
+                onCopy={(text, result) => {
+                  if (result) {
+                    message.success('复制成功');
+                  }
+                }}
+              >
+                <CopyOutlined style={{ color: '#1890ff' }} />
+              </CopyToClipboard>
+            </div>
           </Space>
         </Tag>
       )}

@@ -3,17 +3,12 @@ import { GenGetPreview } from '@/services/gen/GenService';
 import { CopyOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
 import { Button, message, Modal, Spin, Tabs } from 'antd';
-import copy from 'copy-to-clipboard';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import type { FC } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const { TabPane } = Tabs;
-
-const copyToClipboard = (text: string) => {
-  copy(text);
-  message.success('复制成功');
-};
 
 const ModalPreview: FC = () => {
   const onCancel = useHidePreviewModal();
@@ -50,14 +45,19 @@ const ModalPreview: FC = () => {
         <Tabs tabPosition="left">
           {data?.map(({ key, tab, content, highlightContent }) => (
             <TabPane tab={tab} key={key} className="relative">
-              <Button
-                icon={<CopyOutlined />}
-                type="link"
-                className="absolute top-0 right-1"
-                onClick={() => copyToClipboard(content)}
+              <CopyToClipboard
+                text={content}
+                onCopy={(text, result) => {
+                  if (result) {
+                    message.success('复制成功');
+                  }
+                }}
               >
-                复制代码
-              </Button>
+                <Button icon={<CopyOutlined />} type="link" className="absolute top-0 right-1">
+                  复制代码
+                </Button>
+              </CopyToClipboard>
+
               <pre>
                 <code>
                   <div className="h-[650px] overflow-auto" dangerouslySetInnerHTML={{ __html: highlightContent }} />
