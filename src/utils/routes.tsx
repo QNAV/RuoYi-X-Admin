@@ -7,49 +7,48 @@ const getFullPath = (currPath = '', parentPath = ''): string => {
   if (currPath.startsWith('/')) {
     return currPath;
   }
+
   return `${parentPath}/${currPath}`.replace(/\/+/g, '/');
 };
 
-export const getRoutesKeepAliveKeys = (routes: Route[], parentPath = ''): string[] => {
-  const keys: string[] = [];
-  routes.forEach((route) => {
-    const fullPath = getFullPath(route.path, parentPath);
-    if (route.isKeepAlive && route.path) {
-      keys.push(fullPath);
-    }
-    if (route.children) {
-      keys.push(...getRoutesKeepAliveKeys(route.children, fullPath));
-    }
-  });
-  return keys;
-};
-
-export const getRoutesKeepAliveLocal = (routes: Route[], parentPath = ''): Record<string, string> => {
-  const local: Record<string, string> = {};
-  routes.forEach((route) => {
-    const fullPath = getFullPath(route.path, parentPath);
-    if (route.isKeepAlive && route.path && route.name) {
-      local[fullPath] = route.name;
-    }
-    if (route.children) {
-      Object.assign(local, getRoutesKeepAliveLocal(route.children, fullPath));
-    }
-  });
-  return local;
-};
-
 export const getRoutesAccessKeysMap = (routes: Route[], parentPath = ''): Record<string, string> => {
-  const map: Record<string, string> = {};
+  const accessKeys: Record<string, string> = {};
+
   routes.forEach((route) => {
     const fullPath = getFullPath(route.path, parentPath);
-    if (route.access && route.path) {
-      map[fullPath] = route.access;
+
+    if (route.access) {
+      accessKeys[fullPath] = route.access;
     }
+
     if (route.children) {
-      Object.assign(map, getRoutesAccessKeysMap(route.children, fullPath));
+      Object.assign(accessKeys, getRoutesAccessKeysMap(route.children, fullPath));
     }
   });
-  return map;
+
+  return accessKeys;
+};
+
+type GetRouteSettingsMapReturnType = Record<string, Required<Pick<Route, 'name' | 'isKeepAlive' | 'hideInTab'>>>;
+export const getRoutesSettingsMap = (routes: Route[], parentPath = ''): GetRouteSettingsMapReturnType => {
+  const settings: GetRouteSettingsMapReturnType = {};
+
+  routes.forEach((route) => {
+    const fullPath = getFullPath(route.path, parentPath);
+
+    if (route.children === undefined) {
+      settings[fullPath] = {
+        name: route?.name ?? fullPath,
+        isKeepAlive: !!route.isKeepAlive,
+        hideInTab: !!route.hideInTab,
+      };
+      return;
+    }
+
+    Object.assign(settings, getRoutesSettingsMap(route.children, fullPath));
+  });
+
+  return settings;
 };
 
 export const convertUserRoutesToMenus = (userRoutes: API.RouterVo[] = []): MenuDataItem[] => {

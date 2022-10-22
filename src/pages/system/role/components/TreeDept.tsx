@@ -115,7 +115,6 @@ const TreeDept: FC = () => {
             fieldProps={{
               options: OptionsDataScope,
               onChange: (value) => {
-                console.log(value);
                 setDataScope(value);
               },
             }}
