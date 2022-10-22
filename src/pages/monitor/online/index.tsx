@@ -1,62 +1,88 @@
-import { BasePageContainer } from '@/components';
+import { BasePageContainer, BaseProTable } from '@/components';
 import { SysUserOnlineGetList, SysUserOnlinePostForceLogout } from '@/services/sys/SysUserOnlineService';
+import { convertParams } from '@/utils';
+import { DeleteOutlined } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
-import { Button, message } from 'antd';
+import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
-const columns: ProColumns[] = [
+const columns: ProColumns<API.SysUserOnlineVo>[] = [
+  {
+    title: '会话编号',
+    dataIndex: 'tokenId',
+    key: 'tokenId',
+    valueType: 'text',
+    hideInSearch: true,
+    ellipsis: true,
+    copyable: true,
+  },
   {
     title: '用户名称',
     dataIndex: 'userName',
+    key: 'userName',
     valueType: 'text',
   },
   {
     title: '部门名称',
     dataIndex: 'deptName',
+    key: 'deptName',
     valueType: 'text',
     hideInSearch: true,
   },
   {
-    title: '登录IP地址',
+    title: '主机',
     dataIndex: 'ipaddr',
+    key: 'ipaddr',
     valueType: 'text',
   },
   {
-    title: '登录地址',
+    title: '登录地点',
     dataIndex: 'loginLocation',
+    key: 'loginLocation',
+    valueType: 'text',
+    hideInSearch: true,
+  },
+  {
+    title: '浏览器',
+    dataIndex: 'browser',
+    key: 'browser',
     valueType: 'text',
     hideInSearch: true,
   },
   {
     title: '操作系统',
     dataIndex: 'os',
-    valueType: 'text',
-    hideInSearch: true,
-  },
-  {
-    title: '浏览器类型',
-    dataIndex: 'browser',
+    key: 'os',
     valueType: 'text',
     hideInSearch: true,
   },
   {
     title: '登录时间',
     dataIndex: 'loginTime',
-    valueType: 'date',
+    key: 'loginTime',
+    valueType: 'dateTime',
     hideInSearch: true,
   },
   {
     title: '操作',
     valueType: 'option',
+    fixed: 'right',
     render: (dom, entity, index, action) => {
       return (
         <Button
+          icon={<DeleteOutlined />}
+          danger
           type="link"
           onClick={async () => {
-            await SysUserOnlinePostForceLogout({ tokenId: entity.tokenId });
-            action?.reload();
-            message.success('强制退出成功');
+            Modal.confirm({
+              title: '强退用户',
+              content: `确定强退用户 ${entity.userName} 吗？`,
+              onOk: async () => {
+                await SysUserOnlinePostForceLogout({ tokenId: entity.tokenId });
+                action?.reload();
+                message.success('强制退出成功');
+              },
+            });
           }}
         >
           强退
@@ -66,24 +92,18 @@ const columns: ProColumns[] = [
   },
 ];
 
-const OnlinePage: FC = () => {
+const PageOnline: FC = () => {
   return (
     <BasePageContainer>
-      <ProTable
+      <BaseProTable<API.SysUserOnlineVo, API.SysUserOnlineGetListParams>
         rowKey="tokenId"
         columns={columns}
-        request={async (params) => {
-          const { data, total } = await SysUserOnlineGetList(params as API.SysUserOnlineGetListParams);
-
-          return {
-            data,
-            total,
-            success: true,
-          };
-        }}
+        request={async (...p) => SysUserOnlineGetList(convertParams(...p))}
+        rowSelection={false}
+        tableAlertRender={false}
       />
     </BasePageContainer>
   );
 };
 
-export default OnlinePage;
+export default PageOnline;

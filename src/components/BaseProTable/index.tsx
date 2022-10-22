@@ -5,7 +5,7 @@ import { cloneElement } from 'react';
 
 const defaultTableProps: ProTableProps<Record<string, any>, Record<string, any>> = {
   scroll: {
-    x: 'max-content',
+    x: '105%',
   },
   pagination: {
     defaultCurrent: 1,
