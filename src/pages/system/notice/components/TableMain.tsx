@@ -7,7 +7,6 @@ import { useActionRefMainTable } from '@/pages/system/notice/model';
 import { SysNoticePostList } from '@/services/sys/SysNoticeService';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
-import { Space } from 'antd';
 import type { FC } from 'react';
 
 const useColumns = (): ProColumns[] => {
@@ -60,15 +59,11 @@ const tableAlertOptionRender: ProTableProps<API.SysNoticeVo, API.SysNoticePageQu
   selectedRows,
 }) => {
   return (
-    <Space>
-      <span>已选择 {selectedRows.length} 项</span>
-
-      <ButtonRemove
-        isBatch
-        disabled={selectedRows.length === 0}
-        noticeId={selectedRows.map((i) => i.noticeId).join(',') as unknown as number}
-      />
-    </Space>
+    <ButtonRemove
+      isBatch
+      disabled={selectedRows.length === 0}
+      noticeId={selectedRows.map((i) => i.noticeId).join(',') as unknown as number}
+    />
   );
 };
 
