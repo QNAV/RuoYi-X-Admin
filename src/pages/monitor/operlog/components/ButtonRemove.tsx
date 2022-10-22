@@ -4,15 +4,14 @@ import { useAtomValueMainTableActions } from '@/pages/monitor/operlog/model';
 import { SysOperLogPostRemove } from '@/services/sys/SysOperlogService';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal, Typography } from 'antd';
+import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
   operId: number;
-  title: string;
   isBatch?: boolean;
   disabled?: boolean;
-}> = ({ operId, title, disabled, isBatch }) => {
+}> = ({ operId, disabled = false, isBatch = false }) => {
   const text = isBatch ? '批量删除' : '删除';
 
   const { canRemoveSysOperLog } = useAtomValueAccess();
@@ -35,11 +34,7 @@ const ButtonRemove: FC<{
   const onRemove = () => {
     Modal.confirm({
       title: '删除操作日志',
-      content: (
-        <>
-          确定删除操作日志<Typography.Text code>{title}</Typography.Text>吗？
-        </>
-      ),
+      content: `确定删除操作编号为 ${operId} 的操作日志吗`,
       onOk: async () => mutateAsync(operId),
       okButtonProps: {
         loading: isLoading,

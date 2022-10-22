@@ -9,7 +9,9 @@ import type { FC } from 'react';
 
 const ButtonCleanUp: FC = () => {
   const { canRemoveSysOperLog } = useAtomValueAccess();
+
   const tableActions = useAtomValueMainTableActions();
+
   const { isLoading, mutate } = useMutation(() => SysOperLogPostClean(), {
     onSuccess: () => {
       tableActions?.reload();
@@ -25,7 +27,7 @@ const ButtonCleanUp: FC = () => {
         onClick={() =>
           Modal.confirm({
             title: '清空操作日志',
-            content: '清空操作日志后将无法恢复,确认清空操作日志吗？',
+            content: '确认清空操作日志吗？',
             okButtonProps: {
               loading: isLoading,
             },
