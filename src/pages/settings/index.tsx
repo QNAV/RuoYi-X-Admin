@@ -10,7 +10,7 @@ enum TabKey {
   PASSWORD = 'PASSWORD',
 }
 
-const SettingsPage: FC = () => {
+const PageSettings: FC = () => {
   const [activeKey, setActiveKey] = useState<TabKey>(TabKey.PASSWORD);
 
   return (
@@ -38,4 +38,4 @@ const SettingsPage: FC = () => {
   );
 };
 
-export default SettingsPage;
+export default PageSettings;

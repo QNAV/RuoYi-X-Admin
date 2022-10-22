@@ -17,16 +17,14 @@ const FormUpdatePwd: FC = () => {
     async () => {
       const values = await formRef?.current?.validateFields();
 
-      if (values === undefined) return;
-
-      await SysProfilePostUpdatePwd(values);
+      await SysProfilePostUpdatePwd(values!);
     },
     {
       onSuccess: () => {
         message.success('密码修改成功，即将自动退出登录并跳转至登录页面');
 
-        const timer = setTimeout(() => {
-          logout();
+        const timer = setTimeout(async () => {
+          await logout();
 
           clearTimeout(timer);
         }, 1500);

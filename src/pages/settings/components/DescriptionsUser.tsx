@@ -1,9 +1,8 @@
-import { SexMap } from '@/constants';
-import { useQueryInitialState } from '@/models';
+import { useQueryDict, useQueryInitialState } from '@/models';
 import { SysProfilePostUpdateProfile } from '@/services/sys/SysProfileService';
 import { getToken, regEmail, regPhone } from '@/utils';
 import { CameraOutlined } from '@ant-design/icons';
-import type { ProDescriptionsItemProps, ProDescriptionsProps } from '@ant-design/pro-components';
+import type { ProDescriptionsItemProps, RowEditableConfig } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { Avatar, Col, Divider, message, Row, Upload } from 'antd';
@@ -12,71 +11,81 @@ import type { FC } from 'react';
 const uploadAvatarPath = `${import.meta.env.VITE_API_HOST}/api/sys/profile/update-avatar`;
 
 const columns: ProDescriptionsItemProps[] = [
-  { dataIndex: 'userName', title: '用户名称', valueType: 'text' },
-  { dataIndex: 'deptName', title: '所属部门', valueType: 'text' },
-  { dataIndex: 'roleName', title: '所属角色', valueType: 'text' },
-  { dataIndex: 'createTime', title: '创建时间', valueType: 'text' },
+  { dataIndex: 'userName', key: 'userName', title: '用户名称', valueType: 'text' },
+  { dataIndex: 'deptName', key: 'deptName', title: '所属部门', valueType: 'text' },
+  { dataIndex: 'roleName', key: 'roleName', title: '所属角色', valueType: 'text' },
+  { dataIndex: 'createTime', key: 'createTime', title: '创建时间', valueType: 'text' },
 ];
 
-const editableColumns: ProDescriptionsItemProps[] = [
-  {
-    dataIndex: 'nickName',
-    title: '用户昵称',
-    valueType: 'text',
-    formItemProps: {
-      rules: [
-        {
-          required: true,
-          message: '请输入用户昵称',
-        },
-      ],
+const useEditableColumns = (): ProDescriptionsItemProps[] => {
+  const { data } = useQueryDict('sys_user_sex');
+
+  return [
+    {
+      dataIndex: 'nickName',
+      key: 'nickName',
+      title: '用户昵称',
+      valueType: 'text',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '请输入用户昵称',
+          },
+        ],
+      },
     },
-  },
-  {
-    dataIndex: 'phoneNumber',
-    title: '手机号码',
-    valueType: 'text',
-    fieldProps: { maxLength: 11 },
-    formItemProps: {
-      rules: [
-        {
-          required: true,
-          message: '请输入手机号',
-        },
-        {
-          pattern: regPhone,
-          message: '手机号格式错误',
-        },
-      ],
+    {
+      dataIndex: 'phoneNumber',
+      key: 'phoneNumber',
+      title: '手机号码',
+      valueType: 'text',
+      fieldProps: { maxLength: 11 },
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '请输入手机号',
+          },
+          {
+            pattern: regPhone,
+            message: '手机号格式错误',
+          },
+        ],
+      },
     },
-  },
-  {
-    dataIndex: 'email',
-    title: '邮箱',
-    valueType: 'text',
-    formItemProps: {
-      rules: [
-        {
-          required: true,
-          message: '请输入邮箱',
-        },
-        {
-          pattern: regEmail,
-          message: '邮箱格式错误',
-        },
-      ],
+    {
+      dataIndex: 'email',
+      key: 'email',
+      title: '邮箱',
+      valueType: 'text',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '请输入邮箱',
+          },
+          {
+            pattern: regEmail,
+            message: '邮箱格式错误',
+          },
+        ],
+      },
     },
-  },
-  {
-    dataIndex: 'sex',
-    title: '性别',
-    valueType: 'radio',
-    valueEnum: SexMap,
-  },
-];
+    {
+      dataIndex: 'sex',
+      key: 'sex',
+      title: '性别',
+      valueType: 'radio',
+      valueEnum: data?.mapData ?? {},
+    },
+  ];
+};
 
 const DescriptionsUser: FC = () => {
   const { data: initialState, refetch } = useQueryInitialState();
+
+  const editableColumns = useEditableColumns();
 
   const { mutate, mutateAsync } = useMutation(SysProfilePostUpdateProfile, {
     onSuccess: () => {
@@ -86,7 +95,7 @@ const DescriptionsUser: FC = () => {
     },
   });
 
-  const editable: ProDescriptionsProps['editable'] = {
+  const editable: RowEditableConfig<API.LoginUserUpdateBo> = {
     onSave: async (key, record) => {
       await mutateAsync({
         [key as keyof API.LoginUserUpdateBo]: record[key as keyof API.LoginUserUpdateBo],
