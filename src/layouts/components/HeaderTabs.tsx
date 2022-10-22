@@ -22,8 +22,17 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
       label: string;
       pathname: string;
       search: string;
+      closable: boolean;
     }[]
-  >([]);
+  >([
+    {
+      key: '/',
+      label: '首页',
+      pathname: '/',
+      search,
+      closable: false,
+    },
+  ]);
 
   useEffect(() => {
     const currRouteSettingsKey = Object.keys(settingsMap).find((key) => matchPath(key, pathname));
@@ -57,12 +66,10 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
       onEdit={(targetKey) => {
         const currActiveKeyIndex = items.findIndex(({ key }) => key === targetKey);
 
-        if (currActiveKeyIndex === 0 && items.length === 1) {
-          navigate('/');
-        } else {
-          const { pathname, search } = items[currActiveKeyIndex > 0 ? currActiveKeyIndex - 1 : currActiveKeyIndex + 1];
-          navigate(`${pathname}${search}`);
-        }
+        const { pathname, search } =
+          items[currActiveKeyIndex < items.length - 1 ? currActiveKeyIndex + 1 : currActiveKeyIndex - 1];
+
+        navigate(`${pathname}${search}`);
 
         setItems((v) => v.filter(({ key }) => key !== targetKey));
 

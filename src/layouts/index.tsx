@@ -72,6 +72,22 @@ const Layouts: FC = () => {
           paddingBlockPageContainerContent: 0,
           paddingInlinePageContainerContent: 0,
         },
+        header: {
+          colorBgHeader: '#292f33',
+          colorHeaderTitle: '#fff',
+          colorTextMenu: '#dfdfdf',
+          colorTextMenuSecondary: '#dfdfdf',
+          colorTextMenuSelected: '#fff',
+          colorBgMenuItemSelected: '#22272b',
+          colorTextRightActionsItem: '#dfdfdf',
+        },
+        sider: {
+          colorMenuBackground: '#fff',
+          colorMenuItemDivider: '#dfdfdf',
+          colorTextMenu: '#595959',
+          colorTextMenuSelected: '#1677ff',
+          colorBgMenuItemSelected: 'rgba(230,243,254,1)',
+        },
       }}
       avatarProps={{
         size: 'small',
