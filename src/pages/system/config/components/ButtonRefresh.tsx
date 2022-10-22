@@ -7,6 +7,7 @@ import type { FC } from 'react';
 
 const ButtonRefresh: FC = () => {
   const { canRemoveSysConfig } = useAtomValueAccess();
+
   return (
     <Access accessible={canRemoveSysConfig}>
       <Button
@@ -14,8 +15,8 @@ const ButtonRefresh: FC = () => {
         icon={<ReloadOutlined />}
         onClick={() => {
           Modal.confirm({
-            title: '确定要刷新缓存吗？',
-            content: '刷新缓存后，所有参数设置将重新加载',
+            title: '刷新缓存？',
+            content: '确定刷新缓存吗？',
             onOk: async () => {
               await SysConfigPostRefreshCache();
               message.success('刷新成功');

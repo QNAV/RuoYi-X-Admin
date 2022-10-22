@@ -1,6 +1,5 @@
 import { Access } from '@/components';
-import { YNStatus, YNStatusMap } from '@/constants';
-import { useAtomValueAccess } from '@/models';
+import { useAtomValueAccess, useQueryDict } from '@/models';
 import {
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
@@ -18,6 +17,8 @@ const ModalAddOrEdit = () => {
   const { canAddSysConfig, canEditSysConfig } = useAtomValueAccess();
 
   const mainTableActions = useAtomValueMainTableActions();
+
+  const { data } = useQueryDict('sys_yes_no');
 
   const { open, actionType, record } = useAtomValueAddOrEditModal();
   const hideAddOrEditModal = useHideAddOrEditModal();
@@ -60,6 +61,7 @@ const ModalAddOrEdit = () => {
           mainTableActions?.reload();
 
           hideAddOrEditModal();
+
           formRef.current?.resetFields();
         }}
       >
@@ -69,7 +71,12 @@ const ModalAddOrEdit = () => {
 
         <ProFormText name="configValue" label="参数键值" required rules={[{ required: true }]} />
 
-        <ProFormRadio.Group name="configType" label="系统内置" valueEnum={YNStatusMap} initialValue={YNStatus.YES} />
+        <ProFormRadio.Group
+          name="configType"
+          label="系统内置"
+          valueEnum={data?.mapData ?? {}}
+          initialValue={data?.defaultValue}
+        />
 
         <ProFormTextArea name="remark" label="备注" />
       </ModalForm>

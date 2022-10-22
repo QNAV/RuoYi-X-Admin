@@ -7,7 +7,9 @@ import type { FC } from 'react';
 
 const ButtonAdd: FC = () => {
   const { canAddSysConfig } = useAtomValueAccess();
+
   const showAddModal = useShowAddModal();
+
   return (
     <Access accessible={canAddSysConfig}>
       <Button icon={<PlusOutlined />} type="primary" onClick={showAddModal}>

@@ -8,11 +8,13 @@ import type { FC } from 'react';
 
 const ButtonExport: FC<{ searchParams: API.SysConfigQueryBo }> = ({ searchParams }) => {
   const { canExportSysConfig } = useAtomValueAccess();
+
   const { isLoading, mutate } = useMutation(() => SysConfigPostExport(searchParams), {
     onSuccess: () => {
       message.success('导出成功');
     },
   });
+
   return (
     <Access accessible={canExportSysConfig}>
       <Button ghost type="primary" icon={<DownloadOutlined />} loading={isLoading} onClick={() => mutate()}>
