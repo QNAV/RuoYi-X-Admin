@@ -8,9 +8,11 @@ import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonCleanUp: FC = () => {
-  const { canRemoveSysOperLog } = useAtomValueAccess();
+  const { canRemoveSysLogininfor } = useAtomValueAccess();
+
   const tableActions = useAtomValueMainTableActions();
-  const { isLoading, mutate } = useMutation(() => SysLogininforPostClean(), {
+
+  const { isLoading, mutate } = useMutation(SysLogininforPostClean, {
     onSuccess: () => {
       tableActions?.reload();
       message.success('清空访问记录成功');
@@ -18,14 +20,14 @@ const ButtonCleanUp: FC = () => {
   });
 
   return (
-    <Access accessible={canRemoveSysOperLog}>
+    <Access accessible={canRemoveSysLogininfor}>
       <Button
         danger
         icon={<DeleteOutlined />}
         onClick={() =>
           Modal.confirm({
             title: '清空访问记录',
-            content: '清空访问记录后将无法恢复,确认清空吗？',
+            content: '确认清空访问记录吗？',
             okButtonProps: {
               loading: isLoading,
             },

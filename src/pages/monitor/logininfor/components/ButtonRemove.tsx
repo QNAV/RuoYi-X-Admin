@@ -4,7 +4,7 @@ import { useAtomValueMainTableActions } from '@/pages/monitor/logininfor/model';
 import { SysLogininforPostRemove } from '@/services/sys/SysLoginService';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal, Typography } from 'antd';
+import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
@@ -14,7 +14,7 @@ const ButtonRemove: FC<{
 }> = ({ infoId, disabled, isBatch }) => {
   const text = isBatch ? '批量删除' : '删除';
 
-  const { canRemoveSysOperLog } = useAtomValueAccess();
+  const { canRemoveSysLogininfor } = useAtomValueAccess();
 
   const mainTableActions = useAtomValueMainTableActions();
 
@@ -33,12 +33,8 @@ const ButtonRemove: FC<{
 
   const onRemove = () => {
     Modal.confirm({
-      title: '删除系统访问记录',
-      content: (
-        <>
-          确定删除访问记录<Typography.Text code>{infoId}</Typography.Text>吗？
-        </>
-      ),
+      title: '删除访问记录',
+      content: `确定删除访问编号为 ${infoId} 的访问记录吗？`,
       onOk: async () => mutateAsync(infoId),
       okButtonProps: {
         loading: isLoading,
@@ -47,7 +43,7 @@ const ButtonRemove: FC<{
   };
 
   return (
-    <Access accessible={canRemoveSysOperLog}>
+    <Access accessible={canRemoveSysLogininfor}>
       <Button type="link" danger disabled={disabled} icon={<DeleteOutlined />} onClick={onRemove}>
         {text}
       </Button>

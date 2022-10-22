@@ -7,7 +7,7 @@ import { Button, message } from 'antd';
 import type { FC } from 'react';
 
 const ButtonExport: FC<{ searchParams: API.SysLogininforPageQueryBo }> = ({ searchParams }) => {
-  const { canExportSysOperLog } = useAtomValueAccess();
+  const { canExportSysLogininfor } = useAtomValueAccess();
 
   const { isLoading, mutate } = useMutation(() => SysLogininforPostExport(searchParams), {
     onSuccess: () => {
@@ -16,7 +16,7 @@ const ButtonExport: FC<{ searchParams: API.SysLogininforPageQueryBo }> = ({ sear
   });
 
   return (
-    <Access accessible={canExportSysOperLog}>
+    <Access accessible={canExportSysLogininfor}>
       <Button ghost type="primary" icon={<DownloadOutlined />} loading={isLoading} onClick={() => mutate()}>
         导出当前列表
       </Button>
