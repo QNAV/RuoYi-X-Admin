@@ -1,0 +1,1 @@
+import{h as a,aL as u,r}from"./index.0ef95268.js";const m=Symbol();function p(t){const o=a(t,(n,s,e)=>{const c=typeof e=="function"?e(n(o)):e;s(o,c===m?t:c)});return o}const x="w";function A(t,o){const n=u(o),s=r.exports.useContext(n).s;return r.exports.useCallback(()=>s[x](t,m),[s,t])}a(()=>[]);export{p as a,A as u};
