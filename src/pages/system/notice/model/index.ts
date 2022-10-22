@@ -8,7 +8,7 @@ import { atomWithReset, useResetAtom } from 'jotai/utils';
 
 const atomMainTableActions = atom<ActionType | undefined>(undefined);
 export const useAtomValueMainTableActions = () => useAtomValue(atomMainTableActions);
-export const useMainTableActionRef = () => useInitActionType(atomMainTableActions);
+export const useActionRefMainTable = () => useInitActionType(atomMainTableActions);
 
 const atomAddOrEditModal = atomWithReset<{
   open: boolean;

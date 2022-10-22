@@ -5,7 +5,7 @@ import ButtonEdit from '@/pages/system/config/components/ButtonEdit';
 import ButtonExport from '@/pages/system/config/components/ButtonExport';
 import ButtonRefresh from '@/pages/system/config/components/ButtonRefresh';
 import ButtonRemove from '@/pages/system/config/components/ButtonRemove';
-import { useMainTableActionRef } from '@/pages/system/config/model';
+import { useActionRefMainTable } from '@/pages/system/config/model';
 import { SysConfigPostList } from '@/services/sys/SysConfigService';
 import { convertParams } from '@/utils';
 import type { ProTableProps } from '@ant-design/pro-components';
@@ -26,7 +26,7 @@ const tableAlertOptionRender: ProTableProps<API.SysConfigVo, 'text'>['tableAlert
 };
 
 const TableMain: FC = () => {
-  const actionRef = useMainTableActionRef();
+  const actionRef = useActionRefMainTable();
   const [searchParams, setSearchParams] = useState<API.SysConfigPageQueryBo>({});
   return (
     <BaseProTable

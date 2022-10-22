@@ -5,7 +5,7 @@ import ButtonAdd from '@/pages/system/dictDetails/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/dictDetails/components/ButtonEdit';
 import ButtonExport from '@/pages/system/dictDetails/components/ButtonExport';
 import ButtonRemove from '@/pages/system/dictDetails/components/ButtonRemove';
-import { useAtomCurDictType, useMainTableActionRef } from '@/pages/system/dictDetails/model';
+import { useActionRefMainTable, useAtomCurDictType } from '@/pages/system/dictDetails/model';
 import { SysDictDataPostList } from '@/services/sys/SysDictDataService';
 import { optionSelectUsingGET } from '@/services/sys/SysDictTypeService';
 import { convertParams } from '@/utils';
@@ -36,7 +36,7 @@ const TableMain: FC = () => {
 
   const [searchParams, setSearchParams] = useState<API.SysDictDataQueryBo>({});
 
-  const actionRef = useMainTableActionRef();
+  const actionRef = useActionRefMainTable();
 
   const formRef = useRef<ProFormInstance>();
 

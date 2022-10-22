@@ -1,12 +1,10 @@
 import { Access } from '@/components';
-import { EnableDisableStatus, EnableDisableStatusMap } from '@/constants';
 import { WangEditor } from '@/features';
-import { useAtomValueAccess } from '@/models';
+import { useAtomValueAccess, useQueryDict } from '@/models';
 import {
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
   useHideAddOrEditModal,
-  useNoticeTypeDict,
 } from '@/pages/system/notice/model';
 import { SysNoticePostAdd, SysNoticePostEdit } from '@/services/sys/SysNoticeService';
 import type { ProFormInstance } from '@ant-design/pro-components';
@@ -16,9 +14,11 @@ import { useEffect, useRef } from 'react';
 
 const ModalAddOrEdit = () => {
   const formRef = useRef<ProFormInstance>();
-  const { data: valueEnum } = useNoticeTypeDict();
 
-  const { canAddSysNotice, canEditSysConfig } = useAtomValueAccess();
+  const { data: dictSysNoticeType } = useQueryDict('sys_notice_type');
+  const { data: dictSysNoticeStatus } = useQueryDict('sys_notice_status');
+
+  const { canAddSysNotice, canEditSysNotice } = useAtomValueAccess();
 
   const mainTableActions = useAtomValueMainTableActions();
 
@@ -41,7 +41,7 @@ const ModalAddOrEdit = () => {
   }, [open]);
 
   return (
-    <Access accessible={canAddSysNotice || canEditSysConfig}>
+    <Access accessible={canAddSysNotice || canEditSysNotice}>
       <ModalForm<API.SysNoticeAddBo>
         formRef={formRef}
         width={800}
@@ -64,7 +64,9 @@ const ModalAddOrEdit = () => {
           mainTableActions?.reload();
 
           hideAddOrEditModal();
+
           formRef.current?.resetFields();
+          return true;
         }}
       >
         <ProFormText
@@ -82,7 +84,7 @@ const ModalAddOrEdit = () => {
           label="公告类型"
           required
           rules={[{ required: true }]}
-          valueEnum={valueEnum ?? {}}
+          valueEnum={dictSysNoticeType?.mapData ?? {}}
           colProps={{
             span: 12,
           }}
@@ -91,8 +93,8 @@ const ModalAddOrEdit = () => {
         <ProFormRadio.Group
           name="status"
           label="状态"
-          valueEnum={EnableDisableStatusMap}
-          initialValue={EnableDisableStatus.ENABLE}
+          valueEnum={dictSysNoticeStatus?.mapData ?? {}}
+          initialValue={dictSysNoticeStatus?.defaultValue}
         />
 
         <ProFormItem name="noticeContent" label="内容">

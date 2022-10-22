@@ -6,7 +6,7 @@ import ButtonEdit from '@/pages/system/dict/components/ButtonEdit';
 import ButtonExport from '@/pages/system/dict/components/ButtonExport';
 import ButtonRefresh from '@/pages/system/dict/components/ButtonRefresh';
 import ButtonRemove from '@/pages/system/dict/components/ButtonRemove';
-import { useMainTableActionRef } from '@/pages/system/dict/model';
+import { useActionRefMainTable } from '@/pages/system/dict/model';
 import { SysDictTypePostList } from '@/services/sys/SysDictTypeService';
 import { convertParams } from '@/utils';
 import type { ProTableProps } from '@ant-design/pro-components';
@@ -29,7 +29,7 @@ const tableAlertOptionRender: ProTableProps<API.SysDictTypeVo, 'text'>['tableAle
 };
 
 const TableMain: FC = () => {
-  const actionRef = useMainTableActionRef();
+  const actionRef = useActionRefMainTable();
 
   const [searchParams, setSearchParams] = useState<API.SysDictTypeQueryBo>({});
 

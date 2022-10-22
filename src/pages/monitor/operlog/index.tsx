@@ -3,7 +3,7 @@ import { useQueryDict } from '@/models';
 import ButtonCleanUp from '@/pages/monitor/operlog/components/ButtonCleanUp';
 import ButtonExport from '@/pages/monitor/operlog/components/ButtonExport';
 import ButtonRemove from '@/pages/monitor/operlog/components/ButtonRemove';
-import { useMainTableActionRef } from '@/pages/monitor/operlog/model';
+import { useActionRefMainTable } from '@/pages/monitor/operlog/model';
 import { SysOperLogPostList } from '@/services/sys/SysOperlogService';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
@@ -68,7 +68,7 @@ const tableAlertOptionRender: ProTableProps<API.SysOperLogVo, API.SysOperLogPage
 };
 
 const PageOperlog: FC = () => {
-  const actionRef = useMainTableActionRef();
+  const actionRef = useActionRefMainTable();
 
   const columns = useColumns();
 

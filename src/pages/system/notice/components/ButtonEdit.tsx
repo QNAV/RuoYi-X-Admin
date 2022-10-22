@@ -5,6 +5,7 @@ import type { FC } from 'react';
 
 const ButtonEdit: FC<{ record: API.SysNoticeVo }> = ({ record }) => {
   const showEditModal = useShowEditModal();
+
   return (
     <Button type="link" icon={<EditOutlined />} onClick={() => showEditModal(record)}>
       编辑

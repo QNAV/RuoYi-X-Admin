@@ -2,7 +2,7 @@ import { BasePageContainer, BaseProTable } from '@/components';
 import ButtonCleanUp from '@/pages/monitor/logininfor/components/ButtonCleanUp';
 import ButtonExport from '@/pages/monitor/logininfor/components/ButtonExport';
 import ButtonRemove from '@/pages/monitor/logininfor/components/ButtonRemove';
-import { useMainTableActionRef } from '@/pages/monitor/logininfor/model';
+import { useActionRefMainTable } from '@/pages/monitor/logininfor/model';
 import { SysLogininforPostList } from '@/services/sys/SysLoginService';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
@@ -51,7 +51,7 @@ const tableAlertOptionRender: ProTableProps<
 };
 
 const PageLoginInfo: FC = () => {
-  const actionRef = useMainTableActionRef();
+  const actionRef = useActionRefMainTable();
 
   const [searchParams, setSearchParams] = useState<API.SysLogininforPageQueryBo>({});
 
