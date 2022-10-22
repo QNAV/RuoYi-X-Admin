@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import type { PathPattern } from 'react-router-dom';
 import { matchPath, useLocation } from 'react-router-dom';
 
-export const useActivated = (pattern: string | PathPattern, callback: () => void, defaultActivatedValue = false) => {
-  const [isActivated, setIsActivated] = useState(defaultActivatedValue);
+export const useActivated = (pattern: string | PathPattern, callback: () => void, ignoreFirstRender = false) => {
+  const [isActivated, setIsActivated] = useState(ignoreFirstRender);
   const { pathname } = useLocation();
 
   useEffect(() => {

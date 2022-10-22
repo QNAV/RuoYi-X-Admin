@@ -34,11 +34,11 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
     }
 
     setItems((v = []) => {
-      const { name, hideInTab } = settingsMap[currRouteSettingsKey];
+      const { name, hideInTab, closableTab } = settingsMap[currRouteSettingsKey];
 
       if (v.find((item) => item.key === currRouteSettingsKey) || hideInTab) return v;
 
-      return [...v, { key: currRouteSettingsKey, label: name, pathname, search }];
+      return [...v, { key: currRouteSettingsKey, label: name, pathname, search, closable: closableTab }];
     });
 
     setActiveKey(currRouteSettingsKey);

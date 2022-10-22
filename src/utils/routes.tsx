@@ -29,7 +29,10 @@ export const getRoutesAccessKeysMap = (routes: Route[], parentPath = ''): Record
   return accessKeys;
 };
 
-type GetRouteSettingsMapReturnType = Record<string, Required<Pick<Route, 'name' | 'isKeepAlive' | 'hideInTab'>>>;
+type GetRouteSettingsMapReturnType = Record<
+  string,
+  Required<Pick<Route, 'name' | 'isKeepAlive' | 'hideInTab' | 'closableTab'>>
+>;
 export const getRoutesSettingsMap = (routes: Route[], parentPath = ''): GetRouteSettingsMapReturnType => {
   const settings: GetRouteSettingsMapReturnType = {};
 
@@ -39,8 +42,9 @@ export const getRoutesSettingsMap = (routes: Route[], parentPath = ''): GetRoute
     if (route.children === undefined) {
       settings[fullPath] = {
         name: route?.name ?? fullPath,
-        isKeepAlive: !!route.isKeepAlive,
-        hideInTab: !!route.hideInTab,
+        isKeepAlive: route?.isKeepAlive ?? false,
+        hideInTab: route?.hideInTab ?? false,
+        closableTab: route?.closableTab ?? true,
       };
       return;
     }
