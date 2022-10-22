@@ -3,11 +3,19 @@ import type { ActionType } from '@ant-design/pro-components';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { atomWithReset, useResetAtom } from 'jotai/utils';
 
-const AtomMainTableActions = atom<ActionType | undefined>(undefined);
-export const useActionRefMainTable = () => useInitActionType(AtomMainTableActions);
-export const useAtomValueMainTableActions = () => useAtomValue(AtomMainTableActions);
+const atomMainTableActions = atom<ActionType | undefined>(undefined);
+export const useActionRefMainTable = () => useInitActionType(atomMainTableActions);
+export const useAtomValueMainTableActions = () => useAtomValue(atomMainTableActions);
 
-const AtomSelectedTableId = atomWithReset<number>(0);
-export const useAtomValueSelectedTableId = () => useAtomValue(AtomSelectedTableId);
-export const useShowPreviewModal = () => useSetAtom(AtomSelectedTableId);
-export const useHidePreviewModal = () => useResetAtom(AtomSelectedTableId);
+const atomSelectedTableId = atomWithReset({
+  open: false,
+  previewId: 0,
+});
+export const useAtomValuePreviewModal = () => useAtomValue(atomSelectedTableId);
+export const useShowPreviewModal = () => {
+  const setAtom = useSetAtom(atomSelectedTableId);
+  return (previewId: number) => {
+    setAtom({ open: true, previewId });
+  };
+};
+export const useHidePreviewModal = () => useResetAtom(atomSelectedTableId);

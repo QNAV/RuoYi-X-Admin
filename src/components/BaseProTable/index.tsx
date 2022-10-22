@@ -5,7 +5,7 @@ import { cloneElement } from 'react';
 
 const defaultTableProps: ProTableProps<Record<string, any>, Record<string, any>> = {
   scroll: {
-    x: '105%',
+    x: 'max-content',
   },
   pagination: {
     defaultCurrent: 1,
@@ -33,6 +33,23 @@ const defaultTableProps: ProTableProps<Record<string, any>, Record<string, any>>
     density: true,
   },
   defaultSize: 'small',
+  beforeSearchSubmit: (params) => {
+    const { createTimeRange, ...rest } = params;
+
+    let createTimeParams = {};
+
+    if (createTimeRange) {
+      createTimeParams = {
+        beginCreateTime: createTimeRange[0],
+        endCreateTime: createTimeRange[1],
+      };
+    }
+
+    return {
+      ...rest,
+      ...createTimeParams,
+    };
+  },
   tableAlertRender: ({ selectedRowKeys, onCleanSelected }) => {
     return <BaseTableAlert selectedNum={selectedRowKeys.length} onCleanSelected={onCleanSelected} />;
   },

@@ -1,12 +1,11 @@
 import { GenType, GenTypeMap, TemplateTypeMap } from '@/constants';
-import type { GenTableRes } from '@/pages/tool/gen-edit/data';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { Divider } from 'antd';
 import type { FC } from 'react';
 
 const DescBase: FC<{
-  dataSource?: GenTableRes;
+  dataSource?: API.GenTableRes;
   handleEdit: (p: Partial<API.GenTableReq>) => Promise<void>;
 }> = ({ dataSource, handleEdit }) => {
   const editable: ProDescriptionsProps['editable'] = {

@@ -11,6 +11,7 @@ const useColumns = (): ProColumns<API.SysUserOnlineVo>[] => {
   const { canForceLogoutMonitorOnline } = useAtomValueAccess();
 
   return [
+    { title: '序号', dataIndex: 'index', key: 'index', valueType: 'indexBorder' },
     {
       title: '会话编号',
       dataIndex: 'tokenId',
@@ -107,6 +108,9 @@ const PageOnline: FC = () => {
     <BasePageContainer>
       <BaseProTable<API.SysUserOnlineVo, API.SysUserOnlineGetListParams>
         rowKey="tokenId"
+        scroll={{
+          x: '105%',
+        }}
         columns={columns}
         request={async (...p) => SysUserOnlineGetList(convertParams(...p))}
         rowSelection={false}
