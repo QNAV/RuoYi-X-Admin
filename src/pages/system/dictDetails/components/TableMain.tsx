@@ -31,7 +31,6 @@ const useColumns = (): ProColumns<API.SysDictDataVo>[] => {
       dataIndex: 'createTime',
       key: 'createTime',
       valueType: 'dateTime',
-      editable: false,
       hideInSearch: true,
       sorter: true,
     },
@@ -49,7 +48,7 @@ const useColumns = (): ProColumns<API.SysDictDataVo>[] => {
         return (
           <>
             <ButtonEdit record={entity} />
-            <ButtonRemove dictCode={entity.dictCode} dictLabel={entity.dictLabel} />
+            <ButtonRemove dictCode={entity.dictCode} />
           </>
         );
       },
@@ -65,7 +64,6 @@ const tableAlertOptionRender: ProTableProps<API.SysDictDataVo, 'text'>['tableAle
       disabled={selectedRows.length === 0}
       isBatch
       dictCode={selectedRows.map((i) => i.dictCode).join(',') as unknown as number}
-      dictLabel={selectedRows.map((i) => i.dictLabel).join(',')}
     />
   );
 };
@@ -99,8 +97,11 @@ const TableMain: FC = () => {
           dictType,
           dictName: data[dictType],
         });
-        formRef.current?.setFieldsValue({ dictType });
-        actionRef?.current?.reload();
+        const timer = setTimeout(() => {
+          formRef.current?.setFieldsValue({ dictType });
+          actionRef?.current?.reload();
+          clearTimeout(timer);
+        }, 0);
       },
     },
   );

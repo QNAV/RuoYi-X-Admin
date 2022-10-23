@@ -2,15 +2,6 @@ export type ValueEnumMap<K> = Map<
   K,
   { text: string; status?: 'Default' | 'Error' | 'Success' | 'Processing' | 'Warning' }
 >;
-// 性别枚举
-export enum Sex {
-  MALE = '0',
-  FEMALE = '1',
-}
-export const SexMap: ValueEnumMap<Sex> = new Map([
-  [Sex.MALE, { text: '男' }],
-  [Sex.FEMALE, { text: '女' }],
-]);
 
 /**
  * 菜单类型
@@ -54,20 +45,6 @@ export enum YNStatus {
   YES = 'Y',
   NO = 'N',
 }
-export const YNStatusMap: ValueEnumMap<YNStatus> = new Map([
-  [YNStatus.YES, { text: '是', status: 'Success' }],
-  [YNStatus.NO, { text: '否', status: 'Error' }],
-]);
-
-// 显示/隐藏
-export enum ShowHideStatus {
-  SHOW = '0',
-  HIDE = '1',
-}
-export const ShowHideStatusMap: ValueEnumMap<ShowHideStatus> = new Map([
-  [ShowHideStatus.SHOW, { text: '显示', status: 'Success' }],
-  [ShowHideStatus.HIDE, { text: '隐藏', status: 'Error' }],
-]);
 
 // JAVA类型
 export enum JavaType {
@@ -131,4 +108,22 @@ export enum GenType {
 export const GenTypeMap: ValueEnumMap<GenType> = new Map([
   [GenType.ZIP, { text: 'zip压缩包' }],
   [GenType.CUSTOM, { text: '自定义路径' }],
+]);
+
+// 枚举样式类型
+export enum ListClass {
+  NONE = 'none',
+  DEFAULT = 'default',
+  ERROR = 'error',
+  SUCCESS = 'success',
+  PROCESSING = 'processing',
+  WARNING = 'warning',
+}
+export const ListClassMap: ValueEnumMap<ListClass> = new Map([
+  [ListClass.NONE, { text: '无' }],
+  [ListClass.DEFAULT, { text: '默认', status: 'Default' }],
+  [ListClass.ERROR, { text: '错误', status: 'Error' }],
+  [ListClass.SUCCESS, { text: '成功', status: 'Success' }],
+  [ListClass.PROCESSING, { text: '进行中', status: 'Processing' }],
+  [ListClass.WARNING, { text: '警告', status: 'Warning' }],
 ]);

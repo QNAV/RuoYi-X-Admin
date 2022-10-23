@@ -1,5 +1,5 @@
 import { Access } from '@/components';
-import { EnableDisableStatus, EnableDisableStatusMap, OptionsListClass } from '@/constants';
+import { EnableDisableStatus, EnableDisableStatusMap, ListClassMap } from '@/constants';
 import { useAtomValueAccess } from '@/models';
 import {
   useAtomValueAddOrEditModal,
@@ -29,24 +29,26 @@ const ModalAddOrEdit = () => {
 
   const { open, actionType, record } = useAtomValueAddOrEditModal();
   const hideAddOrEditModal = useHideAddOrEditModal();
+  const onCancel = () => {
+    if (actionType === 'edit') {
+      formRef.current?.resetFields();
+    }
+    hideAddOrEditModal();
+  };
 
   const { dictType, dictName } = useAtomValueCurDictType();
 
   useEffect(() => {
-    if (open && actionType === 'add') {
-      formRef.current?.setFieldsValue({
-        dictType,
-        dictName,
-      });
-    }
+    if (!open) return;
 
-    if (open && actionType === 'edit') {
-      formRef.current?.setFieldsValue({ ...record, dictName });
-    }
-
-    if (!open) {
-      formRef.current?.resetFields();
-    }
+    const timer = setTimeout(() => {
+      if (actionType === 'add') {
+        formRef.current?.setFieldsValue({ dictType, dictName });
+      } else {
+        formRef.current?.setFieldsValue({ ...record, dictName });
+      }
+      clearTimeout(timer);
+    }, 0);
   }, [open]);
 
   return (
@@ -57,7 +59,7 @@ const ModalAddOrEdit = () => {
         title={actionType === 'add' ? '新增字典数据' : '新增字典数据'}
         open={open}
         modalProps={{
-          onCancel: hideAddOrEditModal,
+          onCancel,
           okText: '提交',
         }}
         onFinish={async (values) => {
@@ -87,12 +89,7 @@ const ModalAddOrEdit = () => {
 
         <ProFormDigit name="dictSort" label="显示排序" initialValue={0} />
 
-        <ProFormSelect
-          name="listClass"
-          label="回显样式"
-          fieldProps={{ options: OptionsListClass }}
-          initialValue="default"
-        />
+        <ProFormSelect name="listClass" label="回显样式" valueEnum={ListClassMap} initialValue="default" />
 
         <ProFormRadio.Group
           name="status"

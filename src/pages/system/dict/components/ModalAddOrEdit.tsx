@@ -21,10 +21,19 @@ const ModalAddOrEdit = () => {
 
   const { open, actionType, record } = useAtomValueAddOrEditModal();
   const hideAddOrEditModal = useHideAddOrEditModal();
+  const onCancel = () => {
+    if (actionType === 'edit') {
+      formRef.current?.resetFields();
+    }
+    hideAddOrEditModal();
+  };
 
   useEffect(() => {
     if (open && actionType === 'edit') {
-      formRef.current?.setFieldsValue(record);
+      const timer = setTimeout(() => {
+        formRef.current?.setFieldsValue(record);
+        clearTimeout(timer);
+      }, 0);
     }
   }, [open]);
 
@@ -36,7 +45,7 @@ const ModalAddOrEdit = () => {
         title={actionType === 'add' ? '新增字典类型' : '编辑字典类型'}
         open={open}
         modalProps={{
-          onCancel: hideAddOrEditModal,
+          onCancel,
           okText: '提交',
         }}
         onFinish={async (values) => {

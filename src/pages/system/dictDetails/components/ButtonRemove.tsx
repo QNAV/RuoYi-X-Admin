@@ -4,15 +4,14 @@ import { useAtomValueMainTableActions } from '@/pages/system/dict/model';
 import { SysDictDataPostRemove } from '@/services/sys/SysDictDataService';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal, Typography } from 'antd';
+import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
   dictCode: number;
-  dictLabel: string;
   isBatch?: boolean;
   disabled?: boolean;
-}> = ({ dictCode, dictLabel, disabled, isBatch }) => {
+}> = ({ dictCode, disabled, isBatch }) => {
   const text = isBatch ? '批量删除' : '删除';
 
   const { canRemoveSysDict } = useAtomValueAccess();
@@ -35,12 +34,8 @@ const ButtonRemove: FC<{
   const onRemove = () => {
     Modal.confirm({
       title: '删除字典数据',
-      content: (
-        <>
-          确定删除字典数据<Typography.Text code>{dictLabel}</Typography.Text>吗？
-        </>
-      ),
-      onOk: async () => mutateAsync(dictCode),
+      content: `确定删除字典编码为 ${dictCode} 的字典数据吗？`,
+      onOk: () => mutateAsync(dictCode),
       okButtonProps: {
         loading: isLoading,
       },
