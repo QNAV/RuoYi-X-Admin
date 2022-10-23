@@ -22,8 +22,6 @@ const columns: ProColumns<API.SysLogininforVo>[] = [
   },
   { title: '浏览器', dataIndex: 'browser', key: 'browser', valueType: 'text', hideInSearch: true },
   { title: '操作信息', dataIndex: 'msg', key: 'msg', valueType: 'text', hideInSearch: true },
-  { title: '操作信息', dataIndex: 'msg', key: 'msg', valueType: 'text', hideInSearch: true },
-  { title: '操作信息', dataIndex: 'msg', key: 'msg', valueType: 'text', hideInSearch: true },
   { title: '登录日期', dataIndex: 'loginTime', key: 'loginTime', valueType: 'dateTime', hideInSearch: true },
   {
     title: '操作',
