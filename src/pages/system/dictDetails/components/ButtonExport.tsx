@@ -7,7 +7,7 @@ import { Button, message } from 'antd';
 import type { FC } from 'react';
 
 const ButtonExport: FC<{ searchParams: API.SysDictDataQueryBo }> = ({ searchParams }) => {
-  const access = useAtomValueAccess();
+  const { canExportSysPost } = useAtomValueAccess();
 
   const { isLoading, mutate } = useMutation(() => SysDictDataPostExport(searchParams), {
     onSuccess: () => {
@@ -16,7 +16,7 @@ const ButtonExport: FC<{ searchParams: API.SysDictDataQueryBo }> = ({ searchPara
   });
 
   return (
-    <Access accessible={access.canExportSysPost}>
+    <Access accessible={canExportSysPost}>
       <Button ghost type="primary" icon={<DownloadOutlined />} loading={isLoading} onClick={() => mutate()}>
         导出当前列表
       </Button>

@@ -7,6 +7,7 @@ import type { FC } from 'react';
 
 const ButtonAdd: FC = () => {
   const { canEditSysDict } = useAtomValueAccess();
+
   const showAddModal = useShowAddModal();
 
   return (
