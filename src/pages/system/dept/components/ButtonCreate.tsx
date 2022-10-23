@@ -1,6 +1,5 @@
 import { Access } from '@/components';
-import { EnableDisableStatus, EnableDisableStatusMap } from '@/constants';
-import { useAtomValueAccess } from '@/models';
+import { useAtomValueAccess, useQueryDict } from '@/models';
 import { useQueryDeptOptions } from '@/pages/system/dept/model';
 import { SysDeptPostAdd } from '@/services/sys/SysDeptService';
 import { PlusOutlined } from '@ant-design/icons';
@@ -17,6 +16,8 @@ const ButtonCreate: FC = () => {
   const formRef = useRef<ProFormInstance<API.SysDeptAddBo>>();
   const [open, { toggle }] = useBoolean();
   const { data: treeData, refetch } = useQueryDeptOptions();
+
+  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
 
   const { mutate, isLoading } = useMutation(
     async () => {
@@ -126,8 +127,8 @@ const ButtonCreate: FC = () => {
           <ProFormRadio.Group
             name="status"
             label="状态"
-            valueEnum={EnableDisableStatusMap}
-            initialValue={EnableDisableStatus.ENABLE}
+            valueEnum={dictSysNormalDisable?.mapData ?? {}}
+            initialValue={dictSysNormalDisable?.defaultValue}
             colProps={{
               span: 12,
             }}

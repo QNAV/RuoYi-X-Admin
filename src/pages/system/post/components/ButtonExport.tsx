@@ -9,7 +9,7 @@ import type { FC } from 'react';
 export type SearchParams = Pick<API.SysPostPageQueryBo, 'postCode' | 'postName' | 'status' | 'pageNum' | 'pageSize'>;
 
 const ButtonExport: FC<{ searchParams: SearchParams }> = ({ searchParams }) => {
-  const access = useAtomValueAccess();
+  const { canExportSysPost } = useAtomValueAccess();
 
   const { isLoading, mutate } = useMutation(() => SysPostPostExport(searchParams), {
     onSuccess: () => {
@@ -18,8 +18,8 @@ const ButtonExport: FC<{ searchParams: SearchParams }> = ({ searchParams }) => {
   });
 
   return (
-    <Access accessible={access.canExportSysPost}>
-      <Button type="link" icon={<DownloadOutlined />} loading={isLoading} onClick={() => mutate()}>
+    <Access accessible={canExportSysPost}>
+      <Button type="primary" ghost icon={<DownloadOutlined />} loading={isLoading} onClick={() => mutate()}>
         导出当前列表
       </Button>
     </Access>

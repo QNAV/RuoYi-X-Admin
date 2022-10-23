@@ -1,6 +1,5 @@
 import { Access } from '@/components';
-import { EnableDisableStatus, EnableDisableStatusMap } from '@/constants';
-import { useAtomValueAccess } from '@/models';
+import { useAtomValueAccess, useQueryDict } from '@/models';
 import {
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
@@ -27,6 +26,8 @@ const ModalAddOrEdit = () => {
     }
     hideAddOrEditModal();
   };
+
+  const { data } = useQueryDict('sys_normal_disable');
 
   useEffect(() => {
     if (open && actionType === 'edit') {
@@ -70,8 +71,8 @@ const ModalAddOrEdit = () => {
         <ProFormRadio.Group
           name="status"
           label="状态"
-          valueEnum={EnableDisableStatusMap}
-          initialValue={EnableDisableStatus.ENABLE}
+          valueEnum={data?.mapData ?? {}}
+          initialValue={data?.defaultValue}
         />
 
         <ProFormTextArea name="remark" label="备注" />

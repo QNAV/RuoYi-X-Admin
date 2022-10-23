@@ -6,12 +6,12 @@ import { Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonAdd: FC = () => {
-  const access = useAtomValueAccess();
+  const { canAddSysPost } = useAtomValueAccess();
 
   const showAddModal = useShowAddModal();
 
   return (
-    <Access accessible={access.canAddSysPost}>
+    <Access accessible={canAddSysPost}>
       <Button type="primary" icon={<PlusOutlined />} onClick={showAddModal}>
         新建
       </Button>

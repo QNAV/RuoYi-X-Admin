@@ -25,10 +25,6 @@ export enum EnableDisableStatus {
   ENABLE = '0',
   DISABLE = '1',
 }
-export const EnableDisableStatusMap: ValueEnumMap<EnableDisableStatus> = new Map([
-  [EnableDisableStatus.ENABLE, { text: '启用', status: 'Success' }],
-  [EnableDisableStatus.DISABLE, { text: '禁用', status: 'Error' }],
-]);
 
 // 是/否
 export enum YesNoStatus {

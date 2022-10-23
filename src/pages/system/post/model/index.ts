@@ -4,12 +4,12 @@ import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { atomWithReset, useResetAtom } from 'jotai/utils';
 
 // 主表格操作
-const AtomMainTableActions = atom<ActionType | undefined>(undefined);
-export const useActionRefMainTable = () => useInitActionType(AtomMainTableActions);
-export const useAtomValueMainTableActions = () => useAtomValue(AtomMainTableActions);
+const atomMainTableActions = atom<ActionType | undefined>(undefined);
+export const useActionRefMainTable = () => useInitActionType(atomMainTableActions);
+export const useAtomValueMainTableActions = () => useAtomValue(atomMainTableActions);
 
 // 新建或编辑弹窗
-const AtomAddOrEditModal = atomWithReset<{
+const atomAddOrEditModal = atomWithReset<{
   open: boolean;
   record?: API.SysPostVo;
   actionType: 'add' | 'edit';
@@ -18,12 +18,12 @@ const AtomAddOrEditModal = atomWithReset<{
   actionType: 'add',
 });
 export const useShowAddModal = () => {
-  const showAddModal = useSetAtom(AtomAddOrEditModal);
+  const showAddModal = useSetAtom(atomAddOrEditModal);
   return () => showAddModal({ open: true, actionType: 'add' });
 };
 export const useShowEditModal = () => {
-  const showEditModal = useSetAtom(AtomAddOrEditModal);
+  const showEditModal = useSetAtom(atomAddOrEditModal);
   return (record: API.SysPostVo) => showEditModal({ open: true, actionType: 'edit', record });
 };
-export const useHideAddOrEditModal = () => useResetAtom(AtomAddOrEditModal);
-export const useValueAddOrEditModal = () => useAtomValue(AtomAddOrEditModal);
+export const useHideAddOrEditModal = () => useResetAtom(atomAddOrEditModal);
+export const useValueAddOrEditModal = () => useAtomValue(atomAddOrEditModal);

@@ -1,6 +1,6 @@
 import { EmptySimple } from '@/components';
-import { EnableDisableStatusMap, MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
-import { useAtomValueAccess } from '@/models';
+import { MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
+import { useAtomValueAccess, useQueryDict } from '@/models';
 import { useReFetchMenuList, useReFetchMenuOptions, useValueSelectedMenuData } from '@/pages/system/menu/model';
 import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
@@ -14,6 +14,8 @@ import { useMemo } from 'react';
 const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl: 2 };
 
 const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
+  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
+
   return useMemo(() => {
     const columns: ProDescriptionsProps['columns'] = [];
 
@@ -21,7 +23,13 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
 
     if (menuType !== MenuType.F) {
       columns.push(
-        { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: EnableDisableStatusMap },
+        {
+          title: '状态',
+          dataIndex: 'status',
+          key: 'status',
+          valueType: 'select',
+          valueEnum: dictSysNormalDisable?.mapData ?? {},
+        },
         {
           title: '是否显示',
           dataIndex: 'visible',

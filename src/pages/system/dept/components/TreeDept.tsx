@@ -1,5 +1,6 @@
 import { EmptySimple } from '@/components';
-import { EnableDisableStatus, EnableDisableStatusMap } from '@/constants';
+import { EnableDisableStatus } from '@/constants';
+import { useQueryDict } from '@/models';
 import { useQueryDeptList, useShowDeptDetails } from '@/pages/system/dept/model';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
@@ -28,6 +29,8 @@ const TreeDept: FC = () => {
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
   const [searchParams, setSearchParams] = useState<API.SysDeptQueryBo>({});
 
+  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
+
   const { data, isFetching } = useQueryDeptList(searchParams, {
     onSuccess: (allParentIds) => {
       setExpandedKeys(allParentIds);
@@ -53,7 +56,12 @@ const TreeDept: FC = () => {
         <LightFilter<API.SysDeptQueryBo> onFinish={async (values) => setSearchParams(values)}>
           <ProFormText name="deptName" label="部门名称" />
 
-          <ProFormSelect name="status" label="状态" valueEnum={EnableDisableStatusMap} />
+          <ProFormSelect
+            name="status"
+            label="状态"
+            valueEnum={dictSysNormalDisable?.mapData ?? {}}
+            initialValue={dictSysNormalDisable?.defaultValue}
+          />
         </LightFilter>
       </div>
 

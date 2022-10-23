@@ -1,4 +1,4 @@
-import { EnableDisableStatus, EnableDisableStatusMap } from '@/constants';
+import { useQueryDict } from '@/models';
 import { useAtomValueMainTableActions, useHideAddOrEditModal, useValueAddOrEditModal } from '@/pages/system/post/model';
 import { SysPostPostAdd, SysPostPostEdit } from '@/services/sys/SysPostService';
 import type { ProFormInstance } from '@ant-design/pro-components';
@@ -13,13 +13,16 @@ const ModalAddOrEdit: FC = () => {
 
   const { open, actionType, record } = useValueAddOrEditModal();
   const hideAddOrEditModal = useHideAddOrEditModal();
+  const onCancel = () => {
+    if (actionType === 'edit') {
+      formRef.current?.resetFields();
+    }
+    hideAddOrEditModal();
+  };
 
   const mainTableActions = useAtomValueMainTableActions();
 
-  const onCancel = () => {
-    hideAddOrEditModal();
-    formRef.current?.resetFields();
-  };
+  const { data } = useQueryDict('sys_normal_disable');
 
   const { mutate, isLoading } = useMutation(
     async () => {
@@ -47,10 +50,13 @@ const ModalAddOrEdit: FC = () => {
   );
 
   useEffect(() => {
-    if (actionType === 'edit' && record && formRef.current?.setFieldsValue) {
-      formRef.current.setFieldsValue(record);
+    if (open && actionType === 'edit') {
+      const timer = setTimeout(() => {
+        formRef.current?.setFieldsValue(record!);
+        clearTimeout(timer);
+      }, 0);
     }
-  }, [actionType, formRef.current?.setFieldsValue]);
+  }, [open]);
 
   return (
     <Modal
@@ -73,8 +79,8 @@ const ModalAddOrEdit: FC = () => {
         <ProFormRadio.Group
           name="status"
           label="状态"
-          valueEnum={EnableDisableStatusMap}
-          initialValue={EnableDisableStatus.ENABLE}
+          valueEnum={data?.mapData ?? {}}
+          initialValue={data?.defaultValue}
         />
 
         <ProFormTextArea name="remark" label="备注" />

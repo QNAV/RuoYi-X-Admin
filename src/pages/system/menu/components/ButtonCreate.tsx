@@ -1,13 +1,6 @@
 import { Access } from '@/components';
-import {
-  EnableDisableStatus,
-  EnableDisableStatusMap,
-  MenuType,
-  MenuTypeMap,
-  YesNoStatus,
-  YesNoStatusMap,
-} from '@/constants';
-import { useAtomValueAccess } from '@/models';
+import { MenuType, MenuTypeMap, YesNoStatus, YesNoStatusMap } from '@/constants';
+import { useAtomValueAccess, useQueryDict } from '@/models';
 import {
   useHideCreateModal,
   useQueryMenuOptions,
@@ -76,6 +69,8 @@ const ButtonCreate: FC = () => {
   const open = useValueCreateModal();
 
   const { selectedMenuId } = useValueSelectedMenuData();
+
+  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
 
   const { data, refetch } = useQueryMenuOptions();
   const reFetchMenuList = useReFetchMenuList();
@@ -176,9 +171,9 @@ const ButtonCreate: FC = () => {
                           tooltip="选择停用则路由将不会出现在侧边栏，也不能被访问"
                           name="status"
                           label="菜单状态"
-                          valueEnum={EnableDisableStatusMap}
                           required
-                          initialValue={EnableDisableStatus.ENABLE}
+                          valueEnum={dictSysNormalDisable?.mapData ?? {}}
+                          initialValue={dictSysNormalDisable?.defaultValue}
                         />
 
                         <ProFormRadio.Group

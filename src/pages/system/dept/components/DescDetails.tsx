@@ -7,8 +7,7 @@ import {
 } from '@/pages/system/dept/model';
 import { SysDeptGetInfo, SysDeptPostEdit } from '@/services/sys/SysDeptService';
 
-import { EnableDisableStatusMap } from '@/constants';
-import { useAtomValueAccess } from '@/models';
+import { useAtomValueAccess, useQueryDict } from '@/models';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
@@ -33,6 +32,8 @@ const DescDetails: FC = () => {
   const { deptId, open } = useValueDeptDetails();
 
   const { data: treeData } = useQueryDeptOptions();
+
+  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
 
   const { data, loading, refresh } = useRequest(
     async () => {
@@ -100,7 +101,7 @@ const DescDetails: FC = () => {
             dataIndex: 'status',
             key: 'status',
             valueType: 'select',
-            valueEnum: EnableDisableStatusMap,
+            valueEnum: dictSysNormalDisable?.mapData ?? {},
           },
           { title: '排序', dataIndex: 'orderNum', key: 'orderNum', valueType: 'digit' },
           {

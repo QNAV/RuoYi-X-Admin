@@ -6,12 +6,12 @@ import { Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonEdit: FC<{ record: API.SysPostVo }> = ({ record }) => {
-  const access = useAtomValueAccess();
+  const { canEditSysPost } = useAtomValueAccess();
 
   const showEditModal = useShowEditModal();
 
   return (
-    <Access accessible={access.canEditSysPost}>
+    <Access accessible={canEditSysPost}>
       <Button type="link" icon={<EditOutlined />} onClick={() => showEditModal(record)}>
         编辑
       </Button>

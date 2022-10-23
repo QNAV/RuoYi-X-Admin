@@ -1,6 +1,6 @@
 import { EmptySimple } from '@/components';
 import type { MenuType } from '@/constants';
-import { EnableDisableStatusMap } from '@/constants';
+import { useQueryDict } from '@/models';
 import TreeContent from '@/pages/system/menu/components/TreeContent';
 import TreeTitle from '@/pages/system/menu/components/TreeTitle';
 import {
@@ -33,6 +33,8 @@ const TreeMenu: FC = () => {
   const resetSelectedMenuId = useResetSelectedMenuData();
 
   const showCreateModal = useShowCreateModal();
+
+  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
 
   const { data: menuData, refetch } = useQueryMenuList(searchParams, (e) => {
     setExpandedKeys(e);
@@ -85,7 +87,12 @@ const TreeMenu: FC = () => {
         >
           <ProFormText name="menuName" label="菜单名称" />
 
-          <ProFormSelect name="status" label="状态" valueEnum={EnableDisableStatusMap} />
+          <ProFormSelect
+            name="status"
+            label="状态"
+            valueEnum={dictSysNormalDisable?.mapData ?? {}}
+            initialValue={dictSysNormalDisable?.defaultValue}
+          />
         </LightFilter>
       </div>
 

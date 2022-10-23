@@ -1,5 +1,5 @@
 import { BaseProTable } from '@/components';
-import { EnableDisableStatusMap } from '@/constants';
+import { useQueryDict } from '@/models';
 import ButtonAdd from '@/pages/system/dict/components/ButtonAdd';
 import ButtonDetails from '@/pages/system/dict/components/ButtonDetails';
 import ButtonEdit from '@/pages/system/dict/components/ButtonEdit';
@@ -14,11 +14,13 @@ import type { FC } from 'react';
 import { useState } from 'react';
 
 const useColumns = (): ProColumns<API.SysDictTypeVo>[] => {
+  const { data } = useQueryDict('sys_normal_disable');
+
   return [
     { title: '字典编号', dataIndex: 'dictId', key: 'dictId', valueType: 'text', hideInSearch: true },
     { title: '字典名称', dataIndex: 'dictName', key: 'dictName', valueType: 'text' },
     { title: '字典类型', dataIndex: 'dictType', key: 'dictType', valueType: 'text' },
-    { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: EnableDisableStatusMap },
+    { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: data?.mapData },
     { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
     {
       title: '创建时间',
