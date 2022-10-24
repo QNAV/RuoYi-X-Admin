@@ -5,11 +5,11 @@ specifiers:
   '@ant-design/pro-components': ^2.3.23
   '@commitlint/cli': ^17.1.2
   '@commitlint/config-conventional': ^17.1.0
-  '@tanstack/react-query': ^4.12.0
-  '@tanstack/react-query-devtools': ^4.12.0
+  '@tanstack/react-query': ^4.13.0
+  '@tanstack/react-query-devtools': ^4.13.0
   '@types/file-saver': ^2.0.5
   '@types/lodash-es': ^4.17.6
-  '@types/node': ^18.11.3
+  '@types/node': ^18.11.4
   '@types/nprogress': ^0.2.0
   '@types/react': ^18.0.21
   '@types/react-copy-to-clipboard': ^5.0.4
@@ -66,8 +66,8 @@ specifiers:
 dependencies:
   '@ant-design/icons': 4.7.0_biqbaboplfbrettd7655fr4n2y
   '@ant-design/pro-components': 2.3.23_vvzpoljpheadriojincrzlnrfe
-  '@tanstack/react-query': 4.12.0_biqbaboplfbrettd7655fr4n2y
-  '@tanstack/react-query-devtools': 4.12.0_pqnxmwujmmnpcx44ucekqkefny
+  '@tanstack/react-query': 4.13.0_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query-devtools': 4.13.0_vwr3yfyniquaygdm2roeczqxuu
   '@wangeditor/editor': 5.1.22
   '@wangeditor/editor-for-react': 1.0.6_tawbvcuoryrbilzkaa3hake6da
   ahooks: 3.7.2_react@18.2.0
@@ -91,7 +91,7 @@ devDependencies:
   '@commitlint/config-conventional': 17.1.0
   '@types/file-saver': 2.0.5
   '@types/lodash-es': 4.17.6
-  '@types/node': 18.11.3
+  '@types/node': 18.11.4
   '@types/nprogress': 0.2.0
   '@types/react': 18.0.21
   '@types/react-copy-to-clipboard': 5.0.4
@@ -2216,27 +2216,27 @@ packages:
       remove-accents: 0.4.2
     dev: false
 
-  /@tanstack/query-core/4.12.0:
-    resolution: {integrity: sha512-KEiFPNLMFByhNL2s6RBFL6Z5cNdwwQzFpW/II3GY+rEuQ343ZEoVyQ48zlUXXkEkbamQFIFg2onM8Pxf0Yo01A==}
+  /@tanstack/query-core/4.13.0:
+    resolution: {integrity: sha512-PzmLQcEgC4rl2OzkiPHYPC9O79DFcMGaKsOzDEP+U4PJ+tbkcEP+Z+FQDlfvX8mCwYC7UNH7hXrQ5EdkGlJjVg==}
     dev: false
 
-  /@tanstack/react-query-devtools/4.12.0_pqnxmwujmmnpcx44ucekqkefny:
-    resolution: {integrity: sha512-gUV+aKpwgP7Cfp2+vwgu6krXCytncGWjTqFcnzC1l2INOf8dRi8/GEupYF7npxD9ky72FTuxc5+TI/lC8eB0Eg==}
+  /@tanstack/react-query-devtools/4.13.0_vwr3yfyniquaygdm2roeczqxuu:
+    resolution: {integrity: sha512-Gv33auVlcUMrnj5qXJuhhTJtBs8bKp7v3TFRysnS+VlLOmdj9gwl5bc0e0/URL7m+PQoR1Rr55yzQ5bmZcWm1g==}
     peerDependencies:
-      '@tanstack/react-query': 4.12.0
+      '@tanstack/react-query': 4.13.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       '@tanstack/match-sorter-utils': 8.5.14
-      '@tanstack/react-query': 4.12.0_biqbaboplfbrettd7655fr4n2y
+      '@tanstack/react-query': 4.13.0_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      superjson: 1.10.1
+      superjson: 1.11.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
-  /@tanstack/react-query/4.12.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-prchV1q+CJ0ZVo8Rts2cOF3azDfQizZZySmH6XXsXRcPTbir0sgb9fp0vY/5l5ZkSYjTvWt/OL8WQhAhYMSvrA==}
+  /@tanstack/react-query/4.13.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-dI/5hJ/pGQ74P5hxBLC9h6K0/Cap2T3k0ZjjjFLBCNnohDYgl7LNmMopzrRzBHk2mMjf2hgXHIzcKNG8GOZ5hg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -2247,7 +2247,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 4.12.0
+      '@tanstack/query-core': 4.13.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
@@ -2296,7 +2296,7 @@ packages:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 18.11.3
+      '@types/node': 18.11.4
     dev: true
 
   /@types/js-cookie/2.2.7:
@@ -2335,8 +2335,8 @@ packages:
     resolution: {integrity: sha512-Y6S38pFr04yb13qqHf8uk1nHE3lXgQ30WZbv1mLliV9pt0NjvqdWttLcrOYLnXbOafknVYRHZGoMSpR9UwfYow==}
     dev: true
 
-  /@types/node/18.11.3:
-    resolution: {integrity: sha512-fNjDQzzOsZeKZu5NATgXUPsaFaTxeRgFXoosrHivTl8RGeV733OLawXsGfEk9a8/tySyZUyiZ6E8LcjPFZ2y1A==}
+  /@types/node/18.11.4:
+    resolution: {integrity: sha512-BxcJpBu8D3kv/GZkx/gSMz6VnTJREBj/4lbzYOQueUOELkt8WrO6zAcSPmp9uRPEW/d+lUO8QK0W2xnS1hEU0A==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -5473,7 +5473,7 @@ packages:
       source-map: 0.6.1
       wordwrap: 1.0.0
     optionalDependencies:
-      uglify-js: 3.17.3
+      uglify-js: 3.17.4
     dev: true
 
   /hard-rejection/2.1.0:
@@ -9063,8 +9063,8 @@ packages:
       postcss: 7.0.39
     dev: true
 
-  /superjson/1.10.1:
-    resolution: {integrity: sha512-7fvPVDHmkTKg6641B9c6vr6Zz5CwPtF9j0XFExeLxJxrMaeLU2sqebY3/yrI3l0K5zJ+H9QA3H+lIYj5ooCOkg==}
+  /superjson/1.11.0:
+    resolution: {integrity: sha512-6PfAg1FKhqkwWvPb2uXhH4MkMttdc17eJ91+Aoz4s1XUEDZFmLfFx/xVA3wgkPxAGy5dpozgGdK6V/n20Wj9yg==}
     engines: {node: '>=10'}
     dependencies:
       copy-anything: 3.0.2
@@ -9372,8 +9372,8 @@ packages:
     hasBin: true
     dev: true
 
-  /uglify-js/3.17.3:
-    resolution: {integrity: sha512-JmMFDME3iufZnBpyKL+uS78LRiC+mK55zWfM5f/pWBJfpOttXAqYfdDGRukYhJuyRinvPVAtUhvy7rlDybNtFg==}
+  /uglify-js/3.17.4:
+    resolution: {integrity: sha512-T9q82TJI9e/C1TAxYvfb16xO120tMVFZrGA3f9/P4424DNu6ypK103y0GPFVa17yotwSyZW5iYXgjYHkGrJW/g==}
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true
