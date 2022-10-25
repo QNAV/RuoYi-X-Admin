@@ -11,10 +11,13 @@ import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
 
-const ButtonCreate: FC = () => {
-  const access = useAtomValueAccess();
+const ButtonAdd: FC = () => {
+  const { canAddSysDept } = useAtomValueAccess();
+
   const formRef = useRef<ProFormInstance<API.SysDeptAddBo>>();
+
   const [open, { toggle }] = useBoolean();
+
   const { data: treeData, refetch } = useQueryDeptOptions();
 
   const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
@@ -39,7 +42,7 @@ const ButtonCreate: FC = () => {
   );
 
   return (
-    <Access accessible={access.canAddSysDept}>
+    <Access accessible={canAddSysDept}>
       <Button type="primary" icon={<PlusOutlined />} onClick={toggle}>
         新建
       </Button>
@@ -139,4 +142,4 @@ const ButtonCreate: FC = () => {
   );
 };
 
-export default ButtonCreate;
+export default ButtonAdd;

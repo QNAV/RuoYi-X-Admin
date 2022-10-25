@@ -1,10 +1,10 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import {
+  useAtomValueDeptDetails,
   useHideDeptDetails,
   useReFetchDeptList,
   useReFetchDeptOptions,
-  useValueDeptDetails,
 } from '@/pages/system/dept/model';
 import { SysDeptPostRemove } from '@/services/sys/SysDeptService';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -12,9 +12,9 @@ import { Button, message, Modal, Typography } from 'antd';
 import type { FC } from 'react';
 
 const ButtonDelete: FC = () => {
-  const access = useAtomValueAccess();
+  const { canRemoveSysDept } = useAtomValueAccess();
 
-  const { deptId, deptName, open } = useValueDeptDetails();
+  const { deptId, deptName, open } = useAtomValueDeptDetails();
 
   const hideDeptDetails = useHideDeptDetails();
   const reFetchDeptList = useReFetchDeptList();
@@ -39,7 +39,7 @@ const ButtonDelete: FC = () => {
   };
 
   return (
-    <Access accessible={open && access.canRemoveSysDept}>
+    <Access accessible={open && canRemoveSysDept}>
       <Button danger ghost icon={<DeleteOutlined />} onClick={handleDelete}>
         删除
       </Button>

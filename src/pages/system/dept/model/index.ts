@@ -8,14 +8,14 @@ import { useEffect } from 'react';
 const namespace = 'systemDept';
 
 // 部门详情
-const AtomDeptDetails = atomWithReset({
+const atomDeptDetails = atomWithReset({
   open: false,
   deptId: 0,
   deptName: '',
 });
-export const useValueDeptDetails = () => useAtomValue(AtomDeptDetails);
+export const useAtomValueDeptDetails = () => useAtomValue(atomDeptDetails);
 export const useShowDeptDetails = () => {
-  const setRecoilState = useSetAtom(AtomDeptDetails);
+  const setRecoilState = useSetAtom(atomDeptDetails);
   return (deptId: number, deptName: string) => {
     setRecoilState({
       open: true,
@@ -24,7 +24,7 @@ export const useShowDeptDetails = () => {
     });
   };
 };
-export const useHideDeptDetails = () => useResetAtom(AtomDeptDetails);
+export const useHideDeptDetails = () => useResetAtom(atomDeptDetails);
 
 // 部门列表
 const queryDeptListKey = [namespace, 'list'];

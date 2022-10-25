@@ -1,5 +1,5 @@
 import { BasePageContainer } from '@/components';
-import ButtonCreate from '@/pages/system/dept/components/ButtonCreate';
+import ButtonAdd from '@/pages/system/dept/components/ButtonAdd';
 import ButtonDelete from '@/pages/system/dept/components/ButtonDelete';
 import DescDetails from '@/pages/system/dept/components/DescDetails';
 import TreeDept from '@/pages/system/dept/components/TreeDept';
@@ -9,8 +9,8 @@ import type { FC } from 'react';
 const PageDept: FC = () => {
   return (
     <BasePageContainer>
-      <ProCard ghost gutter={24}>
-        <ProCard title="部门列表" colSpan="500px" extra={<ButtonCreate />}>
+      <ProCard ghost gutter={16}>
+        <ProCard title="部门列表" colSpan="500px" extra={<ButtonAdd />}>
           <TreeDept />
         </ProCard>
 

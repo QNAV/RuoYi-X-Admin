@@ -1,9 +1,9 @@
 import { EmptySimple } from '@/components';
 import {
+  useAtomValueDeptDetails,
   useQueryDeptOptions,
   useReFetchDeptList,
   useReFetchDeptOptions,
-  useValueDeptDetails,
 } from '@/pages/system/dept/model';
 import { SysDeptGetInfo, SysDeptPostEdit } from '@/services/sys/SysDeptService';
 
@@ -29,7 +29,7 @@ const DescDetails: FC = () => {
   const reFetchDeptList = useReFetchDeptList();
   const reFetchDeptOptions = useReFetchDeptOptions();
 
-  const { deptId, open } = useValueDeptDetails();
+  const { deptId, open } = useAtomValueDeptDetails();
 
   const { data: treeData } = useQueryDeptOptions();
 
@@ -109,8 +109,6 @@ const DescDetails: FC = () => {
             dataIndex: 'createTime',
             key: 'createTime',
             valueType: 'dateTime',
-            editable: false,
-            hideInSearch: true,
           },
         ]}
       />
