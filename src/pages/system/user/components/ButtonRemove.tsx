@@ -4,22 +4,21 @@ import { useAtomValueMainTableActions } from '@/pages/system/user/model';
 import { SysUserPostRemove } from '@/services/sys/SysUserService';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal, Typography } from 'antd';
+import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
   userId: number;
-  userName: string;
   isBatch?: boolean;
   disabled?: boolean;
-}> = ({ userId, userName, isBatch, disabled }) => {
+}> = ({ userId, isBatch, disabled }) => {
   const text = isBatch ? '批量删除' : '删除';
 
   const { canRemoveSysUser } = useAtomValueAccess();
 
   const mainTableActions = useAtomValueMainTableActions();
 
-  const { mutateAsync, isLoading } = useMutation((userIds: number) => SysUserPostRemove({ userIds }), {
+  const { mutateAsync, isLoading } = useMutation(() => SysUserPostRemove({ userIds: userId }), {
     onSuccess: () => {
       mainTableActions?.reload();
       mainTableActions?.clearSelected?.();
@@ -30,12 +29,8 @@ const ButtonRemove: FC<{
   const onRemove = () => {
     Modal.confirm({
       title: '删除用户',
-      content: (
-        <>
-          确定删除用户<Typography.Text code>{userName}</Typography.Text>吗？
-        </>
-      ),
-      onOk: () => mutateAsync(userId),
+      content: `确定删除用户编号为 ${userId} 的数据吗？`,
+      onOk: () => mutateAsync(),
       okButtonProps: {
         loading: isLoading,
       },

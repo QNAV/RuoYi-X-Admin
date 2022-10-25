@@ -7,6 +7,7 @@ const atomMainTableActions = atom<ActionType | undefined>(undefined);
 export const useAtomValueMainTableActions = () => useAtomValue(atomMainTableActions);
 export const useActionRefMainTable = () => useInitActionType(atomMainTableActions);
 
+// 筛选部门ID
 const atomSelectedDeptId = atom<number>(0);
 export const useAtomValueSelectedDeptId = () => useAtomValue(atomSelectedDeptId);
 export const useSetAtomSelectedDeptId = () => useSetAtom(atomSelectedDeptId);

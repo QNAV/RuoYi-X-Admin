@@ -1,4 +1,5 @@
-import { useQueryDict } from '@/models';
+import { Access } from '@/components';
+import { useAtomValueAccess, useQueryDict } from '@/models';
 import {
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
@@ -17,6 +18,8 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 
 const ModalAddOrEdit: FC = () => {
+  const { canAddSysUser, canEditSysUser } = useAtomValueAccess();
+
   const formRef = useRef<ProFormInstance<API.SysUserAddBo>>();
 
   const mainTableActions = useAtomValueMainTableActions();
@@ -91,79 +94,81 @@ const ModalAddOrEdit: FC = () => {
   );
 
   return (
-    <ModalForm
-      title={actionType === 'add' ? '新增用户' : '编辑用户'}
-      formRef={formRef}
-      grid
-      colProps={{
-        span: 12,
-      }}
-      modalProps={{
-        okText: '提交',
-        onCancel,
-        confirmLoading: isLoading,
-      }}
-      width={600}
-      open={open}
-      onFinish={() => mutateAsync()}
-    >
-      <ProFormText name="nickName" label="用户昵称" rules={[{ required: true }]} />
-
-      <ProFormTreeSelect
-        name="deptId"
-        label="归属部门"
-        fieldProps={{
-          treeData: treeData ?? [],
-          fieldNames: {
-            value: 'id',
-          },
+    <Access accessible={canAddSysUser || canEditSysUser}>
+      <ModalForm
+        title={actionType === 'add' ? '新增用户' : '编辑用户'}
+        formRef={formRef}
+        grid
+        colProps={{
+          span: 12,
         }}
-      />
-
-      <ProFormText
-        name="phoneNumber"
-        label="手机号码"
-        rules={[{ pattern: regPhone, message: '手机号码格式错误' }]}
-        fieldProps={{
-          maxLength: 11,
+        modalProps={{
+          okText: '提交',
+          onCancel,
+          confirmLoading: isLoading,
         }}
-      />
+        width={600}
+        open={open}
+        onFinish={() => mutateAsync()}
+      >
+        <ProFormText name="nickName" label="用户昵称" rules={[{ required: true }]} />
 
-      <ProFormText name="email" label="邮箱" rules={[{ pattern: regEmail, message: '邮箱格式错误' }]} />
+        <ProFormTreeSelect
+          name="deptId"
+          label="归属部门"
+          fieldProps={{
+            treeData: treeData ?? [],
+            fieldNames: {
+              value: 'id',
+            },
+          }}
+        />
 
-      {actionType === 'add' && <ProFormText name="userName" label="用户名称" rules={[{ required: true }]} />}
+        <ProFormText
+          name="phoneNumber"
+          label="手机号码"
+          rules={[{ pattern: regPhone, message: '手机号码格式错误' }]}
+          fieldProps={{
+            maxLength: 11,
+          }}
+        />
 
-      {actionType === 'add' && (
-        <ProFormText.Password name="password" label="用户密码" rules={[{ required: true }]} initialValue={initPwd} />
-      )}
+        <ProFormText name="email" label="邮箱" rules={[{ pattern: regEmail, message: '邮箱格式错误' }]} />
 
-      <ProFormSelect name="sex" label="用户性别" valueEnum={dictSex?.mapData ?? {}} />
+        {actionType === 'add' && <ProFormText name="userName" label="用户名称" rules={[{ required: true }]} />}
 
-      <ProFormSelect
-        name="status"
-        label="状态"
-        valueEnum={dictNormalDisable?.mapData ?? {}}
-        rules={[{ required: true }]}
-      />
+        {actionType === 'add' && (
+          <ProFormText.Password name="password" label="用户密码" rules={[{ required: true }]} initialValue={initPwd} />
+        )}
 
-      <ProFormSelect
-        name="postIds"
-        label="岗位"
-        valueEnum={dictUserInfo?.posts ?? {}}
-        mode="multiple"
-        colProps={{ span: 24 }}
-      />
+        <ProFormSelect name="sex" label="用户性别" valueEnum={dictSex?.mapData ?? {}} />
 
-      <ProFormSelect
-        name="roleIds"
-        label="角色"
-        valueEnum={dictUserInfo?.roles ?? {}}
-        mode="multiple"
-        colProps={{ span: 24 }}
-      />
+        <ProFormSelect
+          name="status"
+          label="状态"
+          valueEnum={dictNormalDisable?.mapData ?? {}}
+          rules={[{ required: true }]}
+        />
 
-      <ProFormTextArea name="remark" label="备注" colProps={{ span: 24 }} />
-    </ModalForm>
+        <ProFormSelect
+          name="postIds"
+          label="岗位"
+          valueEnum={dictUserInfo?.posts ?? {}}
+          mode="multiple"
+          colProps={{ span: 24 }}
+        />
+
+        <ProFormSelect
+          name="roleIds"
+          label="角色"
+          valueEnum={dictUserInfo?.roles ?? {}}
+          mode="multiple"
+          colProps={{ span: 24 }}
+        />
+
+        <ProFormTextArea name="remark" label="备注" colProps={{ span: 24 }} />
+      </ModalForm>
+    </Access>
   );
 };
 
