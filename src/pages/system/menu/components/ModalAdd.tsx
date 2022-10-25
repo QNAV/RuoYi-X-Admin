@@ -2,15 +2,13 @@ import { Access } from '@/components';
 import { MenuType, MenuTypeMap, YesNoStatus, YesNoStatusMap } from '@/constants';
 import { useAtomValueAccess, useQueryDict } from '@/models';
 import {
+  useAtomValueCreateModal,
+  useAtomValueSelectedMenuData,
   useHideCreateModal,
   useQueryMenuOptions,
   useReFetchMenuList,
-  useShowCreateModal,
-  useValueCreateModal,
-  useValueSelectedMenuData,
 } from '@/pages/system/menu/model';
 import { SysMenuPostAdd } from '@/services/sys/SysMenuService';
-import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import {
   ProForm,
@@ -23,7 +21,7 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal } from 'antd';
+import { message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useRef } from 'react';
 
@@ -59,18 +57,18 @@ const getSelectedParentIds = (data: Map<number, API.SysMenuVo>, menuId: number):
   return parentIds;
 };
 
-const ButtonCreate: FC = () => {
-  const access = useAtomValueAccess();
+const ModalAdd: FC = () => {
+  const { canAddSysMenu } = useAtomValueAccess();
 
   const formRef = useRef<ProFormInstance>();
 
-  const showCreateModal = useShowCreateModal();
   const hideCreateModal = useHideCreateModal();
-  const open = useValueCreateModal();
+  const open = useAtomValueCreateModal();
 
-  const { selectedMenuId } = useValueSelectedMenuData();
+  const { selectedMenuId } = useAtomValueSelectedMenuData();
 
   const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
+  const { data: dictSysShowHide } = useQueryDict('sys_show_hide');
 
   const { data, refetch } = useQueryMenuOptions();
   const reFetchMenuList = useReFetchMenuList();
@@ -105,11 +103,7 @@ const ButtonCreate: FC = () => {
   }, [open, formRef?.current?.setFieldsValue]);
 
   return (
-    <Access accessible={access.canAddSysMenu}>
-      <Button type="primary" onClick={showCreateModal} icon={<PlusOutlined />}>
-        新建
-      </Button>
-
+    <Access accessible={canAddSysMenu}>
       <Modal
         open={open}
         onCancel={hideCreateModal}
@@ -179,9 +173,9 @@ const ButtonCreate: FC = () => {
                         <ProFormRadio.Group
                           name="visible"
                           label="菜单是否显示"
-                          valueEnum={YesNoStatusMap}
+                          valueEnum={dictSysShowHide?.mapData ?? {}}
                           required
-                          initialValue={YesNoStatus.YES}
+                          initialValue={dictSysShowHide?.defaultValue}
                           tooltip="选择否则路由将不会出现在侧边栏，但仍然可以访问"
                         />
 
@@ -235,4 +229,4 @@ const ButtonCreate: FC = () => {
   );
 };
 
-export default ButtonCreate;
+export default ModalAdd;

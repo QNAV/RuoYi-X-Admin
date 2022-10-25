@@ -1,7 +1,7 @@
 import { EmptySimple } from '@/components';
 import { MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
 import { useAtomValueAccess, useQueryDict } from '@/models';
-import { useReFetchMenuList, useReFetchMenuOptions, useValueSelectedMenuData } from '@/pages/system/menu/model';
+import { useAtomValueSelectedMenuData, useReFetchMenuList, useReFetchMenuOptions } from '@/pages/system/menu/model';
 import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
@@ -15,6 +15,7 @@ const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl:
 
 const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
   const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
+  const { data: dictSysShowHide } = useQueryDict('sys_show_hide');
 
   return useMemo(() => {
     const columns: ProDescriptionsProps['columns'] = [];
@@ -35,7 +36,7 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
           dataIndex: 'visible',
           key: 'visible',
           valueType: 'radio',
-          valueEnum: YesNoStatusMap,
+          valueEnum: dictSysShowHide?.mapData ?? {},
           tooltip: '选择否则路由将不会出现在侧边栏，但仍然可以访问',
         },
         {
@@ -86,7 +87,7 @@ const DescDetails: FC = () => {
   const reFetchMenuList = useReFetchMenuList();
   const reFetchMenuOptions = useReFetchMenuOptions();
 
-  const { hasSelected, selectedMenuId } = useValueSelectedMenuData();
+  const { hasSelected, selectedMenuId } = useAtomValueSelectedMenuData();
   const { data, loading, refresh } = useRequest(
     async () => {
       return await SysMenuGetInfo({ menuId: selectedMenuId });
@@ -136,15 +137,12 @@ const DescDetails: FC = () => {
             key: 'menuType',
             valueType: 'select',
             valueEnum: MenuTypeMap,
-            editable: false,
           },
           {
             title: '创建时间',
             dataIndex: 'createTime',
             key: 'createTime',
             valueType: 'dateTime',
-            editable: false,
-            hideInSearch: true,
           },
         ]}
         dataSource={data}
@@ -157,7 +155,7 @@ const DescDetails: FC = () => {
         columns={[
           { title: '名称', dataIndex: 'menuName', key: 'menuName', valueType: 'text' },
           { title: '排序', dataIndex: 'orderNum', key: 'orderNum', valueType: 'digit' },
-          { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
+          { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea' },
         ]}
         dataSource={data}
         editable={editable}

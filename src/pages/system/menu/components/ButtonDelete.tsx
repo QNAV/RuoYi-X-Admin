@@ -1,25 +1,24 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import { useDeleteMenu, useValueSelectedMenuData } from '@/pages/system/menu/model';
+import { useAtomValueSelectedMenuData, useDeleteMenu } from '@/pages/system/menu/model';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonDelete: FC = () => {
-  const access = useAtomValueAccess();
+  const { canRemoveSysMenu } = useAtomValueAccess();
 
-  const { hasSelected, selectedMenuId, selectedMenuName } = useValueSelectedMenuData();
+  const { hasSelected, selectedMenuId, selectedMenuName } = useAtomValueSelectedMenuData();
 
-  const { mutate, isLoading } = useDeleteMenu();
+  const deleteMenu = useDeleteMenu();
 
   return (
-    <Access accessible={hasSelected && access.canRemoveSysMenu}>
+    <Access accessible={hasSelected && canRemoveSysMenu}>
       <Button
         icon={<DeleteOutlined />}
-        loading={isLoading}
         danger
         onClick={() =>
-          mutate({
+          deleteMenu({
             menuId: selectedMenuId,
             menuName: selectedMenuName,
           })

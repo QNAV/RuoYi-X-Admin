@@ -4,11 +4,11 @@ import { useQueryDict } from '@/models';
 import TreeContent from '@/pages/system/menu/components/TreeContent';
 import TreeTitle from '@/pages/system/menu/components/TreeTitle';
 import {
+  useAtomStateSelectedMenuData,
   useDeleteMenu,
   useQueryMenuList,
   useResetSelectedMenuData,
   useShowCreateModal,
-  useStateSelectedMenuData,
 } from '@/pages/system/menu/model';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
@@ -29,7 +29,7 @@ const TreeMenu: FC = () => {
   const [selectedKey, setSelectedKey] = useState<number>(0);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
 
-  const [selectedMenuData, setSelectedMenuData] = useStateSelectedMenuData();
+  const [selectedMenuData, setSelectedMenuData] = useAtomStateSelectedMenuData();
   const resetSelectedMenuId = useResetSelectedMenuData();
 
   const showCreateModal = useShowCreateModal();
@@ -40,7 +40,7 @@ const TreeMenu: FC = () => {
     setExpandedKeys(e);
   });
 
-  const { mutate: deleteMenu } = useDeleteMenu();
+  const deleteMenu = useDeleteMenu();
 
   const onSelect: TreeProps<API.SysMenuVo>['onSelect'] = (_, { node: { key } }) => {
     setSelectedKey(key as number);
@@ -107,7 +107,7 @@ const TreeMenu: FC = () => {
               },
               {
                 label: '在根目录下新建',
-                key: 'create',
+                key: 'createBase',
                 onClick: () => {
                   resetSelectedMenuId();
                   showCreateModal();

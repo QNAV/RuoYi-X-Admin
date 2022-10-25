@@ -1,5 +1,5 @@
 import { MenuType } from '@/constants';
-import type { OptionsParentId } from '@/pages/system/menu/components/ButtonCreate';
+import type { OptionsParentId } from '@/pages/system/menu/components/ModalAdd';
 import { SysMenuPostList, SysMenuPostRemove } from '@/services/sys/SysMenuService';
 import { parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -22,7 +22,7 @@ const getOptions = (data?: API.SysMenuVo[]): OptionsParentId[] => {
 };
 
 // 已选中的菜单
-const AtomSelectedMenuData = atomWithReset<{
+const atomSelectedMenuData = atomWithReset<{
   hasSelected: boolean;
   selectedMenuId: number;
   selectedMenuName: string;
@@ -31,18 +31,18 @@ const AtomSelectedMenuData = atomWithReset<{
   selectedMenuId: 0,
   selectedMenuName: '根目录',
 });
-export const useResetSelectedMenuData = () => useResetAtom(AtomSelectedMenuData);
-export const useStateSelectedMenuData = () => useAtom(AtomSelectedMenuData);
-export const useValueSelectedMenuData = () => useAtomValue(AtomSelectedMenuData);
+export const useResetSelectedMenuData = () => useResetAtom(atomSelectedMenuData);
+export const useAtomStateSelectedMenuData = () => useAtom(atomSelectedMenuData);
+export const useAtomValueSelectedMenuData = () => useAtomValue(atomSelectedMenuData);
 
 // 新建菜单弹窗
-const AtomCreateModal = atomWithReset<boolean>(false);
-export const useHideCreateModal = () => useResetAtom(AtomCreateModal);
+const atomAddModal = atomWithReset<boolean>(false);
+export const useHideCreateModal = () => useResetAtom(atomAddModal);
 export const useShowCreateModal = () => {
-  const setRecoilState = useSetAtom(AtomCreateModal);
+  const setRecoilState = useSetAtom(atomAddModal);
   return () => setRecoilState(true);
 };
-export const useValueCreateModal = () => useAtomValue(AtomCreateModal);
+export const useAtomValueCreateModal = () => useAtomValue(atomAddModal);
 
 // 查询菜单列表
 const queryMenuListKey = [namespace, 'list'];
@@ -113,23 +113,31 @@ export const useDeleteMenu = () => {
   const reFetchMenuOptions = useReFetchMenuOptions();
   const resetSelectedMenuData = useResetSelectedMenuData();
 
-  return useMutation(async ({ menuId, menuName }: { menuId: number; menuName: string }) => {
-    Modal.confirm({
-      title: '删除菜单',
-      content: (
-        <>
-          确定删除菜单<Typography.Text code>{menuName}</Typography.Text>吗？
-        </>
-      ),
-      onOk: async () => {
-        await SysMenuPostRemove({ menuId });
-
+  const { mutateAsync, isLoading } = useMutation(
+    async (menuId: number) => {
+      await SysMenuPostRemove({ menuId });
+    },
+    {
+      onSuccess: async () => {
         resetSelectedMenuData();
 
         await Promise.all([reFetchMenuList(), reFetchMenuOptions()]);
 
         message.success('删除成功');
       },
+    },
+  );
+
+  return (params: { menuId: number; menuName: string }) => {
+    Modal.confirm({
+      title: '删除菜单',
+      content: (
+        <>
+          确定删除菜单<Typography.Text code>{params.menuName}</Typography.Text>吗？
+        </>
+      ),
+      onOk: () => mutateAsync(params.menuId),
+      okButtonProps: { loading: isLoading },
     });
-  });
+  };
 };
