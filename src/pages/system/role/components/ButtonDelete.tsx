@@ -3,7 +3,7 @@ import { useAtomValueAccess } from '@/models';
 import { useAtomValueRoleDetails, useAtomValueRoleListActions, useHideRoleDetails } from '@/pages/system/role/model';
 import { SysRolePostRemove } from '@/services/sys/SysRoleService';
 import { DeleteOutlined } from '@ant-design/icons';
-import { Button, message, Modal, Typography } from 'antd';
+import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonDelete: FC = () => {
@@ -12,16 +12,12 @@ const ButtonDelete: FC = () => {
   const roleListActions = useAtomValueRoleListActions();
 
   const hideRoleDetails = useHideRoleDetails();
-  const { roleId, roleName } = useAtomValueRoleDetails();
+  const { roleId } = useAtomValueRoleDetails();
 
   const handleDel = () =>
     Modal.confirm({
       title: '删除角色',
-      content: (
-        <>
-          确定<Typography.Text code>删除</Typography.Text>角色<Typography.Text code>{roleName}</Typography.Text>吗？
-        </>
-      ),
+      content: `确定删除角色编号为 ${roleId} 的数据吗？`,
       onOk: async () => {
         await SysRolePostRemove({ roleIds: roleId });
         roleListActions?.reload();

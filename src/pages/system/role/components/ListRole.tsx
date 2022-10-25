@@ -52,8 +52,8 @@ const ListRole: FC = () => {
       tableAlertRender={false}
       rowSelection={{
         type: 'radio',
-        onSelect: ({ roleId, roleName }) => {
-          showRoleDetails(roleId, roleName);
+        onSelect: ({ roleId }) => {
+          showRoleDetails(roleId);
         },
       }}
       search={{

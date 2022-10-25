@@ -13,7 +13,7 @@ const DescDetails: FC = () => {
 
   const access = useAtomValueAccess();
 
-  const { data: dDtata } = useQueryDict('sys_normal_disable');
+  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
 
   const actions = useAtomValueRoleListActions();
 
@@ -54,14 +54,12 @@ const DescDetails: FC = () => {
       <ProDescriptions
         column={2}
         columns={[
-          { title: '角色编号', dataIndex: 'roleId', key: 'roleId', valueType: 'text', editable: false },
+          { title: '角色编号', dataIndex: 'roleId', key: 'roleId', valueType: 'text' },
           {
             title: '创建时间',
             dataIndex: 'createTime',
             key: 'createTime',
             valueType: 'dateTime',
-            editable: false,
-            hideInSearch: true,
           },
         ]}
         dataSource={data}
@@ -76,10 +74,10 @@ const DescDetails: FC = () => {
             title: '状态',
             dataIndex: 'status',
             key: 'status',
-            valueEnum: dDtata?.mapData ?? {},
+            valueEnum: dictSysNormalDisable?.mapData ?? {},
             valueType: 'radio',
             formItemProps: {
-              initialValue: dDtata?.defaultValue,
+              initialValue: dictSysNormalDisable?.defaultValue,
               required: true,
               rules: [{ required: true, message: '请选择状态' }],
             },

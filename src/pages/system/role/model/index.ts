@@ -19,13 +19,12 @@ export const useActionRefRoleList = () => useInitActionType(atomRoleListActions)
 const atomRoleDetails = atomWithReset({
   open: false,
   roleId: 0,
-  roleName: '',
 });
 export const useHideRoleDetails = () => useResetAtom(atomRoleDetails);
 export const useShowRoleDetails = () => {
   const setAtom = useSetAtom(atomRoleDetails);
-  return (roleId: number, roleName: string) => {
-    setAtom({ open: true, roleId, roleName });
+  return (roleId: number) => {
+    setAtom({ open: true, roleId });
   };
 };
 export const useAtomValueRoleDetails = () => useAtomValue(atomRoleDetails);
