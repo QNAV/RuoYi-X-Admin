@@ -1,3 +1,4 @@
+import { useSetCloseGlobalTab } from '@/models';
 import { settingsMap } from '@/routes';
 import { Tabs } from 'antd';
 import type { FC } from 'react';
@@ -14,6 +15,8 @@ interface HeaderTabsProps {
 const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
+
+  const setCloseGlobalTab = useSetCloseGlobalTab();
 
   const [activeKey, setActiveKey] = useState<string>('');
   const [items, setItems] = useState<
@@ -34,7 +37,24 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
     },
   ]);
 
+  const onClose = (targetKey: string) => {
+    const currActiveKeyIndex = items.findIndex(({ key }) => key === targetKey);
+
+    const { pathname, search } =
+      items[currActiveKeyIndex < items.length - 1 ? currActiveKeyIndex + 1 : currActiveKeyIndex - 1];
+
+    navigate(`${pathname}${search}`);
+
+    setItems((v) => v.filter(({ key }) => key !== targetKey));
+
+    if (keepAliveElements[targetKey as string] !== undefined) {
+      delete keepAliveElements[targetKey as string];
+    }
+  };
+
   useEffect(() => {
+    setCloseGlobalTab(onClose);
+
     const currRouteSettingsKey = Object.keys(settingsMap).find((key) => matchPath(key, pathname));
 
     if (currRouteSettingsKey === undefined) {
@@ -64,18 +84,7 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
         navigate(`${pathname}${search}`);
       }}
       onEdit={(targetKey) => {
-        const currActiveKeyIndex = items.findIndex(({ key }) => key === targetKey);
-
-        const { pathname, search } =
-          items[currActiveKeyIndex < items.length - 1 ? currActiveKeyIndex + 1 : currActiveKeyIndex - 1];
-
-        navigate(`${pathname}${search}`);
-
-        setItems((v) => v.filter(({ key }) => key !== targetKey));
-
-        if (keepAliveElements[targetKey as string] !== undefined) {
-          delete keepAliveElements[targetKey as string];
-        }
+        onClose(targetKey as string);
       }}
     />
   );
