@@ -1,4 +1,5 @@
 import { BaseProTable } from '@/components';
+import ModalFormUpdate from '@/pages/system/oss/components/ModalFormUpdate';
 import { useActionRefMainTable } from '@/pages/system/oss/model';
 import { SysOssPostList } from '@/services/sys/SysOssService';
 import { convertParams } from '@/utils';
@@ -62,6 +63,9 @@ const TableMain: FC = () => {
       actionRef={actionRef}
       columns={columns}
       request={(...p) => SysOssPostList(convertParams(...p))}
+      toolbar={{
+        actions: [<ModalFormUpdate key="ModalFormUpdate" />],
+      }}
     />
   );
 };
