@@ -23,7 +23,7 @@
     "@wangeditor/editor": "^5.1.22",
     "@wangeditor/editor-for-react": "^1.0.6",
     "ahooks": "^3.7.2",
-    "antd": "5.0.0-alpha.4",
+    "antd": "next",
     "axios": "^1.1.3",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.6",
