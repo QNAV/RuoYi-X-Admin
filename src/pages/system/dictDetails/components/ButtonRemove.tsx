@@ -1,6 +1,6 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import { useAtomValueMainTableActions } from '@/pages/system/dict/model';
+import { useAtomValueMainTableActions } from '@/pages/system/dictDetails/model';
 import { SysDictDataPostRemove } from '@/services/sys/SysDictDataService';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
