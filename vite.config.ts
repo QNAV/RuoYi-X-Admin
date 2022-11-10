@@ -39,12 +39,5 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: [{ find: '@/', replacement: '/src/' }],
     },
-    css: {
-      preprocessorOptions: {
-        less: {
-          javascriptEnabled: true,
-        },
-      },
-    },
   };
 });
