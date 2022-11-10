@@ -9,7 +9,7 @@ import 'dayjs/locale/zh-cn';
 import { Provider } from 'jotai';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './global.less';
+import './main.css';
 
 const render = () => {
   const basename = import.meta.env.VITE_BASE_NAME;
