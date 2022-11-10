@@ -12,7 +12,13 @@
 import { ResponseLoginVo } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
-export class XcxLogin<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class XcxLogin<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -29,7 +35,7 @@ export class XcxLogin<SecurityDataType = unknown> extends HttpClient<SecurityDat
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseLoginVo, void>({
+    this.http.request<ResponseLoginVo, void>({
       path: `/xcxLogin`,
       method: 'GET',
       query: query,

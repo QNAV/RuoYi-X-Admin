@@ -12,7 +12,13 @@
 import { ResponseCaptchaImageVo } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
-export class CaptchaImage<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class CaptchaImage<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -23,7 +29,7 @@ export class CaptchaImage<SecurityDataType = unknown> extends HttpClient<Securit
    * @secure
    */
   captchaGetGetCode = (params: RequestParams = {}) =>
-    this.request<ResponseCaptchaImageVo, void>({
+    this.http.request<ResponseCaptchaImageVo, void>({
       path: `/captchaImage`,
       method: 'GET',
       secure: true,

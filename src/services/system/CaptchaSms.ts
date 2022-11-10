@@ -12,7 +12,13 @@
 import { ResponseVoid } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
-export class CaptchaSms<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class CaptchaSms<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -29,7 +35,7 @@ export class CaptchaSms<SecurityDataType = unknown> extends HttpClient<SecurityD
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/captchaSms`,
       method: 'GET',
       query: query,

@@ -22,7 +22,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Monitor<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Monitor<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -33,7 +39,7 @@ export class Monitor<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   cacheGetInfo = (params: RequestParams = {}) =>
-    this.request<ResponseCacheInfoVo, void>({
+    this.http.request<ResponseCacheInfoVo, void>({
       path: `/monitor/cache/info`,
       method: 'GET',
       secure: true,
@@ -49,7 +55,7 @@ export class Monitor<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   sysLogininforPostClean = (params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/monitor/logininfor/clean`,
       method: 'POST',
       secure: true,
@@ -65,7 +71,7 @@ export class Monitor<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   sysLogininforPostExport = (data: SysLogininforQueryBo, params: RequestParams = {}) =>
-    this.request<void, void>({
+    this.http.request<void, void>({
       path: `/monitor/logininfor/export`,
       method: 'POST',
       body: data,
@@ -83,7 +89,7 @@ export class Monitor<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   sysLogininforPostList = (data: SysLogininforPageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysLogininforVo, void>({
+    this.http.request<TableDataInfoSysLogininforVo, void>({
       path: `/monitor/logininfor/list`,
       method: 'POST',
       body: data,
@@ -110,7 +116,7 @@ export class Monitor<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/monitor/logininfor/remove`,
       method: 'POST',
       query: query,
@@ -127,7 +133,7 @@ export class Monitor<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   sysOperLogPostClean = (params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/monitor/operlog/clean`,
       method: 'POST',
       secure: true,
@@ -143,7 +149,7 @@ export class Monitor<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   sysOperLogPostExport = (data: SysOperLogQueryBo, params: RequestParams = {}) =>
-    this.request<void, void>({
+    this.http.request<void, void>({
       path: `/monitor/operlog/export`,
       method: 'POST',
       body: data,
@@ -161,7 +167,7 @@ export class Monitor<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   sysOperLogPostList = (data: SysOperLogPageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysOperLogVo, void>({
+    this.http.request<TableDataInfoSysOperLogVo, void>({
       path: `/monitor/operlog/list`,
       method: 'POST',
       body: data,
@@ -188,7 +194,7 @@ export class Monitor<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/monitor/operlog/remove`,
       method: 'POST',
       query: query,
@@ -211,7 +217,7 @@ export class Monitor<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/monitor/online/forceLogout`,
       method: 'POST',
       query: query,
@@ -236,7 +242,7 @@ export class Monitor<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {},
   ) =>
-    this.request<TableDataInfoSysUserOnlineVo, void>({
+    this.http.request<TableDataInfoSysUserOnlineVo, void>({
       path: `/monitor/online/list`,
       method: 'GET',
       query: query,

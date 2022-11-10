@@ -12,7 +12,13 @@
 import { ResponseListRouterVo } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
-export class Routers<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Routers<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -23,7 +29,7 @@ export class Routers<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   sysLoginGetRouters = (params: RequestParams = {}) =>
-    this.request<ResponseListRouterVo, void>({
+    this.http.request<ResponseListRouterVo, void>({
       path: `/routers`,
       method: 'GET',
       secure: true,

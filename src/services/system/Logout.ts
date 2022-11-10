@@ -12,7 +12,13 @@
 import { ResponseVoid } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
-export class Logout<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Logout<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -23,7 +29,7 @@ export class Logout<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysLoginPostLogout = (params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/logout`,
       method: 'POST',
       secure: true,

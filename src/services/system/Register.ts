@@ -12,7 +12,13 @@
 import { ResponseVoid, UserNameRegisterBo } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Register<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Register<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -23,7 +29,7 @@ export class Register<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @secure
    */
   sysRegisterPostRegister = (data: UserNameRegisterBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/register`,
       method: 'POST',
       body: data,

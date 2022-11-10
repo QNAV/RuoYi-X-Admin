@@ -12,7 +12,13 @@
 import { ResponseLoginVo, UserNameLoginBo } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Login<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Login<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -23,7 +29,7 @@ export class Login<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
    * @secure
    */
   sysLoginPostLogin = (data: UserNameLoginBo, params: RequestParams = {}) =>
-    this.request<ResponseLoginVo, void>({
+    this.http.request<ResponseLoginVo, void>({
       path: `/login`,
       method: 'POST',
       body: data,

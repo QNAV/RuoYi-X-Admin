@@ -94,7 +94,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class System<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -105,7 +111,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   bizLogininforPostAdd = (data: BizLogininforAddBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/logininfor/add`,
       method: 'POST',
       body: data,
@@ -123,7 +129,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   bizLogininforPostEdit = (data: BizLogininforEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/logininfor/edit`,
       method: 'POST',
       body: data,
@@ -141,7 +147,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   bizLogininforPostExport = (data: BizLogininforQueryBo, params: RequestParams = {}) =>
-    this.request<void, void>({
+    this.http.request<void, void>({
       path: `/system/logininfor/export`,
       method: 'POST',
       body: data,
@@ -168,7 +174,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseBizLogininforVo, void>({
+    this.http.request<ResponseBizLogininforVo, void>({
       path: `/system/logininfor/info`,
       method: 'GET',
       query: query,
@@ -185,7 +191,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   bizLogininforPostList = (data: BizLogininforPageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoBizLogininforVo, void>({
+    this.http.request<TableDataInfoBizLogininforVo, void>({
       path: `/system/logininfor/list`,
       method: 'POST',
       body: data,
@@ -212,7 +218,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/logininfor/remove`,
       method: 'POST',
       query: query,
@@ -229,7 +235,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysConfigPostAdd = (data: SysConfigAddBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/config/add`,
       method: 'POST',
       body: data,
@@ -253,7 +259,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/config/configKey`,
       method: 'GET',
       query: query,
@@ -270,7 +276,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysConfigPostEdit = (data: SysConfigEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/config/edit`,
       method: 'POST',
       body: data,
@@ -288,7 +294,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysConfigPostExport = (data: SysConfigQueryBo, params: RequestParams = {}) =>
-    this.request<void, void>({
+    this.http.request<void, void>({
       path: `/system/config/export`,
       method: 'POST',
       body: data,
@@ -315,7 +321,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseSysConfigVo, void>({
+    this.http.request<ResponseSysConfigVo, void>({
       path: `/system/config/info`,
       method: 'GET',
       query: query,
@@ -332,7 +338,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysConfigPostList = (data: SysConfigPageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysConfigVo, void>({
+    this.http.request<TableDataInfoSysConfigVo, void>({
       path: `/system/config/list`,
       method: 'POST',
       body: data,
@@ -350,7 +356,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysConfigPostRefreshCache = (params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/config/refreshCache`,
       method: 'POST',
       secure: true,
@@ -375,7 +381,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/config/remove`,
       method: 'POST',
       query: query,
@@ -392,7 +398,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysConfigPostUpdateByKey = (data: SysConfigEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/config/updateByKey`,
       method: 'POST',
       body: data,
@@ -410,7 +416,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDeptPostAdd = (data: SysDeptAddBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/dept/add`,
       method: 'POST',
       body: data,
@@ -428,7 +434,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDeptPostEdit = (data: SysDeptEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/dept/edit`,
       method: 'POST',
       body: data,
@@ -455,7 +461,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseSysDeptVo, void>({
+    this.http.request<ResponseSysDeptVo, void>({
       path: `/system/dept/info`,
       method: 'GET',
       query: query,
@@ -472,7 +478,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDeptPostList = (data: SysDeptQueryBo, params: RequestParams = {}) =>
-    this.request<ResponseListSysDeptVo, void>({
+    this.http.request<ResponseListSysDeptVo, void>({
       path: `/system/dept/list`,
       method: 'POST',
       body: data,
@@ -499,7 +505,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseListSysDeptVo, void>({
+    this.http.request<ResponseListSysDeptVo, void>({
       path: `/system/dept/list/exclude`,
       method: 'GET',
       query: query,
@@ -525,7 +531,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/dept/remove`,
       method: 'POST',
       query: query,
@@ -551,7 +557,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseRoleDeptTreeSelectVo, void>({
+    this.http.request<ResponseRoleDeptTreeSelectVo, void>({
       path: `/system/dept/roleDeptTreeSelect`,
       method: 'GET',
       query: query,
@@ -568,7 +574,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDeptPostTreeSelect = (data: SysDeptQueryBo, params: RequestParams = {}) =>
-    this.request<ResponseListTreeLong, void>({
+    this.http.request<ResponseListTreeLong, void>({
       path: `/system/dept/treeSelect`,
       method: 'POST',
       body: data,
@@ -586,7 +592,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDictDataPostAdd = (data: SysDictDataAddBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/dict/data/add`,
       method: 'POST',
       body: data,
@@ -604,7 +610,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDictDataPostEdit = (data: SysDictDataEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/dict/data/edit`,
       method: 'POST',
       body: data,
@@ -622,7 +628,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDictDataPostExport = (data: SysDictDataQueryBo, params: RequestParams = {}) =>
-    this.request<void, void>({
+    this.http.request<void, void>({
       path: `/system/dict/data/export`,
       method: 'POST',
       body: data,
@@ -649,7 +655,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseSysDictDataVo, void>({
+    this.http.request<ResponseSysDictDataVo, void>({
       path: `/system/dict/data/info`,
       method: 'GET',
       query: query,
@@ -666,7 +672,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDictDataPostList = (data: SysDictDataPageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysDictDataVo, void>({
+    this.http.request<TableDataInfoSysDictDataVo, void>({
       path: `/system/dict/data/list`,
       method: 'POST',
       body: data,
@@ -693,7 +699,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/dict/data/remove`,
       method: 'POST',
       query: query,
@@ -716,7 +722,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseListSysDictDataVo, void>({
+    this.http.request<ResponseListSysDictDataVo, void>({
       path: `/system/dict/data/type`,
       method: 'GET',
       query: query,
@@ -733,7 +739,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDictTypePostAdd = (data: SysDictTypeAddBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/dict/type/add`,
       method: 'POST',
       body: data,
@@ -751,7 +757,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDictTypePostEdit = (data: SysDictTypeEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/dict/type/edit`,
       method: 'POST',
       body: data,
@@ -769,7 +775,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDictTypePostExport = (data: SysDictTypeQueryBo, params: RequestParams = {}) =>
-    this.request<void, void>({
+    this.http.request<void, void>({
       path: `/system/dict/type/export`,
       method: 'POST',
       body: data,
@@ -796,7 +802,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseSysDictTypeVo, void>({
+    this.http.request<ResponseSysDictTypeVo, void>({
       path: `/system/dict/type/info`,
       method: 'GET',
       query: query,
@@ -813,7 +819,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDictTypePostList = (data: SysDictTypePageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysDictTypeVo, void>({
+    this.http.request<TableDataInfoSysDictTypeVo, void>({
       path: `/system/dict/type/list`,
       method: 'POST',
       body: data,
@@ -831,7 +837,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   optionSelectUsingGet = (params: RequestParams = {}) =>
-    this.request<ResponseListSysDictTypeVo, void>({
+    this.http.request<ResponseListSysDictTypeVo, void>({
       path: `/system/dict/type/optionSelect`,
       method: 'GET',
       secure: true,
@@ -847,7 +853,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysDictTypePostRefreshCache = (params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/dict/type/refreshCache`,
       method: 'POST',
       secure: true,
@@ -872,7 +878,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/dict/type/remove`,
       method: 'POST',
       query: query,
@@ -889,7 +895,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysMenuPostAdd = (data: SysMenuAddBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/menu/add`,
       method: 'POST',
       body: data,
@@ -907,7 +913,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysMenuPostEdit = (data: SysMenuEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/menu/edit`,
       method: 'POST',
       body: data,
@@ -934,7 +940,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseSysMenuVo, void>({
+    this.http.request<ResponseSysMenuVo, void>({
       path: `/system/menu/info`,
       method: 'GET',
       query: query,
@@ -951,7 +957,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysMenuPostList = (data: SysMenuQueryBo, params: RequestParams = {}) =>
-    this.request<ResponseListSysMenuVo, void>({
+    this.http.request<ResponseListSysMenuVo, void>({
       path: `/system/menu/list`,
       method: 'POST',
       body: data,
@@ -978,7 +984,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/menu/remove`,
       method: 'POST',
       query: query,
@@ -1004,7 +1010,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseRoleMenuTreeSelectVo, void>({
+    this.http.request<ResponseRoleMenuTreeSelectVo, void>({
       path: `/system/menu/roleMenuTreeSelect`,
       method: 'GET',
       query: query,
@@ -1021,7 +1027,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysMenuPostTreeSelect = (data: SysMenuQueryBo, params: RequestParams = {}) =>
-    this.request<ResponseListTreeLong, void>({
+    this.http.request<ResponseListTreeLong, void>({
       path: `/system/menu/treeSelect`,
       method: 'POST',
       body: data,
@@ -1039,7 +1045,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysNoticePostAdd = (data: SysNoticeAddBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/notice/add`,
       method: 'POST',
       body: data,
@@ -1057,7 +1063,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysNoticePostEdit = (data: SysNoticeEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/notice/edit`,
       method: 'POST',
       body: data,
@@ -1084,7 +1090,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseSysNoticeVo, void>({
+    this.http.request<ResponseSysNoticeVo, void>({
       path: `/system/notice/info`,
       method: 'GET',
       query: query,
@@ -1101,7 +1107,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysNoticePostList = (data: SysNoticePageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysNoticeVo, void>({
+    this.http.request<TableDataInfoSysNoticeVo, void>({
       path: `/system/notice/list`,
       method: 'POST',
       body: data,
@@ -1128,7 +1134,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/notice/remove`,
       method: 'POST',
       query: query,
@@ -1145,7 +1151,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysOssConfigPostAdd = (data: SysOssConfigAddBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/oss/config/add`,
       method: 'POST',
       body: data,
@@ -1163,7 +1169,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysOssConfigPostChangeStatus = (data: SysOssConfigEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/oss/config/changeStatus`,
       method: 'POST',
       body: data,
@@ -1181,7 +1187,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysOssConfigPostEdit = (data: SysOssConfigEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/oss/config/edit`,
       method: 'POST',
       body: data,
@@ -1208,7 +1214,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseSysOssConfigVo, void>({
+    this.http.request<ResponseSysOssConfigVo, void>({
       path: `/system/oss/config/info`,
       method: 'GET',
       query: query,
@@ -1225,7 +1231,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysOssConfigPostList = (data: SysOssConfigPageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysOssConfigVo, void>({
+    this.http.request<TableDataInfoSysOssConfigVo, void>({
       path: `/system/oss/config/list`,
       method: 'POST',
       body: data,
@@ -1252,7 +1258,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/oss/config/remove`,
       method: 'POST',
       query: query,
@@ -1278,7 +1284,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<void, void>({
+    this.http.request<void, void>({
       path: `/system/oss/download`,
       method: 'GET',
       query: query,
@@ -1295,7 +1301,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysOssPostList = (data: SysOssPageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysOssVo, void>({
+    this.http.request<TableDataInfoSysOssVo, void>({
       path: `/system/oss/list`,
       method: 'POST',
       body: data,
@@ -1322,7 +1328,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseListSysOssVo, void>({
+    this.http.request<ResponseListSysOssVo, void>({
       path: `/system/oss/listByIds`,
       method: 'GET',
       query: query,
@@ -1348,7 +1354,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/oss/remove`,
       method: 'POST',
       query: query,
@@ -1381,7 +1387,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseOssUploadVo, void>({
+    this.http.request<ResponseOssUploadVo, void>({
       path: `/system/oss/upload`,
       method: 'POST',
       query: query,
@@ -1400,7 +1406,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysPostPostAdd = (data: SysPostAddBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/post/add`,
       method: 'POST',
       body: data,
@@ -1418,7 +1424,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysPostPostEdit = (data: SysPostEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/post/edit`,
       method: 'POST',
       body: data,
@@ -1436,7 +1442,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysPostPostExport = (data: SysPostQueryBo, params: RequestParams = {}) =>
-    this.request<void, void>({
+    this.http.request<void, void>({
       path: `/system/post/export`,
       method: 'POST',
       body: data,
@@ -1463,7 +1469,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseSysPostVo, void>({
+    this.http.request<ResponseSysPostVo, void>({
       path: `/system/post/info`,
       method: 'GET',
       query: query,
@@ -1480,7 +1486,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysPostPostList = (data: SysPostPageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysPostVo, void>({
+    this.http.request<TableDataInfoSysPostVo, void>({
       path: `/system/post/list`,
       method: 'POST',
       body: data,
@@ -1498,7 +1504,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysPostGetOptionSelect = (params: RequestParams = {}) =>
-    this.request<ResponseListSysPostVo, void>({
+    this.http.request<ResponseListSysPostVo, void>({
       path: `/system/post/optionSelect`,
       method: 'GET',
       secure: true,
@@ -1523,7 +1529,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/post/remove`,
       method: 'POST',
       query: query,
@@ -1540,7 +1546,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysProfileGetProfile = (params: RequestParams = {}) =>
-    this.request<ResponseProfileVo, void>({
+    this.http.request<ResponseProfileVo, void>({
       path: `/system/user/profile`,
       method: 'GET',
       secure: true,
@@ -1556,7 +1562,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysProfilePostUpdateProfile = (data: LoginUserUpdateBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/user/profile`,
       method: 'POST',
       body: data,
@@ -1590,7 +1596,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseAvatarUploadVo, void>({
+    this.http.request<ResponseAvatarUploadVo, void>({
       path: `/system/user/profile/avatar`,
       method: 'POST',
       query: query,
@@ -1609,7 +1615,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysProfilePostUpdatePwd = (data: UpdatePwdBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/user/profile/updatePwd`,
       method: 'POST',
       body: data,
@@ -1627,7 +1633,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysRolePostAdd = (data: SysRole, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/role/add`,
       method: 'POST',
       body: data,
@@ -1645,7 +1651,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysRolePostAllocatedList = (data: SysUserPageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysUserVo, void>({
+    this.http.request<TableDataInfoSysUserVo, void>({
       path: `/system/role/authUser/allocatedList`,
       method: 'POST',
       body: data,
@@ -1663,7 +1669,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysRolePostCancelAuthUser = (data: SysUserRole, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/role/authUser/cancel`,
       method: 'POST',
       body: data,
@@ -1681,7 +1687,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysUserPostCancelAuthUserAll = (data: AuthUserAllBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/role/authUser/cancelAll`,
       method: 'POST',
       body: data,
@@ -1699,7 +1705,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysUserPostSelectAuthUserAll = (data: AuthUserAllBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/role/authUser/selectAll`,
       method: 'POST',
       body: data,
@@ -1717,7 +1723,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysRolePostUnallocatedList = (data: SysUserPageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysUserVo, void>({
+    this.http.request<TableDataInfoSysUserVo, void>({
       path: `/system/role/authUser/unallocatedList`,
       method: 'POST',
       body: data,
@@ -1735,7 +1741,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysRolePostChangeStatus = (data: SysRole, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/role/changeStatus`,
       method: 'POST',
       body: data,
@@ -1753,7 +1759,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysRolePostDataScope = (data: SysRole, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/role/dataScope`,
       method: 'POST',
       body: data,
@@ -1771,7 +1777,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysRolePostEdit = (data: SysRole, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/role/edit`,
       method: 'POST',
       body: data,
@@ -1789,7 +1795,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysRolePostExport = (data: SysRoleQueryBo, params: RequestParams = {}) =>
-    this.request<void, void>({
+    this.http.request<void, void>({
       path: `/system/role/export`,
       method: 'POST',
       body: data,
@@ -1816,7 +1822,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseSysRoleVo, void>({
+    this.http.request<ResponseSysRoleVo, void>({
       path: `/system/role/info`,
       method: 'GET',
       query: query,
@@ -1833,7 +1839,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysRolePostList = (data: SysRoleQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysRoleVo, void>({
+    this.http.request<TableDataInfoSysRoleVo, void>({
       path: `/system/role/list`,
       method: 'POST',
       body: data,
@@ -1851,7 +1857,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysRoleGetOptionSelect = (params: RequestParams = {}) =>
-    this.request<ResponseListSysRoleVo, void>({
+    this.http.request<ResponseListSysRoleVo, void>({
       path: `/system/role/optionSelect`,
       method: 'GET',
       secure: true,
@@ -1876,7 +1882,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/role/remove`,
       method: 'POST',
       query: query,
@@ -1902,7 +1908,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseUserDetailVo, void>({
+    this.http.request<ResponseUserDetailVo, void>({
       path: `/system/user/`,
       method: 'GET',
       query: query,
@@ -1919,7 +1925,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysUserPostAdd = (data: SysUserAddBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/user/add`,
       method: 'POST',
       body: data,
@@ -1946,7 +1952,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseUserAuthRoleVo, void>({
+    this.http.request<ResponseUserAuthRoleVo, void>({
       path: `/system/user/authRole`,
       method: 'GET',
       query: query,
@@ -1963,7 +1969,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysUserPostChangeStatus = (data: SysUserReq, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/user/changeStatus`,
       method: 'POST',
       body: data,
@@ -1981,7 +1987,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysUserPostEdit = (data: SysUserEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/user/edit`,
       method: 'POST',
       body: data,
@@ -1999,7 +2005,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysUserPostExport = (data: SysUserQueryBo, params: RequestParams = {}) =>
-    this.request<void, void>({
+    this.http.request<void, void>({
       path: `/system/user/export`,
       method: 'POST',
       body: data,
@@ -2030,7 +2036,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/user/importData`,
       method: 'POST',
       query: query,
@@ -2049,7 +2055,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysUserPostImportTemplate = (params: RequestParams = {}) =>
-    this.request<void, void>({
+    this.http.request<void, void>({
       path: `/system/user/importTemplate`,
       method: 'POST',
       secure: true,
@@ -2074,7 +2080,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseUserDetailVo, void>({
+    this.http.request<ResponseUserDetailVo, void>({
       path: `/system/user/info`,
       method: 'GET',
       query: query,
@@ -2091,7 +2097,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysUserPostInsertAuthRole = (data: AuthRoleAllBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/user/insertAuthRole`,
       method: 'POST',
       body: data,
@@ -2109,7 +2115,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysUserPostList = (data: SysUserPageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoSysUserVo, void>({
+    this.http.request<TableDataInfoSysUserVo, void>({
       path: `/system/user/list`,
       method: 'POST',
       body: data,
@@ -2136,7 +2142,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/user/remove`,
       method: 'POST',
       query: query,
@@ -2153,7 +2159,7 @@ export class System<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sysUserPostResetPwd = (data: SysUserReq, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/system/user/resetPwd`,
       method: 'POST',
       body: data,

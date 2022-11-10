@@ -20,7 +20,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Biz<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Biz<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -31,7 +37,7 @@ export class Biz<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @secure
    */
   bizUserPostAdd = (data: BizUserAddBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/biz/user/add`,
       method: 'POST',
       body: data,
@@ -49,7 +55,7 @@ export class Biz<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @secure
    */
   bizUserPostEdit = (data: BizUserEditBo, params: RequestParams = {}) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/biz/user/edit`,
       method: 'POST',
       body: data,
@@ -67,7 +73,7 @@ export class Biz<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @secure
    */
   bizUserPostExport = (data: BizUserQueryBo, params: RequestParams = {}) =>
-    this.request<void, void>({
+    this.http.request<void, void>({
       path: `/biz/user/export`,
       method: 'POST',
       body: data,
@@ -94,7 +100,7 @@ export class Biz<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseBizUserVo, void>({
+    this.http.request<ResponseBizUserVo, void>({
       path: `/biz/user/info`,
       method: 'GET',
       query: query,
@@ -111,7 +117,7 @@ export class Biz<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @secure
    */
   bizUserPostList = (data: BizUserPageQueryBo, params: RequestParams = {}) =>
-    this.request<TableDataInfoBizUserVo, void>({
+    this.http.request<TableDataInfoBizUserVo, void>({
       path: `/biz/user/list`,
       method: 'POST',
       body: data,
@@ -138,7 +144,7 @@ export class Biz<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     },
     params: RequestParams = {},
   ) =>
-    this.request<ResponseVoid, void>({
+    this.http.request<ResponseVoid, void>({
       path: `/biz/user/remove`,
       method: 'POST',
       query: query,
