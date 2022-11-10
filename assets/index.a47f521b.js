@@ -1,0 +1,1 @@
+import{aD as i,O as l,j as d,aE as P,_ as m}from"./index.ebe13ed3.js";var u=["fieldProps","request","params","proFieldProps"],c=function(e,r){var o=e.fieldProps,s=e.request,a=e.params,p=e.proFieldProps,t=l(e,u);return d(P,m({valueType:"treeSelect",fieldProps:o,ref:r,request:s,params:a,filedConfig:{customLightMode:!0},proFieldProps:p},t))},v=i.forwardRef(c);export{v as W};
