@@ -8,21 +8,11 @@ const dataContracts = _.map(modelTypes, "name");
 
 <% if (config.httpClientType === config.constants.HTTP_CLIENT.AXIOS) { %> import { AxiosRequestConfig, AxiosResponse } from "axios"; <% } %>
 
-import { HttpClient, RequestParams, ContentType, HttpResponse } from "./http-client";
+import {  RequestParams, ContentType, request } from "./<%~ config.fileNames.httpClient %>";
 <% if (dataContracts.length) { %>
-import { <%~ dataContracts.join(", ") %> } from "./<%~ config.fileNames.dataContracts %>"
+import type { <%~ dataContracts.join(", ") %> } from "./<%~ config.fileNames.dataContracts %>"
 <% } %>
 
-export class <%= apiClassName %><SecurityDataType = unknown><% if (!config.singleHttpClient) { %> extends HttpClient<SecurityDataType> <% } %> {
-<% if(config.singleHttpClient) { %>
-  http: HttpClient<SecurityDataType>;
-
-  constructor (http: HttpClient<SecurityDataType>) {
-    this.http = http;
-  }
-<% } %>
-
-    <% routes.forEach((route) => { %>
-        <%~ includeFile('./procedure-call.ejs', { ...it, route }) %>
-    <% }) %>
-}
+<% routes.forEach((route) => { %>
+  <%~ includeFile('./procedure-call.ejs', { ...it, route }) %>
+<% }) %>
