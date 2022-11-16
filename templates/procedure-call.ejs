@@ -4,8 +4,9 @@ const { requestBodyInfo, responseBodyInfo, specificArgNameResolver } = route;
 const { _, getInlineParseContent, getParseContent, parseSchema, getComponentByRef, require } = utils;
 const { parameters, path, method, payload, query, formData, security, requestParams } = route.request;
 const { type, errorType, contentTypes } = route.response;
+const responseType = type === 'void' ? 'any' : type
 const { HTTP_CLIENT, RESERVED_REQ_PARAMS_ARG_NAMES } = config.constants;
-const routeDocs = includeFile("@base/route-docs", { config, route, utils });
+const routeDocs = includeFile("./route-docs", { config, route, utils });
 const queryName = (query && query.name) || "query";
 const pathParams = _.values(parameters);
 const pathParamsNames = _.map(pathParams, "name");
@@ -75,7 +76,7 @@ const securityTmpl = security ? 'true' : null;
 
  */
 export const <%~ route.routeName.usage %> = (<%~ wrapperArgs %>) =>
-      request <<%~ type %>>({
+      request <<%~ responseType %>>({
         path: `<%~ path %>`,
         method: '<%~ _.upperCase(method) %>',
         <%~ queryTmpl ? `query: ${queryTmpl},` : '' %>

@@ -1,14 +1,12 @@
 <%
 const { utils, route, config, modelTypes } = it;
-const { _, pascalCase, require } = utils;
-const apiClassName = pascalCase(route.moduleName);
+const { _ } = utils;
 const routes = route.routes;
 const dataContracts = _.map(modelTypes, "name");
 %>
 
-<% if (config.httpClientType === config.constants.HTTP_CLIENT.AXIOS) { %> import { AxiosRequestConfig, AxiosResponse } from "axios"; <% } %>
-
-import {  RequestParams, ContentType, request } from "./<%~ config.fileNames.httpClient %>";
+import { ContentType, request } from "@/utils";
+import type {  RequestParams } from "@/utils";
 <% if (dataContracts.length) { %>
 import type { <%~ dataContracts.join(", ") %> } from "./<%~ config.fileNames.dataContracts %>"
 <% } %>

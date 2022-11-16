@@ -1,10 +1,36 @@
 import { clearToken, getToken } from '@/utils';
 import { message, notification } from 'antd';
-import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { AxiosRequestConfig, AxiosResponse, ResponseType } from 'axios';
 import axios from 'axios';
 import { createSearchParams } from 'react-router-dom';
 
-const basename = import.meta.env.VITE_BASE_NAME;
+export type QueryParamsType = Record<string | number, any>;
+
+export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'params' | 'url' | 'responseType'> {
+  /** set parameter to `true` for call `securityWorker` for this request */
+  secure?: boolean;
+  /** request path */
+  path: string;
+  /** content type of request body */
+  type?: ContentType;
+  /** query params */
+  query?: QueryParamsType;
+  /** format of response (i.e. response.json() -> format: "json") */
+  format?: ResponseType;
+  /** request body */
+  body?: unknown;
+  /** skip error handler */
+  skipErrorHandler?: boolean;
+}
+
+export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path' | 'skipErrorHandler'>;
+
+export enum ContentType {
+  Json = 'application/json',
+  FormData = 'multipart/form-data',
+  UrlEncoded = 'application/x-www-form-urlencoded',
+  Text = 'text/plain',
+}
 
 enum ErrorShowType {
   /**
@@ -32,25 +58,18 @@ enum ErrorShowType {
 /**
  * 后端请求响应结构体
  */
-interface ResponseStructure {
+interface ResponseStructure<D = any> {
   code: number;
   msg: string;
-  data?: any;
+  data?: D;
 }
 
 /**
  * 自定义请求响应结构体
  */
-interface CustomResponseStructure<D = any> extends ResponseStructure {
+interface CustomResponseStructure extends ResponseStructure {
   success: boolean;
   showType: ErrorShowType;
-  data: D;
-}
-
-interface RequestConfig extends AxiosRequestConfig {
-  skipErrorHandler?: boolean;
-  convertToProData?: boolean;
-  requestType?: 'form';
 }
 
 const errorHandler = (res: CustomResponseStructure) => {
@@ -77,8 +96,8 @@ const errorHandler = (res: CustomResponseStructure) => {
     case ErrorShowType.REDIRECT:
       clearToken();
 
-      window.location.href = `${basename}login?${createSearchParams({
-        redirect: window.location.pathname.replace(basename, '/'),
+      window.location.href = `${import.meta.env.VITE_BASE_NAME}login?${createSearchParams({
+        redirect: window.location.pathname.replace(import.meta.env.VITE_BASE_NAME, '/'),
         msg: '登录已过期，请重新登录',
       })}`;
       break;
@@ -86,6 +105,28 @@ const errorHandler = (res: CustomResponseStructure) => {
     default:
       break;
   }
+};
+
+const stringifyFormItem = (formItem: unknown) => {
+  if (typeof formItem === 'object' && formItem !== null) {
+    return JSON.stringify(formItem);
+  } else {
+    return `${formItem}`;
+  }
+};
+
+const createFormData = (input: Record<string, unknown>): FormData => {
+  return Object.keys(input || {}).reduce((formData, key) => {
+    const property = input[key];
+    const propertyContent: any[] = property instanceof Array ? property : [property];
+
+    for (const formItem of propertyContent) {
+      const isFileType = formItem instanceof Blob || formItem instanceof File;
+      formData.append(key, isFileType ? formItem : stringifyFormItem(formItem));
+    }
+
+    return formData;
+  }, new FormData());
 };
 
 const instance = axios.create({
@@ -124,25 +165,38 @@ instance.interceptors.response.use(
   },
 );
 
-/**
- * 请求方法
- * @param url
- * @param config
- */
 export function request<D extends ResponseStructure>(
-  url: string,
-  config: { skipErrorHandler?: false } & Omit<RequestConfig, 'url' | 'skipErrorHandler'>,
+  params: { skipErrorHandler?: false } & Omit<FullRequestParams, 'skipErrorHandler'>,
 ): Promise<D['data']>;
 export function request<D extends ResponseStructure>(
-  url: string,
-  config: { skipErrorHandler: true } & Omit<RequestConfig, 'url' | 'skipErrorHandler'>,
+  params: { skipErrorHandler: true } & Omit<FullRequestParams, 'skipErrorHandler'>,
 ): Promise<AxiosResponse<D>>;
-export function request(url: any, config: any) {
-  const { requestType, headers = {}, ...restConfig } = config || {};
+export function request({ secure, path, type, query, format, body, ...params }: FullRequestParams) {
+  let data = body;
 
-  if (requestType === 'form') headers['Content-Type'] = 'multipart/form-data';
+  if (type === ContentType.FormData && body && typeof body === 'object') {
+    data = createFormData(body as Record<string, unknown>);
+  }
 
-  return instance({ ...restConfig, headers, url }).then((axiosResponse) => {
+  if (type === ContentType.Text && body && typeof body !== 'string') {
+    data = JSON.stringify(body);
+  }
+
+  return instance({
+    ...params,
+    headers: {
+      ...(params.headers || {}),
+      ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
+    },
+    params: query,
+    responseType: format,
+    data,
+    url: path,
+  }).then((axiosResponse) => {
+    if (params?.skipErrorHandler) {
+      return axiosResponse;
+    }
+
     const success = axiosResponse.data?.code === 200;
 
     let showType: ErrorShowType;
@@ -158,14 +212,10 @@ export function request(url: any, config: any) {
     const customResponse = {
       data: axiosResponse.data?.data,
       code: axiosResponse.data?.code,
-      msg: axiosResponse.data?.msg,
+      msg: axiosResponse.data?.msg ?? '网络错误，请稍后再试',
       showType,
       success,
     };
-
-    if (config?.skipErrorHandler) {
-      return axiosResponse;
-    }
 
     errorHandler(customResponse);
 
@@ -175,23 +225,4 @@ export function request(url: any, config: any) {
 
     return customResponse.data;
   });
-}
-
-/**
- * 针对生成代码模块封装的请求方法
- * @param url
- * @param config
- */
-export function requestGenerator<D extends ResponseStructure>(
-  url: string,
-  config: { skipErrorHandler?: false } & Omit<RequestConfig, 'url' | 'skipErrorHandler'>,
-): Promise<D['data']>;
-export function requestGenerator<D extends ResponseStructure>(
-  url: string,
-  config: { skipErrorHandler: true } & Omit<RequestConfig, 'url' | 'skipErrorHandler'>,
-): Promise<AxiosResponse<D>>;
-export function requestGenerator(url: any, config: any = {}) {
-  const { headers = {}, ...restConfig } = config;
-  headers.datasource = 'master';
-  return request(url, { ...restConfig, headers });
 }
