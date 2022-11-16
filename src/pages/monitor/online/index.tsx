@@ -1,13 +1,14 @@
 import { Access, BasePageContainer, BaseProTable } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import { SysUserOnlineGetList, SysUserOnlinePostForceLogout } from '@/services/sys/SysUserOnlineService';
+import type { SysUserOnlineVo } from '@/services/system/data-contracts';
+import { sysUserOnlineGetList, sysUserOnlinePostForceLogout } from '@/services/system/Monitor';
 import { convertParams } from '@/utils';
 import { DeleteOutlined } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-components';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
-const useColumns = (): ProColumns<API.SysUserOnlineVo>[] => {
+const useColumns = (): ProColumns<SysUserOnlineVo>[] => {
   const { canForceLogoutMonitorOnline } = useAtomValueAccess();
 
   return [
@@ -85,7 +86,7 @@ const useColumns = (): ProColumns<API.SysUserOnlineVo>[] => {
                   title: '强退用户',
                   content: `确定强退用户 ${entity.userName} 吗？`,
                   onOk: async () => {
-                    await SysUserOnlinePostForceLogout({ tokenId: entity.tokenId });
+                    await sysUserOnlinePostForceLogout({ tokenId: entity.tokenId });
                     action?.reload();
                     message.success('强制退出成功');
                   },
@@ -106,13 +107,21 @@ const PageOnline: FC = () => {
 
   return (
     <BasePageContainer>
-      <BaseProTable<API.SysUserOnlineVo, API.SysUserOnlineGetListParams>
+      <BaseProTable<
+        SysUserOnlineVo,
+        {
+          /** ip地址 */
+          ipaddr?: string;
+          /** 用户名 */
+          userName?: string;
+        }
+      >
         rowKey="tokenId"
         scroll={{
           x: '105%',
         }}
         columns={columns}
-        request={async (...p) => SysUserOnlineGetList(convertParams(...p))}
+        request={async (...p) => sysUserOnlineGetList(convertParams(...p))}
         rowSelection={false}
       />
     </BasePageContainer>

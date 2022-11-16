@@ -6,12 +6,13 @@ import type { SearchParams } from '@/pages/system/post/components/ButtonExport';
 import ButtonExport from '@/pages/system/post/components/ButtonExport';
 import ButtonRemove from '@/pages/system/post/components/ButtonRemove';
 import { useActionRefMainTable } from '@/pages/system/post/model';
-import { SysPostPostList } from '@/services/sys/SysPostService';
+import type { SysPostQueryBo, SysPostVo } from '@/services/system/data-contracts';
+import { sysPostPostList } from '@/services/system/System';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProFormInstance, ProTableProps } from '@ant-design/pro-components';
 import { useRef, useState } from 'react';
 
-const useColumns = (): ProColumns<API.SysPostVo>[] => {
+const useColumns = (): ProColumns<SysPostVo>[] => {
   const { data } = useQueryDict('sys_normal_disable');
 
   return [
@@ -33,7 +34,7 @@ const useColumns = (): ProColumns<API.SysPostVo>[] => {
     {
       title: '操作',
       valueType: 'option',
-      render: (dom, entity: API.SysPostVo) => {
+      render: (dom, entity: SysPostVo) => {
         return (
           <>
             <ButtonEdit record={entity} />
@@ -46,7 +47,7 @@ const useColumns = (): ProColumns<API.SysPostVo>[] => {
   ];
 };
 
-const tableAlertOptionRender: ProTableProps<API.SysPostVo, 'text'>['tableAlertOptionRender'] = ({ selectedRows }) => {
+const tableAlertOptionRender: ProTableProps<SysPostVo, 'text'>['tableAlertOptionRender'] = ({ selectedRows }) => {
   return (
     <ButtonRemove
       disabled={selectedRows.length === 0}
@@ -59,21 +60,21 @@ const tableAlertOptionRender: ProTableProps<API.SysPostVo, 'text'>['tableAlertOp
 const TableMain = () => {
   const [searchParams, setSearchParams] = useState<SearchParams>({});
 
-  const formRef = useRef<ProFormInstance<API.SysPostQueryBo>>();
+  const formRef = useRef<ProFormInstance<SysPostQueryBo>>();
 
   const actionRef = useActionRefMainTable();
 
   const columns = useColumns();
 
   return (
-    <BaseProTable<API.SysPostVo, API.SysPostQueryBo>
+    <BaseProTable<SysPostVo, SysPostQueryBo>
       formRef={formRef}
       actionRef={actionRef}
       rowKey="postId"
       request={async (...p) => {
         const params = convertParams(...p);
         setSearchParams(params);
-        return await SysPostPostList(params);
+        return await sysPostPostList(params);
       }}
       columns={columns}
       toolbar={{

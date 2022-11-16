@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/monitor/logininfor/model';
-import { SysLogininforPostRemove } from '@/services/sys/SysLoginService';
+import { sysLogininforPostRemove } from '@/services/system/Monitor';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal } from 'antd';
@@ -20,7 +20,7 @@ const ButtonRemove: FC<{
 
   const { mutateAsync, isLoading } = useMutation(
     async (infoId: number) => {
-      await SysLogininforPostRemove({ infoIds: infoId });
+      await sysLogininforPostRemove({ infoIds: infoId });
     },
     {
       onSuccess: () => {

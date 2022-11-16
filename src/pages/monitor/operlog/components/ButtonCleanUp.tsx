@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/monitor/operlog/model';
-import { SysOperLogPostClean } from '@/services/sys/SysOperlogService';
+import { sysOperLogPostClean } from '@/services/system/Monitor';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal } from 'antd';
@@ -12,7 +12,7 @@ const ButtonCleanUp: FC = () => {
 
   const tableActions = useAtomValueMainTableActions();
 
-  const { isLoading, mutate } = useMutation(() => SysOperLogPostClean(), {
+  const { isLoading, mutate } = useMutation(() => sysOperLogPostClean(), {
     onSuccess: () => {
       tableActions?.reload();
       message.success('清空操作日志成功');

@@ -6,7 +6,8 @@ import {
   useAtomValueMainTableActions,
   useHideAddOrEditModal,
 } from '@/pages/system/notice/model';
-import { SysNoticePostAdd, SysNoticePostEdit } from '@/services/sys/SysNoticeService';
+import type { SysNoticeAddBo } from '@/services/system/data-contracts';
+import { sysNoticePostAdd, sysNoticePostEdit } from '@/services/system/System';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormItem, ProFormRadio, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import { message } from 'antd';
@@ -42,7 +43,7 @@ const ModalAddOrEdit = () => {
 
   return (
     <Access accessible={canAddSysNotice || canEditSysNotice}>
-      <ModalForm<API.SysNoticeAddBo>
+      <ModalForm<SysNoticeAddBo>
         formRef={formRef}
         width={800}
         title={actionType === 'add' ? '新增公告' : '编辑公告'}
@@ -54,10 +55,10 @@ const ModalAddOrEdit = () => {
         grid
         onFinish={async (values) => {
           if (actionType === 'add') {
-            await SysNoticePostAdd(values);
+            await sysNoticePostAdd(values);
             message.success('新增成功');
           } else {
-            await SysNoticePostEdit({ ...values, noticeId: record!.noticeId });
+            await sysNoticePostEdit({ ...values, noticeId: record!.noticeId });
             message.success('编辑成功');
           }
 

@@ -1,6 +1,6 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import { SysUserPostImportTemplate } from '@/services/sys/SysUserService';
+import { sysUserPostImportTemplate } from '@/services/system/System';
 import { UploadOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormSwitch, ProFormUploadDragger } from '@ant-design/pro-components';
@@ -17,7 +17,7 @@ const ButtonImport: FC = () => {
 
   const [open, { toggle }] = useBoolean();
 
-  const { mutate: onDownLoad, isLoading: isDownLoadLoading } = useMutation(SysUserPostImportTemplate);
+  const { mutate: onDownLoad, isLoading: isDownLoadLoading } = useMutation(() => sysUserPostImportTemplate());
 
   return (
     <Access accessible={canImportSysUser}>
@@ -27,7 +27,7 @@ const ButtonImport: FC = () => {
 
       <Modal title="导入用户" open={open} onCancel={toggle}>
         <div className="text-right">
-          <Button type="link" onClick={onDownLoad} loading={isDownLoadLoading}>
+          <Button type="link" onClick={() => onDownLoad()} loading={isDownLoadLoading}>
             下载模板
           </Button>
         </div>

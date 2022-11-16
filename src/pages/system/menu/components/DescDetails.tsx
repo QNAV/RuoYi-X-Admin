@@ -2,7 +2,8 @@ import { EmptySimple } from '@/components';
 import { MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
 import { useAtomValueAccess, useQueryDict } from '@/models';
 import { useAtomValueSelectedMenuData, useReFetchMenuList, useReFetchMenuOptions } from '@/pages/system/menu/model';
-import { SysMenuGetInfo, SysMenuPostEdit } from '@/services/sys/SysMenuService';
+import type { SysMenuVo } from '@/services/system/data-contracts';
+import { sysMenuGetInfo, sysMenuPostEdit } from '@/services/system/System';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
@@ -90,7 +91,7 @@ const DescDetails: FC = () => {
   const { hasSelected, selectedMenuId } = useAtomValueSelectedMenuData();
   const { data, loading, refresh } = useRequest(
     async () => {
-      return await SysMenuGetInfo({ menuId: selectedMenuId });
+      return await sysMenuGetInfo({ menuId: selectedMenuId });
     },
     {
       ready: hasSelected,
@@ -98,7 +99,7 @@ const DescDetails: FC = () => {
     },
   );
 
-  const { mutateAsync } = useMutation(SysMenuPostEdit, {
+  const { mutateAsync } = useMutation(sysMenuPostEdit, {
     onSuccess: () => {
       refresh();
       reFetchMenuList();
@@ -119,7 +120,7 @@ const DescDetails: FC = () => {
             menuType,
             orderNum,
             menuName,
-            [key as keyof API.SysMenuVo]: record[key as keyof API.SysMenuVo],
+            [key as keyof SysMenuVo]: record[key as keyof SysMenuVo],
           });
         },
       }

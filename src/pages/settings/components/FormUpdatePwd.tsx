@@ -1,5 +1,6 @@
 import { useLogout } from '@/hooks';
-import { SysProfilePostUpdatePwd } from '@/services/sys/SysProfileService';
+import type { UpdatePwdBo } from '@/services/system/data-contracts';
+import { sysProfilePostUpdatePwd } from '@/services/system/System';
 import { regPassword } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormText } from '@ant-design/pro-components';
@@ -9,7 +10,7 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 
 const FormUpdatePwd: FC = () => {
-  const formRef = useRef<ProFormInstance<API.UpdatePwdBo>>();
+  const formRef = useRef<ProFormInstance<UpdatePwdBo>>();
 
   const logout = useLogout();
 
@@ -17,7 +18,7 @@ const FormUpdatePwd: FC = () => {
     async () => {
       const values = await formRef?.current?.validateFields();
 
-      await SysProfilePostUpdatePwd(values!);
+      await sysProfilePostUpdatePwd(values!);
     },
     {
       onSuccess: () => {

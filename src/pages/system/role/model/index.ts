@@ -1,6 +1,7 @@
 import { useInitActionType } from '@/hooks';
-import { SysMenuGetRoleMenuTreeSelect } from '@/services/sys/SysMenuService';
-import { SysRoleGetInfo, SysRolePostEdit } from '@/services/sys/SysRoleService';
+
+import type { SysRole, SysRoleQueryBo, SysRoleVo } from '@/services/system/data-contracts';
+import { sysMenuGetRoleMenuTreeSelect, sysRoleGetInfo, sysRolePostEdit } from '@/services/system/System';
 import type { TreeData } from '@/utils';
 import { filterCheckedTree, getExpandedKeys, getMenuIds } from '@/utils';
 import type { ActionType } from '@ant-design/pro-components';
@@ -30,16 +31,16 @@ export const useShowRoleDetails = () => {
 export const useAtomValueRoleDetails = () => useAtomValue(atomRoleDetails);
 
 // 导出传参
-const atomSearchParams = atom<API.SysRoleQueryBo>({});
+const atomSearchParams = atom<SysRoleQueryBo>({});
 export const useAtomValueSearchParams = () => useAtomValue(atomSearchParams);
 export const useSetSearchParams = () => useSetAtom(atomSearchParams);
 
 const namespace = 'sysRole';
 const queryKey = [namespace, 'details'];
-export const useQueryRoleDetails = (onSuccess: (details: API.SysRoleVo) => void) => {
+export const useQueryRoleDetails = (onSuccess: (details: SysRoleVo) => void) => {
   const { roleId } = useAtomValueRoleDetails();
 
-  const query = useQuery(queryKey, () => SysRoleGetInfo({ roleId }), {
+  const query = useQuery(queryKey, () => sysRoleGetInfo({ roleId }), {
     onSuccess,
     enabled: false,
   });
@@ -60,7 +61,7 @@ export const useQueryRoleTree = (onSuccess: (selectedTreeData: TreeData[]) => vo
   const query = useQuery(
     queryTreeKey,
     async () => {
-      const { menus, checkedKeys } = (await SysMenuGetRoleMenuTreeSelect({ roleId })) as {
+      const { menus, checkedKeys } = (await sysMenuGetRoleMenuTreeSelect({ roleId })) as unknown as {
         menus: TreeData[];
         checkedKeys: number[];
       };
@@ -94,11 +95,11 @@ export const useEditRoleDetails = (onSuccess: () => void) => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    async (params: Partial<API.SysRole>) => {
-      const roleDetailsData = queryClient.getQueryData<API.SysRoleVo>(queryKey);
+    async (params: Partial<SysRole>) => {
+      const roleDetailsData = queryClient.getQueryData<SysRoleVo>(queryKey);
       const deptTreeData = queryClient.getQueryData<{ selectedMenuIds: number[] }>(queryTreeKey);
 
-      await SysRolePostEdit({
+      await sysRolePostEdit({
         roleId: roleDetailsData!.roleId,
         roleKey: roleDetailsData!.roleKey,
         roleName: roleDetailsData!.roleName,

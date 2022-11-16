@@ -6,8 +6,8 @@ import ButtonEdit from '@/pages/system/dictDetails/components/ButtonEdit';
 import ButtonExport from '@/pages/system/dictDetails/components/ButtonExport';
 import ButtonRemove from '@/pages/system/dictDetails/components/ButtonRemove';
 import { useActionRefMainTable, useAtomCurDictType } from '@/pages/system/dictDetails/model';
-import { SysDictDataPostList } from '@/services/sys/SysDictDataService';
-import { optionSelectUsingGET } from '@/services/sys/SysDictTypeService';
+import type { SysDictDataQueryBo, SysDictDataVo } from '@/services/system/data-contracts';
+import { optionSelectUsingGet, sysDictDataPostList } from '@/services/system/System';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProFormInstance, ProTableProps } from '@ant-design/pro-components';
 import { LightFilter, ProFormSelect } from '@ant-design/pro-components';
@@ -16,7 +16,7 @@ import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const useColumns = (): ProColumns<API.SysDictDataVo>[] => {
+const useColumns = (): ProColumns<SysDictDataVo>[] => {
   const { data } = useQueryDict('sys_normal_disable');
 
   return [
@@ -44,7 +44,7 @@ const useColumns = (): ProColumns<API.SysDictDataVo>[] => {
     {
       title: '操作',
       valueType: 'option',
-      render: (dom, entity: API.SysDictDataVo) => {
+      render: (dom, entity: SysDictDataVo) => {
         return (
           <>
             <ButtonEdit record={entity} />
@@ -56,9 +56,7 @@ const useColumns = (): ProColumns<API.SysDictDataVo>[] => {
   ];
 };
 
-const tableAlertOptionRender: ProTableProps<API.SysDictDataVo, 'text'>['tableAlertOptionRender'] = ({
-  selectedRows,
-}) => {
+const tableAlertOptionRender: ProTableProps<SysDictDataVo, 'text'>['tableAlertOptionRender'] = ({ selectedRows }) => {
   return (
     <ButtonRemove
       disabled={selectedRows.length === 0}
@@ -71,7 +69,7 @@ const tableAlertOptionRender: ProTableProps<API.SysDictDataVo, 'text'>['tableAle
 const TableMain: FC = () => {
   const params = useParams<{ dictType: string }>();
 
-  const [searchParams, setSearchParams] = useState<API.SysDictDataQueryBo>({});
+  const [searchParams, setSearchParams] = useState<SysDictDataQueryBo>({});
 
   const actionRef = useActionRefMainTable();
 
@@ -83,7 +81,7 @@ const TableMain: FC = () => {
 
   const { data: valueEnum, run } = useRequest(
     async () => {
-      const data = await optionSelectUsingGET();
+      const data = await optionSelectUsingGet();
       return data.reduce<Record<string, string>>((pre, cur) => {
         pre[cur.dictType] = cur.dictName;
         return pre;
@@ -111,7 +109,7 @@ const TableMain: FC = () => {
   });
 
   return (
-    <BaseProTable<API.SysDictDataVo, API.SysDictDataQueryBo>
+    <BaseProTable<SysDictDataVo, SysDictDataQueryBo>
       rowKey="dictCode"
       actionRef={actionRef}
       columns={columns}
@@ -119,7 +117,7 @@ const TableMain: FC = () => {
       request={async (...p) => {
         const params = convertParams(...p);
         setSearchParams(params);
-        return await SysDictDataPostList(convertParams(...p));
+        return await sysDictDataPostList(convertParams(...p));
       }}
       tableAlertOptionRender={tableAlertOptionRender}
       manualRequest

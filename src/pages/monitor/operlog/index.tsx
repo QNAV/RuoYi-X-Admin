@@ -4,13 +4,14 @@ import ButtonCleanUp from '@/pages/monitor/operlog/components/ButtonCleanUp';
 import ButtonExport from '@/pages/monitor/operlog/components/ButtonExport';
 import ButtonRemove from '@/pages/monitor/operlog/components/ButtonRemove';
 import { useActionRefMainTable } from '@/pages/monitor/operlog/model';
-import { SysOperLogPostList } from '@/services/sys/SysOperlogService';
+import type { SysOperLogPageQueryBo, SysOperLogVo } from '@/services/system/data-contracts';
+import { sysOperLogPostList } from '@/services/system/Monitor';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
 
-const useColumns = (): ProColumns<API.SysOperLogVo>[] => {
+const useColumns = (): ProColumns<SysOperLogVo>[] => {
   const { data: dictSysCommonStatus } = useQueryDict('sys_common_status');
   const { data: dictSysOperType } = useQueryDict('sys_oper_type');
 
@@ -55,7 +56,7 @@ const useColumns = (): ProColumns<API.SysOperLogVo>[] => {
   ];
 };
 
-const tableAlertOptionRender: ProTableProps<API.SysOperLogVo, API.SysOperLogPageQueryBo>['tableAlertOptionRender'] = ({
+const tableAlertOptionRender: ProTableProps<SysOperLogVo, SysOperLogPageQueryBo>['tableAlertOptionRender'] = ({
   selectedRows,
 }) => {
   return (
@@ -72,18 +73,18 @@ const PageOperlog: FC = () => {
 
   const columns = useColumns();
 
-  const [searchParams, setSearchParams] = useState<API.SysOperLogPageQueryBo>({});
+  const [searchParams, setSearchParams] = useState<SysOperLogPageQueryBo>({});
 
   return (
     <BasePageContainer>
-      <BaseProTable<API.SysOperLogVo, API.SysOperLogPageQueryBo>
+      <BaseProTable<SysOperLogVo, SysOperLogPageQueryBo>
         rowKey="operId"
         actionRef={actionRef}
         columns={columns}
         request={async (...p) => {
           const params = convertParams(...p);
-          setSearchParams(params as API.SysOperLogPageQueryBo);
-          return await SysOperLogPostList(params);
+          setSearchParams(params as SysOperLogPageQueryBo);
+          return await sysOperLogPostList(params);
         }}
         toolbar={{
           actions: [

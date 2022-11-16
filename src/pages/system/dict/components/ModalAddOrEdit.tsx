@@ -5,7 +5,8 @@ import {
   useAtomValueMainTableActions,
   useHideAddOrEditModal,
 } from '@/pages/system/dict/model';
-import { SysDictTypePostAdd, SysDictTypePostEdit } from '@/services/sys/SysDictTypeService';
+import type { SysDictTypeAddBo } from '@/services/system/data-contracts';
+import { sysDictTypePostAdd, sysDictTypePostEdit } from '@/services/system/System';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormRadio, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
 import { message } from 'antd';
@@ -40,7 +41,7 @@ const ModalAddOrEdit = () => {
 
   return (
     <Access accessible={canAddSysDict || canEditSysDict}>
-      <ModalForm<API.SysDictTypeAddBo>
+      <ModalForm<SysDictTypeAddBo>
         formRef={formRef}
         width={500}
         title={actionType === 'add' ? '新增字典类型' : '编辑字典类型'}
@@ -51,10 +52,10 @@ const ModalAddOrEdit = () => {
         }}
         onFinish={async (values) => {
           if (actionType === 'add') {
-            await SysDictTypePostAdd(values);
+            await sysDictTypePostAdd(values);
             message.success('新增成功');
           } else {
-            await SysDictTypePostEdit({ ...values, dictId: record!.dictId });
+            await sysDictTypePostEdit({ ...values, dictId: record!.dictId });
             message.success('编辑成功');
           }
 

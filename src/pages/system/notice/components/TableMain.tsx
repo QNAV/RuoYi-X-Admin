@@ -4,7 +4,8 @@ import ButtonAdd from '@/pages/system/notice/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/notice/components/ButtonEdit';
 import ButtonRemove from '@/pages/system/notice/components/ButtonRemove';
 import { useActionRefMainTable } from '@/pages/system/notice/model';
-import { SysNoticePostList } from '@/services/sys/SysNoticeService';
+import type { SysNoticePageQueryBo, SysNoticeVo } from '@/services/system/data-contracts';
+import { sysNoticePostList } from '@/services/system/System';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
@@ -43,7 +44,7 @@ const useColumns = (): ProColumns[] => {
     {
       title: '操作',
       valueType: 'option',
-      render: (dom, entity: API.SysNoticeVo) => {
+      render: (dom, entity: SysNoticeVo) => {
         return (
           <>
             <ButtonEdit record={entity} />
@@ -55,7 +56,7 @@ const useColumns = (): ProColumns[] => {
   ];
 };
 
-const tableAlertOptionRender: ProTableProps<API.SysNoticeVo, API.SysNoticePageQueryBo>['tableAlertOptionRender'] = ({
+const tableAlertOptionRender: ProTableProps<SysNoticeVo, SysNoticePageQueryBo>['tableAlertOptionRender'] = ({
   selectedRows,
 }) => {
   return (
@@ -77,7 +78,7 @@ const TableMain: FC = () => {
       rowKey="noticeId"
       actionRef={actionRef}
       columns={columns}
-      request={(...p) => SysNoticePostList(convertParams(...p))}
+      request={(...p) => sysNoticePostList(convertParams(...p))}
       tableAlertOptionRender={tableAlertOptionRender}
       toolbar={{
         actions: [<ButtonAdd key="ButtonAdd" />],

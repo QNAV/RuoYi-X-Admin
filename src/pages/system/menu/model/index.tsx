@@ -1,6 +1,7 @@
 import { MenuType } from '@/constants';
 import type { OptionsParentId } from '@/pages/system/menu/components/ModalAdd';
-import { SysMenuPostList, SysMenuPostRemove } from '@/services/sys/SysMenuService';
+import type { SysMenuQueryBo, SysMenuVo } from '@/services/system/data-contracts';
+import { sysMenuPostList, sysMenuPostRemove } from '@/services/system/System';
 import { parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { message, Modal, Typography } from 'antd';
@@ -9,8 +10,8 @@ import { atomWithReset, useResetAtom } from 'jotai/utils';
 
 const namespace = 'systemMenu';
 
-const getOptions = (data?: API.SysMenuVo[]): OptionsParentId[] => {
-  const formatOptions = (items: API.SysMenuVo[]): OptionsParentId[] => {
+const getOptions = (data?: SysMenuVo[]): OptionsParentId[] => {
+  const formatOptions = (items: SysMenuVo[]): OptionsParentId[] => {
     return items
       .filter((item) => item.menuType !== MenuType.F)
       .map(({ menuId, menuName, children }) => {
@@ -50,13 +51,13 @@ export const useReFetchMenuList = () => {
   const queryClient = useQueryClient();
   return () => queryClient.invalidateQueries(queryMenuListKey);
 };
-export const useQueryMenuList = (params: API.SysMenuQueryBo = {}, onSuccess: (parentIds: number[]) => void) => {
+export const useQueryMenuList = (params: SysMenuQueryBo = {}, onSuccess: (parentIds: number[]) => void) => {
   return useQuery(
     queryMenuListKey,
     async () => {
-      const data = await SysMenuPostList(params);
+      const data = await sysMenuPostList(params);
 
-      const treeData: API.SysMenuVo[] = parseSimpleTreeData(data, {
+      const treeData: SysMenuVo[] = parseSimpleTreeData(data, {
         id: 'menuId',
         pId: 'parentId',
         rootPId: null,
@@ -64,7 +65,7 @@ export const useQueryMenuList = (params: API.SysMenuQueryBo = {}, onSuccess: (pa
 
       return {
         treeData: sortByOrderNum(treeData),
-        map: data.reduce<Map<number, API.SysMenuVo>>((map, item) => {
+        map: data.reduce<Map<number, SysMenuVo>>((map, item) => {
           return map.set(item.menuId, item);
         }, new Map()),
         parentIds: Array.from(
@@ -90,9 +91,9 @@ export const useReFetchMenuOptions = () => {
 };
 export const useQueryMenuOptions = () => {
   return useQuery(queryMenuOptionsKey, async () => {
-    const data = await SysMenuPostList({});
+    const data = await sysMenuPostList({});
 
-    const treeData: API.SysMenuVo[] = parseSimpleTreeData(data, {
+    const treeData: SysMenuVo[] = parseSimpleTreeData(data, {
       id: 'menuId',
       pId: 'parentId',
       rootPId: null,
@@ -100,7 +101,7 @@ export const useQueryMenuOptions = () => {
 
     return {
       options: getOptions(sortByOrderNum(treeData)),
-      map: data.reduce<Map<number, API.SysMenuVo>>((map, item) => {
+      map: data.reduce<Map<number, SysMenuVo>>((map, item) => {
         return map.set(item.menuId, item);
       }, new Map()),
     };
@@ -115,7 +116,7 @@ export const useDeleteMenu = () => {
 
   const { mutateAsync, isLoading } = useMutation(
     async (menuId: number) => {
-      await SysMenuPostRemove({ menuId });
+      await sysMenuPostRemove({ menuId });
     },
     {
       onSuccess: async () => {

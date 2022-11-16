@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useActionsMainTable } from '@/pages/system/roleAuth/model';
-import { SysRolePostCancelAuthUser, SysUserPostCancelAuthUserAll } from '@/services/sys/SysRoleService';
+import { sysRolePostCancelAuthUser, sysUserPostCancelAuthUserAll } from '@/services/system/System';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal, Typography } from 'antd';
@@ -26,9 +26,9 @@ const ButtonAuth: FC<{
   const { mutateAsync, isLoading } = useMutation(
     async () => {
       if (Array.isArray(userId)) {
-        await SysUserPostCancelAuthUserAll({ roleId, userIds: userId });
+        await sysUserPostCancelAuthUserAll({ roleId, userIds: userId });
       } else {
-        await SysRolePostCancelAuthUser({ roleId, userId });
+        await sysRolePostCancelAuthUser({ roleId, userId });
       }
     },
     {

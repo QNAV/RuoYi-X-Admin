@@ -1,12 +1,13 @@
 import { BaseProTable } from '@/components';
 import ModalFormUpdate from '@/pages/system/oss/components/ModalFormUpdate';
 import { useActionRefMainTable } from '@/pages/system/oss/model';
-import { SysOssPostList } from '@/services/sys/SysOssService';
+import type { SysOssPageQueryBo, SysOssVo } from '@/services/system/data-contracts';
+import { sysOssPostList } from '@/services/system/System';
 import { convertParams } from '@/utils';
 import type { ProColumns } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
-const columns: ProColumns<API.SysOssVo>[] = [
+const columns: ProColumns<SysOssVo>[] = [
   {
     title: '对象存储主键',
     dataIndex: 'ossId',
@@ -58,11 +59,11 @@ const TableMain: FC = () => {
   const actionRef = useActionRefMainTable();
 
   return (
-    <BaseProTable<API.SysOssVo, API.SysOssPageQueryBo>
+    <BaseProTable<SysOssVo, SysOssPageQueryBo>
       rowKey="ossId"
       actionRef={actionRef}
       columns={columns}
-      request={(...p) => SysOssPostList(convertParams(...p))}
+      request={(...p) => sysOssPostList(convertParams(...p))}
       toolbar={{
         actions: [<ModalFormUpdate key="ModalFormUpdate" />],
       }}

@@ -1,5 +1,6 @@
 import { useAtomValueAccess, useQueryDict } from '@/models';
 import { useAtomValueRoleListActions, useEditRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
+import type { SysRole, SysRoleVo } from '@/services/system/data-contracts';
 import type { RowEditableConfig } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { Divider, Form, Spin } from 'antd';
@@ -27,7 +28,7 @@ const DescDetails: FC = () => {
     actions?.reload();
   });
 
-  const editable: RowEditableConfig<API.SysRoleVo> | undefined =
+  const editable: RowEditableConfig<SysRoleVo> | undefined =
     access.canEditSysRole && data
       ? {
           form,
@@ -35,15 +36,15 @@ const DescDetails: FC = () => {
           onChange: (keys, editableRows) => {
             setEditableKeys(keys);
 
-            const key = keys[0] as keyof API.SysRoleVo;
+            const key = keys[0] as keyof SysRoleVo;
 
             form.setFieldsValue({
-              [key]: (editableRows as API.SysRoleVo)[key],
+              [key]: (editableRows as SysRoleVo)[key],
             });
           },
           onSave: async (key, record) => {
             await mutateAsync({
-              [key as keyof API.SysRole]: record[key as keyof API.SysRole],
+              [key as keyof SysRole]: record[key as keyof SysRole],
             });
           },
         }

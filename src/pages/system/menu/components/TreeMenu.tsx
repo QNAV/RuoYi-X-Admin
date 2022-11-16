@@ -10,10 +10,11 @@ import {
   useResetSelectedMenuData,
   useShowCreateModal,
 } from '@/pages/system/menu/model';
+import type { SysMenuQueryBo, SysMenuVo } from '@/services/system/data-contracts';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';
-import { Button, Dropdown, Menu, Tree } from 'antd';
+import { Button, Dropdown, Tree } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
@@ -24,7 +25,7 @@ export const menuTypeColor: Record<MenuType | string, string> = {
 };
 
 const TreeMenu: FC = () => {
-  const [searchParams, setSearchParams] = useState<API.SysMenuQueryBo>({});
+  const [searchParams, setSearchParams] = useState<SysMenuQueryBo>({});
 
   const [selectedKey, setSelectedKey] = useState<number>(0);
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
@@ -42,7 +43,7 @@ const TreeMenu: FC = () => {
 
   const deleteMenu = useDeleteMenu();
 
-  const onSelect: TreeProps<API.SysMenuVo>['onSelect'] = (_, { node: { key } }) => {
+  const onSelect: TreeProps<SysMenuVo>['onSelect'] = (_, { node: { key } }) => {
     setSelectedKey(key as number);
   };
 
@@ -78,7 +79,7 @@ const TreeMenu: FC = () => {
           {isAllExpanded ? '全部折叠' : '全部展开'}
         </Button>
 
-        <LightFilter<API.SysMenuQueryBo>
+        <LightFilter<SysMenuQueryBo>
           onFinish={async (values) => {
             setSelectedKey(0);
             setExpandedKeys([]);
@@ -97,41 +98,39 @@ const TreeMenu: FC = () => {
       </div>
 
       <Dropdown
-        overlay={
-          <Menu
-            items={[
-              {
-                label: '新建',
-                key: 'create',
-                onClick: () => showCreateModal(),
+        menu={{
+          items: [
+            {
+              label: '新建',
+              key: 'create',
+              onClick: () => showCreateModal(),
+            },
+            {
+              label: '在根目录下新建',
+              key: 'createBase',
+              onClick: () => {
+                resetSelectedMenuId();
+                showCreateModal();
               },
-              {
-                label: '在根目录下新建',
-                key: 'createBase',
-                onClick: () => {
-                  resetSelectedMenuId();
-                  showCreateModal();
-                },
-              },
-              {
-                label: '删除',
-                key: 'delete',
-                danger: true,
-                disabled: !selectedMenuData.hasSelected,
-                onClick: () =>
-                  deleteMenu({
-                    menuId: selectedMenuData.selectedMenuId,
-                    menuName: selectedMenuData.selectedMenuName,
-                  }),
-              },
-            ]}
-          />
-        }
+            },
+            {
+              label: '删除',
+              key: 'delete',
+              danger: true,
+              disabled: !selectedMenuData.hasSelected,
+              onClick: () =>
+                deleteMenu({
+                  menuId: selectedMenuData.selectedMenuId,
+                  menuName: selectedMenuData.selectedMenuName,
+                }),
+            },
+          ],
+        }}
         trigger={['contextMenu']}
       >
         <div className="h-[calc(100vh-310px)] overflow-auto">
           {menuData?.treeData.length ? (
-            <Tree<API.SysMenuVo>
+            <Tree<SysMenuVo>
               blockNode
               selectedKeys={[selectedKey]}
               onSelect={onSelect}

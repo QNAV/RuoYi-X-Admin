@@ -1,6 +1,6 @@
 import { EmptySimple } from '@/components';
 import { useSetAtomSelectedDeptId } from '@/pages/system/user/model';
-import { SysDeptPostTreeSelect } from '@/services/sys/SysDeptService';
+import { sysDeptPostTreeSelect } from '@/services/system/System';
 import { useRequest } from 'ahooks';
 import { Input, Spin, Tree } from 'antd';
 import type { FC } from 'react';
@@ -13,7 +13,7 @@ const TreeDept: FC = () => {
 
   const { data, loading } = useRequest(
     () =>
-      SysDeptPostTreeSelect({
+      sysDeptPostTreeSelect({
         deptName,
       }),
     {

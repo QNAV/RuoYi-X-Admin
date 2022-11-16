@@ -1,5 +1,7 @@
 import { getAccess, useSetAtomAccess } from '@/models/access';
-import { SysLoginGetInfo, SysLoginGetRouters } from '@/services/sys/SysLoginService';
+import type { RouterVo, UserInfoVo } from '@/services/system/data-contracts';
+import { sysLoginGetInfo } from '@/services/system/Info';
+import { sysLoginGetRouters } from '@/services/system/Routers';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const initialStateQueryKey = ['global', 'initialState'];
@@ -7,10 +9,10 @@ const initialStateQueryKey = ['global', 'initialState'];
 export const useQueryInitialState = () => {
   const setAtomAccess = useSetAtomAccess();
 
-  return useQuery<{ userInfo: API.UserInfoVo; userRoutes: API.RouterVo[] }>(
+  return useQuery<{ userInfo: UserInfoVo; userRoutes: RouterVo[] }>(
     initialStateQueryKey,
     async () => {
-      const [userInfo, userRoutes] = await Promise.all([SysLoginGetInfo(), SysLoginGetRouters()]);
+      const [userInfo, userRoutes] = await Promise.all([sysLoginGetInfo(), sysLoginGetRouters()]);
 
       setAtomAccess(getAccess(userInfo.permissions));
 

@@ -1,4 +1,5 @@
 import { useInitActionType } from '@/hooks';
+import type { SysPostVo } from '@/services/system/data-contracts';
 import type { ActionType } from '@ant-design/pro-components';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { atomWithReset, useResetAtom } from 'jotai/utils';
@@ -11,7 +12,7 @@ export const useAtomValueMainTableActions = () => useAtomValue(atomMainTableActi
 // 新建或编辑弹窗
 const atomAddOrEditModal = atomWithReset<{
   open: boolean;
-  record?: API.SysPostVo;
+  record?: SysPostVo;
   actionType: 'add' | 'edit';
 }>({
   open: false,
@@ -23,7 +24,7 @@ export const useShowAddModal = () => {
 };
 export const useShowEditModal = () => {
   const showEditModal = useSetAtom(atomAddOrEditModal);
-  return (record: API.SysPostVo) => showEditModal({ open: true, actionType: 'edit', record });
+  return (record: SysPostVo) => showEditModal({ open: true, actionType: 'edit', record });
 };
 export const useHideAddOrEditModal = () => useResetAtom(atomAddOrEditModal);
 export const useValueAddOrEditModal = () => useAtomValue(atomAddOrEditModal);

@@ -1,15 +1,16 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import { SysConfigPostExport } from '@/services/sys/SysConfigService';
+import type { SysConfigQueryBo } from '@/services/system/data-contracts';
+import { sysConfigPostExport } from '@/services/system/System';
 import { DownloadOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
 
-const ButtonExport: FC<{ searchParams: API.SysConfigQueryBo }> = ({ searchParams }) => {
+const ButtonExport: FC<{ searchParams: SysConfigQueryBo }> = ({ searchParams }) => {
   const { canExportSysConfig } = useAtomValueAccess();
 
-  const { isLoading, mutate } = useMutation(() => SysConfigPostExport(searchParams), {
+  const { isLoading, mutate } = useMutation(() => sysConfigPostExport(searchParams), {
     onSuccess: () => {
       message.success('导出成功');
     },

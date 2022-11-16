@@ -2,6 +2,7 @@ import { EmptySimple } from '@/components';
 import { EnableDisableStatus } from '@/constants';
 import { useQueryDict } from '@/models';
 import { useQueryDeptList, useShowDeptDetails } from '@/pages/system/dept/model';
+import type { SysDeptQueryBo, SysDeptVo } from '@/services/system/data-contracts';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';
@@ -9,7 +10,7 @@ import { Button, Space, Spin, Tag, Tree } from 'antd';
 import type { FC } from 'react';
 import { useState } from 'react';
 
-const titleRender: TreeProps<any>['titleRender'] = (itemData: API.SysDeptVo) => {
+const titleRender: TreeProps<any>['titleRender'] = (itemData: SysDeptVo) => {
   return (
     <>
       <Tag color="rgb(148 163 184)">{itemData.orderNum}</Tag>
@@ -27,7 +28,7 @@ const titleRender: TreeProps<any>['titleRender'] = (itemData: API.SysDeptVo) => 
 
 const TreeDept: FC = () => {
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
-  const [searchParams, setSearchParams] = useState<API.SysDeptQueryBo>({});
+  const [searchParams, setSearchParams] = useState<SysDeptQueryBo>({});
 
   const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
 
@@ -53,7 +54,7 @@ const TreeDept: FC = () => {
           {isAllExpanded ? '全部折叠' : '全部展开'}
         </Button>
 
-        <LightFilter<API.SysDeptQueryBo> onFinish={async (values) => setSearchParams(values)}>
+        <LightFilter<SysDeptQueryBo> onFinish={async (values) => setSearchParams(values)}>
           <ProFormText name="deptName" label="部门名称" />
 
           <ProFormSelect

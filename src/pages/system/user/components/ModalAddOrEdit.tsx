@@ -5,9 +5,16 @@ import {
   useAtomValueMainTableActions,
   useHideAddOrEditModal,
 } from '@/pages/system/user/model';
-import { SysConfigGetConfigKey } from '@/services/sys/SysConfigService';
-import { SysDeptPostTreeSelect } from '@/services/sys/SysDeptService';
-import { SysUserGetInfo, SysUserGetInfo1, SysUserPostAdd, SysUserPostEdit } from '@/services/sys/SysUserService';
+
+import type { SysUserAddBo } from '@/services/system/data-contracts';
+import {
+  sysConfigGetConfigKey,
+  sysDeptPostTreeSelect,
+  sysUserGetInfo,
+  sysUserGetInfo1,
+  sysUserPostAdd,
+  sysUserPostEdit,
+} from '@/services/system/System';
 import { regEmail, regPhone } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormSelect, ProFormText, ProFormTextArea, ProFormTreeSelect } from '@ant-design/pro-components';
@@ -20,7 +27,7 @@ import { useRef } from 'react';
 const ModalAddOrEdit: FC = () => {
   const { canAddSysUser, canEditSysUser } = useAtomValueAccess();
 
-  const formRef = useRef<ProFormInstance<API.SysUserAddBo>>();
+  const formRef = useRef<ProFormInstance<SysUserAddBo>>();
 
   const mainTableActions = useAtomValueMainTableActions();
 
@@ -36,7 +43,7 @@ const ModalAddOrEdit: FC = () => {
   const { data: dictNormalDisable } = useQueryDict('sys_normal_disable');
   const { data: dictSex } = useQueryDict('sys_user_sex');
   const { data: dictUserInfo } = useRequest(async () => {
-    const { posts, roles } = await SysUserGetInfo({});
+    const { posts, roles } = await sysUserGetInfo({});
     return {
       posts: posts.reduce((pre, cur) => pre.set(cur.postId, cur.postName), new Map()),
       roles: roles.reduce((pre, cur) => pre.set(cur.roleId, cur.roleName), new Map()),
@@ -44,16 +51,16 @@ const ModalAddOrEdit: FC = () => {
   });
 
   const { data: initPwd } = useRequest(async () => {
-    const res: any = await SysConfigGetConfigKey({ configKey: 'sys.user.initPassword' }, { skipErrorHandler: true });
+    const res: any = await sysConfigGetConfigKey({ configKey: 'sys.user.initPassword' });
 
     return res!.data!.msg as string;
   });
 
-  const { data: treeData } = useRequest(() => SysDeptPostTreeSelect({}), {});
+  const { data: treeData } = useRequest(() => sysDeptPostTreeSelect({}), {});
 
   const { data: record } = useRequest(
     async () => {
-      const { postIds, roleIds, user } = await SysUserGetInfo1({ userId });
+      const { postIds, roleIds, user } = await sysUserGetInfo1({ userId });
 
       return {
         ...user,
@@ -76,9 +83,9 @@ const ModalAddOrEdit: FC = () => {
 
       if (actionType === 'add') {
         const { roleIds = [], postIds = [], ...restValues } = values!;
-        await SysUserPostAdd({ roleIds, postIds, ...restValues });
+        await sysUserPostAdd({ roleIds, postIds, ...restValues });
       } else {
-        await SysUserPostEdit({ ...record, ...values!, userId });
+        await sysUserPostEdit({ ...record, ...values!, userId });
       }
     },
     {

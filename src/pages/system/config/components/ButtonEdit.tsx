@@ -1,9 +1,10 @@
 import { useShowEditModal } from '@/pages/system/config/model';
+import type { SysConfigVo } from '@/services/system/data-contracts';
 import { EditOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import type { FC } from 'react';
 
-const ButtonEdit: FC<{ record: API.SysConfigVo }> = ({ record }) => {
+const ButtonEdit: FC<{ record: SysConfigVo }> = ({ record }) => {
   const showEditModal = useShowEditModal();
 
   return (

@@ -1,13 +1,13 @@
 import { EmptySimple } from '@/components';
+import { useAtomValueAccess, useQueryDict } from '@/models';
 import {
   useAtomValueDeptDetails,
   useQueryDeptOptions,
   useReFetchDeptList,
   useReFetchDeptOptions,
 } from '@/pages/system/dept/model';
-import { SysDeptGetInfo, SysDeptPostEdit } from '@/services/sys/SysDeptService';
-
-import { useAtomValueAccess, useQueryDict } from '@/models';
+import type { SysDeptEditBo, SysRoleVo } from '@/services/system/data-contracts';
+import { sysDeptGetInfo, sysDeptPostEdit } from '@/services/system/System';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
@@ -15,7 +15,7 @@ import { Divider, Form, message, Spin } from 'antd';
 import type { FC, Key } from 'react';
 import { useState } from 'react';
 
-type EditableKeys = keyof Omit<API.SysDeptEditBo, 'deptId'>;
+type EditableKeys = keyof Omit<SysDeptEditBo, 'deptId'>;
 
 const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl: 2 };
 
@@ -37,7 +37,7 @@ const DescDetails: FC = () => {
 
   const { data, loading, refresh } = useRequest(
     async () => {
-      const { ancestors, ...rest } = await SysDeptGetInfo({ deptId });
+      const { ancestors, ...rest } = await sysDeptGetInfo({ deptId });
 
       const ancestorsArr = ancestors?.split(',') ?? [];
 
@@ -64,12 +64,12 @@ const DescDetails: FC = () => {
 
           if (values.length === 1 && !Array.isArray(editableRows)) {
             form.setFieldsValue({
-              [values[0]]: editableRows[values[0] as keyof API.SysRoleVo],
+              [values[0]]: editableRows[values[0] as keyof SysRoleVo],
             });
           }
         },
         onSave: async (key, record) => {
-          await SysDeptPostEdit({
+          await sysDeptPostEdit({
             deptId,
             deptName: data!.deptName,
             orderNum: data!.orderNum,

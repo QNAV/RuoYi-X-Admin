@@ -1,7 +1,8 @@
 import { Access } from '@/components';
 import { useAtomValueAccess, useQueryDict } from '@/models';
 import { useQueryDeptOptions } from '@/pages/system/dept/model';
-import { SysDeptPostAdd } from '@/services/sys/SysDeptService';
+import type { SysDeptAddBo } from '@/services/system/data-contracts';
+import { sysDeptPostAdd } from '@/services/system/System';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormDigit, ProFormRadio, ProFormText, ProFormTreeSelect } from '@ant-design/pro-components';
@@ -14,7 +15,7 @@ import { useRef } from 'react';
 const ButtonAdd: FC = () => {
   const { canAddSysDept } = useAtomValueAccess();
 
-  const formRef = useRef<ProFormInstance<API.SysDeptAddBo>>();
+  const formRef = useRef<ProFormInstance<SysDeptAddBo>>();
 
   const [open, { toggle }] = useBoolean();
 
@@ -26,7 +27,7 @@ const ButtonAdd: FC = () => {
     async () => {
       const formData = await formRef.current?.validateFields();
 
-      await SysDeptPostAdd(formData!);
+      await sysDeptPostAdd(formData!);
     },
     {
       onSuccess: () => {

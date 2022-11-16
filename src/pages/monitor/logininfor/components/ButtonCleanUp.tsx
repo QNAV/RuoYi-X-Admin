@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/monitor/logininfor/model';
-import { SysLogininforPostClean } from '@/services/sys/SysLoginService';
+import { sysLogininforPostClean } from '@/services/system/Monitor';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal } from 'antd';
@@ -12,7 +12,7 @@ const ButtonCleanUp: FC = () => {
 
   const tableActions = useAtomValueMainTableActions();
 
-  const { isLoading, mutate } = useMutation(SysLogininforPostClean, {
+  const { isLoading, mutate } = useMutation(sysLogininforPostClean, {
     onSuccess: () => {
       tableActions?.reload();
       message.success('清空访问记录成功');

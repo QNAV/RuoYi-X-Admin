@@ -2,8 +2,10 @@ import { useRefreshInitialState } from '@/models';
 import Actions from '@/pages/login/components/Actions';
 import FormLoginByPhone from '@/pages/login/components/FormLoginByPhone';
 import FormLoginByPwd from '@/pages/login/components/FormLoginByPwd';
-import { CaptchaGetGetCode } from '@/services/sys/CaptchaService';
-import { SysLoginPostLogin, SysLoginPostSmsLogin } from '@/services/sys/SysLoginService';
+import { captchaGetGetCode } from '@/services/system/CaptchaImage';
+import type { SmsLoginBo, UserNameLoginBo } from '@/services/system/data-contracts';
+import { sysLoginPostLogin } from '@/services/system/Login';
+import { sysLoginPostSmsLogin } from '@/services/system/SmsLogin';
 import { setToken, StorageType } from '@/utils';
 import { LoginFormPage, ProFormCheckbox } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
@@ -12,7 +14,7 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-interface FormData extends API.UserNameLoginBo, API.SmsLoginBo {
+interface FormData extends UserNameLoginBo, SmsLoginBo {
   autoLogin: boolean;
 }
 
@@ -29,7 +31,7 @@ const PageLogin: FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const { data: getCaptchaImageRes, run: getCaptchaImage } = useRequest(CaptchaGetGetCode);
+  const { data: getCaptchaImageRes, run: getCaptchaImage } = useRequest(captchaGetGetCode);
 
   const handleLoginSuccess = async (autoLogin: boolean, token: string) => {
     setToken(autoLogin ? StorageType.LOCAL_STORAGE : StorageType.SESSION_STORAGE, `Bearer ${token}`);
@@ -39,19 +41,19 @@ const PageLogin: FC = () => {
     navigate(searchParams.get('redirect') ?? '/');
   };
 
-  const loginBySms = async (autoLogin: boolean, data: API.SmsLoginBo) => {
-    const { token } = await SysLoginPostSmsLogin(data);
+  const loginBySms = async (autoLogin: boolean, data: SmsLoginBo) => {
+    const { token } = await sysLoginPostSmsLogin(data);
 
     await handleLoginSuccess(autoLogin, token);
   };
 
-  const loginByUsername = async (autoLogin: boolean, data: API.UserNameLoginBo) => {
+  const loginByUsername = async (autoLogin: boolean, data: UserNameLoginBo) => {
     if (!getCaptchaImageRes) {
       message.error('请先获取图片验证码');
       return;
     }
 
-    const { token } = await SysLoginPostLogin({ ...data, uuid: getCaptchaImageRes.uuid });
+    const { token } = await sysLoginPostLogin({ ...data, uuid: getCaptchaImageRes.uuid });
 
     await handleLoginSuccess(autoLogin, token);
   };

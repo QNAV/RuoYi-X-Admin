@@ -1,5 +1,6 @@
 import type { ValueEnumMap } from '@/constants';
 import { YNStatus } from '@/constants';
+import type { SysDictDataVo } from '@/services/system/data-contracts';
 import type { SortOrder } from 'antd/es/table/interface';
 import type { Key } from 'react';
 
@@ -67,7 +68,7 @@ export const convertParams = <T extends Record<string, any>>(
   };
 };
 
-export const convertDict2ValueEnum = (dict: API.SysDictDataVo[], valueType?: 'number' | 'string') => {
+export const convertDict2ValueEnum = (dict: SysDictDataVo[], valueType?: 'number' | 'string') => {
   let defaultValue: null | Key = null;
 
   const mapData: ValueEnumMap<Key> = dict.reduce((pre, item) => {

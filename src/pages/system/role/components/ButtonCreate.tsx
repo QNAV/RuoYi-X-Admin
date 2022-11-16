@@ -1,7 +1,8 @@
 import { Access } from '@/components';
 import { useAtomValueAccess, useQueryDict } from '@/models';
 import { useAtomValueRoleListActions } from '@/pages/system/role/model';
-import { SysRolePostAdd } from '@/services/sys/SysRoleService';
+import type { SysRoleReq } from '@/services/system/data-contracts';
+import { sysRolePostAdd } from '@/services/system/System';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { BetaSchemaForm } from '@ant-design/pro-components';
@@ -12,7 +13,7 @@ import { useRef } from 'react';
 const ButtonCreate: FC = () => {
   const { canAddSysRole } = useAtomValueAccess();
 
-  const formRef = useRef<ProFormInstance<API.SysRoleReq>>();
+  const formRef = useRef<ProFormInstance<SysRoleReq>>();
 
   const roleListActions = useAtomValueRoleListActions();
 
@@ -29,7 +30,7 @@ const ButtonCreate: FC = () => {
         }
         formRef={formRef}
         onFinish={async (values) => {
-          await SysRolePostAdd({
+          await sysRolePostAdd({
             ...values,
             menuIds: [],
             menuCheckStrictly: false,

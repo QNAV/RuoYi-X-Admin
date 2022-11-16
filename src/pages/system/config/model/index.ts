@@ -1,4 +1,5 @@
 import { useInitActionType } from '@/hooks';
+import type { SysConfigVo } from '@/services/system/data-contracts';
 import type { ActionType } from '@ant-design/pro-components';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { atomWithReset, useResetAtom } from 'jotai/utils';
@@ -10,7 +11,7 @@ export const useActionRefMainTable = () => useInitActionType(atomMainTableAction
 const atomAddOrEditModal = atomWithReset<{
   open: boolean;
   actionType: 'add' | 'edit';
-  record?: API.SysConfigVo;
+  record?: SysConfigVo;
 }>({
   open: false,
   actionType: 'add',
@@ -25,9 +26,10 @@ export const useShowAddModal = () => {
     });
   };
 };
+
 export const useShowEditModal = () => {
   const setAtom = useSetAtom(atomAddOrEditModal);
-  return (record: API.SysConfigVo) => {
+  return (record: SysConfigVo) => {
     setAtom({
       open: true,
       actionType: 'edit',

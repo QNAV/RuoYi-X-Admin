@@ -1,4 +1,4 @@
-import { SysLoginPostLogout } from '@/services/sys/SysLoginService';
+import { sysLoginPostLogout } from '@/services/system/Logout';
 import { clearToken } from '@/utils';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ export const useLogout = () => {
   const navigate = useNavigate();
 
   return async () => {
-    await SysLoginPostLogout();
+    await sysLoginPostLogout();
     clearToken();
     queryClient.clear();
     navigate('/login');

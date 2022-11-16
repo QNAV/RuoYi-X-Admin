@@ -1,6 +1,6 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import { SysDictTypePostRefreshCache } from '@/services/sys/SysDictTypeService';
+import { sysDictTypePostRefreshCache } from '@/services/system/System';
 import { ReloadOutlined } from '@ant-design/icons';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
@@ -18,7 +18,7 @@ const ButtonRefresh: FC = () => {
             title: '确定要刷新缓存吗？',
             content: '刷新缓存后，所有字典数据将重新加载',
             onOk: async () => {
-              await SysDictTypePostRefreshCache();
+              await sysDictTypePostRefreshCache();
               message.success('刷新成功');
             },
           });

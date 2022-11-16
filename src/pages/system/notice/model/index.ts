@@ -1,5 +1,6 @@
 import { useInitActionType } from '@/hooks';
-import { SysDictDataGetType } from '@/services/sys/SysDictDataService';
+import type { SysNoticeVo } from '@/services/system/data-contracts';
+import { sysDictDataGetType } from '@/services/system/System';
 import { convertDict2ValueEnum } from '@/utils';
 import type { ActionType } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +14,7 @@ export const useActionRefMainTable = () => useInitActionType(atomMainTableAction
 const atomAddOrEditModal = atomWithReset<{
   open: boolean;
   actionType: 'add' | 'edit';
-  record?: API.SysNoticeVo;
+  record?: SysNoticeVo;
 }>({
   open: false,
   actionType: 'add',
@@ -30,7 +31,7 @@ export const useShowAddModal = () => {
 };
 export const useShowEditModal = () => {
   const setAtom = useSetAtom(atomAddOrEditModal);
-  return (record: API.SysNoticeVo) => {
+  return (record: SysNoticeVo) => {
     setAtom({
       open: true,
       actionType: 'edit',
@@ -44,7 +45,7 @@ export const useHideAddOrEditModal = () => useResetAtom(atomAddOrEditModal);
 const queryKey = ['system', 'notice', 'dict'];
 export const useNoticeTypeDict = () => {
   return useQuery(queryKey, async () => {
-    const dict = await SysDictDataGetType({ dictType: 'sys_notice_type' });
+    const dict = await sysDictDataGetType({ dictType: 'sys_notice_type' });
 
     return convertDict2ValueEnum(dict).mapData;
   });

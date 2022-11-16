@@ -1,11 +1,12 @@
 import { IconAntd } from '@/components';
 import { menuTypeColor } from '@/pages/system/menu/components/TreeMenu';
+import type { SysMenuVo } from '@/services/system/data-contracts';
 import { CopyOutlined } from '@ant-design/icons';
 import type { TreeProps } from 'antd';
 import { message, Space, Tag } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-const TreeContent: TreeProps<API.SysMenuVo>['titleRender'] = (item) => {
+const TreeContent: TreeProps<SysMenuVo>['titleRender'] = (item) => {
   return (
     <>
       <Tag color="rgb(148 163 184)">{item.orderNum}</Tag>

@@ -5,7 +5,8 @@ import {
   useAtomValueMainTableActions,
   useHideAddOrEditModal,
 } from '@/pages/system/config/model';
-import { SysConfigPostAdd, SysConfigPostUpdateByKey } from '@/services/sys/SysConfigService';
+import type { SysConfigAddBo } from '@/services/system/data-contracts';
+import { sysConfigPostAdd, sysConfigPostUpdateByKey } from '@/services/system/System';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormRadio, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
 import { message } from 'antd';
@@ -40,7 +41,7 @@ const ModalAddOrEdit = () => {
 
   return (
     <Access accessible={canAddSysConfig || canEditSysConfig}>
-      <ModalForm<API.SysConfigAddBo>
+      <ModalForm<SysConfigAddBo>
         formRef={formRef}
         width={500}
         title={actionType === 'add' ? '新增字典类型' : '编辑字典类型'}
@@ -51,10 +52,10 @@ const ModalAddOrEdit = () => {
         }}
         onFinish={async (values) => {
           if (actionType === 'add') {
-            await SysConfigPostAdd(values);
+            await sysConfigPostAdd(values);
             message.success('新增成功');
           } else {
-            await SysConfigPostUpdateByKey({ ...values, configId: record!.configId });
+            await sysConfigPostUpdateByKey({ ...values, configId: record!.configId });
             message.success('编辑成功');
           }
 

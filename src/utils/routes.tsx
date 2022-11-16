@@ -1,5 +1,6 @@
 import { IconAntd } from '@/components';
 import type { Route } from '@/routes';
+import type { RouterVo } from '@/services/system/data-contracts';
 import type { MenuDataItem } from '@ant-design/pro-components';
 import qs from 'query-string';
 
@@ -55,7 +56,7 @@ export const getRoutesSettingsMap = (routes: Route[], parentPath = ''): GetRoute
   return settings;
 };
 
-export const convertUserRoutesToMenus = (userRoutes: API.RouterVo[] = []): MenuDataItem[] => {
+export const convertUserRoutesToMenus = (userRoutes: RouterVo[] = []): MenuDataItem[] => {
   const menus: MenuDataItem[] = [];
 
   userRoutes.forEach((item) => {

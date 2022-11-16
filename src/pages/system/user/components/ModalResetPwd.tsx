@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueResetPwdModal, useHideResetPwdModal } from '@/pages/system/user/model';
-import { SysUserPostResetPwd } from '@/services/sys/SysUserService';
+import { sysUserPostResetPwd } from '@/services/system/System';
 import { regPassword } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormText } from '@ant-design/pro-components';
@@ -45,7 +45,7 @@ const ModalResetPwd: FC = () => {
         }}
         width={500}
         onFinish={async ({ password }) => {
-          await SysUserPostResetPwd({
+          await sysUserPostResetPwd({
             ...record!,
             password,
           });

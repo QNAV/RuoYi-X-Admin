@@ -1,15 +1,16 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import { SysOperLogPostExport } from '@/services/sys/SysOperlogService';
+import type { SysOperLogQueryBo } from '@/services/system/data-contracts';
+import { sysOperLogPostExport } from '@/services/system/Monitor';
 import { DownloadOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message } from 'antd';
 import type { FC } from 'react';
 
-const ButtonExport: FC<{ searchParams: API.SysOperLogQueryBo }> = ({ searchParams }) => {
+const ButtonExport: FC<{ searchParams: SysOperLogQueryBo }> = ({ searchParams }) => {
   const { canExportSysOperLog } = useAtomValueAccess();
 
-  const { isLoading, mutate } = useMutation(() => SysOperLogPostExport(searchParams), {
+  const { isLoading, mutate } = useMutation(() => sysOperLogPostExport(searchParams), {
     onSuccess: () => {
       message.success('导出成功');
     },

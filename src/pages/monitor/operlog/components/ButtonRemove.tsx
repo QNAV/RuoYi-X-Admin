@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/monitor/operlog/model';
-import { SysOperLogPostRemove } from '@/services/sys/SysOperlogService';
+import { sysOperLogPostRemove } from '@/services/system/Monitor';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal } from 'antd';
@@ -20,7 +20,7 @@ const ButtonRemove: FC<{
 
   const { mutateAsync, isLoading } = useMutation(
     async (operId: number) => {
-      await SysOperLogPostRemove({ operIds: operId });
+      await sysOperLogPostRemove({ operIds: operId });
     },
     {
       onSuccess: () => {

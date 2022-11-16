@@ -3,13 +3,14 @@ import ButtonCleanUp from '@/pages/monitor/logininfor/components/ButtonCleanUp';
 import ButtonExport from '@/pages/monitor/logininfor/components/ButtonExport';
 import ButtonRemove from '@/pages/monitor/logininfor/components/ButtonRemove';
 import { useActionRefMainTable } from '@/pages/monitor/logininfor/model';
-import { SysLogininforPostList } from '@/services/sys/SysLoginService';
+import type { SysLogininforPageQueryBo, SysLogininforVo } from '@/services/system/data-contracts';
+import { sysLogininforPostList } from '@/services/system/Monitor';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
 
-const columns: ProColumns<API.SysLogininforVo>[] = [
+const columns: ProColumns<SysLogininforVo>[] = [
   { title: '访问编号', dataIndex: 'infoId', key: 'infoId', valueType: 'text', hideInSearch: true },
   { title: '用户名称', dataIndex: 'userName', key: 'userName', valueType: 'text' },
   { title: '登录地址', dataIndex: 'ipaddr', key: 'ipaddr', valueType: 'text' },
@@ -35,10 +36,9 @@ const columns: ProColumns<API.SysLogininforVo>[] = [
   },
 ];
 
-const tableAlertOptionRender: ProTableProps<
-  API.SysLogininforVo,
-  API.SysLogininforPageQueryBo
->['tableAlertOptionRender'] = ({ selectedRows }) => {
+const tableAlertOptionRender: ProTableProps<SysLogininforVo, SysLogininforPageQueryBo>['tableAlertOptionRender'] = ({
+  selectedRows,
+}) => {
   return (
     <ButtonRemove
       isBatch
@@ -51,18 +51,18 @@ const tableAlertOptionRender: ProTableProps<
 const PageLoginInfo: FC = () => {
   const actionRef = useActionRefMainTable();
 
-  const [searchParams, setSearchParams] = useState<API.SysLogininforPageQueryBo>({});
+  const [searchParams, setSearchParams] = useState<SysLogininforPageQueryBo>({});
 
   return (
     <BasePageContainer>
-      <BaseProTable<API.SysLogininforVo, API.SysLogininforPageQueryBo>
+      <BaseProTable<SysLogininforVo, SysLogininforPageQueryBo>
         rowKey="infoId"
         actionRef={actionRef}
         columns={columns}
         request={async (...p) => {
           const params = convertParams(...p);
           setSearchParams(params);
-          return await SysLogininforPostList(params);
+          return await sysLogininforPostList(params);
         }}
         toolbar={{
           actions: [

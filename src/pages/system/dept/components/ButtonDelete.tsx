@@ -6,7 +6,7 @@ import {
   useReFetchDeptList,
   useReFetchDeptOptions,
 } from '@/pages/system/dept/model';
-import { SysDeptPostRemove } from '@/services/sys/SysDeptService';
+import { sysDeptPostRemove } from '@/services/system/System';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Button, message, Modal, Typography } from 'antd';
 import type { FC } from 'react';
@@ -29,7 +29,7 @@ const ButtonDelete: FC = () => {
         </>
       ),
       onOk: async () => {
-        await SysDeptPostRemove({ deptId });
+        await sysDeptPostRemove({ deptId });
         message.success('删除成功');
         hideDeptDetails();
         reFetchDeptList();

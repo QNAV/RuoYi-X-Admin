@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/system/dict/model';
-import { SysDictTypePostRemove } from '@/services/sys/SysDictTypeService';
+import { sysDictTypePostRemove } from '@/services/system/System';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal } from 'antd';
@@ -18,7 +18,7 @@ const ButtonRemove: FC<{
 
   const mainTableActions = useAtomValueMainTableActions();
 
-  const { mutateAsync, isLoading } = useMutation(() => SysDictTypePostRemove({ dictIds: dictId }), {
+  const { mutateAsync, isLoading } = useMutation(() => sysDictTypePostRemove({ dictIds: dictId }), {
     onSuccess: () => {
       mainTableActions?.reload();
       mainTableActions?.clearSelected?.();

@@ -1,12 +1,13 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useShowResetPwdModal } from '@/pages/system/user/model';
+import type { SysUserVo } from '@/services/system/data-contracts';
 import { RestOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonResetPwd: FC<{
-  record: API.SysUserVo;
+  record: SysUserVo;
 }> = ({ record }) => {
   const { canResetSysUserPwd } = useAtomValueAccess();
 

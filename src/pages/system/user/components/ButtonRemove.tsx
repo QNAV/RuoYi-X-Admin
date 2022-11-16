@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/system/user/model';
-import { SysUserPostRemove } from '@/services/sys/SysUserService';
+import { sysUserPostRemove } from '@/services/system/System';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal } from 'antd';
@@ -18,7 +18,7 @@ const ButtonRemove: FC<{
 
   const mainTableActions = useAtomValueMainTableActions();
 
-  const { mutateAsync, isLoading } = useMutation(() => SysUserPostRemove({ userIds: userId }), {
+  const { mutateAsync, isLoading } = useMutation(() => sysUserPostRemove({ userIds: userId }), {
     onSuccess: () => {
       mainTableActions?.reload();
       mainTableActions?.clearSelected?.();

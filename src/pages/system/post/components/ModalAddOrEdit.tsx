@@ -1,6 +1,7 @@
 import { useQueryDict } from '@/models';
 import { useAtomValueMainTableActions, useHideAddOrEditModal, useValueAddOrEditModal } from '@/pages/system/post/model';
-import { SysPostPostAdd, SysPostPostEdit } from '@/services/sys/SysPostService';
+import type { SysPostAddBo } from '@/services/system/data-contracts';
+import { sysPostPostAdd, sysPostPostEdit } from '@/services/system/System';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormDigit, ProFormRadio, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
@@ -9,7 +10,7 @@ import type { FC } from 'react';
 import { useEffect, useRef } from 'react';
 
 const ModalAddOrEdit: FC = () => {
-  const formRef = useRef<ProFormInstance<API.SysPostAddBo>>();
+  const formRef = useRef<ProFormInstance<SysPostAddBo>>();
 
   const { open, actionType, record } = useValueAddOrEditModal();
   const hideAddOrEditModal = useHideAddOrEditModal();
@@ -31,11 +32,11 @@ const ModalAddOrEdit: FC = () => {
       if (!values) return;
 
       if (actionType === 'add') {
-        await SysPostPostAdd(values);
+        await sysPostPostAdd(values);
         return;
       }
 
-      await SysPostPostEdit({
+      await sysPostPostEdit({
         ...values,
         postId: record!.postId,
       });
@@ -69,7 +70,7 @@ const ModalAddOrEdit: FC = () => {
       onOk={() => mutate()}
       title={actionType === 'add' ? '新建岗位' : '编辑岗位信息'}
     >
-      <ProForm<API.SysPostAddBo> submitter={false} formRef={formRef}>
+      <ProForm<SysPostAddBo> submitter={false} formRef={formRef}>
         <ProFormText name="postName" label="岗位名称" rules={[{ required: true }]} />
 
         <ProFormText name="postCode" label="岗位编码" rules={[{ required: true }]} />

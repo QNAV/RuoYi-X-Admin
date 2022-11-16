@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueRoleDetails, useAtomValueRoleListActions, useHideRoleDetails } from '@/pages/system/role/model';
-import { SysRolePostRemove } from '@/services/sys/SysRoleService';
+import { sysRolePostRemove } from '@/services/system/System';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
@@ -19,7 +19,7 @@ const ButtonDelete: FC = () => {
       title: '删除角色',
       content: `确定删除角色编号为 ${roleId} 的数据吗？`,
       onOk: async () => {
-        await SysRolePostRemove({ roleIds: roleId });
+        await sysRolePostRemove({ roleIds: roleId });
         roleListActions?.reload();
         roleListActions?.clearSelected?.();
         hideRoleDetails();

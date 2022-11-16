@@ -1,4 +1,5 @@
 import { useInitActionType } from '@/hooks';
+import type { SysUserVo } from '@/services/system/data-contracts';
 import type { ActionType } from '@ant-design/pro-components';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { atomWithReset, useResetAtom } from 'jotai/utils';
@@ -15,13 +16,13 @@ export const useSetAtomSelectedDeptId = () => useSetAtom(atomSelectedDeptId);
 // 重置密码弹窗
 const atomResetPwdModal = atomWithReset<{
   open: boolean;
-  record?: API.SysUserVo;
+  record?: SysUserVo;
 }>({
   open: false,
 });
 export const useShowResetPwdModal = () => {
   const setRecoilState = useSetAtom(atomResetPwdModal);
-  return (record: API.SysUserVo) => {
+  return (record: SysUserVo) => {
     setRecoilState({
       open: true,
       record,

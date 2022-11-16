@@ -3,13 +3,14 @@ import { useQueryDict } from '@/models';
 import ButtonAuth from '@/pages/system/roleAuth/components/ButtonAuth';
 import DrawerTableAuth from '@/pages/system/roleAuth/components/DrawerTableAuth';
 import { useActionRefMainTable } from '@/pages/system/roleAuth/model';
-import { SysRolePostAllocatedList } from '@/services/sys/SysRoleService';
+import type { SysUserPageQueryBo, SysUserVo } from '@/services/system/data-contracts';
+import { sysRolePostAllocatedList } from '@/services/system/System';
 import { convertParams, regEmail } from '@/utils';
 import type { ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useParams } from 'react-router-dom';
 
-const tableAlertRender: ProTableProps<API.SysUserVo, any>['tableAlertRender'] = ({ selectedRows }) => {
+const tableAlertRender: ProTableProps<SysUserVo, any>['tableAlertRender'] = ({ selectedRows }) => {
   return (
     <ButtonAuth
       userId={selectedRows.map((item) => item.userId)}
@@ -28,7 +29,7 @@ const TableMain: FC = () => {
   const { data: dictSysCommonStatus } = useQueryDict('sys_common_status');
 
   return (
-    <BaseProTable<API.SysUserVo, API.SysUserPageQueryBo>
+    <BaseProTable<SysUserVo, SysUserPageQueryBo>
       rowKey="userId"
       actionRef={actionRefMainTable}
       params={{ roleId }}
@@ -84,7 +85,7 @@ const TableMain: FC = () => {
           },
         },
       ]}
-      request={(...p) => SysRolePostAllocatedList(convertParams(...p))}
+      request={(...p) => sysRolePostAllocatedList(convertParams(...p))}
       tableAlertRender={tableAlertRender}
       toolbar={{
         actions: [<DrawerTableAuth key="DrawerTableAuth" />],

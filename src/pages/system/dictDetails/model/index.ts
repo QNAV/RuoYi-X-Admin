@@ -1,4 +1,5 @@
 import { useInitActionType } from '@/hooks';
+import type { SysDictDataVo } from '@/services/system/data-contracts';
 import type { ActionType } from '@ant-design/pro-components';
 import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { atomWithReset, useResetAtom } from 'jotai/utils';
@@ -14,7 +15,7 @@ const atomCurDictType = atom<{ dictType: string; dictName: string }>({
 export const useAtomValueCurDictType = () => useAtomValue(atomCurDictType);
 export const useAtomCurDictType = () => useAtom(atomCurDictType);
 
-const atomAddOrEditModal = atomWithReset<{ actionType: 'add' | 'edit'; open: boolean; record?: API.SysDictDataVo }>({
+const atomAddOrEditModal = atomWithReset<{ actionType: 'add' | 'edit'; open: boolean; record?: SysDictDataVo }>({
   actionType: 'add',
   open: false,
 });
@@ -28,7 +29,7 @@ export const useShowAddModal = () => {
 };
 export const useShowEditModal = () => {
   const setAtom = useSetAtom(atomAddOrEditModal);
-  return (record: API.SysDictDataVo) => {
+  return (record: SysDictDataVo) => {
     setAtom({ actionType: 'edit', open: true, record });
   };
 };

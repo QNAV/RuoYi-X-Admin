@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/system/notice/model';
-import { SysNoticePostRemove } from '@/services/sys/SysNoticeService';
+import { sysNoticePostRemove } from '@/services/system/System';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal } from 'antd';
@@ -20,7 +20,7 @@ const ButtonRemove: FC<{
 
   const { mutateAsync, isLoading } = useMutation(
     async (noticeId: number) => {
-      await SysNoticePostRemove({ noticeIds: noticeId });
+      await sysNoticePostRemove({ noticeIds: noticeId });
     },
     {
       onSuccess: () => {

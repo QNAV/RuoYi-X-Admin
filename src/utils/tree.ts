@@ -1,4 +1,5 @@
 import { MenuType } from '@/constants';
+import type { SysMenuVo } from '@/services/system/data-contracts';
 import { cloneDeep } from 'lodash-es';
 import type { Key } from 'react';
 
@@ -46,7 +47,7 @@ export const parseSimpleTreeData = (
   return rootNodeList;
 };
 
-const handleSort = (data: API.SysMenuVo[]) => {
+const handleSort = (data: SysMenuVo[]) => {
   return data.sort((a, b) => {
     if (a.orderNum === b.orderNum) {
       return new Date(a.createTime!).getTime() - new Date(b.createTime!).getTime();
@@ -57,7 +58,7 @@ const handleSort = (data: API.SysMenuVo[]) => {
 };
 
 // 数组按 orderNum 排序
-export const sortByOrderNum = (data: API.SysMenuVo[]): API.SysMenuVo[] => {
+export const sortByOrderNum = (data: SysMenuVo[]): SysMenuVo[] => {
   const newData = data.map((item) => {
     if (item.children) {
       item.children = sortByOrderNum(item.children);

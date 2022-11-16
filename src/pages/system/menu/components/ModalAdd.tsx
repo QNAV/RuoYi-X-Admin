@@ -8,7 +8,8 @@ import {
   useQueryMenuOptions,
   useReFetchMenuList,
 } from '@/pages/system/menu/model';
-import { SysMenuPostAdd } from '@/services/sys/SysMenuService';
+import type { SysMenuVo } from '@/services/system/data-contracts';
+import { sysMenuPostAdd } from '@/services/system/System';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import {
   ProForm,
@@ -31,7 +32,7 @@ export interface OptionsParentId {
   children?: OptionsParentId[];
 }
 
-const getSelectedParentIds = (data: Map<number, API.SysMenuVo>, menuId: number): number[] => {
+const getSelectedParentIds = (data: Map<number, SysMenuVo>, menuId: number): number[] => {
   const parentIds: number[] = [0];
 
   if (menuId === 0) {
@@ -79,7 +80,7 @@ const ModalAdd: FC = () => {
 
       if (!formData) return;
 
-      await SysMenuPostAdd(formData);
+      await sysMenuPostAdd(formData);
     },
     {
       onSuccess: async () => {
@@ -115,7 +116,7 @@ const ModalAdd: FC = () => {
           loading: isLoading,
         }}
       >
-        <ProForm<API.SysMenuVo> submitter={false} formRef={formRef}>
+        <ProForm<SysMenuVo> submitter={false} formRef={formRef}>
           <ProFormCascader
             name="parentId"
             label="父级菜单"

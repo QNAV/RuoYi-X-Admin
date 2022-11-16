@@ -1,5 +1,6 @@
 import { useQueryDict, useQueryInitialState } from '@/models';
-import { SysProfilePostUpdateProfile } from '@/services/sys/SysProfileService';
+import type { LoginUserUpdateBo } from '@/services/system/data-contracts';
+import { sysProfilePostUpdateProfile } from '@/services/system/System';
 import { getToken, regEmail, regPhone } from '@/utils';
 import { CameraOutlined } from '@ant-design/icons';
 import type { ProDescriptionsItemProps, RowEditableConfig } from '@ant-design/pro-components';
@@ -87,7 +88,7 @@ const DescriptionsUser: FC = () => {
 
   const editableColumns = useEditableColumns();
 
-  const { mutate, mutateAsync } = useMutation(SysProfilePostUpdateProfile, {
+  const { mutate, mutateAsync } = useMutation(sysProfilePostUpdateProfile, {
     onSuccess: () => {
       refetch();
 
@@ -95,10 +96,10 @@ const DescriptionsUser: FC = () => {
     },
   });
 
-  const editable: RowEditableConfig<API.LoginUserUpdateBo> = {
+  const editable: RowEditableConfig<LoginUserUpdateBo> = {
     onSave: async (key, record) => {
       await mutateAsync({
-        [key as keyof API.LoginUserUpdateBo]: record[key as keyof API.LoginUserUpdateBo],
+        [key as keyof LoginUserUpdateBo]: record[key as keyof LoginUserUpdateBo],
       });
     },
   };

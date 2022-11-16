@@ -1,4 +1,5 @@
-import { SysDeptPostList } from '@/services/sys/SysDeptService';
+import type { SysDeptQueryBo, SysDeptVo } from '@/services/system/data-contracts';
+import { sysDeptPostList } from '@/services/system/System';
 import { parseSimpleTreeData } from '@/utils';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAtomValue, useSetAtom } from 'jotai';
@@ -28,23 +29,20 @@ export const useHideDeptDetails = () => useResetAtom(atomDeptDetails);
 
 // 部门列表
 const queryDeptListKey = [namespace, 'list'];
-export const useQueryDeptList = (
-  params: API.SysDeptQueryBo,
-  options: { onSuccess: (allParentIds: number[]) => void },
-) => {
+export const useQueryDeptList = (params: SysDeptQueryBo, options: { onSuccess: (allParentIds: number[]) => void }) => {
   const e = useQuery(
     queryDeptListKey,
     async () => {
-      const data = await SysDeptPostList(params);
+      const data = await sysDeptPostList(params);
 
-      const treeData: API.SysDeptVo[] = parseSimpleTreeData(data, {
+      const treeData: SysDeptVo[] = parseSimpleTreeData(data, {
         id: 'deptId',
         pId: 'parentId',
         rootPId: null,
       });
 
       return {
-        map: data.reduce<Map<number, API.SysDeptVo>>((prev, curr) => {
+        map: data.reduce<Map<number, SysDeptVo>>((prev, curr) => {
           return prev.set(curr.deptId, curr);
         }, new Map()),
         treeData,
@@ -82,9 +80,9 @@ export const useReFetchDeptList = () => {
 const queryDeptOptionsKey = [namespace, 'options'];
 export const useQueryDeptOptions = () => {
   return useQuery(queryDeptOptionsKey, async () => {
-    const data = await SysDeptPostList({});
+    const data = await sysDeptPostList({});
 
-    const treeData: API.SysDeptVo[] = parseSimpleTreeData(data, {
+    const treeData: SysDeptVo[] = parseSimpleTreeData(data, {
       id: 'deptId',
       pId: 'parentId',
       rootPId: null,

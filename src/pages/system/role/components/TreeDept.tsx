@@ -2,8 +2,7 @@ import { Access, EmptySimple } from '@/components';
 import { OptionsDataScope } from '@/constants';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
-import { SysDeptGetRoleDeptTreeSelect } from '@/services/sys/SysDeptService';
-import { SysRolePostDataScope } from '@/services/sys/SysRoleService';
+import { sysDeptGetRoleDeptTreeSelect, sysRolePostDataScope } from '@/services/system/System';
 import type { TreeData } from '@/utils';
 import { filterCheckedTree, getExpandedKeys, getMenuIds } from '@/utils';
 import { CaretDownOutlined, CaretRightOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
@@ -37,7 +36,7 @@ const TreeDept: FC = () => {
 
   const { loading, refresh, data } = useRequest(
     async () => {
-      const { depts, checkedKeys } = (await SysDeptGetRoleDeptTreeSelect({ roleId })) as {
+      const { depts, checkedKeys } = (await sysDeptGetRoleDeptTreeSelect({ roleId })) as unknown as {
         depts: TreeData[];
         checkedKeys: number[];
       };
@@ -62,7 +61,7 @@ const TreeDept: FC = () => {
 
   const { isLoading, mutate } = useMutation(
     async () => {
-      await SysRolePostDataScope({
+      await sysRolePostDataScope({
         roleId,
         dataScope,
         deptIds: checkedKeys,

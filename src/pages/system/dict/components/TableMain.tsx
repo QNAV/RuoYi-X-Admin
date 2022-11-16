@@ -7,13 +7,14 @@ import ButtonExport from '@/pages/system/dict/components/ButtonExport';
 import ButtonRefresh from '@/pages/system/dict/components/ButtonRefresh';
 import ButtonRemove from '@/pages/system/dict/components/ButtonRemove';
 import { useActionRefMainTable } from '@/pages/system/dict/model';
-import { SysDictTypePostList } from '@/services/sys/SysDictTypeService';
+import type { SysDictTypeQueryBo, SysDictTypeVo } from '@/services/system/data-contracts';
+import { sysDictTypePostList } from '@/services/system/System';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
 
-const useColumns = (): ProColumns<API.SysDictTypeVo>[] => {
+const useColumns = (): ProColumns<SysDictTypeVo>[] => {
   const { data } = useQueryDict('sys_normal_disable');
 
   return [
@@ -54,7 +55,7 @@ const useColumns = (): ProColumns<API.SysDictTypeVo>[] => {
   ];
 };
 
-const tableAlertOptionRender: ProTableProps<API.SysDictTypeVo, API.SysDictTypeQueryBo>['tableAlertOptionRender'] = ({
+const tableAlertOptionRender: ProTableProps<SysDictTypeVo, SysDictTypeQueryBo>['tableAlertOptionRender'] = ({
   selectedRows,
 }) => {
   return (
@@ -71,10 +72,10 @@ const TableMain: FC = () => {
 
   const columns = useColumns();
 
-  const [searchParams, setSearchParams] = useState<API.SysDictTypeQueryBo>({});
+  const [searchParams, setSearchParams] = useState<SysDictTypeQueryBo>({});
 
   return (
-    <BaseProTable<API.SysDictTypeVo, API.SysDictTypeQueryBo>
+    <BaseProTable<SysDictTypeVo, SysDictTypeQueryBo>
       rowKey="dictId"
       actionRef={actionRef}
       columns={columns}
@@ -82,7 +83,7 @@ const TableMain: FC = () => {
       request={async (...p) => {
         const params = convertParams(...p);
         setSearchParams(params);
-        return await SysDictTypePostList(params);
+        return await sysDictTypePostList(params);
       }}
       toolbar={{
         actions: [

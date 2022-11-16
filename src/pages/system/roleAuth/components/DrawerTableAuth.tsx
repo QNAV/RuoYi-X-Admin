@@ -1,7 +1,7 @@
 import { BaseProTable } from '@/components';
 import { useQueryDict } from '@/models';
 import { useActionsMainTable } from '@/pages/system/roleAuth/model';
-import { SysRolePostUnallocatedList, SysUserPostSelectAuthUserAll } from '@/services/sys/SysRoleService';
+import { sysRolePostUnallocatedList, sysUserPostSelectAuthUserAll } from '@/services/system/System';
 import { convertParams, regEmail } from '@/utils';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType } from '@ant-design/pro-components';
@@ -24,7 +24,7 @@ const DrawerTableAuth: FC = () => {
 
   const actionsMainTable = useActionsMainTable();
 
-  const { isLoading, mutate } = useMutation(() => SysUserPostSelectAuthUserAll({ roleId, userIds: selectedKeys }), {
+  const { isLoading, mutate } = useMutation(() => sysUserPostSelectAuthUserAll({ roleId, userIds: selectedKeys }), {
     onSuccess: () => {
       actionRef.current?.reload();
       actionRef.current?.clearSelected?.();
@@ -117,7 +117,7 @@ const DrawerTableAuth: FC = () => {
               setSelectedKeys(_ as number[]);
             },
           }}
-          request={(...p) => SysRolePostUnallocatedList(convertParams(...p))}
+          request={(...p) => sysRolePostUnallocatedList(convertParams(...p))}
         />
       </Drawer>
     </>

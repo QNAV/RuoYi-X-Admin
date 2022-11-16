@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/system/config/model';
-import { SysConfigPostRemove } from '@/services/sys/SysConfigService';
+import { sysConfigPostRemove } from '@/services/system/System';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal } from 'antd';
@@ -20,7 +20,7 @@ const ButtonRemove: FC<{
 
   const { mutateAsync, isLoading } = useMutation(
     async (dictId: number) => {
-      await SysConfigPostRemove({ configIds: dictId });
+      await sysConfigPostRemove({ configIds: dictId });
     },
     {
       onSuccess: () => {

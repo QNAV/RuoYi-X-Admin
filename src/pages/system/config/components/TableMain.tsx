@@ -6,13 +6,14 @@ import ButtonExport from '@/pages/system/config/components/ButtonExport';
 import ButtonRefresh from '@/pages/system/config/components/ButtonRefresh';
 import ButtonRemove from '@/pages/system/config/components/ButtonRemove';
 import { useActionRefMainTable } from '@/pages/system/config/model';
-import { SysConfigPostList } from '@/services/sys/SysConfigService';
+import type { SysConfigPageQueryBo, SysConfigVo } from '@/services/system/data-contracts';
+import { sysConfigPostList } from '@/services/system/System';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
 
-const useColumns = (): ProColumns<API.SysConfigVo>[] => {
+const useColumns = (): ProColumns<SysConfigVo>[] => {
   const { data } = useQueryDict('sys_yes_no');
 
   return [
@@ -60,7 +61,7 @@ const useColumns = (): ProColumns<API.SysConfigVo>[] => {
   ];
 };
 
-const tableAlertOptionRender: ProTableProps<API.SysConfigVo, API.SysConfigPageQueryBo>['tableAlertOptionRender'] = ({
+const tableAlertOptionRender: ProTableProps<SysConfigVo, SysConfigPageQueryBo>['tableAlertOptionRender'] = ({
   selectedRows,
 }) => {
   return (
@@ -77,7 +78,7 @@ const TableMain: FC = () => {
 
   const columns = useColumns();
 
-  const [searchParams, setSearchParams] = useState<API.SysConfigPageQueryBo>({});
+  const [searchParams, setSearchParams] = useState<SysConfigPageQueryBo>({});
 
   return (
     <BaseProTable
@@ -87,8 +88,8 @@ const TableMain: FC = () => {
       tableAlertOptionRender={tableAlertOptionRender}
       request={async (...p) => {
         const params = convertParams(...p);
-        setSearchParams(params as API.SysConfigPageQueryBo);
-        return await SysConfigPostList(params);
+        setSearchParams(params as SysConfigPageQueryBo);
+        return await sysConfigPostList(params);
       }}
       toolbar={{
         actions: [

@@ -8,13 +8,14 @@ import ButtonRemove from '@/pages/system/user/components/ButtonRemove';
 import ButtonResetPwd from '@/pages/system/user/components/ButtonResetPwd';
 import TreeDept from '@/pages/system/user/components/TreeDept';
 import { useActionRefMainTable, useAtomValueSelectedDeptId } from '@/pages/system/user/model';
-import { SysUserPostList } from '@/services/sys/SysUserService';
+import type { SysUserPageQueryBo, SysUserQueryBo, SysUserVo } from '@/services/system/data-contracts';
+import { sysUserPostList } from '@/services/system/System';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
 
-const useColumns = (): ProColumns<API.SysUserVo>[] => {
+const useColumns = (): ProColumns<SysUserVo>[] => {
   const { data } = useQueryDict('sys_normal_disable');
 
   return [
@@ -81,7 +82,7 @@ const useColumns = (): ProColumns<API.SysUserVo>[] => {
   ];
 };
 
-const tableAlertOptionRender: ProTableProps<API.SysUserVo, API.SysUserPageQueryBo>['tableAlertOptionRender'] = ({
+const tableAlertOptionRender: ProTableProps<SysUserVo, SysUserPageQueryBo>['tableAlertOptionRender'] = ({
   selectedRows,
 }) => {
   return (
@@ -93,7 +94,7 @@ const tableAlertOptionRender: ProTableProps<API.SysUserVo, API.SysUserPageQueryB
   );
 };
 
-const tableRender: ProTableProps<API.SysUserVo, API.SysUserPageQueryBo>['tableRender'] = (props, defaultDom) => {
+const tableRender: ProTableProps<SysUserVo, SysUserPageQueryBo>['tableRender'] = (props, defaultDom) => {
   return (
     <div className="flex gap-4">
       <div className="bg-white p-4">
@@ -108,7 +109,7 @@ const tableRender: ProTableProps<API.SysUserVo, API.SysUserPageQueryBo>['tableRe
 const TableMain: FC = () => {
   const actionRef = useActionRefMainTable();
 
-  const [searchParams, setSearchParams] = useState<API.SysUserQueryBo>({});
+  const [searchParams, setSearchParams] = useState<SysUserQueryBo>({});
 
   const columns = useColumns();
 
@@ -116,7 +117,7 @@ const TableMain: FC = () => {
   const params = selectedDeptId > 0 ? { deptId: selectedDeptId } : {};
 
   return (
-    <BaseProTable<API.SysUserVo, API.SysUserPageQueryBo>
+    <BaseProTable<SysUserVo, SysUserPageQueryBo>
       rowKey="userId"
       actionRef={actionRef}
       columns={columns}
@@ -124,7 +125,7 @@ const TableMain: FC = () => {
       request={async (...p) => {
         const params = convertParams(...p);
         setSearchParams(params);
-        return await SysUserPostList(params);
+        return await sysUserPostList(params);
       }}
       toolbar={{
         actions: [
