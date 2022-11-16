@@ -70,19 +70,19 @@ const securityTmpl = security ? 'true' : null;
 /**
 <%~ routeDocs.description %>
 
- *<% /* Here you can add some other JSDoc tags */ %>
+*<% /* Here you can add some other JSDoc tags */ %>
 
 <%~ routeDocs.lines %>
 
- */
+*/
 export const <%~ route.routeName.usage %> = (<%~ wrapperArgs %>) =>
-      request <<%~ responseType %>>({
-        path: `<%~ path %>`,
-        method: '<%~ _.upperCase(method) %>',
-        <%~ queryTmpl ? `query: ${queryTmpl},` : '' %>
-        <%~ bodyTmpl ? `body: ${bodyTmpl},` : '' %>
-        <%~ securityTmpl ? `secure: ${securityTmpl},` : '' %>
-        <%~ bodyContentKindTmpl ? `type: ${bodyContentKindTmpl},` : '' %>
-        <%~ responseFormatTmpl ? `format: ${responseFormatTmpl},` : '' %>
-        ...<%~ _.get(requestConfigParam, "name") %>,
-    })
+request <<%~ responseType %>>({
+  path: `<%~ path %>`,
+  method: '<%~ _.upperCase(method) %>',
+  <%~ queryTmpl ? `query: ${queryTmpl},` : '' %>
+  <%~ bodyTmpl ? `body: ${bodyTmpl},` : '' %>
+  <%~ securityTmpl ? `secure: ${securityTmpl},` : '' %>
+  <%~ bodyContentKindTmpl ? `type: ${bodyContentKindTmpl},` : '' %>
+  <%~ responseFormatTmpl ? `format: ${responseFormatTmpl},` : '' %>
+  ...<%~ _.get(requestConfigParam, "name") %>,
+  })

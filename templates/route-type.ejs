@@ -1,6 +1,6 @@
 <%
 const { route, utils, config } = it;
-const { _, pascalCase, require } = utils;
+const { pascalCase } = utils;
 const { query, payload, pathParams, headers } = route.request;
 
 const routeDocs = includeFile("./route-docs", { config, route, utils });
@@ -14,9 +14,9 @@ const routeNamespace = pascalCase(route.routeName.usage);
 
 */
 export namespace <%~ routeNamespace %> {
-  export type RequestParams = <%~ (pathParams && pathParams.type) || '{}' %>;
-  export type RequestQuery = <%~ (query && query.type) || '{}' %>;
-  export type RequestBody = <%~ (payload && payload.type) || 'never' %>;
-  export type RequestHeaders = <%~ (headers && headers.type) || '{}' %>;
-  export type ResponseBody = <%~ route.response.type %>;
+export type RequestParams = <%~ (pathParams && pathParams.type) || '{}' %>;
+export type RequestQuery = <%~ (query && query.type) || '{}' %>;
+export type RequestBody = <%~ (payload && payload.type) || 'never' %>;
+export type RequestHeaders = <%~ (headers && headers.type) || '{}' %>;
+export type ResponseBody = <%~ route.response.type %>;
 }

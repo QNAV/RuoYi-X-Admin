@@ -6,11 +6,11 @@ const dataContracts = _.map(modelTypes, "name");
 %>
 
 import { ContentType, request } from "@/utils";
-import type {  RequestParams } from "@/utils";
+import type { RequestParams } from "@/utils";
 <% if (dataContracts.length) { %>
 import type { <%~ dataContracts.join(", ") %> } from "./<%~ config.fileNames.dataContracts %>"
 <% } %>
 
 <% routes.forEach((route) => { %>
-  <%~ includeFile('./procedure-call.ejs', { ...it, route }) %>
+<%~ includeFile('./procedure-call.ejs', { ...it, route }) %>
 <% }) %>
