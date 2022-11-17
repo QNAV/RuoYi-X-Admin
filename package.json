@@ -16,8 +16,8 @@
     "vis": "tsc --extendedDiagnostics && cross-env vis=1 vite build"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.7.0",
-    "@ant-design/pro-components": "^2.3.33",
+    "@ant-design/icons": "^4.8.0",
+    "@ant-design/pro-components": "^2.3.34",
     "@tanstack/react-query": "^4.16.1",
     "@tanstack/react-query-devtools": "^4.16.1",
     "@wangeditor/editor": "^5.1.23",
