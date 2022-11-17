@@ -25,7 +25,13 @@ const render = () => {
 
   dayjs.locale('zh-cn');
 
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
 
   const router = createBrowserRouter(routes, { basename });
 

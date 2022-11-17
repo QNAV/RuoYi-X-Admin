@@ -1,5 +1,6 @@
-import { clearToken, getToken } from '@/utils';
-import { message, notification } from 'antd';
+import { checkToken, clearToken, getToken } from '@/utils';
+import { RequestCanceler } from '@/utils/requestCanceler';
+import { message, Modal } from 'antd';
 import type { AxiosRequestConfig, AxiosResponse, ResponseType } from 'axios';
 import axios from 'axios';
 import { createSearchParams } from 'react-router-dom';
@@ -32,29 +33,6 @@ export enum ContentType {
   Text = 'text/plain',
 }
 
-enum ErrorShowType {
-  /**
-   * 静默处理
-   */
-  SILENT = 0,
-  /**
-   * 警告信息提示
-   */
-  WARN_MESSAGE = 1,
-  /**
-   * 错误信息提示
-   */
-  ERROR_MESSAGE = 2,
-  /**
-   * 通知信息提示
-   */
-  NOTIFICATION = 3,
-  /**
-   * 跳转到登录页
-   */
-  REDIRECT = 9,
-}
-
 /**
  * 后端请求响应结构体
  */
@@ -63,49 +41,6 @@ interface ResponseStructure<D = any> {
   msg: string;
   data?: D;
 }
-
-/**
- * 自定义请求响应结构体
- */
-interface CustomResponseStructure extends ResponseStructure {
-  success: boolean;
-  showType: ErrorShowType;
-}
-
-const errorHandler = (res: CustomResponseStructure) => {
-  const { msg, showType } = res;
-
-  switch (showType) {
-    case ErrorShowType.SILENT:
-      break;
-
-    case ErrorShowType.WARN_MESSAGE:
-      message.warning(msg);
-      break;
-
-    case ErrorShowType.NOTIFICATION:
-      notification.warning({
-        message: msg,
-      });
-      break;
-
-    case ErrorShowType.ERROR_MESSAGE:
-      message.error(msg);
-      break;
-
-    case ErrorShowType.REDIRECT:
-      clearToken();
-
-      window.location.href = `${import.meta.env.VITE_BASE_NAME}login?${createSearchParams({
-        redirect: window.location.pathname.replace(import.meta.env.VITE_BASE_NAME, '/'),
-        msg: '登录已过期，请重新登录',
-      })}`;
-      break;
-
-    default:
-      break;
-  }
-};
 
 const stringifyFormItem = (formItem: unknown) => {
   if (typeof formItem === 'object' && formItem !== null) {
@@ -129,6 +64,14 @@ const createFormData = (input: Record<string, unknown>): FormData => {
   }, new FormData());
 };
 
+const redirectToLoginPage = () => {
+  window.location.href = `${import.meta.env.VITE_BASE_NAME}login?${createSearchParams({
+    redirect: window.location.pathname.replace(import.meta.env.VITE_BASE_NAME, '/'),
+  })}`;
+};
+
+const requestCanceler = new RequestCanceler();
+
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_HOST,
   timeout: 1000 * 3,
@@ -141,6 +84,9 @@ instance.interceptors.request.use((config) => {
   const { headers = {}, ...restConfig } = config;
 
   headers.Authorization = getToken();
+
+  requestCanceler.removePendingRequest(restConfig);
+  requestCanceler.addPendingRequest(restConfig);
 
   return {
     ...restConfig,
@@ -165,13 +111,19 @@ instance.interceptors.response.use(
   },
 );
 
+let isShowModal = false;
+
 export function request<D extends ResponseStructure>(
   params: { skipErrorHandler?: false } & Omit<FullRequestParams, 'skipErrorHandler'>,
 ): Promise<D['data']>;
 export function request<D extends ResponseStructure>(
   params: { skipErrorHandler: true } & Omit<FullRequestParams, 'skipErrorHandler'>,
 ): Promise<AxiosResponse<D>>;
-export function request({ secure, path, type, query, format, body, ...params }: FullRequestParams) {
+export function request({ secure, path, type, query, format, body, skipErrorHandler, ...params }: FullRequestParams) {
+  if (secure && !checkToken()) {
+    redirectToLoginPage();
+  }
+
   let data = body;
 
   if (type === ContentType.FormData && body && typeof body === 'object') {
@@ -193,36 +145,31 @@ export function request({ secure, path, type, query, format, body, ...params }: 
     data,
     url: path,
   }).then((axiosResponse) => {
-    if (params?.skipErrorHandler) {
+    if (skipErrorHandler) {
       return axiosResponse;
     }
 
-    const success = axiosResponse.data?.code === 200;
-
-    let showType: ErrorShowType;
-
-    if (success) {
-      showType = ErrorShowType.SILENT;
-    } else if (axiosResponse.data?.code === 401) {
-      showType = ErrorShowType.REDIRECT;
-    } else {
-      showType = ErrorShowType.ERROR_MESSAGE;
+    switch (axiosResponse.data.code) {
+      case 200:
+        return axiosResponse.data.data;
+      case 401:
+        requestCanceler.removePendingRequest(axiosResponse.config);
+        if (isShowModal) return;
+        isShowModal = true;
+        Modal.confirm({
+          title: '提示',
+          content: '登录已过期，请重新登录',
+          okText: '前往登录页',
+          onOk: () => {
+            clearToken();
+            redirectToLoginPage();
+          },
+        });
+        break;
+      default:
+        message.error(axiosResponse.data?.msg ?? '网络错误，请稍后再试');
     }
 
-    const customResponse = {
-      data: axiosResponse.data?.data,
-      code: axiosResponse.data?.code,
-      msg: axiosResponse.data?.msg ?? '网络错误，请稍后再试',
-      showType,
-      success,
-    };
-
-    errorHandler(customResponse);
-
-    if (!success) {
-      throw customResponse;
-    }
-
-    return customResponse.data;
+    throw axiosResponse.data;
   });
 }

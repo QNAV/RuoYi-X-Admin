@@ -31,7 +31,7 @@ const PageLogin: FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const { data: getCaptchaImageRes, run: getCaptchaImage } = useRequest(captchaGetGetCode);
+  const { data: getCaptchaImageRes, run: getCaptchaImage } = useRequest(() => captchaGetGetCode({ secure: false }));
 
   const handleLoginSuccess = async (autoLogin: boolean, token: string) => {
     setToken(autoLogin ? StorageType.LOCAL_STORAGE : StorageType.SESSION_STORAGE, `Bearer ${token}`);
@@ -53,7 +53,7 @@ const PageLogin: FC = () => {
       return;
     }
 
-    const { token } = await sysLoginPostLogin({ ...data, uuid: getCaptchaImageRes.uuid });
+    const { token } = await sysLoginPostLogin({ ...data, uuid: getCaptchaImageRes.uuid }, { secure: false });
 
     await handleLoginSuccess(autoLogin, token);
   };

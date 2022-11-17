@@ -43,13 +43,9 @@ const Layouts: FC = () => {
   const navigate = useNavigate();
   const element = useKeepAliveOutlets();
 
-  const { data: initialState, isSuccess, isLoading, isError } = useQueryInitialState();
+  const { data: initialState, isSuccess, isLoading } = useQueryInitialState();
 
   const access = useAtomValueAccess();
-
-  if (isError) {
-    return <Navigate to="/500" replace />;
-  }
 
   if (
     isSuccess &&
