@@ -85,9 +85,8 @@ instance.interceptors.request.use((config) => {
 
   headers.Authorization = getToken();
 
-  requestCanceler.removePendingRequest(restConfig);
   requestCanceler.addPendingRequest(restConfig);
-
+  console.log('requestCanceler.pendingRequests', requestCanceler.pendingRequestMap);
   return {
     ...restConfig,
     headers,
@@ -95,8 +94,15 @@ instance.interceptors.request.use((config) => {
 });
 
 instance.interceptors.response.use(
-  (response) => response,
+  (axiosResponse) => {
+    requestCanceler.removePendingRequest(axiosResponse.config);
+    return axiosResponse;
+  },
   (error) => {
+    if (error?.config) {
+      requestCanceler.removePendingRequest(error.config);
+    }
+
     let errorMessage = '网络错误，请稍后再试';
 
     if (typeof error === 'string') {
@@ -153,7 +159,6 @@ export function request({ secure, path, type, query, format, body, skipErrorHand
       case 200:
         return axiosResponse.data.data;
       case 401:
-        requestCanceler.removePendingRequest(axiosResponse.config);
         if (isShowModal) return;
         isShowModal = true;
         Modal.confirm({
@@ -161,8 +166,12 @@ export function request({ secure, path, type, query, format, body, skipErrorHand
           content: '登录已过期，请重新登录',
           okText: '前往登录页',
           onOk: () => {
+            isShowModal = false;
             clearToken();
             redirectToLoginPage();
+          },
+          onCancel: () => {
+            isShowModal = false;
           },
         });
         break;
@@ -170,6 +179,10 @@ export function request({ secure, path, type, query, format, body, skipErrorHand
         message.error(axiosResponse.data?.msg ?? '网络错误，请稍后再试');
     }
 
+    requestCanceler.clearPendingRequest();
+
     throw axiosResponse.data;
   });
 }
+
+export class Request extends RequestCanceler {}
