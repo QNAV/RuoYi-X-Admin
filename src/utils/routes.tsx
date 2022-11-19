@@ -2,7 +2,7 @@ import { IconAntd } from '@/components';
 import type { Route } from '@/routes';
 import type { RouterVo } from '@/services/system/data-contracts';
 import type { MenuDataItem } from '@ant-design/pro-components';
-import qs from 'query-string';
+import qs from 'qs';
 
 const getFullPath = (currPath = '', parentPath = ''): string => {
   if (currPath.startsWith('/')) {
