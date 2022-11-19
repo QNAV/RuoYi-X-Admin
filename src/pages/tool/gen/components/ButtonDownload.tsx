@@ -1,6 +1,6 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import { GenGetBatchGenCode } from '@/services/gen/GenService';
+import { genGetBatchGenCode } from '@/services/gen/Tool';
 import { CloudDownloadOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message } from 'antd';
@@ -18,7 +18,7 @@ const ButtonDownload: FC<{
 
   const { isLoading, mutate } = useMutation(
     async () => {
-      const res = await GenGetBatchGenCode({ tables: tableName }, { skipErrorHandler: true, responseType: 'blob' });
+      const res = await genGetBatchGenCode({ tables: tableName });
 
       saveAs(new Blob([res.data], { type: 'application/zip' }), 'ruoyi');
     },

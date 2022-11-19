@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValuePreviewModal, useHidePreviewModal } from '@/pages/tool/gen/model';
-import { GenGetPreview } from '@/services/gen/GenService';
+import { genGetPreview } from '@/services/gen/Tool';
 import { CopyOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
 import { Button, message, Modal, Spin, Tabs } from 'antd';
@@ -18,7 +18,7 @@ const ModalPreview: FC = () => {
 
   const { data, loading } = useRequest(
     async () => {
-      const data = await GenGetPreview({ tableId: previewId });
+      const data = await genGetPreview({ tableId: previewId });
 
       return Object.keys(data).map((key) => ({
         key,

@@ -1,6 +1,6 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
-import { GenGetSynchDb } from '@/services/gen/GenService';
+import { genGetSynchDb } from '@/services/gen/Tool';
 import { CloudSyncOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, message } from 'antd';
@@ -11,7 +11,7 @@ const ButtonSync: FC<{ tableName: string }> = ({ tableName }) => {
 
   const { isLoading, mutate } = useMutation(
     async () => {
-      await GenGetSynchDb({ tableName });
+      await genGetSynchDb({ tableName });
     },
     {
       onSuccess: () => {

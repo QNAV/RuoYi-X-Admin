@@ -7,12 +7,13 @@ import ButtonPreview from '@/pages/tool/gen/components/ButtonPreview';
 import ButtonSync from '@/pages/tool/gen/components/ButtonSync';
 import ModalPreview from '@/pages/tool/gen/components/ModalPreview';
 import { useActionRefMainTable } from '@/pages/tool/gen/model';
-import { GenPostList } from '@/services/gen/GenService';
+import type { GenTablePageQuery, GenTableRes } from '@/services/gen/data-contracts';
+import { genPostList } from '@/services/gen/Tool';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
-const columns: ProColumns<API.GenTableRes>[] = [
+const columns: ProColumns<GenTableRes>[] = [
   { title: '序号', dataIndex: 'index', key: 'index', valueType: 'indexBorder' },
   { title: '表名称', dataIndex: 'tableName', key: 'tableName', valueType: 'text' },
   { title: '表描述', dataIndex: 'tableComment', key: 'tableComment', valueType: 'text' },
@@ -61,7 +62,7 @@ const columns: ProColumns<API.GenTableRes>[] = [
   },
 ];
 
-const tableAlertOptionRender: ProTableProps<API.GenTableRes, 'text'>['tableAlertOptionRender'] = ({
+const tableAlertOptionRender: ProTableProps<GenTableRes, 'text'>['tableAlertOptionRender'] = ({
   selectedRows,
   selectedRowKeys,
 }) => {
@@ -83,13 +84,13 @@ const GenPage: FC = () => {
 
   return (
     <BasePageContainer>
-      <BaseProTable<API.GenTableRes, API.GenTablePageQuery>
+      <BaseProTable<GenTableRes, GenTablePageQuery>
         rowKey="tableId"
         actionRef={actionRef}
         tableAlertOptionRender={tableAlertOptionRender}
         columns={columns}
         toolbar={{ actions: [<ButtonImport key="ButtonImport" />] }}
-        request={(...params) => GenPostList(convertParams(...params))}
+        request={(...params) => genPostList(convertParams(...params))}
       />
 
       <ModalPreview />

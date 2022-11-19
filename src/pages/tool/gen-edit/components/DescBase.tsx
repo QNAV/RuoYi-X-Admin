@@ -1,16 +1,17 @@
 import { GenType, GenTypeMap, TemplateTypeMap } from '@/constants';
+import type { GenTableReq, GenTableRes } from '@/services/gen/data-contracts';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { Divider } from 'antd';
 import type { FC } from 'react';
 
 const DescBase: FC<{
-  dataSource?: API.GenTableRes;
-  handleEdit: (p: Partial<API.GenTableReq>) => Promise<void>;
+  dataSource?: GenTableRes;
+  handleEdit: (p: Partial<GenTableReq>) => Promise<void>;
 }> = ({ dataSource, handleEdit }) => {
   const editable: ProDescriptionsProps['editable'] = {
     onSave: async (k, record) => {
-      const key = k as keyof Omit<API.GenTableReq, 'tableId'>;
+      const key = k as keyof Omit<GenTableReq, 'tableId'>;
 
       await handleEdit({ [key]: record[key] });
     },

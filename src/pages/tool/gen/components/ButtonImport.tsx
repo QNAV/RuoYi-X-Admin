@@ -1,7 +1,8 @@
 import { Access, BaseProTable } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/tool/gen/model';
-import { GenPostDbList, GenPostImportTable } from '@/services/gen/GenService';
+import type { GenTablePageQuery, GenTableRes } from '@/services/gen/data-contracts';
+import { genPostDbList, genPostImportTable } from '@/services/gen/Tool';
 import { convertParams } from '@/utils';
 import { CloudUploadOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
@@ -11,7 +12,7 @@ import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 
-const columns: ProColumns<API.GenTableRes>[] = [
+const columns: ProColumns<GenTableRes>[] = [
   { title: '序号', dataIndex: 'index', key: 'index', valueType: 'indexBorder' },
   { title: '表名称', dataIndex: 'tableName', key: 'tableName', valueType: 'text' },
   { title: '表描述', dataIndex: 'tableComment', key: 'tableComment', valueType: 'text' },
@@ -51,7 +52,7 @@ const ButtonImport: FC = () => {
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
 
-  const { mutate, isLoading } = useMutation(GenPostImportTable, {
+  const { mutate, isLoading } = useMutation(genPostImportTable, {
     onSuccess: () => {
       tableActions?.reload();
       toggle();
@@ -78,7 +79,7 @@ const ButtonImport: FC = () => {
           disabled: selectedRowKeys.length === 0,
         }}
       >
-        <BaseProTable<API.GenTableRes, API.GenTablePageQuery>
+        <BaseProTable<GenTableRes, GenTablePageQuery>
           ghost
           actionRef={actionRef}
           columns={columns}
@@ -92,7 +93,7 @@ const ButtonImport: FC = () => {
           }}
           tableAlertOptionRender={false}
           options={false}
-          request={(...params) => GenPostDbList(convertParams(...params))}
+          request={(...params) => genPostDbList(convertParams(...params))}
         />
       </Modal>
     </Access>

@@ -1,7 +1,7 @@
 import { Access } from '@/components';
 import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/tool/gen/model';
-import { GenPostRemove } from '@/services/gen/GenService';
+import { genPostRemove } from '@/services/gen/Tool';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
@@ -22,7 +22,7 @@ const ButtonDelete: FC<{ tableIds: number; isBatch?: boolean; disabled?: boolean
       title: '删除代码',
       content: `确定删除 表ID ${tableIds} 生成的代码吗？`,
       onOk: async () => {
-        await GenPostRemove({ tableIds });
+        await genPostRemove({ tableIds });
         tableActions?.reload();
         tableActions?.clearSelected?.();
         message.success('删除成功');
