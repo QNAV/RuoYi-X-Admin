@@ -80,7 +80,6 @@ import type {
   SysUserEditBo,
   SysUserPageQueryBo,
   SysUserQueryBo,
-  SysUserReq,
   SysUserRole,
   TableDataInfoBizLogininforVo,
   TableDataInfoSysConfigVo,
@@ -1962,7 +1961,7 @@ export const sysUserGetAuthRole = (
  * @request POST:/system/user/changeStatus
  * @secure
  */
-export const sysUserPostChangeStatus = (data: SysUserReq, params: RequestParams = {}) =>
+export const sysUserPostChangeStatus = (data: SysUserEditBo, params: RequestParams = {}) =>
   request<ResponseVoid>({
     path: `/system/user/changeStatus`,
     method: 'POST',
@@ -2152,7 +2151,7 @@ export const sysUserPostRemove = (
  * @request POST:/system/user/resetPwd
  * @secure
  */
-export const sysUserPostResetPwd = (data: SysUserReq, params: RequestParams = {}) =>
+export const sysUserPostResetPwd = (data: SysUserEditBo, params: RequestParams = {}) =>
   request<ResponseVoid>({
     path: `/system/user/resetPwd`,
     method: 'POST',

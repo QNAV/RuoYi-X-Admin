@@ -1388,15 +1388,6 @@ export interface SysConfigVo {
 export interface SysDept {
   /** 祖级列表 */
   ancestors?: string;
-  /** 子部门 */
-  children?: SysDept[];
-  /** 创建者 */
-  createBy?: string;
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createTime?: string;
   /** 删除标志（0代表存在 2代表删除） */
   delFlag?: string;
   /**
@@ -1424,13 +1415,6 @@ export interface SysDept {
    */
   orderNum: number;
   /**
-   * 父菜单ID
-   * @format int64
-   */
-  parentId?: number;
-  /** 父菜单名称 */
-  parentName?: string;
-  /**
    * 联系电话
    * @minLength 0
    * @maxLength 11
@@ -1438,13 +1422,6 @@ export interface SysDept {
   phone?: string;
   /** 部门状态:0正常,1停用 */
   status?: string;
-  /** 更新者 */
-  updateBy?: string;
-  /**
-   * 更新时间
-   * @format date-time
-   */
-  updateTime?: string;
 }
 
 /**
@@ -2035,21 +2012,12 @@ export interface SysLogininforVo {
  * 菜单权限业务对象
  */
 export interface SysMenu {
-  /** 子部门 */
-  children?: SysMenu[];
   /**
    * 组件路径
    * @minLength 0
    * @maxLength 200
    */
   component?: string;
-  /** 创建者 */
-  createBy?: string;
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createTime?: string;
   /** 菜单图标 */
   icon?: string;
   /** 是否缓存（0缓存 1不缓存） */
@@ -2075,13 +2043,6 @@ export interface SysMenu {
    */
   orderNum: number;
   /**
-   * 父菜单ID
-   * @format int64
-   */
-  parentId?: number;
-  /** 父菜单名称 */
-  parentName?: string;
-  /**
    * 路由地址
    * @minLength 0
    * @maxLength 200
@@ -2099,13 +2060,6 @@ export interface SysMenu {
   remark?: string;
   /** 菜单状态（0显示 1隐藏） */
   status?: string;
-  /** 更新者 */
-  updateBy?: string;
-  /**
-   * 更新时间
-   * @format date-time
-   */
-  updateTime?: string;
   /** 显示状态（0显示 1隐藏） */
   visible?: string;
 }
@@ -3005,6 +2959,11 @@ export interface SysPostVo {
  * 角色实体对象
  */
 export interface SysRole {
+  /**
+   * 是否管理员
+   * @example false
+   */
+  admin?: boolean;
   /** 创建者 */
   createBy?: string;
   /**
@@ -3116,151 +3075,6 @@ export interface SysRoleQueryBo {
 }
 
 /**
- * SysRoleReq
- * 角色实体对象
- */
-export interface SysRoleReq {
-  /** 创建者 */
-  createBy?: string;
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createTime?: string;
-  /** 数据范围（1：所有数据权限；2：自定义数据权限；3：本部门数据权限；4：本部门及以下数据权限；5：仅本人数据权限） */
-  dataScope?: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag?: string;
-  /**
-   * 部门树选择项是否关联显示（0：父子不互相关联显示 1：父子互相关联显示 ）
-   * @example false
-   */
-  deptCheckStrictly?: boolean;
-  /** 部门组（数据权限） */
-  deptIds?: number[];
-  /**
-   * 用户是否存在此角色标识 默认不存在
-   * @example false
-   */
-  flag?: boolean;
-  /**
-   * 菜单树选择项是否关联显示（ 0：父子不互相关联显示 1：父子互相关联显示）
-   * @example false
-   */
-  menuCheckStrictly?: boolean;
-  /** 菜单组 */
-  menuIds: number[];
-  /** 备注 */
-  remark?: string;
-  /**
-   * 角色ID
-   * @format int64
-   */
-  roleId?: number;
-  /**
-   * 角色权限
-   * @minLength 0
-   * @maxLength 100
-   */
-  roleKey: string;
-  /**
-   * 角色名称
-   * @minLength 0
-   * @maxLength 30
-   */
-  roleName: string;
-  /**
-   * 角色排序
-   * @format int32
-   */
-  roleSort: number;
-  /** 角色状态（0正常 1停用） */
-  status: string;
-  /** 更新者 */
-  updateBy?: string;
-  /**
-   * 更新时间
-   * @format date-time
-   */
-  updateTime?: string;
-}
-
-/**
- * SysRoleRes
- * 角色实体对象
- */
-export interface SysRoleRes {
-  /**
-   * 是否管理员
-   * @example false
-   */
-  admin?: boolean;
-  /** 创建者 */
-  createBy?: string;
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createTime?: string;
-  /** 数据范围（1：所有数据权限；2：自定义数据权限；3：本部门数据权限；4：本部门及以下数据权限；5：仅本人数据权限） */
-  dataScope?: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag?: string;
-  /**
-   * 部门树选择项是否关联显示（0：父子不互相关联显示 1：父子互相关联显示 ）
-   * @example false
-   */
-  deptCheckStrictly?: boolean;
-  /** 部门组（数据权限） */
-  deptIds?: number[];
-  /**
-   * 用户是否存在此角色标识 默认不存在
-   * @example false
-   */
-  flag?: boolean;
-  /**
-   * 菜单树选择项是否关联显示（ 0：父子不互相关联显示 1：父子互相关联显示）
-   * @example false
-   */
-  menuCheckStrictly?: boolean;
-  /** 菜单组 */
-  menuIds: number[];
-  /** 备注 */
-  remark?: string;
-  /**
-   * 角色ID
-   * @format int64
-   */
-  roleId?: number;
-  /**
-   * 角色权限
-   * @minLength 0
-   * @maxLength 100
-   */
-  roleKey: string;
-  /**
-   * 角色名称
-   * @minLength 0
-   * @maxLength 30
-   */
-  roleName: string;
-  /**
-   * 角色排序
-   * @format int32
-   */
-  roleSort: number;
-  /** 角色状态（0正常 1停用） */
-  status: string;
-  /** 更新者 */
-  updateBy?: string;
-  /**
-   * 更新时间
-   * @format date-time
-   */
-  updateTime?: string;
-}
-
-/**
  * SysRoleVo
  * 角色视图对象
  */
@@ -3325,6 +3139,96 @@ export interface SysRoleVo {
    * @format date-time
    */
   updateTime?: string;
+}
+
+/**
+ * SysUser
+ * 后台用户实体对象
+ */
+export interface SysUser {
+  /**
+   * 是否管理员
+   * @example false
+   */
+  admin?: boolean;
+  /** 用户头像 */
+  avatar?: string;
+  /** 创建者 */
+  createBy?: string;
+  /**
+   * 创建时间
+   * @format date-time
+   */
+  createTime?: string;
+  /** 删除标志（0代表存在 2代表删除） */
+  delFlag?: string;
+  /** 部门对象 */
+  dept?: SysDept;
+  /**
+   * 部门ID
+   * @format int64
+   */
+  deptId?: number;
+  /**
+   * 用户邮箱
+   * @minLength 0
+   * @maxLength 50
+   */
+  email?: string;
+  /**
+   * 最后登录时间
+   * @format date-time
+   */
+  loginDate?: string;
+  /** 最后登录IP */
+  loginIp?: string;
+  /**
+   * 用户昵称
+   * @minLength 0
+   * @maxLength 30
+   */
+  nickName: string;
+  /** 密码 */
+  password: string;
+  /** 手机号码 */
+  phoneNumber?: string;
+  /** 岗位组 */
+  postIds: number[];
+  /** 备注 */
+  remark?: string;
+  /**
+   * 角色ID
+   * @format int64
+   */
+  roleId?: number;
+  /** 角色组 */
+  roleIds: number[];
+  /** 角色对象 */
+  roles?: SysRole[];
+  /** 用户性别 */
+  sex?: string;
+  /** 帐号状态（0正常 1停用） */
+  status?: string;
+  /** 更新者 */
+  updateBy?: string;
+  /**
+   * 更新时间
+   * @format date-time
+   */
+  updateTime?: string;
+  /**
+   * 用户ID
+   * @format int64
+   */
+  userId?: number;
+  /**
+   * 用户账号
+   * @minLength 0
+   * @maxLength 30
+   */
+  userName: string;
+  /** 用户类型 */
+  userType?: string;
 }
 
 /**
@@ -3545,181 +3449,6 @@ export interface SysUserQueryBo {
   userId?: number;
   /** 用户账号 */
   userName?: string;
-}
-
-/**
- * SysUserReq
- * 后台用户实体对象
- */
-export interface SysUserReq {
-  /** 用户头像 */
-  avatar?: string;
-  /** 创建者 */
-  createBy?: string;
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createTime?: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag?: string;
-  /** 部门对象 */
-  dept?: SysDept;
-  /**
-   * 部门ID
-   * @format int64
-   */
-  deptId?: number;
-  /**
-   * 用户邮箱
-   * @minLength 0
-   * @maxLength 50
-   */
-  email?: string;
-  /**
-   * 最后登录时间
-   * @format date-time
-   */
-  loginDate?: string;
-  /** 最后登录IP */
-  loginIp?: string;
-  /**
-   * 用户昵称
-   * @minLength 0
-   * @maxLength 30
-   */
-  nickName: string;
-  /** 密码 */
-  password: string;
-  /** 手机号码 */
-  phoneNumber?: string;
-  /** 岗位组 */
-  postIds: number[];
-  /** 备注 */
-  remark?: string;
-  /**
-   * 角色ID
-   * @format int64
-   */
-  roleId?: number;
-  /** 角色组 */
-  roleIds: number[];
-  /** 角色对象 */
-  roles?: SysRoleReq[];
-  /** 用户性别 */
-  sex?: string;
-  /** 帐号状态（0正常 1停用） */
-  status?: string;
-  /** 更新者 */
-  updateBy?: string;
-  /**
-   * 更新时间
-   * @format date-time
-   */
-  updateTime?: string;
-  /**
-   * 用户ID
-   * @format int64
-   */
-  userId?: number;
-  /**
-   * 用户账号
-   * @minLength 0
-   * @maxLength 30
-   */
-  userName: string;
-  /** 用户类型 */
-  userType?: string;
-}
-
-/**
- * SysUserRes
- * 后台用户实体对象
- */
-export interface SysUserRes {
-  /**
-   * 是否管理员
-   * @example false
-   */
-  admin?: boolean;
-  /** 用户头像 */
-  avatar?: string;
-  /** 创建者 */
-  createBy?: string;
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createTime?: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag?: string;
-  /** 部门对象 */
-  dept?: SysDept;
-  /**
-   * 部门ID
-   * @format int64
-   */
-  deptId?: number;
-  /**
-   * 用户邮箱
-   * @minLength 0
-   * @maxLength 50
-   */
-  email?: string;
-  /**
-   * 最后登录时间
-   * @format date-time
-   */
-  loginDate?: string;
-  /** 最后登录IP */
-  loginIp?: string;
-  /**
-   * 用户昵称
-   * @minLength 0
-   * @maxLength 30
-   */
-  nickName: string;
-  /** 密码 */
-  password: string;
-  /** 手机号码 */
-  phoneNumber?: string;
-  /** 岗位组 */
-  postIds: number[];
-  /** 备注 */
-  remark?: string;
-  /**
-   * 角色ID
-   * @format int64
-   */
-  roleId?: number;
-  /** 角色组 */
-  roleIds: number[];
-  /** 角色对象 */
-  roles?: SysRoleRes[];
-  /** 用户性别 */
-  sex?: string;
-  /** 帐号状态（0正常 1停用） */
-  status?: string;
-  /** 更新者 */
-  updateBy?: string;
-  /**
-   * 更新时间
-   * @format date-time
-   */
-  updateTime?: string;
-  /**
-   * 用户ID
-   * @format int64
-   */
-  userId?: number;
-  /**
-   * 用户账号
-   * @minLength 0
-   * @maxLength 30
-   */
-  userName: string;
-  /** 用户类型 */
-  userType?: string;
 }
 
 /**
@@ -4265,9 +3994,9 @@ export interface UpdatePwdBo {
  */
 export interface UserAuthRoleVo {
   /** 授权角色列表 */
-  roles?: SysRoleRes[];
+  roles?: SysRole[];
   /** 用户信息业务对象 */
-  user?: SysUserRes;
+  user?: SysUser;
 }
 
 /**
