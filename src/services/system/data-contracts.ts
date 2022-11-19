@@ -1568,115 +1568,6 @@ export interface SysDeptQueryBo {
 }
 
 /**
- * SysDeptReq
- * 部门业务对象
- */
-export interface SysDeptReq {
-  /** 祖级列表 */
-  ancestors?: string;
-  /** 子部门 */
-  children?: SysDeptReq[];
-  /** 创建者 */
-  createBy?: string;
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createTime?: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag?: string;
-  /**
-   * 部门id
-   * @format int64
-   */
-  deptId?: number;
-  /**
-   * 部门名称
-   * @minLength 0
-   * @maxLength 30
-   */
-  deptName: string;
-  /**
-   * 邮箱
-   * @minLength 0
-   * @maxLength 50
-   */
-  email?: string;
-  /** 负责人 */
-  leader?: string;
-  /**
-   * 显示顺序
-   * @format int32
-   */
-  orderNum: number;
-  /**
-   * 父菜单ID
-   * @format int64
-   */
-  parentId?: number;
-  /** 父菜单名称 */
-  parentName?: string;
-  /**
-   * 联系电话
-   * @minLength 0
-   * @maxLength 11
-   */
-  phone?: string;
-  /** 部门状态:0正常,1停用 */
-  status?: string;
-  /** 更新者 */
-  updateBy?: string;
-  /**
-   * 更新时间
-   * @format date-time
-   */
-  updateTime?: string;
-}
-
-/**
- * SysDeptRes
- * 部门业务对象
- */
-export interface SysDeptRes {
-  /** 祖级列表 */
-  ancestors?: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag?: string;
-  /**
-   * 部门id
-   * @format int64
-   */
-  deptId?: number;
-  /**
-   * 部门名称
-   * @minLength 0
-   * @maxLength 30
-   */
-  deptName: string;
-  /**
-   * 邮箱
-   * @minLength 0
-   * @maxLength 50
-   */
-  email?: string;
-  /** 负责人 */
-  leader?: string;
-  /**
-   * 显示顺序
-   * @format int32
-   */
-  orderNum: number;
-  /**
-   * 联系电话
-   * @minLength 0
-   * @maxLength 11
-   */
-  phone?: string;
-  /** 部门状态:0正常,1停用 */
-  status?: string;
-}
-
-/**
  * SysDeptVo
  * 部门视图对象
  */
@@ -2144,12 +2035,21 @@ export interface SysLogininforVo {
  * 菜单权限业务对象
  */
 export interface SysMenu {
+  /** 子部门 */
+  children?: SysMenu[];
   /**
    * 组件路径
    * @minLength 0
    * @maxLength 200
    */
   component?: string;
+  /** 创建者 */
+  createBy?: string;
+  /**
+   * 创建时间
+   * @format date-time
+   */
+  createTime?: string;
   /** 菜单图标 */
   icon?: string;
   /** 是否缓存（0缓存 1不缓存） */
@@ -2175,6 +2075,13 @@ export interface SysMenu {
    */
   orderNum: number;
   /**
+   * 父菜单ID
+   * @format int64
+   */
+  parentId?: number;
+  /** 父菜单名称 */
+  parentName?: string;
+  /**
    * 路由地址
    * @minLength 0
    * @maxLength 200
@@ -2192,6 +2099,13 @@ export interface SysMenu {
   remark?: string;
   /** 菜单状态（0显示 1隐藏） */
   status?: string;
+  /** 更新者 */
+  updateBy?: string;
+  /**
+   * 更新时间
+   * @format date-time
+   */
+  updateTime?: string;
   /** 显示状态（0显示 1隐藏） */
   visible?: string;
 }
@@ -3650,7 +3564,7 @@ export interface SysUserReq {
   /** 删除标志（0代表存在 2代表删除） */
   delFlag?: string;
   /** 部门对象 */
-  dept?: SysDeptReq;
+  dept?: SysDept;
   /**
    * 部门ID
    * @format int64
@@ -3740,7 +3654,7 @@ export interface SysUserRes {
   /** 删除标志（0代表存在 2代表删除） */
   delFlag?: string;
   /** 部门对象 */
-  dept?: SysDeptRes;
+  dept?: SysDept;
   /**
    * 部门ID
    * @format int64

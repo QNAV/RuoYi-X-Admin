@@ -90,7 +90,7 @@ export const bizUserGetInfo = (
      * 主键
      * @format int64
      */
-    主键: number;
+    userId: number;
   },
   params: RequestParams = {},
 ) =>
@@ -134,7 +134,7 @@ export const bizUserPostRemove = (
      * 主键串
      * @format int64
      */
-    公告ID串: number;
+    userIds: number;
   },
   params: RequestParams = {},
 ) =>
