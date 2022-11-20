@@ -1,5 +1,5 @@
 @import url('antd/dist/reset.css');
-@import url('nprogress/nprogress.css');
+@import url('./styles/nprogress.css');
 
 @tailwind components;
 @tailwind utilities;
