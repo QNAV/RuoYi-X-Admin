@@ -1,15 +1,15 @@
+import { Access } from '@/components';
 import type { KeepAliveElements } from '@/layouts/components/HeaderTabs';
 import HeaderTabs from '@/layouts/components/HeaderTabs';
 import IconLogout from '@/layouts/components/IconLogout';
 import IconSetting from '@/layouts/components/IconSetting';
 import MenuItem from '@/layouts/components/MenuItem';
-import type { AccessObject } from '@/models';
-import { useAtomValueAccess, useQueryInitialState } from '@/models';
-import { accessKeysMap, settingsMap } from '@/routes';
-import { convertUserRoutesToMenus } from '@/utils';
+import { useQueryInitialState } from '@/models';
+import { accessKeysMap, accessRoutes, settingsMap } from '@/routes';
+import { checkAccess, convertUserRoutesToMenus } from '@/utils';
 import { ProLayout } from '@ant-design/pro-components';
 import type { FC } from 'react';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { matchPath, Navigate, useLocation, useNavigate, useOutlet } from 'react-router-dom';
 
 const useKeepAliveOutlets = () => {
@@ -43,16 +43,15 @@ const Layouts: FC = () => {
   const navigate = useNavigate();
   const element = useKeepAliveOutlets();
 
-  const { data: initialState, isSuccess, isLoading } = useQueryInitialState();
+  const { data: initialState, isLoading } = useQueryInitialState();
 
-  const access = useAtomValueAccess();
+  const accessible = useMemo(() => {
+    const currRouteAccessKey = accessRoutes.find((key) => matchPath(key, pathname));
 
-  if (
-    isSuccess &&
-    (accessKeysMap[pathname] === undefined ? false : !access[accessKeysMap[pathname] as keyof AccessObject])
-  ) {
-    return <Navigate to="/403" replace />;
-  }
+    if (!currRouteAccessKey) return true;
+
+    return checkAccess(accessKeysMap[currRouteAccessKey], new Set(initialState?.userInfo?.permissions));
+  }, [pathname, initialState?.userInfo?.permissions]);
 
   return (
     <ProLayout
@@ -92,7 +91,11 @@ const Layouts: FC = () => {
       }}
       actionsRender={() => [<IconSetting key="IconSetting" />, <IconLogout key="IconLogout" />]}
     >
-      {element}
+      {!isLoading && (
+        <Access accessible={accessible} fallback={<Navigate to="/403" />}>
+          {element}
+        </Access>
+      )}
     </ProLayout>
   );
 };

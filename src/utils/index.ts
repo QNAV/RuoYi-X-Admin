@@ -1,6 +1,6 @@
+export * from './access';
 export * from './convert';
 export * from './lazyLoad';
-export * from './permissions';
 export * from './regExp';
 export * from './request';
 export * from './routes';

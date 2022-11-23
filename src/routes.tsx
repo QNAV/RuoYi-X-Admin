@@ -3,7 +3,7 @@ import type { IndexRouteObject, NonIndexRouteObject } from 'react-router-dom';
 
 interface CustomIndexRouteObject extends IndexRouteObject {
   name?: string;
-  access?: string;
+  access?: string | string[];
   hideInTab?: boolean;
   closableTab?: boolean;
   isKeepAlive?: boolean;
@@ -11,7 +11,7 @@ interface CustomIndexRouteObject extends IndexRouteObject {
 
 interface CustomNonIndexRouteObject extends NonIndexRouteObject {
   name?: string;
-  access?: string;
+  access?: string | string[];
   hideInTab?: boolean;
   closableTab?: boolean;
   isKeepAlive?: boolean;
@@ -235,6 +235,18 @@ export const layoutRoutes: Route[] = [
         element: lazyLoadPage('settings'),
         isKeepAlive: true,
       },
+      {
+        name: '403',
+        path: '403',
+        element: lazyLoadPage('exception/403'),
+        hideInTab: true,
+      },
+      {
+        name: '404',
+        path: '*',
+        element: lazyLoadPage('exception/404'),
+        hideInTab: true,
+      },
     ],
   },
 ];
@@ -246,22 +258,9 @@ export const routes: Route[] = [
     path: 'login',
     element: lazyLoadPage('login'),
   },
-  {
-    name: '500',
-    path: '500',
-    element: lazyLoadPage('exception/500'),
-  },
-  {
-    name: '403',
-    path: '403',
-    element: lazyLoadPage('exception/403'),
-  },
-  {
-    name: '404',
-    path: '*',
-    element: lazyLoadPage('exception/404'),
-  },
 ];
 
 export const accessKeysMap = getRoutesAccessKeysMap(routes);
+export const accessRoutes = Object.keys(accessKeysMap);
+
 export const settingsMap = getRoutesSettingsMap(routes);

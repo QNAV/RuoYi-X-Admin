@@ -12,8 +12,8 @@ const getFullPath = (currPath = '', parentPath = ''): string => {
   return `${parentPath}/${currPath}`.replace(/\/+/g, '/');
 };
 
-export const getRoutesAccessKeysMap = (routes: Route[], parentPath = ''): Record<string, string> => {
-  const accessKeys: Record<string, string> = {};
+export const getRoutesAccessKeysMap = (routes: Route[], parentPath = ''): Record<string, string | string[]> => {
+  const accessKeys: Record<string, string | string[]> = {};
 
   routes.forEach((route) => {
     const fullPath = getFullPath(route.path, parentPath);

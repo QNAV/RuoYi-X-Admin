@@ -8,9 +8,7 @@ export const useInitActionType = (atom: PrimitiveAtom<ActionType | undefined>) =
   const setAtom = useSetAtom(atom);
 
   useEffect(() => {
-    if (actionRef?.current) {
-      setAtom(actionRef.current);
-    }
+    setAtom(actionRef.current);
   }, []);
 
   return actionRef;
