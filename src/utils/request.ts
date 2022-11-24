@@ -98,7 +98,7 @@ instance.interceptors.response.use(
     requestCanceler.removePendingRequest(axiosResponse.config);
     return axiosResponse;
   },
-  (error) => {
+  async (error) => {
     if (error?.config) requestCanceler.removePendingRequest(error.config);
 
     if (error?.code === 'ERR_CANCELED') return;
@@ -148,7 +148,7 @@ export function request({ secure, path, type, query, format, body, skipErrorHand
     responseType: format,
     data,
     url: path,
-  }).then((axiosResponse) => {
+  }).then(async (axiosResponse) => {
     if (skipErrorHandler) {
       return axiosResponse;
     }
