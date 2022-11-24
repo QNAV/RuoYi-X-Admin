@@ -166,13 +166,13 @@ export const layoutRoutes: Route[] = [
           },
           {
             name: 'Admin 监控',
-            path: 'admin',
+            path: 'Admin',
             element: lazyLoadPage('monitor/admin'),
             access: 'monitor:admin:list',
           },
           {
             name: '任务调度中心',
-            path: 'xxl-job',
+            path: 'XxlJob',
             element: lazyLoadPage('monitor/job'),
             access: 'monitor:xxljob:list',
           },
