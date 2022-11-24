@@ -1,5 +1,5 @@
 import { BaseProTable } from '@/components';
-import { useActivated } from '@/hooks';
+import { useActivated, useDeactivated } from '@/hooks';
 import { useQueryDict } from '@/models';
 import ButtonAdd from '@/pages/system/dictDetails/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/dictDetails/components/ButtonEdit';
@@ -104,8 +104,12 @@ const TableMain: FC = () => {
     },
   );
 
-  useActivated('/system/dict/:dictType', () => {
+  useActivated(() => {
+    console.log('activated');
     run();
+  });
+  useDeactivated(() => {
+    console.log('deactivated');
   });
 
   return (

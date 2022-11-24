@@ -1,45 +1,54 @@
-import { useEffect, useState } from 'react';
-import type { PathPattern } from 'react-router-dom';
+import { isKeepAliveRoutes } from '@/routes';
+import { useEffect, useRef } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 
-export const useActivated = (pattern: string | PathPattern, callback: () => void, ignoreFirstRender = false) => {
-  const [isActivated, setIsActivated] = useState(ignoreFirstRender);
+export const useActivated = (callback: () => void, ignoreFirstRender = true) => {
+  const pattern = useRef<string>();
+
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const isMatch = matchPath(pattern, pathname);
+    const currentPattern = isKeepAliveRoutes.find((i) => matchPath(i, pathname));
 
-    if (!isMatch && isActivated) {
-      setIsActivated(false);
-    }
-
-    if (!isMatch || isActivated) {
+    if (!currentPattern) {
       return;
     }
 
-    setIsActivated(true);
+    if (pattern.current === undefined && ignoreFirstRender) {
+      pattern.current = currentPattern;
+      return;
+    }
+
+    if (pattern.current === undefined && !ignoreFirstRender) {
+      pattern.current = currentPattern;
+      callback();
+      return;
+    }
+
+    if (!matchPath(pattern.current!, pathname)) {
+      return;
+    }
 
     callback();
-  }, [isActivated, pathname]);
+  }, [pathname]);
 };
 
-export const useDeactivated = (pattern: string | PathPattern, callback: () => void) => {
-  const [isDeactivated, setIsDeactivated] = useState(false);
+export const useDeactivated = (callback: () => void) => {
+  const hasActivated = useRef<boolean>(false);
+
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const isMatch = matchPath(pattern, pathname);
-
-    if (isMatch && isDeactivated) {
-      setIsDeactivated(false);
-    }
-
-    if (isMatch || isDeactivated) {
+    if (!hasActivated.current) {
       return;
     }
 
-    setIsDeactivated(true);
+    hasActivated.current = false;
 
     callback();
-  }, [isDeactivated, pathname]);
+  }, [pathname]);
+
+  useActivated(() => {
+    hasActivated.current = true;
+  }, false);
 };

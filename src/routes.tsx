@@ -268,4 +268,5 @@ export const accessKeysMap = getRoutesAccessKeysMap(routes);
 export const accessRoutes = Object.keys(accessKeysMap);
 
 export const settingsMap = getRoutesSettingsMap(routes);
-export const isKeepAliveRoutesSet = new Set(Object.keys(settingsMap).filter((key) => settingsMap[key].isKeepAlive));
+export const isKeepAliveRoutes = Object.keys(settingsMap).filter((key) => settingsMap[key].isKeepAlive);
+export const isKeepAliveRoutesSet = new Set(isKeepAliveRoutes);
