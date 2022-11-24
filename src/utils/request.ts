@@ -1,5 +1,4 @@
-import { checkToken, clearToken, getToken } from '@/utils';
-import { RequestCanceler } from '@/utils/requestCanceler';
+import { checkToken, clearToken, getToken, RequestCanceler } from '@/utils';
 import { message, Modal } from 'antd';
 import type { AxiosRequestConfig, AxiosResponse, ResponseType } from 'axios';
 import axios from 'axios';

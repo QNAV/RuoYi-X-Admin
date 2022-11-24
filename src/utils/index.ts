@@ -3,6 +3,7 @@ export * from './convert';
 export * from './lazyLoad';
 export * from './regExp';
 export * from './request';
+export * from './requestCanceler';
 export * from './routes';
 export * from './token';
 export * from './tree';
