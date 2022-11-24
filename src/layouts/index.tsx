@@ -5,7 +5,7 @@ import IconLogout from '@/layouts/components/IconLogout';
 import IconSetting from '@/layouts/components/IconSetting';
 import MenuItem from '@/layouts/components/MenuItem';
 import { useQueryInitialState } from '@/models';
-import { accessKeysMap, accessRoutes, settingsMap } from '@/routes';
+import { accessKeysMap, accessRoutes, isKeepAliveRoutesSet, settingsMap } from '@/routes';
 import { checkAccess, convertUserRoutesToMenus } from '@/utils';
 import { ProLayout } from '@ant-design/pro-components';
 import type { FC } from 'react';
@@ -19,7 +19,7 @@ const useKeepAliveOutlets = () => {
   const keepAliveElements = useRef<KeepAliveElements>({});
 
   const currRouteSettingsKey = Object.keys(settingsMap).find((key) => matchPath(key, pathname));
-  const isKeepAlive = currRouteSettingsKey ? settingsMap[currRouteSettingsKey].isKeepAlive : false;
+  const isKeepAlive = currRouteSettingsKey ? isKeepAliveRoutesSet.has(currRouteSettingsKey) : false;
 
   if (isKeepAlive) {
     keepAliveElements.current[currRouteSettingsKey!] = element;

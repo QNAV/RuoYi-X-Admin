@@ -47,14 +47,16 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
 
     setItems((v) => v.filter(({ key }) => key !== targetKey));
 
-    if (keepAliveElements[targetKey as string] !== undefined) {
-      delete keepAliveElements[targetKey as string];
+    if (keepAliveElements[targetKey] !== undefined) {
+      delete keepAliveElements[targetKey];
     }
   };
 
   useEffect(() => {
     setCloseGlobalTab(onClose);
+  }, []);
 
+  useEffect(() => {
     const currRouteSettingsKey = Object.keys(settingsMap).find((key) => matchPath(key, pathname));
 
     if (currRouteSettingsKey === undefined) {
@@ -84,7 +86,9 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
         navigate(`${pathname}${search}`);
       }}
       onEdit={(targetKey) => {
-        onClose(targetKey as string);
+        if (typeof targetKey === 'string') {
+          onClose(targetKey);
+        }
       }}
     />
   );
