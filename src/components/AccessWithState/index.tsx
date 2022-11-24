@@ -9,7 +9,7 @@ export interface AccessWithStateProps extends Omit<AccessProps, 'accessible'>, C
   accessKey: string | string[];
 }
 
-const AccessWithState: FC<AccessWithStateProps> = ({
+export const AccessWithState: FC<AccessWithStateProps> = ({
   children,
   fallback,
   accessKey,
@@ -29,5 +29,3 @@ const AccessWithState: FC<AccessWithStateProps> = ({
     </Access>
   );
 };
-
-export default AccessWithState;

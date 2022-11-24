@@ -128,28 +128,27 @@ const TreeMenu: FC = () => {
         }}
         trigger={['contextMenu']}
       >
-        <div className="h-[calc(100vh-310px)] overflow-auto">
-          {menuData?.treeData.length ? (
-            <Tree<SysMenuVo>
-              blockNode
-              selectedKeys={[selectedKey]}
-              onSelect={onSelect}
-              expandedKeys={expandedKeys}
-              titleRender={TreeContent}
-              onExpand={setExpandedKeys}
-              showLine={{ showLeafIcon: false }}
-              fieldNames={{
-                title: 'menuName',
-                key: 'menuId',
-                children: 'children',
-              }}
-              treeData={menuData?.treeData}
-              onRightClick={({ node: { key } }) => setSelectedKey(key as number)}
-            />
-          ) : (
-            <EmptySimple />
-          )}
-        </div>
+        {menuData?.treeData.length ? (
+          <Tree<SysMenuVo>
+            blockNode
+            selectedKeys={[selectedKey]}
+            onSelect={onSelect}
+            expandedKeys={expandedKeys}
+            titleRender={TreeContent}
+            onExpand={setExpandedKeys}
+            showLine={{ showLeafIcon: false }}
+            fieldNames={{
+              title: 'menuName',
+              key: 'menuId',
+              children: 'children',
+            }}
+            height={700}
+            treeData={menuData?.treeData}
+            onRightClick={({ node: { key } }) => setSelectedKey(key as number)}
+          />
+        ) : (
+          <EmptySimple />
+        )}
       </Dropdown>
     </>
   );

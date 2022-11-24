@@ -1,30 +1,25 @@
-import { Access } from '@/components';
+import { AccessWithState, BaseButtonRemove } from '@/components';
 import { useAtomValueSelectedMenuData, useDeleteMenu } from '@/pages/system/menu/model';
-import { DeleteOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
 import type { FC } from 'react';
 
-const ButtonDelete: FC = () => {
+const ButtonRemove: FC = () => {
   const { hasSelected, selectedMenuId, selectedMenuName } = useAtomValueSelectedMenuData();
 
   const deleteMenu = useDeleteMenu();
 
   return (
-    <Access accessible>
-      <Button
-        icon={<DeleteOutlined />}
-        danger
+    <AccessWithState accessKey="system:menu:remove">
+      <BaseButtonRemove
+        disabled={!hasSelected}
         onClick={() =>
           deleteMenu({
             menuId: selectedMenuId,
             menuName: selectedMenuName,
           })
         }
-      >
-        删除
-      </Button>
-    </Access>
+      />
+    </AccessWithState>
   );
 };
 
-export default ButtonDelete;
+export default ButtonRemove;
