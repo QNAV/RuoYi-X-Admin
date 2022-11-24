@@ -80,7 +80,7 @@ const Layouts: FC = () => {
           colorMenuBackground: '#fff',
           colorMenuItemDivider: '#dfdfdf',
           colorTextMenu: '#595959',
-          colorTextMenuSelected: '#1677ff',
+          colorTextMenuSelected: 'rgba(42,122,251,1)',
           colorBgMenuItemSelected: 'rgba(230,243,254,1)',
         },
       }}

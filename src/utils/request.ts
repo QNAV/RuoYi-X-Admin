@@ -86,7 +86,7 @@ instance.interceptors.request.use((config) => {
   headers.Authorization = getToken();
 
   requestCanceler.addPendingRequest(restConfig);
-  console.log('requestCanceler.pendingRequests', requestCanceler.pendingRequestMap);
+
   return {
     ...restConfig,
     headers,
@@ -99,9 +99,9 @@ instance.interceptors.response.use(
     return axiosResponse;
   },
   (error) => {
-    if (error?.config) {
-      requestCanceler.removePendingRequest(error.config);
-    }
+    if (error?.config) requestCanceler.removePendingRequest(error.config);
+
+    if (error?.code === 'ERR_CANCELED') return;
 
     let errorMessage = '网络错误，请稍后再试';
 
@@ -112,8 +112,6 @@ instance.interceptors.response.use(
     }
 
     message.error(errorMessage);
-
-    throw error;
   },
 );
 
@@ -161,6 +159,7 @@ export function request({ secure, path, type, query, format, body, skipErrorHand
       case 401:
         if (isShowModal) return;
         isShowModal = true;
+        requestCanceler.clearPendingRequest();
         Modal.confirm({
           title: '提示',
           content: '登录已过期，请重新登录',
@@ -179,10 +178,6 @@ export function request({ secure, path, type, query, format, body, skipErrorHand
         message.error(axiosResponse.data?.msg ?? '网络错误，请稍后再试');
     }
 
-    requestCanceler.clearPendingRequest();
-
     throw axiosResponse.data;
   });
 }
-
-export class Request extends RequestCanceler {}
