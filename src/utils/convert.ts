@@ -72,12 +72,14 @@ export const convertDict2ValueEnum = (dict: SysDictDataVo[], valueType?: 'number
   let defaultValue: null | Key = null;
 
   const mapData: ValueEnumMap<Key> = dict.reduce((pre, item) => {
+    const value = valueType === 'number' ? Number(item.dictValue) : item.dictValue;
+
     if (item.isDefault === YNStatus.YES) {
-      defaultValue = item.dictValue;
+      defaultValue = value;
     }
 
-    return pre.set(item.dictValue, {
-      text: valueType === 'number' ? Number(item.dictLabel) : item.dictLabel,
+    return pre.set(value, {
+      text: item.dictLabel,
       status: item.listClass,
     });
   }, new Map());
