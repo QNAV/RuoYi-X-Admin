@@ -115,7 +115,7 @@ instance.interceptors.response.use(
   },
 );
 
-let isShowModal = false;
+let modal: ReturnType<typeof Modal.confirm> | null = null;
 
 export function request<D extends ResponseStructure>(
   params: { skipErrorHandler?: false } & Omit<FullRequestParams, 'skipErrorHandler'>,
@@ -155,22 +155,22 @@ export function request({ secure, path, type, query, format, body, skipErrorHand
 
     switch (axiosResponse.data.code) {
       case 200:
-        return axiosResponse.data.data;
+        return axiosResponse.data?.data ?? axiosResponse.data;
       case 401:
-        if (isShowModal) return;
-        isShowModal = true;
         requestCanceler.clearPendingRequest();
-        Modal.confirm({
+
+        if (modal) return;
+
+        modal = Modal.confirm({
           title: '提示',
           content: '登录已过期，请重新登录',
           okText: '前往登录页',
           onOk: () => {
-            isShowModal = false;
             clearToken();
             redirectToLoginPage();
           },
           onCancel: () => {
-            isShowModal = false;
+            modal = null;
           },
         });
         break;
