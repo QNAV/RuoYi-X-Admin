@@ -5,6 +5,8 @@ specifiers:
   '@ant-design/pro-components': ^2.3.35
   '@commitlint/cli': ^17.3.0
   '@commitlint/config-conventional': ^17.3.0
+  '@sentry/react': ^7.21.1
+  '@sentry/tracing': ^7.21.1
   '@tanstack/react-query': ^4.16.1
   '@tanstack/react-query-devtools': ^4.16.1
   '@types/file-saver': ^2.0.5
@@ -57,6 +59,8 @@ specifiers:
 dependencies:
   '@ant-design/icons': 4.8.0_biqbaboplfbrettd7655fr4n2y
   '@ant-design/pro-components': 2.3.35_b5a5rinwfsrmvh3bqne3vodjk4
+  '@sentry/react': 7.21.1_react@18.2.0
+  '@sentry/tracing': 7.21.1
   '@tanstack/react-query': 4.16.1_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query-devtools': 4.16.1_makdk7ivkz7rbnnozofqroz2qy
   '@wangeditor/editor': 5.1.23
@@ -1117,6 +1121,62 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
     dev: true
+
+  /@sentry/browser/7.21.1:
+    resolution: {integrity: sha512-cS2Jz2+fs9+4pJqLJPtYqGyY97ywJDWAWIR1Yla3hs1QQuH6m0Nz3ojZD1gE2eKH9mHwkGbnNAh+hHcrYrfGzw==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.21.1
+      '@sentry/types': 7.21.1
+      '@sentry/utils': 7.21.1
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/core/7.21.1:
+    resolution: {integrity: sha512-Og5wEEsy24fNvT/T7IKjcV4EvVK5ryY2kxbJzKY6GU2eX+i+aBl+n/vp7U0Es351C/AlTkS+0NOUsp2TQQFxZA==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.21.1
+      '@sentry/utils': 7.21.1
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/react/7.21.1_react@18.2.0:
+    resolution: {integrity: sha512-w91PIUyX07mErKgrBQA+7ID8zFKrYDUYSOrFSHufg5DdPq4EpHiNDe/Yngg3e9ELhtr1AbCnEvx9wlvqLi3nZQ==}
+    engines: {node: '>=8'}
+    peerDependencies:
+      react: 15.x || 16.x || 17.x || 18.x
+    dependencies:
+      '@sentry/browser': 7.21.1
+      '@sentry/types': 7.21.1
+      '@sentry/utils': 7.21.1
+      hoist-non-react-statics: 3.3.2
+      react: 18.2.0
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/tracing/7.21.1:
+    resolution: {integrity: sha512-b1BTPsRaNQpohzegoz59KGuBl+To651vEq0vMS4tCzSyIdxkYso3JCrjDdEqW/2MliQYANNVrUai2bmwmU9h1g==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.21.1
+      '@sentry/types': 7.21.1
+      '@sentry/utils': 7.21.1
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/types/7.21.1:
+    resolution: {integrity: sha512-3/IKnd52Ol21amQvI+kz+WB76s8/LR5YvFJzMgIoI2S8d82smIr253zGijRXxHPEif8kMLX4Yt+36VzrLxg6+A==}
+    engines: {node: '>=8'}
+    dev: false
+
+  /@sentry/utils/7.21.1:
+    resolution: {integrity: sha512-F0W0AAi8tgtTx6ApZRI2S9HbXEA9ENX1phTZgdNNWcMFm1BNbc21XEwLqwXBNjub5nlA6CE8xnjXRgdZKx4kzQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.21.1
+      tslib: 1.14.1
+    dev: false
 
   /@tanstack/match-sorter-utils/8.1.1:
     resolution: {integrity: sha512-IdmEekEYxQsoLOR0XQyw3jD1GujBpRRYaGJYQUw1eOT1eUugWxdc7jomh1VQ1EKHcdwDLpLaCz/8y4KraU4T9A==}
@@ -3702,6 +3762,12 @@ packages:
   /highlight.js/11.7.0:
     resolution: {integrity: sha512-1rRqesRFhMO/PRF+G86evnyJkCgaZFOI+Z6kdj15TA18funfoqJXvgPCLSf0SWq3SRfg1j3HlDs8o4s3EGq1oQ==}
     engines: {node: '>=12.0.0'}
+    dev: false
+
+  /hoist-non-react-statics/3.3.2:
+    resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
+    dependencies:
+      react-is: 16.13.1
     dev: false
 
   /hosted-git-info/2.8.9:
@@ -6592,7 +6658,6 @@ packages:
 
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
-    dev: true
 
   /tslib/2.4.1:
     resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
