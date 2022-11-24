@@ -85,6 +85,7 @@ instance.interceptors.request.use((config) => {
   const { headers = {}, ...restConfig } = config;
 
   headers.Authorization = getToken();
+  headers.datasource = 'master';
 
   requestCanceler.addPendingRequest(restConfig);
 
