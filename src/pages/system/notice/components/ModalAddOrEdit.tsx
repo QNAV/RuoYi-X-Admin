@@ -1,6 +1,6 @@
 import { Access } from '@/components';
 import { WangEditor } from '@/features';
-import { useAtomValueAccess, useQueryDict } from '@/models';
+import { useQueryDict } from '@/models';
 import {
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
@@ -18,8 +18,6 @@ const ModalAddOrEdit = () => {
 
   const { data: dictSysNoticeType } = useQueryDict('sys_notice_type');
   const { data: dictSysNoticeStatus } = useQueryDict('sys_notice_status');
-
-  const { canAddSysNotice, canEditSysNotice } = useAtomValueAccess();
 
   const mainTableActions = useAtomValueMainTableActions();
 
@@ -42,7 +40,7 @@ const ModalAddOrEdit = () => {
   }, [open]);
 
   return (
-    <Access accessible={canAddSysNotice || canEditSysNotice}>
+    <Access accessible>
       <ModalForm<SysNoticeAddBo>
         formRef={formRef}
         width={800}

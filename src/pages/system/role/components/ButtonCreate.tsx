@@ -1,5 +1,5 @@
 import { Access } from '@/components';
-import { useAtomValueAccess, useQueryDict } from '@/models';
+import { useQueryDict } from '@/models';
 import { useAtomValueRoleListActions } from '@/pages/system/role/model';
 import type { SysRole } from '@/services/system/data-contracts';
 import { sysRolePostAdd } from '@/services/system/System';
@@ -11,8 +11,6 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 
 const ButtonCreate: FC = () => {
-  const { canAddSysRole } = useAtomValueAccess();
-
   const formRef = useRef<ProFormInstance<SysRole>>();
 
   const roleListActions = useAtomValueRoleListActions();
@@ -20,7 +18,7 @@ const ButtonCreate: FC = () => {
   const { data } = useQueryDict('sys_normal_disable');
 
   return (
-    <Access accessible={canAddSysRole}>
+    <Access accessible>
       <BetaSchemaForm
         title="新增角色"
         trigger={

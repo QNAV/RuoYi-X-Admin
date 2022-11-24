@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { useActionsMainTable } from '@/pages/system/roleAuth/model';
 import { sysRolePostCancelAuthUser, sysUserPostCancelAuthUserAll } from '@/services/system/System';
 import { CloseCircleOutlined } from '@ant-design/icons';
@@ -18,8 +17,6 @@ const ButtonAuth: FC<{
 
   const params = useParams<{ roleId: string }>();
   const roleId = Number(params.roleId);
-
-  const { canEditSysRole } = useAtomValueAccess();
 
   const actionsMainTable = useActionsMainTable();
 
@@ -56,7 +53,7 @@ const ButtonAuth: FC<{
   };
 
   return (
-    <Access accessible={canEditSysRole}>
+    <Access accessible>
       <Button type="link" danger disabled={disabled} icon={<CloseCircleOutlined />} onClick={onRemove}>
         {text}
       </Button>

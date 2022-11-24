@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import {
   useAtomValueDeptDetails,
   useHideDeptDetails,
@@ -12,8 +11,6 @@ import { Button, message, Modal, Typography } from 'antd';
 import type { FC } from 'react';
 
 const ButtonDelete: FC = () => {
-  const { canRemoveSysDept } = useAtomValueAccess();
-
   const { deptId, deptName, open } = useAtomValueDeptDetails();
 
   const hideDeptDetails = useHideDeptDetails();
@@ -39,7 +36,7 @@ const ButtonDelete: FC = () => {
   };
 
   return (
-    <Access accessible={open && canRemoveSysDept}>
+    <Access accessible={open}>
       <Button danger ghost icon={<DeleteOutlined />} onClick={handleDelete}>
         删除
       </Button>

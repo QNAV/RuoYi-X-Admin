@@ -1,5 +1,4 @@
 import { Access, EmptySimple } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { useEditRoleDetails, useQueryRoleTree } from '@/pages/system/role/model';
 import type { TreeData } from '@/utils';
 import { CaretDownOutlined, CaretRightOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
@@ -17,8 +16,6 @@ const TreeTransferMenuTree: FC = () => {
 
   const [checkAll, setCheckAll] = useState(false);
   const [indeterminate, setIndeterminate] = useState(true);
-
-  const { canEditSysRole } = useAtomValueAccess();
 
   const { isFetching, data, refetch } = useQueryRoleTree((selectedTreeData) => {
     setCheckable(false);
@@ -72,7 +69,7 @@ const TreeTransferMenuTree: FC = () => {
           )}
         </Space>
 
-        <Access accessible={canEditSysRole}>
+        <Access accessible>
           {checkable ? (
             <Space wrap>
               <Button

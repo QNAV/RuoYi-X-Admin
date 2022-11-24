@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/system/dictDetails/model';
 import { sysDictDataPostRemove } from '@/services/system/System';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -13,8 +12,6 @@ const ButtonRemove: FC<{
   disabled?: boolean;
 }> = ({ dictCode, disabled, isBatch }) => {
   const text = isBatch ? '批量删除' : '删除';
-
-  const { canRemoveSysDict } = useAtomValueAccess();
 
   const mainTableActions = useAtomValueMainTableActions();
 
@@ -43,7 +40,7 @@ const ButtonRemove: FC<{
   };
 
   return (
-    <Access accessible={canRemoveSysDict}>
+    <Access accessible>
       <Button type="link" danger disabled={disabled} icon={<DeleteOutlined />} onClick={onRemove}>
         {text}
       </Button>

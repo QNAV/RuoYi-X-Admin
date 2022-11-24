@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { useShowEditModal } from '@/pages/system/dict/model';
 import type { SysDictTypeVo } from '@/services/system/data-contracts';
 import { EditOutlined } from '@ant-design/icons';
@@ -9,10 +8,8 @@ import type { FC } from 'react';
 const ButtonEdit: FC<{ record: SysDictTypeVo }> = ({ record }) => {
   const showEditModal = useShowEditModal();
 
-  const { canEditSysDict } = useAtomValueAccess();
-
   return (
-    <Access accessible={canEditSysDict}>
+    <Access accessible>
       <Button type="link" icon={<EditOutlined />} onClick={() => showEditModal(record)}>
         编辑
       </Button>

@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/monitor/operlog/model';
 import { sysOperLogPostRemove } from '@/services/system/Monitor';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -13,8 +12,6 @@ const ButtonRemove: FC<{
   disabled?: boolean;
 }> = ({ operId, disabled = false, isBatch = false }) => {
   const text = isBatch ? '批量删除' : '删除';
-
-  const { canRemoveSysOperLog } = useAtomValueAccess();
 
   const mainTableActions = useAtomValueMainTableActions();
 
@@ -43,7 +40,7 @@ const ButtonRemove: FC<{
   };
 
   return (
-    <Access accessible={canRemoveSysOperLog}>
+    <Access accessible>
       <Button type="link" danger disabled={disabled} icon={<DeleteOutlined />} onClick={onRemove}>
         {text}
       </Button>

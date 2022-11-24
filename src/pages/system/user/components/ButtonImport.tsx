@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { sysUserPostImportTemplate } from '@/services/system/System';
 import { UploadOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
@@ -11,8 +10,6 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 
 const ButtonImport: FC = () => {
-  const { canImportSysUser } = useAtomValueAccess();
-
   const formRef = useRef<ProFormInstance>();
 
   const [open, { toggle }] = useBoolean();
@@ -20,7 +17,7 @@ const ButtonImport: FC = () => {
   const { mutate: onDownLoad, isLoading: isDownLoadLoading } = useMutation(() => sysUserPostImportTemplate());
 
   return (
-    <Access accessible={canImportSysUser}>
+    <Access accessible>
       <Button icon={<UploadOutlined />} onClick={toggle}>
         导入
       </Button>

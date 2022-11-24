@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { genGetBatchGenCode } from '@/services/gen/Tool';
 import { CloudDownloadOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
@@ -13,8 +12,6 @@ const ButtonDownload: FC<{
   disabled?: boolean;
 }> = ({ tableName, isBatch = false, disabled = false }) => {
   const text = isBatch ? '批量下载' : '下载';
-
-  const { canCodeToolGen } = useAtomValueAccess();
 
   const { isLoading, mutate } = useMutation(
     async () => {
@@ -30,7 +27,7 @@ const ButtonDownload: FC<{
   );
 
   return (
-    <Access accessible={canCodeToolGen}>
+    <Access accessible>
       <Button
         loading={isLoading}
         onClick={() => mutate()}

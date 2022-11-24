@@ -1,5 +1,4 @@
 import { Access, BaseProTable } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/tool/gen/model';
 import type { GenTablePageQuery, GenTableRes } from '@/services/gen/data-contracts';
 import { genPostDbList, genPostImportTable } from '@/services/gen/Tool';
@@ -42,8 +41,6 @@ const columns: ProColumns<GenTableRes>[] = [
 ];
 
 const ButtonImport: FC = () => {
-  const { canImportToolGen } = useAtomValueAccess();
-
   const actionRef = useRef<ActionType>();
 
   const tableActions = useAtomValueMainTableActions();
@@ -62,7 +59,7 @@ const ButtonImport: FC = () => {
   });
 
   return (
-    <Access accessible={canImportToolGen}>
+    <Access accessible>
       <Button type="primary" onClick={toggle} icon={<CloudUploadOutlined />}>
         导入
       </Button>

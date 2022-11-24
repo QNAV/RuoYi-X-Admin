@@ -1,6 +1,6 @@
 import { EmptySimple } from '@/components';
 import { MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
-import { useAtomValueAccess, useQueryDict } from '@/models';
+import { useQueryDict } from '@/models';
 import { useAtomValueSelectedMenuData, useReFetchMenuList, useReFetchMenuOptions } from '@/pages/system/menu/model';
 import type { SysMenuVo } from '@/services/system/data-contracts';
 import { sysMenuGetInfo, sysMenuPostEdit } from '@/services/system/System';
@@ -84,7 +84,6 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
 };
 
 const DescDetails: FC = () => {
-  const access = useAtomValueAccess();
   const reFetchMenuList = useReFetchMenuList();
   const reFetchMenuOptions = useReFetchMenuOptions();
 
@@ -110,21 +109,19 @@ const DescDetails: FC = () => {
 
   const columns = useColumns(data?.menuType as MenuType | undefined);
 
-  const editable: ProDescriptionsProps['editable'] = access.canEditSysMenu
-    ? {
-        onSave: async (key, record) => {
-          const { menuType, orderNum, menuName, menuId } = record;
+  const editable: ProDescriptionsProps['editable'] = {
+    onSave: async (key, record) => {
+      const { menuType, orderNum, menuName, menuId } = record;
 
-          await mutateAsync({
-            menuId,
-            menuType,
-            orderNum,
-            menuName,
-            [key as keyof SysMenuVo]: record[key as keyof SysMenuVo],
-          });
-        },
-      }
-    : undefined;
+      await mutateAsync({
+        menuId,
+        menuType,
+        orderNum,
+        menuName,
+        [key as keyof SysMenuVo]: record[key as keyof SysMenuVo],
+      });
+    },
+  };
 
   if (selectedMenuId === 0) return <EmptySimple description="点击选择左侧菜单项查看详情" />;
 

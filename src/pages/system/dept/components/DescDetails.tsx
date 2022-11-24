@@ -1,5 +1,5 @@
 import { EmptySimple } from '@/components';
-import { useAtomValueAccess, useQueryDict } from '@/models';
+import { useQueryDict } from '@/models';
 import {
   useAtomValueDeptDetails,
   useQueryDeptOptions,
@@ -21,8 +21,6 @@ const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl:
 
 const DescDetails: FC = () => {
   const [editableKeys, setEditableKeys] = useState<Key[]>([]);
-
-  const access = useAtomValueAccess();
 
   const [form] = Form.useForm();
 
@@ -55,35 +53,33 @@ const DescDetails: FC = () => {
     },
   );
 
-  const editable: ProDescriptionsProps['editable'] = access?.canEditSysDept
-    ? {
-        form,
-        editableKeys,
-        onChange: (values, editableRows) => {
-          setEditableKeys(values);
+  const editable: ProDescriptionsProps['editable'] = {
+    form,
+    editableKeys,
+    onChange: (values, editableRows) => {
+      setEditableKeys(values);
 
-          if (values.length === 1 && !Array.isArray(editableRows)) {
-            form.setFieldsValue({
-              [values[0]]: editableRows[values[0] as keyof SysRoleVo],
-            });
-          }
-        },
-        onSave: async (key, record) => {
-          await sysDeptPostEdit({
-            deptId,
-            deptName: data!.deptName,
-            orderNum: data!.orderNum,
-            parentId: 0,
-            [key as EditableKeys]: record[key as EditableKeys],
-          });
-          message.success('保存成功');
-
-          refresh();
-          reFetchDeptList();
-          reFetchDeptOptions();
-        },
+      if (values.length === 1 && !Array.isArray(editableRows)) {
+        form.setFieldsValue({
+          [values[0]]: editableRows[values[0] as keyof SysRoleVo],
+        });
       }
-    : undefined;
+    },
+    onSave: async (key, record) => {
+      await sysDeptPostEdit({
+        deptId,
+        deptName: data!.deptName,
+        orderNum: data!.orderNum,
+        parentId: 0,
+        [key as EditableKeys]: record[key as EditableKeys],
+      });
+      message.success('保存成功');
+
+      refresh();
+      reFetchDeptList();
+      reFetchDeptOptions();
+    },
+  };
 
   if (!open) {
     return <EmptySimple description="点击选择左侧部门项查看详情" />;

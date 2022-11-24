@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { useAtomValueRoleDetails, useAtomValueRoleListActions, useHideRoleDetails } from '@/pages/system/role/model';
 import { sysRolePostRemove } from '@/services/system/System';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -7,8 +6,6 @@ import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonDelete: FC = () => {
-  const { canRemoveSysRole } = useAtomValueAccess();
-
   const roleListActions = useAtomValueRoleListActions();
 
   const hideRoleDetails = useHideRoleDetails();
@@ -28,7 +25,7 @@ const ButtonDelete: FC = () => {
     });
 
   return (
-    <Access accessible={canRemoveSysRole}>
+    <Access accessible>
       <Button danger ghost icon={<DeleteOutlined />} onClick={handleDel}>
         删除
       </Button>

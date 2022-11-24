@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/tool/gen/model';
 import { genPostRemove } from '@/services/gen/Tool';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -12,8 +11,6 @@ const ButtonDelete: FC<{ tableIds: number; isBatch?: boolean; disabled?: boolean
   disabled = false,
 }) => {
   const text = isBatch ? '批量删除' : '删除';
-
-  const { canRemoveToolGen } = useAtomValueAccess();
 
   const tableActions = useAtomValueMainTableActions();
 
@@ -31,7 +28,7 @@ const ButtonDelete: FC<{ tableIds: number; isBatch?: boolean; disabled?: boolean
   };
 
   return (
-    <Access accessible={canRemoveToolGen}>
+    <Access accessible>
       <Button danger icon={<DeleteOutlined />} type="link" onClick={handleDelete} disabled={disabled}>
         {text}
       </Button>

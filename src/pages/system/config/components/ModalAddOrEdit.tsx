@@ -1,5 +1,5 @@
 import { Access } from '@/components';
-import { useAtomValueAccess, useQueryDict } from '@/models';
+import { useQueryDict } from '@/models';
 import {
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
@@ -14,8 +14,6 @@ import { useEffect, useRef } from 'react';
 
 const ModalAddOrEdit = () => {
   const formRef = useRef<ProFormInstance>();
-
-  const { canAddSysConfig, canEditSysConfig } = useAtomValueAccess();
 
   const mainTableActions = useAtomValueMainTableActions();
 
@@ -40,7 +38,7 @@ const ModalAddOrEdit = () => {
   }, [open]);
 
   return (
-    <Access accessible={canAddSysConfig || canEditSysConfig}>
+    <Access accessible>
       <ModalForm<SysConfigAddBo>
         formRef={formRef}
         width={500}

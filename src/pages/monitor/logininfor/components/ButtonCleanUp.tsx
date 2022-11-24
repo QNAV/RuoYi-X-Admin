@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { useAtomValueMainTableActions } from '@/pages/monitor/logininfor/model';
 import { sysLogininforPostClean } from '@/services/system/Monitor';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -8,8 +7,6 @@ import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonCleanUp: FC = () => {
-  const { canRemoveSysLogininfor } = useAtomValueAccess();
-
   const tableActions = useAtomValueMainTableActions();
 
   const { isLoading, mutate } = useMutation(sysLogininforPostClean, {
@@ -20,7 +17,7 @@ const ButtonCleanUp: FC = () => {
   });
 
   return (
-    <Access accessible={canRemoveSysLogininfor}>
+    <Access accessible>
       <Button
         danger
         icon={<DeleteOutlined />}

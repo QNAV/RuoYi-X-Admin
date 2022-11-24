@@ -1,4 +1,4 @@
-import { useAtomValueAccess, useQueryDict } from '@/models';
+import { useQueryDict } from '@/models';
 import { useAtomValueRoleListActions, useEditRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
 import type { SysRole, SysRoleVo } from '@/services/system/data-contracts';
 import type { RowEditableConfig } from '@ant-design/pro-components';
@@ -11,8 +11,6 @@ const DescDetails: FC = () => {
   const [editableKeys, setEditableKeys] = useState<Key[]>([]);
 
   const [form] = Form.useForm();
-
-  const access = useAtomValueAccess();
 
   const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
 
@@ -28,27 +26,26 @@ const DescDetails: FC = () => {
     actions?.reload();
   });
 
-  const editable: RowEditableConfig<SysRoleVo> | undefined =
-    access.canEditSysRole && data
-      ? {
-          form,
-          editableKeys,
-          onChange: (keys, editableRows) => {
-            setEditableKeys(keys);
+  const editable: RowEditableConfig<SysRoleVo> | undefined = data
+    ? {
+        form,
+        editableKeys,
+        onChange: (keys, editableRows) => {
+          setEditableKeys(keys);
 
-            const key = keys[0] as keyof SysRoleVo;
+          const key = keys[0] as keyof SysRoleVo;
 
-            form.setFieldsValue({
-              [key]: (editableRows as SysRoleVo)[key],
-            });
-          },
-          onSave: async (key, record) => {
-            await mutateAsync({
-              [key as keyof SysRole]: record[key as keyof SysRole],
-            });
-          },
-        }
-      : undefined;
+          form.setFieldsValue({
+            [key]: (editableRows as SysRoleVo)[key],
+          });
+        },
+        onSave: async (key, record) => {
+          await mutateAsync({
+            [key as keyof SysRole]: record[key as keyof SysRole],
+          });
+        },
+      }
+    : undefined;
 
   return (
     <Spin spinning={isFetching}>

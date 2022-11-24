@@ -1,5 +1,6 @@
 export * from './Access';
 export * from './AccessWithState';
+export * from './BaseButtonAdd';
 export * from './BasePageContainer';
 export * from './BaseProTable';
 export * from './BaseTableAlert';

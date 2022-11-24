@@ -1,5 +1,5 @@
 import { Access } from '@/components';
-import { useAtomValueAccess, useQueryDict } from '@/models';
+import { useQueryDict } from '@/models';
 import { useQueryDeptOptions } from '@/pages/system/dept/model';
 import type { SysDeptAddBo } from '@/services/system/data-contracts';
 import { sysDeptPostAdd } from '@/services/system/System';
@@ -13,8 +13,6 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 
 const ButtonAdd: FC = () => {
-  const { canAddSysDept } = useAtomValueAccess();
-
   const formRef = useRef<ProFormInstance<SysDeptAddBo>>();
 
   const [open, { toggle }] = useBoolean();
@@ -43,7 +41,7 @@ const ButtonAdd: FC = () => {
   );
 
   return (
-    <Access accessible={canAddSysDept}>
+    <Access accessible>
       <Button type="primary" icon={<PlusOutlined />} onClick={toggle}>
         新建
       </Button>

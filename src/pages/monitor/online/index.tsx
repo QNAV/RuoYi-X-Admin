@@ -1,5 +1,4 @@
 import { Access, BasePageContainer, BaseProTable } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import type { SysUserOnlineVo } from '@/services/system/data-contracts';
 import { sysUserOnlineGetList, sysUserOnlinePostForceLogout } from '@/services/system/Monitor';
 import { convertParams } from '@/utils';
@@ -9,8 +8,6 @@ import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const useColumns = (): ProColumns<SysUserOnlineVo>[] => {
-  const { canForceLogoutMonitorOnline } = useAtomValueAccess();
-
   return [
     { title: '序号', dataIndex: 'index', key: 'index', valueType: 'indexBorder' },
     {
@@ -76,7 +73,7 @@ const useColumns = (): ProColumns<SysUserOnlineVo>[] => {
       fixed: 'right',
       render: (dom, entity, index, action) => {
         return (
-          <Access accessible={canForceLogoutMonitorOnline}>
+          <Access accessible>
             <Button
               icon={<DeleteOutlined />}
               danger

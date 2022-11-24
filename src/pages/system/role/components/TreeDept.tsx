@@ -1,6 +1,5 @@
 import { Access, EmptySimple } from '@/components';
 import { OptionsDataScope } from '@/constants';
-import { useAtomValueAccess } from '@/models';
 import { useAtomValueRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
 import { sysDeptGetRoleDeptTreeSelect, sysRolePostDataScope } from '@/services/system/System';
 import type { TreeData } from '@/utils';
@@ -24,8 +23,6 @@ const TreeDept: FC = () => {
 
   const [dataScope, setDataScope] = useState<string>();
   const formRef = useRef<ProFormInstance>();
-
-  const { canEditSysRole } = useAtomValueAccess();
 
   const { open, roleId } = useAtomValueRoleDetails();
 
@@ -121,7 +118,7 @@ const TreeDept: FC = () => {
           />
         </ProForm>
 
-        <Access accessible={canEditSysRole}>
+        <Access accessible>
           {checkable ? (
             <Space>
               <Button

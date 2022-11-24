@@ -1,6 +1,6 @@
 import { Access } from '@/components';
 import { ListClassMap } from '@/constants';
-import { useAtomValueAccess, useQueryDict } from '@/models';
+import { useQueryDict } from '@/models';
 import {
   useAtomValueAddOrEditModal,
   useAtomValueCurDictType,
@@ -23,8 +23,6 @@ import { useEffect, useRef } from 'react';
 
 const ModalAddOrEdit = () => {
   const formRef = useRef<ProFormInstance>();
-
-  const { canEditSysDict } = useAtomValueAccess();
 
   const mainTableActions = useAtomValueMainTableActions();
 
@@ -55,7 +53,7 @@ const ModalAddOrEdit = () => {
   }, [open]);
 
   return (
-    <Access accessible={canEditSysDict}>
+    <Access accessible>
       <ModalForm<SysDictDataAddBo>
         formRef={formRef}
         width={500}

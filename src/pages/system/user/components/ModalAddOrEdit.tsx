@@ -1,5 +1,5 @@
 import { Access } from '@/components';
-import { useAtomValueAccess, useQueryDict } from '@/models';
+import { useQueryDict } from '@/models';
 import {
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
@@ -25,8 +25,6 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 
 const ModalAddOrEdit: FC = () => {
-  const { canAddSysUser, canEditSysUser } = useAtomValueAccess();
-
   const formRef = useRef<ProFormInstance<SysUserAddBo>>();
 
   const mainTableActions = useAtomValueMainTableActions();
@@ -101,7 +99,7 @@ const ModalAddOrEdit: FC = () => {
   );
 
   return (
-    <Access accessible={canAddSysUser || canEditSysUser}>
+    <Access accessible>
       <ModalForm
         title={actionType === 'add' ? '新增用户' : '编辑用户'}
         formRef={formRef}

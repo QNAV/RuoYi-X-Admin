@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { useAtomValueResetPwdModal, useHideResetPwdModal } from '@/pages/system/user/model';
 import { sysUserPostResetPwd } from '@/services/system/System';
 import { regPassword } from '@/utils';
@@ -10,8 +9,6 @@ import type { FC } from 'react';
 import { useEffect, useRef } from 'react';
 
 const ModalResetPwd: FC = () => {
-  const { canResetSysUserPwd } = useAtomValueAccess();
-
   const formRef = useRef<ProFormInstance>();
 
   const hideResetPasswordModal = useHideResetPwdModal();
@@ -31,7 +28,7 @@ const ModalResetPwd: FC = () => {
   }, [open]);
 
   return (
-    <Access accessible={canResetSysUserPwd}>
+    <Access accessible>
       <ModalForm<{
         userName: string;
         password: string;

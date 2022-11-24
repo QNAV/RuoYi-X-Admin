@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { useAtomValuePreviewModal, useHidePreviewModal } from '@/pages/tool/gen/model';
 import { genGetPreview } from '@/services/gen/Tool';
 import { CopyOutlined } from '@ant-design/icons';
@@ -13,8 +12,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 const ModalPreview: FC = () => {
   const onCancel = useHidePreviewModal();
   const { open, previewId } = useAtomValuePreviewModal();
-
-  const { canPreviewToolGen } = useAtomValueAccess();
 
   const { data, loading } = useRequest(
     async () => {
@@ -33,7 +30,7 @@ const ModalPreview: FC = () => {
   );
 
   return (
-    <Access accessible={canPreviewToolGen}>
+    <Access accessible>
       <Modal
         open={open}
         onCancel={onCancel}

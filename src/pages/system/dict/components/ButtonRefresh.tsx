@@ -1,15 +1,12 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { sysDictTypePostRefreshCache } from '@/services/system/System';
 import { ReloadOutlined } from '@ant-design/icons';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRefresh: FC = () => {
-  const { canRemoveSysDict } = useAtomValueAccess();
-
   return (
-    <Access accessible={canRemoveSysDict}>
+    <Access accessible>
       <Button
         danger
         icon={<ReloadOutlined />}

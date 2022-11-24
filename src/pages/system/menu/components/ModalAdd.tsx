@@ -1,6 +1,5 @@
-import { Access } from '@/components';
 import { MenuType, MenuTypeMap, YesNoStatus, YesNoStatusMap } from '@/constants';
-import { useAtomValueAccess, useQueryDict } from '@/models';
+import { useQueryDict } from '@/models';
 import {
   useAtomValueCreateModal,
   useAtomValueSelectedMenuData,
@@ -59,8 +58,6 @@ const getSelectedParentIds = (data: Map<number, SysMenuVo>, menuId: number): num
 };
 
 const ModalAdd: FC = () => {
-  const { canAddSysMenu } = useAtomValueAccess();
-
   const formRef = useRef<ProFormInstance>();
 
   const hideCreateModal = useHideCreateModal();
@@ -104,129 +101,126 @@ const ModalAdd: FC = () => {
   }, [open, formRef?.current?.setFieldsValue]);
 
   return (
-    <Access accessible={canAddSysMenu}>
-      <Modal
-        open={open}
-        onCancel={hideCreateModal}
-        title="新建菜单"
-        width={515}
-        okText="提交"
-        onOk={() => handleSubmit()}
-        okButtonProps={{
-          loading: isLoading,
-        }}
-      >
-        <ProForm<SysMenuVo> submitter={false} formRef={formRef}>
-          <ProFormCascader
-            name="parentId"
-            label="父级菜单"
-            fieldProps={{
-              options: data?.options ?? [],
-              fieldNames: { label: 'menuName', value: 'menuId', children: 'children' },
-              changeOnSelect: true,
-            }}
-            rules={[{ required: true, message: '请选择父级菜单' }]}
-            transform={(value) => {
-              return { parentId: value[value.length - 1] };
-            }}
-          />
+    <Modal
+      open={open}
+      onCancel={hideCreateModal}
+      title="新建菜单"
+      width={515}
+      onOk={() => handleSubmit()}
+      okButtonProps={{
+        loading: isLoading,
+      }}
+    >
+      <ProForm<SysMenuVo> submitter={false} formRef={formRef}>
+        <ProFormCascader
+          name="parentId"
+          label="父级菜单"
+          fieldProps={{
+            options: data?.options ?? [],
+            fieldNames: { label: 'menuName', value: 'menuId', children: 'children' },
+            changeOnSelect: true,
+          }}
+          rules={[{ required: true, message: '请选择父级菜单' }]}
+          transform={(value) => {
+            return { parentId: value[value.length - 1] };
+          }}
+        />
 
-          <ProFormRadio.Group
-            name="menuType"
-            label="菜单类型"
-            valueEnum={MenuTypeMap}
-            rules={[{ required: true, message: '请选择菜单类型' }]}
-          />
+        <ProFormRadio.Group
+          name="menuType"
+          label="菜单类型"
+          valueEnum={MenuTypeMap}
+          rules={[{ required: true, message: '请选择菜单类型' }]}
+        />
 
-          <ProFormDependency name={['menuType']}>
-            {({ menuType }) => {
-              if (!menuType) {
-                return null;
-              }
+        <ProFormDependency name={['menuType']}>
+          {({ menuType }) => {
+            if (!menuType) {
+              return null;
+            }
 
-              return (
-                <>
-                  <ProFormGroup>
-                    <ProFormText name="menuName" label="菜单名称" width="sm" rules={[{ required: true }]} />
+            return (
+              <>
+                <ProFormGroup>
+                  <ProFormText name="menuName" label="菜单名称" width="sm" rules={[{ required: true }]} />
 
-                    <ProFormDigit
-                      name="orderNum"
-                      label="显示排序"
-                      tooltip="默认数值为0，数值越大排序越靠后，数值相等按照创建时间先后排序"
-                      rules={[{ required: true }]}
-                      width="sm"
-                      initialValue={0}
-                    />
-                  </ProFormGroup>
+                  <ProFormDigit
+                    name="orderNum"
+                    label="显示排序"
+                    tooltip="默认数值为0，数值越大排序越靠后，数值相等按照创建时间先后排序"
+                    rules={[{ required: true }]}
+                    width="sm"
+                    initialValue={0}
+                  />
+                </ProFormGroup>
 
-                  {menuType !== MenuType.F && (
-                    <>
-                      <ProFormGroup>
-                        <ProFormRadio.Group
-                          tooltip="选择停用则路由将不会出现在侧边栏，也不能被访问"
-                          name="status"
-                          label="菜单状态"
-                          required
-                          valueEnum={dictSysNormalDisable?.mapData ?? {}}
-                          initialValue={dictSysNormalDisable?.defaultValue}
-                        />
+                {menuType !== MenuType.F && (
+                  <>
+                    <ProFormGroup>
+                      <ProFormRadio.Group
+                        tooltip="选择停用则路由将不会出现在侧边栏，也不能被访问"
+                        name="status"
+                        label="菜单状态"
+                        required
+                        valueEnum={dictSysNormalDisable?.mapData ?? {}}
+                        initialValue={dictSysNormalDisable?.defaultValue}
+                      />
 
-                        <ProFormRadio.Group
-                          name="visible"
-                          label="菜单是否显示"
-                          valueEnum={dictSysShowHide?.mapData ?? {}}
-                          required
-                          initialValue={dictSysShowHide?.defaultValue}
-                          tooltip="选择否则路由将不会出现在侧边栏，但仍然可以访问"
-                        />
+                      <ProFormRadio.Group
+                        name="visible"
+                        label="菜单是否显示"
+                        valueEnum={dictSysShowHide?.mapData ?? {}}
+                        required
+                        initialValue={dictSysShowHide?.defaultValue}
+                        tooltip="选择否则路由将不会出现在侧边栏，但仍然可以访问"
+                      />
 
-                        <ProFormRadio.Group
-                          name="isFrame"
-                          label="是否外链"
-                          valueEnum={YesNoStatusMap}
-                          required
-                          initialValue={YesNoStatus.NO}
-                          tooltip="选择是外链则路由地址需要以`http(s)://`开头"
-                        />
-                      </ProFormGroup>
+                      <ProFormRadio.Group
+                        name="isFrame"
+                        label="是否外链"
+                        valueEnum={YesNoStatusMap}
+                        required
+                        initialValue={YesNoStatus.NO}
+                        tooltip="选择是外链则路由地址需要以`http(s)://`开头"
+                      />
+                    </ProFormGroup>
 
-                      <ProFormGroup>
-                        <ProFormText
-                          name="icon"
-                          label="菜单图标"
-                          width="sm"
-                          tooltip="https://ant.design/components/icon-cn/"
-                        />
+                    <ProFormGroup>
+                      <ProFormText
+                        name="icon"
+                        label="菜单图标"
+                        width="sm"
+                        tooltip="https://ant.design/components/icon-cn/"
+                      />
 
-                        <ProFormText
-                          width="sm"
-                          name="path"
-                          label="路由地址"
-                          tooltip="访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头"
-                          rules={[{ required: true }]}
-                        />
-                      </ProFormGroup>
-                    </>
-                  )}
+                      <ProFormText
+                        width="sm"
+                        name="path"
+                        label="路由地址"
+                        tooltip="访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头"
+                        rules={[{ required: true }]}
+                      />
+                    </ProFormGroup>
+                  </>
+                )}
 
-                  {menuType === MenuType.C && (
-                    <ProFormText
-                      name="queryParam"
-                      label="路由参数"
-                      tooltip={'访问路由的默认传递参数，如：{"id": 1, "name": "ry"}'}
-                    />
-                  )}
+                {menuType === MenuType.C && (
+                  <ProFormText
+                    name="queryParam"
+                    label="路由参数"
+                    tooltip={'访问路由的默认传递参数，如：{"id": 1, "name": "ry"}'}
+                  />
+                )}
 
-                  {menuType !== MenuType.M && <ProFormText name="perms" label="权限标识" />}
-                </>
-              );
-            }}
-          </ProFormDependency>
+                {menuType !== MenuType.M && <ProFormText name="perms" label="权限标识" />}
+              </>
+            );
+          }}
+        </ProFormDependency>
 
-          <ProFormTextArea name="remark" label="备注" />
-        </ProForm>
-      </Modal>
-    </Access>
+        <ProFormTextArea name="remark" label="备注" />
+      </ProForm>
+    </Modal>
   );
 };
 

@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import { useAtomValueSearchParams } from '@/pages/system/role/model';
 import { sysRolePostExport } from '@/services/system/System';
 import { DownloadOutlined } from '@ant-design/icons';
@@ -8,8 +7,6 @@ import { Button, message } from 'antd';
 import type { FC } from 'react';
 
 const ButtonExport: FC = () => {
-  const { canExportSysRole } = useAtomValueAccess();
-
   const searchParams = useAtomValueSearchParams();
 
   const { isLoading, mutate } = useMutation(() => sysRolePostExport(searchParams), {
@@ -19,7 +16,7 @@ const ButtonExport: FC = () => {
   });
 
   return (
-    <Access accessible={canExportSysRole}>
+    <Access accessible>
       <Button ghost type="primary" icon={<DownloadOutlined />} loading={isLoading} onClick={() => mutate()}>
         导出当前列表
       </Button>

@@ -1,5 +1,4 @@
 import { Access } from '@/components';
-import { useAtomValueAccess } from '@/models';
 import type { SysOperLogQueryBo } from '@/services/system/data-contracts';
 import { sysOperLogPostExport } from '@/services/system/Monitor';
 import { DownloadOutlined } from '@ant-design/icons';
@@ -8,8 +7,6 @@ import { Button, message } from 'antd';
 import type { FC } from 'react';
 
 const ButtonExport: FC<{ searchParams: SysOperLogQueryBo }> = ({ searchParams }) => {
-  const { canExportSysOperLog } = useAtomValueAccess();
-
   const { isLoading, mutate } = useMutation(() => sysOperLogPostExport(searchParams), {
     onSuccess: () => {
       message.success('导出成功');
@@ -17,7 +14,7 @@ const ButtonExport: FC<{ searchParams: SysOperLogQueryBo }> = ({ searchParams })
   });
 
   return (
-    <Access accessible={canExportSysOperLog}>
+    <Access accessible>
       <Button ghost type="primary" icon={<DownloadOutlined />} loading={isLoading} onClick={() => mutate()}>
         导出当前列表
       </Button>
