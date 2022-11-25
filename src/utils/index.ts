@@ -1,6 +1,7 @@
 export * from './access';
 export * from './convert';
 export * from './lazyLoad';
+export * from './menu';
 export * from './regExp';
 export * from './request';
 export * from './requestCanceler';

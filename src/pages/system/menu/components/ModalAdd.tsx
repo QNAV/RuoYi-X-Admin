@@ -9,6 +9,7 @@ import {
 } from '@/pages/system/menu/model';
 import type { SysMenuVo } from '@/services/system/data-contracts';
 import { sysMenuPostAdd } from '@/services/system/System';
+import { getSelectedParentIds } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import {
   ProForm,
@@ -24,38 +25,6 @@ import { useMutation } from '@tanstack/react-query';
 import { message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useRef } from 'react';
-
-export interface OptionsParentId {
-  menuId: number;
-  menuName: string;
-  children?: OptionsParentId[];
-}
-
-const getSelectedParentIds = (data: Map<number, SysMenuVo>, menuId: number): number[] => {
-  const parentIds: number[] = [0];
-
-  if (menuId === 0) {
-    return parentIds;
-  }
-
-  const findParentId = (id: number) => {
-    const menu = data.get(id);
-
-    if (!menu) return;
-
-    if (menu?.parentId !== undefined) {
-      findParentId(menu.parentId);
-    }
-
-    if (menu.menuType !== MenuType.F) {
-      parentIds.push(id);
-    }
-  };
-
-  findParentId(menuId);
-
-  return parentIds;
-};
 
 const ModalAdd: FC = () => {
   const formRef = useRef<ProFormInstance>();

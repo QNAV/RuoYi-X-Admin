@@ -1,7 +1,4 @@
-import { MenuType } from '@/constants';
-import type { SysMenuVo } from '@/services/system/data-contracts';
 import { cloneDeep } from 'lodash-es';
-import type { Key } from 'react';
 
 export interface TreeData {
   id: number;
@@ -11,19 +8,21 @@ export interface TreeData {
   children?: TreeData[];
 }
 
-export const parseSimpleTreeData = (
-  treeData: Record<any, any>[],
-  { id, pId, rootPId }: { id: string; pId: string; rootPId: null | Key },
+export const parseSimpleTreeData = <T extends Record<string, any>>(
+  treeData: T[],
+  { id, pId, rootPId }: { id: keyof T; pId: keyof T; rootPId: keyof T | null },
 ) => {
-  const keyNodes: Record<Key, any> = {};
-  const rootNodeList: any[] = [];
+  const keyNodes: Partial<Record<keyof T, any>> = {};
+  const rootNodeList: T[] = [];
 
   // Fill in the map
   const nodeList = treeData.map((node) => {
-    const clone = { ...node };
+    const clone: { key: string } & T = { key: '', ...node };
     const key = clone[id];
     keyNodes[key] = clone;
-    clone.key = clone.key || key;
+    if (!clone.key) {
+      clone.key = key;
+    }
     return clone;
   });
 
@@ -45,31 +44,6 @@ export const parseSimpleTreeData = (
   });
 
   return rootNodeList;
-};
-
-const handleSort = (data: SysMenuVo[]) => {
-  return data.sort((a, b) => {
-    if (a.orderNum === b.orderNum) {
-      return new Date(a.createTime!).getTime() - new Date(b.createTime!).getTime();
-    }
-
-    return a.orderNum - b.orderNum;
-  });
-};
-
-// 数组按 orderNum 排序
-export const sortByOrderNum = (data: SysMenuVo[]): SysMenuVo[] => {
-  const newData = data.map((item) => {
-    if (item.children) {
-      item.children = sortByOrderNum(item.children);
-    }
-    return item;
-  });
-
-  const directoryAndMenuList = handleSort(newData.filter((item) => item.menuType !== MenuType.F));
-  const buttonList = handleSort(newData.filter((item) => item.menuType === MenuType.F));
-
-  return [...directoryAndMenuList, ...buttonList];
 };
 
 // 获取 tree 的所有父菜单 id

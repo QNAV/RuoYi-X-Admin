@@ -1,26 +1,12 @@
-import { MenuType } from '@/constants';
-import type { OptionsParentId } from '@/pages/system/menu/components/ModalAdd';
 import type { SysMenuQueryBo, SysMenuVo } from '@/services/system/data-contracts';
 import { sysMenuPostList, sysMenuPostRemove } from '@/services/system/System';
-import { parseSimpleTreeData, sortByOrderNum } from '@/utils';
+import { getOptions, parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { message, Modal, Typography } from 'antd';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { atomWithReset, useResetAtom } from 'jotai/utils';
 
 const namespace = 'systemMenu';
-
-const getOptions = (data?: SysMenuVo[]): OptionsParentId[] => {
-  const formatOptions = (items: SysMenuVo[]): OptionsParentId[] => {
-    return items
-      .filter((item) => item.menuType !== MenuType.F)
-      .map(({ menuId, menuName, children }) => {
-        return { menuId: menuId!, menuName, children: children ? formatOptions(children) : [] };
-      });
-  };
-
-  return [{ menuId: 0, menuName: '根目录', children: data ? formatOptions(data) : [] }];
-};
 
 // 已选中的菜单
 const atomSelectedMenuData = atomWithReset<{
@@ -93,7 +79,7 @@ export const useQueryMenuOptions = () => {
   return useQuery(queryMenuOptionsKey, async () => {
     const data = await sysMenuPostList({});
 
-    const treeData: SysMenuVo[] = parseSimpleTreeData(data, {
+    const treeData = parseSimpleTreeData(data, {
       id: 'menuId',
       pId: 'parentId',
       rootPId: null,
@@ -131,7 +117,7 @@ export const useDeleteMenu = () => {
 
   return (params: { menuId: number; menuName: string }) => {
     Modal.confirm({
-      title: '删除菜单',
+      title: '操作确认',
       content: (
         <>
           确定删除菜单<Typography.Text code>{params.menuName}</Typography.Text>吗？
