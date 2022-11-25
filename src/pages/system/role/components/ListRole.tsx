@@ -34,7 +34,7 @@ const ListRole: FC = () => {
           title: '状态',
           dataIndex: 'status',
           valueType: 'select',
-          valueEnum: data?.mapData ?? {},
+          valueEnum: data?.valueEnum ?? {},
         },
         description: {
           title: '权限字符',

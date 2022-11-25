@@ -72,7 +72,7 @@ const DescDetails: FC = () => {
             title: '状态',
             dataIndex: 'status',
             key: 'status',
-            valueEnum: dictSysNormalDisable?.mapData ?? {},
+            valueEnum: dictSysNormalDisable?.valueEnum ?? {},
             valueType: 'radio',
             formItemProps: {
               initialValue: dictSysNormalDisable?.defaultValue,

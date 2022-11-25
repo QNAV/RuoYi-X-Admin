@@ -1,14 +1,14 @@
 import { EmptySimple } from '@/components';
 import type { MenuType } from '@/constants';
 import { useQueryDict } from '@/models';
-import TreeContent from '@/pages/system/menu/components/TreeContent';
-import TreeTitle from '@/pages/system/menu/components/TreeTitle';
+import TreeMenuHeaderTitle from '@/pages/system/menu/components/TreeMenuHeaderTitle';
+import TreeMenuTitle from '@/pages/system/menu/components/TreeMenuTitle';
 import {
   useAtomStateSelectedMenuData,
   useDeleteMenu,
   useQueryMenuList,
   useResetSelectedMenuData,
-  useShowCreateModal,
+  useShowModalAdd,
 } from '@/pages/system/menu/model';
 import type { SysMenuQueryBo, SysMenuVo } from '@/services/system/data-contracts';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
@@ -33,7 +33,7 @@ const TreeMenu: FC = () => {
   const [selectedMenuData, setSelectedMenuData] = useAtomStateSelectedMenuData();
   const resetSelectedMenuId = useResetSelectedMenuData();
 
-  const showCreateModal = useShowCreateModal();
+  const showCreateModal = useShowModalAdd();
 
   const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
 
@@ -67,7 +67,7 @@ const TreeMenu: FC = () => {
 
   return (
     <>
-      <TreeTitle />
+      <TreeMenuHeaderTitle />
 
       <div className="flex justify-between items-center">
         <Button
@@ -91,7 +91,7 @@ const TreeMenu: FC = () => {
           <ProFormSelect
             name="status"
             label="状态"
-            valueEnum={dictSysNormalDisable?.mapData ?? {}}
+            valueEnum={dictSysNormalDisable?.valueEnum ?? {}}
             initialValue={dictSysNormalDisable?.defaultValue}
           />
         </LightFilter>
@@ -134,7 +134,7 @@ const TreeMenu: FC = () => {
             selectedKeys={[selectedKey]}
             onSelect={onSelect}
             expandedKeys={expandedKeys}
-            titleRender={TreeContent}
+            titleRender={TreeMenuTitle}
             onExpand={setExpandedKeys}
             showLine={{ showLeafIcon: false }}
             fieldNames={{

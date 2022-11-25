@@ -18,3 +18,21 @@ export const useQueryDict = (dictType: string, options: { valueType?: 'number' |
     },
   );
 };
+
+// sys_normal_disable
+export const useQueryDictSysNormalDisable = () => {
+  const { data } = useQueryDict('sys_normal_disable');
+  return {
+    defaultValueSysNormalDisable: data?.defaultValue ?? null,
+    valueEnumSysNormalDisable: data?.valueEnum ?? new Map(),
+  };
+};
+
+// sys_show_hide
+export const useQueryDictSysShowHide = () => {
+  const { data } = useQueryDict('sys_show_hide');
+  return {
+    defaultValueSysShowHide: data?.defaultValue ?? null,
+    valueEnumSysShowHide: data?.valueEnum ?? new Map(),
+  };
+};

@@ -47,6 +47,6 @@ export const useNoticeTypeDict = () => {
   return useQuery(queryKey, async () => {
     const dict = await sysDictDataGetType({ dictType: 'sys_notice_type' });
 
-    return convertDict2ValueEnum(dict).mapData;
+    return convertDict2ValueEnum(dict).valueEnum;
   });
 };

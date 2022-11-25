@@ -1,7 +1,13 @@
 import { MenuType } from '@/constants';
 import type { SysMenuVo } from '@/services/system/data-contracts';
 
-const handleSort = (data: SysMenuVo[]) => {
+interface OptionsParentId {
+  menuId: number;
+  menuName: string;
+  children?: OptionsParentId[];
+}
+
+const handleSort = (data: SysMenuVo[]): SysMenuVo[] => {
   return data.sort((a, b) => {
     if (a.orderNum === b.orderNum) {
       return new Date(a.createTime!).getTime() - new Date(b.createTime!).getTime();
@@ -37,12 +43,6 @@ export const getOptions = (data?: SysMenuVo[]): OptionsParentId[] => {
 
   return [{ menuId: 0, menuName: '根目录', children: data ? formatOptions(data) : [] }];
 };
-
-export interface OptionsParentId {
-  menuId: number;
-  menuName: string;
-  children?: OptionsParentId[];
-}
 
 export const getSelectedParentIds = (data: Map<number, SysMenuVo>, menuId: number): number[] => {
   const parentIds: number[] = [0];

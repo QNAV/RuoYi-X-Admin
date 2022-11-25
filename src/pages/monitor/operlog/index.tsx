@@ -23,7 +23,7 @@ const useColumns = (): ProColumns<SysOperLogVo>[] => {
       dataIndex: 'businessType',
       key: 'businessType',
       valueType: 'select',
-      valueEnum: dictSysOperType?.mapData ?? {},
+      valueEnum: dictSysOperType?.valueEnum ?? {},
     },
     {
       title: '请求方式',
@@ -40,7 +40,7 @@ const useColumns = (): ProColumns<SysOperLogVo>[] => {
       dataIndex: 'status',
       key: 'status',
       valueType: 'select',
-      valueEnum: dictSysCommonStatus?.mapData ?? {},
+      valueEnum: dictSysCommonStatus?.valueEnum ?? {},
     },
     { title: '操作日期', dataIndex: 'operTime', key: 'operTime', valueType: 'dateTime', hideInSearch: true },
     {

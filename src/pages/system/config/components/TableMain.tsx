@@ -26,7 +26,7 @@ const useColumns = (): ProColumns<SysConfigVo>[] => {
       dataIndex: 'configType',
       key: 'configType',
       valueType: 'select',
-      valueEnum: data?.mapData ?? {},
+      valueEnum: data?.valueEnum ?? {},
     },
     { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
     {

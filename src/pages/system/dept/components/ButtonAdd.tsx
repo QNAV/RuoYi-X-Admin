@@ -129,7 +129,7 @@ const ButtonAdd: FC = () => {
           <ProFormRadio.Group
             name="status"
             label="状态"
-            valueEnum={dictSysNormalDisable?.mapData ?? {}}
+            valueEnum={dictSysNormalDisable?.valueEnum ?? {}}
             initialValue={dictSysNormalDisable?.defaultValue}
             colProps={{
               span: 12,

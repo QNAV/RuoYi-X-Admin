@@ -23,27 +23,23 @@ export const useAtomStateSelectedMenuData = () => useAtom(atomSelectedMenuData);
 export const useAtomValueSelectedMenuData = () => useAtomValue(atomSelectedMenuData);
 
 // 新建菜单弹窗
-const atomAddModal = atomWithReset<boolean>(false);
-export const useHideCreateModal = () => useResetAtom(atomAddModal);
-export const useShowCreateModal = () => {
-  const setRecoilState = useSetAtom(atomAddModal);
+const atomModalAdd = atomWithReset<boolean>(false);
+export const useHideModalAdd = () => useResetAtom(atomModalAdd);
+export const useShowModalAdd = () => {
+  const setRecoilState = useSetAtom(atomModalAdd);
   return () => setRecoilState(true);
 };
-export const useAtomValueCreateModal = () => useAtomValue(atomAddModal);
+export const useAtomValueModalAdd = () => useAtomValue(atomModalAdd);
 
 // 查询菜单列表
 const queryMenuListKey = [namespace, 'list'];
-export const useReFetchMenuList = () => {
-  const queryClient = useQueryClient();
-  return () => queryClient.invalidateQueries(queryMenuListKey);
-};
 export const useQueryMenuList = (params: SysMenuQueryBo = {}, onSuccess: (parentIds: number[]) => void) => {
   return useQuery(
     queryMenuListKey,
     async () => {
       const data = await sysMenuPostList(params);
 
-      const treeData: SysMenuVo[] = parseSimpleTreeData(data, {
+      const treeData = parseSimpleTreeData(data, {
         id: 'menuId',
         pId: 'parentId',
         rootPId: null,
@@ -68,13 +64,13 @@ export const useQueryMenuList = (params: SysMenuQueryBo = {}, onSuccess: (parent
     },
   );
 };
+export const useReFetchMenuList = () => {
+  const queryClient = useQueryClient();
+  return () => queryClient.invalidateQueries(queryMenuListKey);
+};
 
 // 查询菜单下拉列表
 const queryMenuOptionsKey = [namespace, 'options'];
-export const useReFetchMenuOptions = () => {
-  const queryClient = useQueryClient();
-  return () => queryClient.invalidateQueries(queryMenuOptionsKey);
-};
 export const useQueryMenuOptions = () => {
   return useQuery(queryMenuOptionsKey, async () => {
     const data = await sysMenuPostList({});
@@ -92,6 +88,10 @@ export const useQueryMenuOptions = () => {
       }, new Map()),
     };
   });
+};
+export const useReFetchMenuOptions = () => {
+  const queryClient = useQueryClient();
+  return () => queryClient.invalidateQueries(queryMenuOptionsKey);
 };
 
 // 删除菜单

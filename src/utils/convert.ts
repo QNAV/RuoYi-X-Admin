@@ -71,7 +71,7 @@ export const convertParams = <T extends Record<string, any>>(
 export const convertDict2ValueEnum = (dict: SysDictDataVo[], valueType?: 'number' | 'string') => {
   let defaultValue: null | Key = null;
 
-  const mapData: ValueEnumMap<Key> = dict.reduce((pre, item) => {
+  const valueEnum: ValueEnumMap<Key> = dict.reduce((pre, item) => {
     const value = valueType === 'number' ? Number(item.dictValue) : item.dictValue;
 
     if (item.isDefault === YNStatus.YES) {
@@ -86,6 +86,6 @@ export const convertDict2ValueEnum = (dict: SysDictDataVo[], valueType?: 'number
 
   return {
     defaultValue,
-    mapData,
+    valueEnum,
   };
 };

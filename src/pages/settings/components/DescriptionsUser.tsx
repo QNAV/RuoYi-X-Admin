@@ -78,7 +78,7 @@ const useEditableColumns = (): ProDescriptionsItemProps[] => {
       key: 'sex',
       title: '性别',
       valueType: 'radio',
-      valueEnum: data?.mapData ?? {},
+      valueEnum: data?.valueEnum ?? {},
     },
   ];
 };

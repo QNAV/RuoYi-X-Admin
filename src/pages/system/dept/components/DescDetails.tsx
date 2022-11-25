@@ -97,7 +97,7 @@ const DescDetails: FC = () => {
             dataIndex: 'status',
             key: 'status',
             valueType: 'select',
-            valueEnum: dictSysNormalDisable?.mapData ?? {},
+            valueEnum: dictSysNormalDisable?.valueEnum ?? {},
           },
           { title: '排序', dataIndex: 'orderNum', key: 'orderNum', valueType: 'digit' },
           {

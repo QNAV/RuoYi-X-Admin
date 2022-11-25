@@ -6,7 +6,7 @@ import type { TreeProps } from 'antd';
 import { message, Space, Tag } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-const TreeContent: TreeProps<SysMenuVo>['titleRender'] = (item) => {
+const TreeMenuTitle: TreeProps<SysMenuVo>['titleRender'] = (item) => {
   return (
     <>
       <Tag color="rgb(148 163 184)">{item.orderNum}</Tag>
@@ -28,7 +28,7 @@ const TreeContent: TreeProps<SysMenuVo>['titleRender'] = (item) => {
             >
               <CopyToClipboard
                 text={item.perms}
-                onCopy={(text, result) => {
+                onCopy={async (text, result) => {
                   if (result) {
                     message.success('复制成功');
                   }
@@ -44,4 +44,4 @@ const TreeContent: TreeProps<SysMenuVo>['titleRender'] = (item) => {
   );
 };
 
-export default TreeContent;
+export default TreeMenuTitle;

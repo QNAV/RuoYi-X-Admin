@@ -60,7 +60,7 @@ const TreeDept: FC = () => {
           <ProFormSelect
             name="status"
             label="状态"
-            valueEnum={dictSysNormalDisable?.mapData ?? {}}
+            valueEnum={dictSysNormalDisable?.valueEnum ?? {}}
             initialValue={dictSysNormalDisable?.defaultValue}
           />
         </LightFilter>

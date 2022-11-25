@@ -1,9 +1,9 @@
 import { AccessWithState, BaseButtonAdd } from '@/components';
-import { useShowCreateModal } from '@/pages/system/menu/model';
+import { useShowModalAdd } from '@/pages/system/menu/model';
 import type { FC } from 'react';
 
 const ButtonAdd: FC = () => {
-  const showCreateModal = useShowCreateModal();
+  const showCreateModal = useShowModalAdd();
 
   return (
     <AccessWithState accessKey="system:menu:add">

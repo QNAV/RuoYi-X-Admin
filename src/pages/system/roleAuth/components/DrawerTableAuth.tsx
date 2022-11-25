@@ -94,7 +94,7 @@ const DrawerTableAuth: FC = () => {
               dataIndex: 'status',
               key: 'status',
               valueType: 'select',
-              valueEnum: dictSysCommonStatus?.mapData ?? {},
+              valueEnum: dictSysCommonStatus?.valueEnum ?? {},
               formItemProps: {
                 initialValue: dictSysCommonStatus?.defaultValue,
                 required: true,

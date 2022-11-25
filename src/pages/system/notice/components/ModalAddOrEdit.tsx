@@ -83,7 +83,7 @@ const ModalAddOrEdit = () => {
           label="公告类型"
           required
           rules={[{ required: true }]}
-          valueEnum={dictSysNoticeType?.mapData ?? {}}
+          valueEnum={dictSysNoticeType?.valueEnum ?? {}}
           colProps={{
             span: 12,
           }}
@@ -92,7 +92,7 @@ const ModalAddOrEdit = () => {
         <ProFormRadio.Group
           name="status"
           label="状态"
-          valueEnum={dictSysNoticeStatus?.mapData ?? {}}
+          valueEnum={dictSysNoticeStatus?.valueEnum ?? {}}
           initialValue={dictSysNoticeStatus?.defaultValue}
         />
 

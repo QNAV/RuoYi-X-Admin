@@ -73,7 +73,7 @@ const ModalAddOrEdit = () => {
         <ProFormRadio.Group
           name="configType"
           label="系统内置"
-          valueEnum={data?.mapData ?? {}}
+          valueEnum={data?.valueEnum ?? {}}
           initialValue={data?.defaultValue}
         />
 

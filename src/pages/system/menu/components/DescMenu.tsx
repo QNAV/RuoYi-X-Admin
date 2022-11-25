@@ -30,14 +30,14 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
           dataIndex: 'status',
           key: 'status',
           valueType: 'select',
-          valueEnum: dictSysNormalDisable?.mapData ?? {},
+          valueEnum: dictSysNormalDisable?.valueEnum ?? {},
         },
         {
           title: '是否显示',
           dataIndex: 'visible',
           key: 'visible',
           valueType: 'radio',
-          valueEnum: dictSysShowHide?.mapData ?? {},
+          valueEnum: dictSysShowHide?.valueEnum ?? {},
           tooltip: '选择否则路由将不会出现在侧边栏，但仍然可以访问',
         },
         {
@@ -83,7 +83,7 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
   }, [menuType]);
 };
 
-const DescDetails: FC = () => {
+const DescMenu: FC = () => {
   const reFetchMenuList = useReFetchMenuList();
   const reFetchMenuOptions = useReFetchMenuOptions();
 
@@ -167,4 +167,4 @@ const DescDetails: FC = () => {
   );
 };
 
-export default DescDetails;
+export default DescMenu;

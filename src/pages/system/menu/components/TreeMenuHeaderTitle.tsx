@@ -3,7 +3,7 @@ import { menuTypeColor } from '@/pages/system/menu/components/TreeMenu';
 import { Tag } from 'antd';
 import type { FC } from 'react';
 
-const TreeTitle: FC = () => (
+const TreeMenuHeaderTitle: FC = () => (
   <div className="mb-2">
     标签含义：
     <Tag color="rgb(148 163 184)">显示顺序</Tag>
@@ -14,4 +14,4 @@ const TreeTitle: FC = () => (
   </div>
 );
 
-export default TreeTitle;
+export default TreeMenuHeaderTitle;

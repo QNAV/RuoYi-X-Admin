@@ -74,7 +74,7 @@ const ButtonCreate: FC = () => {
                 title: '状态',
                 dataIndex: 'status',
                 key: 'status',
-                valueEnum: data?.mapData ?? {},
+                valueEnum: data?.valueEnum ?? {},
                 valueType: 'radio',
                 formItemProps: {
                   initialValue: data?.defaultValue,

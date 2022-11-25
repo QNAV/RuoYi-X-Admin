@@ -20,7 +20,7 @@ const useColumns = (): ProColumns<SysPostVo>[] => {
     { dataIndex: 'postCode', key: 'postCode', title: '岗位编码', valueType: 'text' },
     { dataIndex: 'postName', key: 'postName', title: '岗位名称', valueType: 'text' },
     { dataIndex: 'postSort', key: 'postSort', title: '显示顺序', valueType: 'text', hideInSearch: true },
-    { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: data?.mapData ?? {} },
+    { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: data?.valueEnum ?? {} },
     { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
     {
       title: '创建时间',

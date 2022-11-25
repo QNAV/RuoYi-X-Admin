@@ -146,12 +146,12 @@ const ModalAddOrEdit: FC = () => {
           <ProFormText.Password name="password" label="用户密码" rules={[{ required: true }]} initialValue={initPwd} />
         )}
 
-        <ProFormSelect name="sex" label="用户性别" valueEnum={dictSex?.mapData ?? {}} />
+        <ProFormSelect name="sex" label="用户性别" valueEnum={dictSex?.valueEnum ?? {}} />
 
         <ProFormSelect
           name="status"
           label="状态"
-          valueEnum={dictNormalDisable?.mapData ?? {}}
+          valueEnum={dictNormalDisable?.valueEnum ?? {}}
           rules={[{ required: true }]}
         />
 

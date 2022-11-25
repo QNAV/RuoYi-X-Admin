@@ -41,7 +41,7 @@ const useColumns = (): ProColumns<SysUserVo>[] => {
       dataIndex: 'status',
       key: 'status',
       valueType: 'select',
-      valueEnum: data?.mapData ?? {},
+      valueEnum: data?.valueEnum ?? {},
     },
     {
       title: '创建时间',

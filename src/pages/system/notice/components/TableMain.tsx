@@ -22,7 +22,7 @@ const useColumns = (): ProColumns[] => {
       dataIndex: 'noticeType',
       key: 'noticeType',
       valueType: 'select',
-      valueEnum: dictSysNoticeType?.mapData ?? {},
+      valueEnum: dictSysNoticeType?.valueEnum ?? {},
     },
     { title: '创建者', dataIndex: 'createBy', key: 'createBy', valueType: 'text' },
     {
@@ -30,7 +30,7 @@ const useColumns = (): ProColumns[] => {
       dataIndex: 'status',
       key: 'status',
       valueType: 'select',
-      valueEnum: dictSysNoticeStatus?.mapData ?? {},
+      valueEnum: dictSysNoticeStatus?.valueEnum ?? {},
     },
     {
       title: '创建时间',

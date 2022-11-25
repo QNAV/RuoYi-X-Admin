@@ -24,7 +24,7 @@ const useColumns = (): ProColumns<SysDictDataVo>[] => {
     { title: '字典标签', dataIndex: 'dictLabel', key: 'dictLabel', valueType: 'text' },
     { title: '字典键值', dataIndex: 'dictValue', key: 'dictValue', valueType: 'text', hideInSearch: true },
     { title: '字典排序', dataIndex: 'dictSort', key: 'dictSort', valueType: 'text', hideInSearch: true },
-    { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: data?.mapData ?? {} },
+    { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: data?.valueEnum ?? {} },
     { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
     {
       title: '创建时间',

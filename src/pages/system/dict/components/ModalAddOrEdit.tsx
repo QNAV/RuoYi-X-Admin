@@ -70,7 +70,7 @@ const ModalAddOrEdit = () => {
         <ProFormRadio.Group
           name="status"
           label="状态"
-          valueEnum={data?.mapData ?? {}}
+          valueEnum={data?.valueEnum ?? {}}
           initialValue={data?.defaultValue}
         />
 

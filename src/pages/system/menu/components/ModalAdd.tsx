@@ -1,9 +1,9 @@
 import { MenuType, MenuTypeMap, YesNoStatus, YesNoStatusMap } from '@/constants';
-import { useQueryDict } from '@/models';
+import { useQueryDictSysNormalDisable, useQueryDictSysShowHide } from '@/models';
 import {
-  useAtomValueCreateModal,
+  useAtomValueModalAdd,
   useAtomValueSelectedMenuData,
-  useHideCreateModal,
+  useHideModalAdd,
   useQueryMenuOptions,
   useReFetchMenuList,
 } from '@/pages/system/menu/model';
@@ -24,18 +24,18 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import { message, Modal } from 'antd';
 import type { FC } from 'react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useTransition } from 'react';
 
 const ModalAdd: FC = () => {
   const formRef = useRef<ProFormInstance>();
 
-  const hideCreateModal = useHideCreateModal();
-  const open = useAtomValueCreateModal();
+  const hideModalAdd = useHideModalAdd();
+  const open = useAtomValueModalAdd();
 
   const { selectedMenuId } = useAtomValueSelectedMenuData();
 
-  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
-  const { data: dictSysShowHide } = useQueryDict('sys_show_hide');
+  const { valueEnumSysNormalDisable, defaultValueSysNormalDisable } = useQueryDictSysNormalDisable();
+  const { valueEnumSysShowHide, defaultValueSysShowHide } = useQueryDictSysShowHide();
 
   const { data, refetch } = useQueryMenuOptions();
   const reFetchMenuList = useReFetchMenuList();
@@ -52,27 +52,31 @@ const ModalAdd: FC = () => {
       onSuccess: async () => {
         await Promise.all([refetch(), reFetchMenuList()]);
 
-        hideCreateModal();
+        hideModalAdd();
 
-        formRef?.current?.resetFields();
+        formRef.current?.resetFields();
 
         message.success('新建成功');
       },
     },
   );
 
+  const [, startTransition] = useTransition();
   useEffect(() => {
-    if (open && data?.map && formRef?.current?.setFieldsValue) {
-      formRef.current.setFieldsValue({
-        parentId: getSelectedParentIds(data.map, selectedMenuId),
-      });
+    if (!open) {
+      return;
     }
-  }, [open, formRef?.current?.setFieldsValue]);
+    startTransition(() => {
+      formRef.current?.setFieldsValue({
+        parentId: getSelectedParentIds(data?.map ?? new Map(), selectedMenuId),
+      });
+    });
+  }, [open]);
 
   return (
     <Modal
       open={open}
-      onCancel={hideCreateModal}
+      onCancel={hideModalAdd}
       title="新建菜单"
       width={515}
       onOk={() => handleSubmit()}
@@ -89,18 +93,13 @@ const ModalAdd: FC = () => {
             fieldNames: { label: 'menuName', value: 'menuId', children: 'children' },
             changeOnSelect: true,
           }}
-          rules={[{ required: true, message: '请选择父级菜单' }]}
+          rules={[{ required: true }]}
           transform={(value) => {
             return { parentId: value[value.length - 1] };
           }}
         />
 
-        <ProFormRadio.Group
-          name="menuType"
-          label="菜单类型"
-          valueEnum={MenuTypeMap}
-          rules={[{ required: true, message: '请选择菜单类型' }]}
-        />
+        <ProFormRadio.Group name="menuType" label="菜单类型" valueEnum={MenuTypeMap} rules={[{ required: true }]} />
 
         <ProFormDependency name={['menuType']}>
           {({ menuType }) => {
@@ -131,16 +130,16 @@ const ModalAdd: FC = () => {
                         name="status"
                         label="菜单状态"
                         required
-                        valueEnum={dictSysNormalDisable?.mapData ?? {}}
-                        initialValue={dictSysNormalDisable?.defaultValue}
+                        valueEnum={valueEnumSysNormalDisable}
+                        initialValue={defaultValueSysNormalDisable}
                       />
 
                       <ProFormRadio.Group
                         name="visible"
                         label="菜单是否显示"
-                        valueEnum={dictSysShowHide?.mapData ?? {}}
+                        valueEnum={valueEnumSysShowHide}
                         required
-                        initialValue={dictSysShowHide?.defaultValue}
+                        initialValue={defaultValueSysShowHide}
                         tooltip="选择否则路由将不会出现在侧边栏，但仍然可以访问"
                       />
 

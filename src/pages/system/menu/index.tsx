@@ -1,7 +1,7 @@
 import { BasePageContainer } from '@/components';
 import ButtonAdd from '@/pages/system/menu/components/ButtonAdd';
 import ButtonRemove from '@/pages/system/menu/components/ButtonRemove';
-import DescDetails from '@/pages/system/menu/components/DescDetails';
+import DescMenu from '@/pages/system/menu/components/DescMenu';
 import ModalAdd from '@/pages/system/menu/components/ModalAdd';
 import TreeMenu from '@/pages/system/menu/components/TreeMenu';
 import { ProCard } from '@ant-design/pro-components';
@@ -39,7 +39,7 @@ const PageMenu: FC = () => {
           }}
           className="h-full"
         >
-          <DescDetails />
+          <DescMenu />
         </ProCard>
       </ProCard>
 
