@@ -1,6 +1,6 @@
 import { EmptySimple } from '@/components';
 import { MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
-import { useQueryDict } from '@/models';
+import { useQueryDictSysNormalDisable, useQueryDictSysShowHide } from '@/models';
 import { useAtomValueSelectedMenuData, useReFetchMenuList, useReFetchMenuOptions } from '@/pages/system/menu/model';
 import type { SysMenuVo } from '@/services/system/data-contracts';
 import { sysMenuGetInfo, sysMenuPostEdit } from '@/services/system/System';
@@ -15,8 +15,8 @@ import { useMemo } from 'react';
 const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl: 2 };
 
 const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
-  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
-  const { data: dictSysShowHide } = useQueryDict('sys_show_hide');
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
+  const { valueEnumSysShowHide } = useQueryDictSysShowHide();
 
   return useMemo(() => {
     const columns: ProDescriptionsProps['columns'] = [];
@@ -30,14 +30,14 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
           dataIndex: 'status',
           key: 'status',
           valueType: 'select',
-          valueEnum: dictSysNormalDisable?.valueEnum ?? {},
+          valueEnum: valueEnumSysNormalDisable,
         },
         {
           title: '是否显示',
           dataIndex: 'visible',
           key: 'visible',
           valueType: 'radio',
-          valueEnum: dictSysShowHide?.valueEnum ?? {},
+          valueEnum: valueEnumSysShowHide,
           tooltip: '选择否则路由将不会出现在侧边栏，但仍然可以访问',
         },
         {

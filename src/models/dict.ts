@@ -36,3 +36,12 @@ export const useQueryDictSysShowHide = () => {
     valueEnumSysShowHide: data?.valueEnum ?? new Map(),
   };
 };
+
+// sys_yes_no
+export const useQueryDictSysYesNo = () => {
+  const { data } = useQueryDict('sys_yes_no');
+  return {
+    defaultValueSysYesNo: data?.defaultValue ?? null,
+    valueEnumSysYesNo: data?.valueEnum ?? new Map(),
+  };
+};

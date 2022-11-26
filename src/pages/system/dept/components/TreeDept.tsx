@@ -1,5 +1,4 @@
 import { EmptySimple } from '@/components';
-import { EnableDisableStatus } from '@/constants';
 import { useQueryDict } from '@/models';
 import { useQueryDeptList, useShowDeptDetails } from '@/pages/system/dept/model';
 import type { SysDeptQueryBo, SysDeptVo } from '@/services/system/data-contracts';
@@ -18,9 +17,7 @@ const titleRender: TreeProps<any>['titleRender'] = (itemData: SysDeptVo) => {
       <Space>
         {itemData.deptName}
 
-        <Tag color={itemData.status === EnableDisableStatus.ENABLE ? 'success' : 'error'}>
-          {itemData.status === EnableDisableStatus.ENABLE ? '启用中' : '已禁用'}
-        </Tag>
+        <Tag color={itemData.status === '0' ? 'success' : 'error'}>{itemData.status === '0' ? '启用中' : '已禁用'}</Tag>
       </Space>
     </>
   );

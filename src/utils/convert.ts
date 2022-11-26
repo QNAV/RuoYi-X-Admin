@@ -1,5 +1,4 @@
 import type { ValueEnumMap } from '@/constants';
-import { YNStatus } from '@/constants';
 import type { SysDictDataVo } from '@/services/system/data-contracts';
 import type { SortOrder } from 'antd/es/table/interface';
 import type { Key } from 'react';
@@ -74,7 +73,7 @@ export const convertDict2ValueEnum = (dict: SysDictDataVo[], valueType?: 'number
   const valueEnum: ValueEnumMap<Key> = dict.reduce((pre, item) => {
     const value = valueType === 'number' ? Number(item.dictValue) : item.dictValue;
 
-    if (item.isDefault === YNStatus.YES) {
+    if (item.isDefault === 'Y') {
       defaultValue = value;
     }
 

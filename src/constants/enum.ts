@@ -20,27 +20,15 @@ export const MenuTypeMap = {
   [MenuType.F]: { text: '按钮' },
 };
 
-// 启用/禁用
-export enum EnableDisableStatus {
-  ENABLE = '0',
-  DISABLE = '1',
-}
-
 // 是/否
 export enum YesNoStatus {
-  NO = '0',
-  YES = '1',
+  YES = '0',
+  NO = '1',
 }
 export const YesNoStatusMap: ValueEnumMap<YesNoStatus> = new Map([
   [YesNoStatus.YES, { text: '是', status: 'Success' }],
   [YesNoStatus.NO, { text: '否', status: 'Error' }],
 ]);
-
-// 是/否
-export enum YNStatus {
-  YES = 'Y',
-  NO = 'N',
-}
 
 // JAVA类型
 export enum JavaType {

@@ -24,7 +24,7 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import { message, Modal } from 'antd';
 import type { FC } from 'react';
-import { useEffect, useRef, useTransition } from 'react';
+import { startTransition, useEffect, useRef } from 'react';
 
 const ModalAdd: FC = () => {
   const formRef = useRef<ProFormInstance>();
@@ -61,7 +61,6 @@ const ModalAdd: FC = () => {
     },
   );
 
-  const [, startTransition] = useTransition();
   useEffect(() => {
     if (!open) {
       return;
@@ -95,6 +94,7 @@ const ModalAdd: FC = () => {
           }}
           rules={[{ required: true }]}
           transform={(value) => {
+            if (!value) return value;
             return { parentId: value[value.length - 1] };
           }}
         />
