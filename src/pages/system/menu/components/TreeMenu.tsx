@@ -1,6 +1,6 @@
 import { EmptySimple } from '@/components';
 import type { MenuType } from '@/constants';
-import { useQueryDict } from '@/models';
+import { useQueryDictSysNormalDisable } from '@/models';
 import TreeMenuHeaderTitle from '@/pages/system/menu/components/TreeMenuHeaderTitle';
 import TreeMenuTitle from '@/pages/system/menu/components/TreeMenuTitle';
 import {
@@ -14,7 +14,7 @@ import type { SysMenuQueryBo, SysMenuVo } from '@/services/system/data-contracts
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { LightFilter, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import type { TreeProps } from 'antd';
-import { Button, Dropdown, Tree } from 'antd';
+import { Button, Dropdown, Spin, Tree } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
@@ -22,6 +22,11 @@ export const menuTypeColor: Record<MenuType | string, string> = {
   M: 'blue',
   C: 'green',
   F: 'red',
+};
+
+const fieldNames = {
+  title: 'menuName',
+  key: 'menuId',
 };
 
 const TreeMenu: FC = () => {
@@ -35,9 +40,13 @@ const TreeMenu: FC = () => {
 
   const showCreateModal = useShowModalAdd();
 
-  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
-  const { data: menuData, refetch } = useQueryMenuList(searchParams, (e) => {
+  const {
+    data: menuData,
+    refetch,
+    isFetching,
+  } = useQueryMenuList(searchParams, (e) => {
     setExpandedKeys(e);
   });
 
@@ -46,8 +55,11 @@ const TreeMenu: FC = () => {
   const onSelect: TreeProps<SysMenuVo>['onSelect'] = (_, { node: { key } }) => {
     setSelectedKey(key as number);
   };
+  const onRightClick: TreeProps<SysMenuVo>['onRightClick'] = ({ node }) => {
+    setSelectedKey(node.key as number);
+  };
 
-  const isAllExpanded = expandedKeys?.length !== 0 && expandedKeys?.length === menuData?.parentIds?.length;
+  const isAllExpanded = expandedKeys?.length && expandedKeys?.length === menuData?.parentIds?.length;
 
   useEffect(() => {
     refetch();
@@ -88,68 +100,62 @@ const TreeMenu: FC = () => {
         >
           <ProFormText name="menuName" label="菜单名称" />
 
-          <ProFormSelect
-            name="status"
-            label="状态"
-            valueEnum={dictSysNormalDisable?.valueEnum ?? {}}
-            initialValue={dictSysNormalDisable?.defaultValue}
-          />
+          <ProFormSelect name="status" label="状态" valueEnum={valueEnumSysNormalDisable} />
         </LightFilter>
       </div>
 
-      <Dropdown
-        menu={{
-          items: [
-            {
-              label: '新建',
-              key: 'create',
-              onClick: () => showCreateModal(),
-            },
-            {
-              label: '在根目录下新建',
-              key: 'createBase',
-              onClick: () => {
-                resetSelectedMenuId();
-                showCreateModal();
+      <Spin spinning={isFetching}>
+        <Dropdown
+          menu={{
+            items: [
+              {
+                label: '新建',
+                key: 'create',
+                disabled: !selectedMenuData.hasSelected,
+                onClick: () => showCreateModal(),
               },
-            },
-            {
-              label: '删除',
-              key: 'delete',
-              danger: true,
-              disabled: !selectedMenuData.hasSelected,
-              onClick: () =>
-                deleteMenu({
-                  menuId: selectedMenuData.selectedMenuId,
-                  menuName: selectedMenuData.selectedMenuName,
-                }),
-            },
-          ],
-        }}
-        trigger={['contextMenu']}
-      >
-        {menuData?.treeData.length ? (
-          <Tree<SysMenuVo>
-            blockNode
-            selectedKeys={[selectedKey]}
-            onSelect={onSelect}
-            expandedKeys={expandedKeys}
-            titleRender={TreeMenuTitle}
-            onExpand={setExpandedKeys}
-            showLine={{ showLeafIcon: false }}
-            fieldNames={{
-              title: 'menuName',
-              key: 'menuId',
-              children: 'children',
-            }}
-            height={700}
-            treeData={menuData?.treeData}
-            onRightClick={({ node: { key } }) => setSelectedKey(key as number)}
-          />
-        ) : (
-          <EmptySimple />
-        )}
-      </Dropdown>
+              {
+                label: '在根目录下新建',
+                key: 'createBase',
+                onClick: () => {
+                  resetSelectedMenuId();
+                  showCreateModal();
+                },
+              },
+              {
+                label: '删除',
+                key: 'delete',
+                danger: true,
+                disabled: !selectedMenuData.hasSelected,
+                onClick: () =>
+                  deleteMenu({
+                    menuId: selectedMenuData.selectedMenuId,
+                    menuName: selectedMenuData.selectedMenuName,
+                  }),
+              },
+            ],
+          }}
+          trigger={['contextMenu']}
+        >
+          {menuData?.treeData.length ? (
+            <Tree<SysMenuVo>
+              blockNode
+              selectedKeys={[selectedKey]}
+              onSelect={onSelect}
+              expandedKeys={expandedKeys}
+              titleRender={TreeMenuTitle}
+              onExpand={setExpandedKeys}
+              showLine={{ showLeafIcon: false }}
+              fieldNames={fieldNames}
+              height={700}
+              treeData={menuData?.treeData}
+              onRightClick={onRightClick}
+            />
+          ) : (
+            <EmptySimple />
+          )}
+        </Dropdown>
+      </Spin>
     </>
   );
 };

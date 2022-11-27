@@ -1,5 +1,6 @@
 import { EmptySimple } from '@/components';
 import { MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
+import { useCheckAccess } from '@/hooks';
 import { useQueryDictSysNormalDisable, useQueryDictSysShowHide } from '@/models';
 import { useAtomValueSelectedMenuData, useReFetchMenuList, useReFetchMenuOptions } from '@/pages/system/menu/model';
 import type { SysMenuVo } from '@/services/system/data-contracts';
@@ -8,13 +9,13 @@ import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
-import { Divider, message, Spin } from 'antd';
+import { Divider, Form, message, Spin } from 'antd';
 import type { FC } from 'react';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl: 2 };
 
-const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
+const useColumns = (menuType?: string): ProDescriptionsProps['columns'] => {
   const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
   const { valueEnumSysShowHide } = useQueryDictSysShowHide();
 
@@ -29,7 +30,7 @@ const useColumns = (menuType?: MenuType): ProDescriptionsProps['columns'] => {
           title: '状态',
           dataIndex: 'status',
           key: 'status',
-          valueType: 'select',
+          valueType: 'radio',
           valueEnum: valueEnumSysNormalDisable,
         },
         {
@@ -99,31 +100,46 @@ const DescMenu: FC = () => {
   );
 
   const { mutateAsync } = useMutation(sysMenuPostEdit, {
-    onSuccess: () => {
-      refresh();
-      reFetchMenuList();
-      reFetchMenuOptions();
+    onSuccess: async () => {
+      await Promise.all([refresh(), reFetchMenuList(), reFetchMenuOptions()]);
       message.success('保存成功');
     },
   });
 
-  const columns = useColumns(data?.menuType as MenuType | undefined);
+  const columns = useColumns(data?.menuType);
 
-  const editable: ProDescriptionsProps['editable'] = {
-    onSave: async (key, record) => {
-      const { menuType, orderNum, menuName, menuId } = record;
+  const checkAccess = useCheckAccess();
 
-      await mutateAsync({
-        menuId,
-        menuType,
-        orderNum,
-        menuName,
-        [key as keyof SysMenuVo]: record[key as keyof SysMenuVo],
-      });
-    },
-  };
+  const [form] = Form.useForm();
+  const [editableKeys, setEditableKeys] = useState<string[]>([]);
+  const editable: ProDescriptionsProps['editable'] = checkAccess('system:menu:edit')
+    ? {
+        form,
+        editableKeys,
+        onChange: (keys, editableRows) => {
+          setEditableKeys(keys as string[]);
+          if (keys.length > 0) {
+            const [key] = keys;
+            form.setFieldsValue({
+              [key]: editableRows[key as keyof typeof editableRows],
+            });
+          }
+        },
+        onSave: async (key, record) => {
+          const { menuType, orderNum, menuName, menuId } = record;
 
-  if (selectedMenuId === 0) return <EmptySimple description="点击选择左侧菜单项查看详情" />;
+          await mutateAsync({
+            menuId,
+            menuType,
+            orderNum,
+            menuName,
+            [key as keyof SysMenuVo]: record[key as keyof SysMenuVo],
+          });
+        },
+      }
+    : undefined;
+
+  if (!hasSelected) return <EmptySimple description="点击选择左侧菜单项查看详情" />;
 
   return (
     <Spin spinning={loading}>
