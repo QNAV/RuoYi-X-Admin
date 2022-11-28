@@ -29,6 +29,21 @@ const ModalAddOrEdit: FC = () => {
     hideAddOrEditModal();
   };
 
+  const onFinish = async (values: SysDictTypeAddBo) => {
+    if (actionType === DictTypeActionType.Add) {
+      await sysDictTypePostAdd(values);
+      message.success('新增成功');
+    } else {
+      await sysDictTypePostEdit({ ...values, dictId: record!.dictId });
+      message.success('编辑成功');
+    }
+
+    mainTableActions?.reload();
+
+    hideAddOrEditModal();
+    formRef.current?.resetFields();
+  };
+
   const { defaultValueSysNormalDisable, valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
   useEffect(() => {
@@ -50,24 +65,11 @@ const ModalAddOrEdit: FC = () => {
           onCancel,
           okText: '提交',
         }}
-        onFinish={async (values) => {
-          if (actionType === DictTypeActionType.Add) {
-            await sysDictTypePostAdd(values);
-            message.success('新增成功');
-          } else {
-            await sysDictTypePostEdit({ ...values, dictId: record!.dictId });
-            message.success('编辑成功');
-          }
-
-          mainTableActions?.reload();
-
-          hideAddOrEditModal();
-          formRef.current?.resetFields();
-        }}
+        onFinish={onFinish}
       >
-        <ProFormText name="dictName" label="字典名称" required rules={[{ required: true }]} />
+        <ProFormText name="dictName" label="字典名称" rules={[{ required: true }]} />
 
-        <ProFormText name="dictType" label="字典类型" required rules={[{ required: true }]} />
+        <ProFormText name="dictType" label="字典类型" rules={[{ required: true }]} />
 
         <ProFormRadio.Group
           name="status"

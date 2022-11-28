@@ -12,7 +12,7 @@ const ButtonRemove: FC<{
 }> = ({ dictId, disabled, batch }) => {
   const mainTableActions = useAtomValueMainTableActions();
 
-  const { mutateAsync, isLoading } = useMutation(() => sysDictTypePostRemove({ dictIds: dictId }), {
+  const { mutateAsync, isLoading } = useMutation(sysDictTypePostRemove, {
     onSuccess: () => {
       mainTableActions?.reload();
       mainTableActions?.clearSelected?.();
@@ -24,7 +24,7 @@ const ButtonRemove: FC<{
     Modal.confirm({
       title: '操作确认',
       content: `确定删除字典编号为 ${dictId} 的字典吗？`,
-      onOk: async () => mutateAsync(),
+      onOk: () => mutateAsync({ dictIds: dictId }),
       okButtonProps: {
         loading: isLoading,
       },
