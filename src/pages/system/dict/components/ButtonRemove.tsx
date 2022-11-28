@@ -1,18 +1,15 @@
-import { Access } from '@/components';
+import { AccessWithState, BaseButtonRemove } from '@/components';
 import { useAtomValueMainTableActions } from '@/pages/system/dict/model';
 import { sysDictTypePostRemove } from '@/services/system/System';
-import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal } from 'antd';
+import { message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
   dictId: number;
-  isBatch?: boolean;
+  batch?: boolean;
   disabled?: boolean;
-}> = ({ dictId, disabled, isBatch }) => {
-  const text = isBatch ? '批量删除' : '删除';
-
+}> = ({ dictId, disabled, batch }) => {
   const mainTableActions = useAtomValueMainTableActions();
 
   const { mutateAsync, isLoading } = useMutation(() => sysDictTypePostRemove({ dictIds: dictId }), {
@@ -25,7 +22,7 @@ const ButtonRemove: FC<{
 
   const onRemove = () => {
     Modal.confirm({
-      title: '删除字典',
+      title: '操作确认',
       content: `确定删除字典编号为 ${dictId} 的字典吗？`,
       onOk: async () => mutateAsync(),
       okButtonProps: {
@@ -35,11 +32,9 @@ const ButtonRemove: FC<{
   };
 
   return (
-    <Access accessible>
-      <Button type="link" danger disabled={disabled} icon={<DeleteOutlined />} onClick={onRemove}>
-        {text}
-      </Button>
-    </Access>
+    <AccessWithState accessKey="system:dict:remove">
+      <BaseButtonRemove batch={batch} disabled={disabled} onClick={onRemove} />
+    </AccessWithState>
   );
 };
 

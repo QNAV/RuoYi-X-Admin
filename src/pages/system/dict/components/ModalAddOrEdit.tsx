@@ -1,6 +1,8 @@
-import { Access } from '@/components';
-import { useQueryDict } from '@/models';
+import { AccessWithState } from '@/components';
+import { useQueryDictSysNormalDisable } from '@/models';
 import {
+  DictTypeActionType,
+  dictTypeTextMap,
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
   useHideAddOrEditModal,
@@ -10,9 +12,10 @@ import { sysDictTypePostAdd, sysDictTypePostEdit } from '@/services/system/Syste
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormRadio, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
 import { message } from 'antd';
-import { useEffect, useRef } from 'react';
+import type { FC } from 'react';
+import { startTransition, useEffect, useRef } from 'react';
 
-const ModalAddOrEdit = () => {
+const ModalAddOrEdit: FC = () => {
   const formRef = useRef<ProFormInstance>();
 
   const mainTableActions = useAtomValueMainTableActions();
@@ -20,36 +23,35 @@ const ModalAddOrEdit = () => {
   const { open, actionType, record } = useAtomValueAddOrEditModal();
   const hideAddOrEditModal = useHideAddOrEditModal();
   const onCancel = () => {
-    if (actionType === 'edit') {
+    if (actionType === DictTypeActionType.Edit) {
       formRef.current?.resetFields();
     }
     hideAddOrEditModal();
   };
 
-  const { data } = useQueryDict('sys_normal_disable');
+  const { defaultValueSysNormalDisable, valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
   useEffect(() => {
-    if (open && actionType === 'edit') {
-      const timer = setTimeout(() => {
+    if (open && actionType === DictTypeActionType.Edit) {
+      startTransition(() => {
         formRef.current?.setFieldsValue(record);
-        clearTimeout(timer);
-      }, 0);
+      });
     }
   }, [open]);
 
   return (
-    <Access accessible>
+    <AccessWithState accessKey={['system:dict:add', 'system:dict:edit']}>
       <ModalForm<SysDictTypeAddBo>
         formRef={formRef}
         width={500}
-        title={actionType === 'add' ? '新增字典类型' : '编辑字典类型'}
+        title={`${dictTypeTextMap[actionType]}字典类型`}
         open={open}
         modalProps={{
           onCancel,
           okText: '提交',
         }}
         onFinish={async (values) => {
-          if (actionType === 'add') {
+          if (actionType === DictTypeActionType.Add) {
             await sysDictTypePostAdd(values);
             message.success('新增成功');
           } else {
@@ -70,13 +72,13 @@ const ModalAddOrEdit = () => {
         <ProFormRadio.Group
           name="status"
           label="状态"
-          valueEnum={data?.valueEnum ?? {}}
-          initialValue={data?.defaultValue}
+          valueEnum={valueEnumSysNormalDisable}
+          initialValue={defaultValueSysNormalDisable}
         />
 
         <ProFormTextArea name="remark" label="备注" />
       </ModalForm>
-    </Access>
+    </AccessWithState>
   );
 };
 

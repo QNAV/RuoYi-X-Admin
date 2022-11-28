@@ -8,8 +8,16 @@ const atomMainTableActions = atom<ActionType | undefined>(undefined);
 export const useAtomValueMainTableActions = () => useAtomValue(atomMainTableActions);
 export const useActionRefMainTable = () => useInitActionType(atomMainTableActions);
 
-const atomAddOrEditModal = atomWithReset<{ actionType: 'add' | 'edit'; open: boolean; record?: SysDictTypeVo }>({
-  actionType: 'add',
+export enum DictTypeActionType {
+  Add,
+  Edit,
+}
+export const dictTypeTextMap = {
+  [DictTypeActionType.Add]: '新增',
+  [DictTypeActionType.Edit]: '编辑',
+};
+const atomAddOrEditModal = atomWithReset<{ actionType: DictTypeActionType; open: boolean; record?: SysDictTypeVo }>({
+  actionType: DictTypeActionType.Add,
   open: false,
 });
 export const useAtomValueAddOrEditModal = () => useAtomValue(atomAddOrEditModal);
@@ -17,12 +25,12 @@ export const useHideAddOrEditModal = () => useResetAtom(atomAddOrEditModal);
 export const useShowAddModal = () => {
   const setAtom = useSetAtom(atomAddOrEditModal);
   return () => {
-    setAtom({ actionType: 'add', open: true });
+    setAtom({ actionType: DictTypeActionType.Add, open: true });
   };
 };
 export const useShowEditModal = () => {
   const setAtom = useSetAtom(atomAddOrEditModal);
   return (record: SysDictTypeVo) => {
-    setAtom({ actionType: 'edit', open: true, record });
+    setAtom({ actionType: DictTypeActionType.Edit, open: true, record });
   };
 };

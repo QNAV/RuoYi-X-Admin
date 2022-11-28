@@ -1,9 +1,8 @@
-import { Access } from '@/components';
+import { AccessWithState, BaseButtonExport } from '@/components';
 import type { SysDictTypeQueryBo } from '@/services/system/data-contracts';
 import { sysDictTypePostExport } from '@/services/system/System';
-import { DownloadOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import type { FC } from 'react';
 
 const ButtonExport: FC<{ searchParams: SysDictTypeQueryBo }> = ({ searchParams }) => {
@@ -14,11 +13,9 @@ const ButtonExport: FC<{ searchParams: SysDictTypeQueryBo }> = ({ searchParams }
   });
 
   return (
-    <Access accessible>
-      <Button ghost type="primary" icon={<DownloadOutlined />} loading={isLoading} onClick={() => mutate()}>
-        导出当前列表
-      </Button>
-    </Access>
+    <AccessWithState accessKey="system:dict:export">
+      <BaseButtonExport loading={isLoading} onClick={() => mutate()} />
+    </AccessWithState>
   );
 };
 

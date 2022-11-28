@@ -1,9 +1,9 @@
 import { BaseProTable } from '@/components';
-import { useQueryDict } from '@/models';
+import { useQueryDictSysNormalDisable } from '@/models';
 import ButtonAdd from '@/pages/system/dict/components/ButtonAdd';
-import ButtonDetails from '@/pages/system/dict/components/ButtonDetails';
 import ButtonEdit from '@/pages/system/dict/components/ButtonEdit';
 import ButtonExport from '@/pages/system/dict/components/ButtonExport';
+import ButtonQuery from '@/pages/system/dict/components/ButtonQuery';
 import ButtonRefresh from '@/pages/system/dict/components/ButtonRefresh';
 import ButtonRemove from '@/pages/system/dict/components/ButtonRemove';
 import { useActionRefMainTable } from '@/pages/system/dict/model';
@@ -15,13 +15,13 @@ import type { FC } from 'react';
 import { useState } from 'react';
 
 const useColumns = (): ProColumns<SysDictTypeVo>[] => {
-  const { data } = useQueryDict('sys_normal_disable');
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
   return [
     { title: '字典编号', dataIndex: 'dictId', key: 'dictId', valueType: 'text', hideInSearch: true },
     { title: '字典名称', dataIndex: 'dictName', key: 'dictName', valueType: 'text' },
     { title: '字典类型', dataIndex: 'dictType', key: 'dictType', valueType: 'text' },
-    { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: data?.valueEnum },
+    { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: valueEnumSysNormalDisable },
     { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
     {
       title: '创建时间',
@@ -45,7 +45,7 @@ const useColumns = (): ProColumns<SysDictTypeVo>[] => {
       render: (dom, entity) => {
         return (
           <>
-            <ButtonDetails dictType={entity.dictType} />
+            <ButtonQuery dictType={entity.dictType} />
             <ButtonEdit record={entity} />
             <ButtonRemove dictId={entity.dictId} />
           </>
@@ -61,7 +61,7 @@ const tableAlertOptionRender: ProTableProps<SysDictTypeVo, SysDictTypeQueryBo>['
   return (
     <ButtonRemove
       disabled={selectedRows.length === 0}
-      isBatch
+      batch
       dictId={selectedRows.map((i) => i.dictId).join(',') as unknown as number}
     />
   );

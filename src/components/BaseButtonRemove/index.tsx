@@ -4,10 +4,14 @@ import { Button } from 'antd';
 import type { FC } from 'react';
 import { cloneElement } from 'react';
 
-export const BaseButtonRemove: FC<ButtonProps> = (props) => {
+interface BaseButtonRemoveProps extends ButtonProps {
+  batch?: boolean;
+}
+
+export const BaseButtonRemove: FC<BaseButtonRemoveProps> = ({ batch, ...props }) => {
   return cloneElement(
-    <Button danger type="primary" icon={<DeleteOutlined />}>
-      删除
+    <Button danger type="link" size="small" icon={<DeleteOutlined />}>
+      {batch ? '批量删除' : '删除'}
     </Button>,
     props,
   );

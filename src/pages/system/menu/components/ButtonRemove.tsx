@@ -11,6 +11,8 @@ const ButtonRemove: FC = () => {
     <AccessWithState accessKey="system:menu:remove">
       <BaseButtonRemove
         disabled={!hasSelected}
+        type="primary"
+        size="middle"
         onClick={() =>
           deleteMenu({
             menuId: selectedMenuId,
