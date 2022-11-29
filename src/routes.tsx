@@ -99,10 +99,11 @@ export const layoutRoutes: Route[] = [
             access: 'system:dict:list',
           },
           {
-            name: '字典详情',
+            name: '字典管理-详情',
             path: 'dict/:dictType',
             element: lazyLoadPage('system/dictDetails'),
-            access: 'system:dict:list',
+            access: 'system:dict:query',
+            isKeepAlive: true,
           },
           {
             name: '参数管理',

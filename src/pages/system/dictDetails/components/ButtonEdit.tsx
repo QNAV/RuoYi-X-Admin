@@ -1,19 +1,14 @@
-import { Access } from '@/components';
+import { AccessWithState, BaseButtonEdit } from '@/components';
 import { useShowEditModal } from '@/pages/system/dictDetails/model';
 import type { SysDictDataVo } from '@/services/system/data-contracts';
-import { EditOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonEdit: FC<{ record: SysDictDataVo }> = ({ record }) => {
   const showEditModal = useShowEditModal();
-
   return (
-    <Access accessible>
-      <Button type="link" icon={<EditOutlined />} onClick={() => showEditModal(record)}>
-        编辑
-      </Button>
-    </Access>
+    <AccessWithState accessKey="system:dict:edit">
+      <BaseButtonEdit onClick={() => showEditModal(record)} />
+    </AccessWithState>
   );
 };
 

@@ -15,8 +15,17 @@ const atomCurDictType = atom<{ dictType: string; dictName: string }>({
 export const useAtomValueCurDictType = () => useAtomValue(atomCurDictType);
 export const useAtomCurDictType = () => useAtom(atomCurDictType);
 
-const atomAddOrEditModal = atomWithReset<{ actionType: 'add' | 'edit'; open: boolean; record?: SysDictDataVo }>({
-  actionType: 'add',
+export enum DictDetailsActionType {
+  Add,
+  Edit,
+}
+export const dictDetailsActionTypeMap = {
+  [DictDetailsActionType.Add]: '新增',
+  [DictDetailsActionType.Edit]: '编辑',
+};
+
+const atomAddOrEditModal = atomWithReset<{ actionType: DictDetailsActionType; open: boolean; record?: SysDictDataVo }>({
+  actionType: DictDetailsActionType.Add,
   open: false,
 });
 export const useAtomValueAddOrEditModal = () => useAtomValue(atomAddOrEditModal);
@@ -24,12 +33,12 @@ export const useHideAddOrEditModal = () => useResetAtom(atomAddOrEditModal);
 export const useShowAddModal = () => {
   const setAtom = useSetAtom(atomAddOrEditModal);
   return () => {
-    setAtom({ actionType: 'add', open: true });
+    setAtom({ actionType: DictDetailsActionType.Add, open: true });
   };
 };
 export const useShowEditModal = () => {
   const setAtom = useSetAtom(atomAddOrEditModal);
   return (record: SysDictDataVo) => {
-    setAtom({ actionType: 'edit', open: true, record });
+    setAtom({ actionType: DictDetailsActionType.Edit, open: true, record });
   };
 };

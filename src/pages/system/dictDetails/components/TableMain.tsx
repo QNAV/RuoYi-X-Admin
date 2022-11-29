@@ -1,6 +1,7 @@
 import { BaseProTable } from '@/components';
-import { useActivated, useDeactivated } from '@/hooks';
-import { useQueryDict } from '@/models';
+import { ListClassMap } from '@/constants';
+import { useActivated } from '@/hooks';
+import { useQueryDictSysNormalDisable } from '@/models';
 import ButtonAdd from '@/pages/system/dictDetails/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/dictDetails/components/ButtonEdit';
 import ButtonExport from '@/pages/system/dictDetails/components/ButtonExport';
@@ -13,18 +14,25 @@ import type { ProColumns, ProFormInstance, ProTableProps } from '@ant-design/pro
 import { LightFilter, ProFormSelect } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
 import type { FC } from 'react';
-import { useRef, useState } from 'react';
+import { startTransition, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const useColumns = (): ProColumns<SysDictDataVo>[] => {
-  const { data } = useQueryDict('sys_normal_disable');
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
   return [
     { title: '字典编码', dataIndex: 'dictCode', key: 'dictCode', valueType: 'text', hideInSearch: true },
     { title: '字典标签', dataIndex: 'dictLabel', key: 'dictLabel', valueType: 'text' },
     { title: '字典键值', dataIndex: 'dictValue', key: 'dictValue', valueType: 'text', hideInSearch: true },
     { title: '字典排序', dataIndex: 'dictSort', key: 'dictSort', valueType: 'text', hideInSearch: true },
-    { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: data?.valueEnum ?? {} },
+    {
+      title: '回显样式',
+      dataIndex: 'listClass',
+      key: 'listClass',
+      valueType: 'select',
+      valueEnum: ListClassMap,
+    },
+    { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: valueEnumSysNormalDisable },
     { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
     {
       title: '创建时间',
@@ -60,7 +68,7 @@ const tableAlertOptionRender: ProTableProps<SysDictDataVo, 'text'>['tableAlertOp
   return (
     <ButtonRemove
       disabled={selectedRows.length === 0}
-      isBatch
+      batch
       dictCode={selectedRows.map((i) => i.dictCode).join(',') as unknown as number}
     />
   );
@@ -95,22 +103,17 @@ const TableMain: FC = () => {
           dictType,
           dictName: data[dictType],
         });
-        const timer = setTimeout(() => {
+        startTransition(() => {
           formRef.current?.setFieldsValue({ dictType });
-          actionRef?.current?.reload();
-          clearTimeout(timer);
-        }, 0);
+          actionRef.current?.reload();
+        });
       },
     },
   );
 
   useActivated(() => {
-    console.log('activated');
     run();
-  });
-  useDeactivated(() => {
-    console.log('deactivated');
-  });
+  }, false);
 
   return (
     <BaseProTable<SysDictDataVo, SysDictDataQueryBo>
