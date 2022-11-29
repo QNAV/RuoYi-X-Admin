@@ -1,4 +1,4 @@
-import { Access } from '@/components';
+import { AccessWithState, BaseButtonRemove } from '@/components';
 import {
   useAtomValueDeptDetails,
   useHideDeptDetails,
@@ -6,18 +6,17 @@ import {
   useReFetchDeptOptions,
 } from '@/pages/system/dept/model';
 import { sysDeptPostRemove } from '@/services/system/System';
-import { DeleteOutlined } from '@ant-design/icons';
-import { Button, message, Modal, Typography } from 'antd';
+import { message, Modal, Typography } from 'antd';
 import type { FC } from 'react';
 
-const ButtonDelete: FC = () => {
+const ButtonRemove: FC = () => {
   const { deptId, deptName, open } = useAtomValueDeptDetails();
-
   const hideDeptDetails = useHideDeptDetails();
+
   const reFetchDeptList = useReFetchDeptList();
   const reFetchDeptOptions = useReFetchDeptOptions();
 
-  const handleDelete = () => {
+  const handleRemove = () => {
     Modal.confirm({
       title: '删除确认',
       content: (
@@ -27,21 +26,19 @@ const ButtonDelete: FC = () => {
       ),
       onOk: async () => {
         await sysDeptPostRemove({ deptId });
+
+        await Promise.all([hideDeptDetails(), reFetchDeptList(), reFetchDeptOptions()]);
+
         message.success('删除成功');
-        hideDeptDetails();
-        reFetchDeptList();
-        reFetchDeptOptions();
       },
     });
   };
 
   return (
-    <Access accessible={open}>
-      <Button danger ghost icon={<DeleteOutlined />} onClick={handleDelete}>
-        删除
-      </Button>
-    </Access>
+    <AccessWithState accessKey="system:dept:remove">
+      <BaseButtonRemove disabled={!open} type="primary" size="middle" onClick={handleRemove} />
+    </AccessWithState>
   );
 };
 
-export default ButtonDelete;
+export default ButtonRemove;

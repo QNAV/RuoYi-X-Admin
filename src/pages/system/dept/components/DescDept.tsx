@@ -1,29 +1,27 @@
 import { EmptySimple } from '@/components';
-import { useQueryDict } from '@/models';
+import { useCheckAccess } from '@/hooks';
+import { useQueryDictSysNormalDisable } from '@/models';
 import {
   useAtomValueDeptDetails,
   useQueryDeptOptions,
   useReFetchDeptList,
   useReFetchDeptOptions,
 } from '@/pages/system/dept/model';
-import type { SysDeptEditBo, SysRoleVo } from '@/services/system/data-contracts';
+import type { SysDeptEditBo } from '@/services/system/data-contracts';
 import { sysDeptGetInfo, sysDeptPostEdit } from '@/services/system/System';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
+import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { Divider, Form, message, Spin } from 'antd';
-import type { FC, Key } from 'react';
+import type { FC } from 'react';
 import { useState } from 'react';
 
 type EditableKeys = keyof Omit<SysDeptEditBo, 'deptId'>;
 
 const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl: 2 };
 
-const DescDetails: FC = () => {
-  const [editableKeys, setEditableKeys] = useState<Key[]>([]);
-
-  const [form] = Form.useForm();
-
+const DescDept: FC = () => {
   const reFetchDeptList = useReFetchDeptList();
   const reFetchDeptOptions = useReFetchDeptOptions();
 
@@ -31,7 +29,7 @@ const DescDetails: FC = () => {
 
   const { data: treeData } = useQueryDeptOptions();
 
-  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
   const { data, loading, refresh } = useRequest(
     async () => {
@@ -53,33 +51,45 @@ const DescDetails: FC = () => {
     },
   );
 
-  const editable: ProDescriptionsProps['editable'] = {
-    form,
-    editableKeys,
-    onChange: (values, editableRows) => {
-      setEditableKeys(values);
-
-      if (values.length === 1 && !Array.isArray(editableRows)) {
-        form.setFieldsValue({
-          [values[0]]: editableRows[values[0] as keyof SysRoleVo],
-        });
-      }
-    },
-    onSave: async (key, record) => {
-      await sysDeptPostEdit({
-        deptId,
-        deptName: data!.deptName,
-        orderNum: data!.orderNum,
-        parentId: 0,
-        [key as EditableKeys]: record[key as EditableKeys],
-      });
-      message.success('保存成功');
-
+  const { mutateAsync } = useMutation(sysDeptPostEdit, {
+    onSuccess: async () => {
       refresh();
-      reFetchDeptList();
-      reFetchDeptOptions();
+
+      await Promise.all([reFetchDeptList(), reFetchDeptOptions()]);
+
+      message.success('保存成功');
     },
-  };
+  });
+
+  const checkAccess = useCheckAccess();
+
+  const [form] = Form.useForm();
+  const [editableKeys, setEditableKeys] = useState<string[]>([]);
+  const editable: ProDescriptionsProps['editable'] = checkAccess('system:dept:edit')
+    ? {
+        form,
+        editableKeys,
+        onChange: (keys, editableRows) => {
+          setEditableKeys(keys as string[]);
+
+          if (keys.length > 0) {
+            const [key] = keys;
+            form.setFieldsValue({
+              [key]: editableRows[key as keyof typeof editableRows],
+            });
+          }
+        },
+        onSave: async (key, record) => {
+          await mutateAsync({
+            deptId,
+            deptName: data!.deptName,
+            orderNum: data!.orderNum,
+            parentId: data!.parentId!,
+            [key as EditableKeys]: record[key as EditableKeys],
+          });
+        },
+      }
+    : undefined;
 
   if (!open) {
     return <EmptySimple description="点击选择左侧部门项查看详情" />;
@@ -97,7 +107,7 @@ const DescDetails: FC = () => {
             dataIndex: 'status',
             key: 'status',
             valueType: 'select',
-            valueEnum: dictSysNormalDisable?.valueEnum ?? {},
+            valueEnum: valueEnumSysNormalDisable,
           },
           { title: '排序', dataIndex: 'orderNum', key: 'orderNum', valueType: 'digit' },
           {
@@ -105,6 +115,7 @@ const DescDetails: FC = () => {
             dataIndex: 'createTime',
             key: 'createTime',
             valueType: 'dateTime',
+            editable: false,
           },
         ]}
       />
@@ -150,4 +161,4 @@ const DescDetails: FC = () => {
   );
 };
 
-export default DescDetails;
+export default DescDept;

@@ -1,14 +1,13 @@
-import { Access } from '@/components';
-import { useQueryDict } from '@/models';
+import { AccessWithState, BaseButtonAdd } from '@/components';
+import { useQueryDictSysNormalDisable } from '@/models';
 import { useQueryDeptOptions } from '@/pages/system/dept/model';
 import type { SysDeptAddBo } from '@/services/system/data-contracts';
 import { sysDeptPostAdd } from '@/services/system/System';
-import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormDigit, ProFormRadio, ProFormText, ProFormTreeSelect } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useBoolean } from 'ahooks';
-import { Button, message, Modal } from 'antd';
+import { message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
 
@@ -19,7 +18,7 @@ const ButtonAdd: FC = () => {
 
   const { data: treeData, refetch } = useQueryDeptOptions();
 
-  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
+  const { defaultValueSysNormalDisable, valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
   const { mutate, isLoading } = useMutation(
     async () => {
@@ -28,23 +27,20 @@ const ButtonAdd: FC = () => {
       await sysDeptPostAdd(formData!);
     },
     {
-      onSuccess: () => {
-        message.success('新建成功');
+      onSuccess: async () => {
+        toggle();
+        formRef.current?.resetFields();
 
         refetch();
 
-        toggle();
-
-        formRef.current?.resetFields();
+        message.success('新建成功');
       },
     },
   );
 
   return (
-    <Access accessible>
-      <Button type="primary" icon={<PlusOutlined />} onClick={toggle}>
-        新建
-      </Button>
+    <AccessWithState accessKey="system:dept:add">
+      <BaseButtonAdd onClick={toggle} />
 
       <Modal
         title="新建部门"
@@ -129,15 +125,15 @@ const ButtonAdd: FC = () => {
           <ProFormRadio.Group
             name="status"
             label="状态"
-            valueEnum={dictSysNormalDisable?.valueEnum ?? {}}
-            initialValue={dictSysNormalDisable?.defaultValue}
+            valueEnum={valueEnumSysNormalDisable}
+            initialValue={defaultValueSysNormalDisable}
             colProps={{
               span: 12,
             }}
           />
         </ProForm>
       </Modal>
-    </Access>
+    </AccessWithState>
   );
 };
 

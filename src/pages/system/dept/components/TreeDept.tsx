@@ -1,5 +1,5 @@
 import { EmptySimple } from '@/components';
-import { useQueryDict } from '@/models';
+import { useQueryDictSysNormalDisable } from '@/models';
 import { useQueryDeptList, useShowDeptDetails } from '@/pages/system/dept/model';
 import type { SysDeptQueryBo, SysDeptVo } from '@/services/system/data-contracts';
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons';
@@ -27,7 +27,7 @@ const TreeDept: FC = () => {
   const [expandedKeys, setExpandedKeys] = useState<TreeProps['expandedKeys']>([]);
   const [searchParams, setSearchParams] = useState<SysDeptQueryBo>({});
 
-  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
   const { data, isFetching } = useQueryDeptList(searchParams, {
     onSuccess: (allParentIds) => {
@@ -54,40 +54,34 @@ const TreeDept: FC = () => {
         <LightFilter<SysDeptQueryBo> onFinish={async (values) => setSearchParams(values)}>
           <ProFormText name="deptName" label="部门名称" />
 
-          <ProFormSelect
-            name="status"
-            label="状态"
-            valueEnum={dictSysNormalDisable?.valueEnum ?? {}}
-            initialValue={dictSysNormalDisable?.defaultValue}
-          />
+          <ProFormSelect name="status" label="状态" valueEnum={valueEnumSysNormalDisable} />
         </LightFilter>
       </div>
 
-      {data?.treeData ? (
-        <Spin spinning={isFetching}>
-          <div className="h-[calc(100vh-270px)]">
-            <Tree<any>
-              blockNode
-              showLine={{ showLeafIcon: false }}
-              titleRender={titleRender}
-              treeData={data.treeData}
-              expandedKeys={expandedKeys}
-              onExpand={setExpandedKeys}
-              fieldNames={{
-                title: 'deptName',
-                key: 'deptId',
-              }}
-              onSelect={(selectedKeys, { selected, node: { key } }) => {
-                if (!selected) return;
+      <Spin spinning={isFetching}>
+        {data?.treeData.length ? (
+          <Tree<any>
+            blockNode
+            showLine={{ showLeafIcon: false }}
+            titleRender={titleRender}
+            treeData={data.treeData}
+            expandedKeys={expandedKeys}
+            onExpand={setExpandedKeys}
+            height={700}
+            fieldNames={{
+              title: 'deptName',
+              key: 'deptId',
+            }}
+            onSelect={(selectedKeys, { selected, node: { key } }) => {
+              if (!selected) return;
 
-                showDeptDetails(key, data!.map.get(key)!.deptName);
-              }}
-            />
-          </div>
-        </Spin>
-      ) : (
-        <EmptySimple />
-      )}
+              showDeptDetails(key, data!.map.get(key)!.deptName);
+            }}
+          />
+        ) : (
+          <EmptySimple />
+        )}
+      </Spin>
     </>
   );
 };

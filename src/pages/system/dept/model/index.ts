@@ -35,17 +35,17 @@ export const useQueryDeptList = (params: SysDeptQueryBo, options: { onSuccess: (
     async () => {
       const data = await sysDeptPostList(params);
 
-      const treeData: SysDeptVo[] = parseSimpleTreeData(data, {
+      const treeData = parseSimpleTreeData(data, {
         id: 'deptId',
         pId: 'parentId',
         rootPId: null,
       });
 
       return {
+        treeData,
         map: data.reduce<Map<number, SysDeptVo>>((prev, curr) => {
           return prev.set(curr.deptId, curr);
         }, new Map()),
-        treeData,
         allParentIds: Array.from(
           data.reduce<Set<number>>((prev, curr) => {
             return prev.add(
@@ -82,13 +82,11 @@ export const useQueryDeptOptions = () => {
   return useQuery(queryDeptOptionsKey, async () => {
     const data = await sysDeptPostList({});
 
-    const treeData: SysDeptVo[] = parseSimpleTreeData(data, {
+    return parseSimpleTreeData(data, {
       id: 'deptId',
       pId: 'parentId',
       rootPId: null,
     });
-
-    return treeData;
   });
 };
 export const useReFetchDeptOptions = () => {
