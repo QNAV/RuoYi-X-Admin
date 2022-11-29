@@ -12,7 +12,7 @@ export enum DictTypeActionType {
   Add,
   Edit,
 }
-export const dictTypeTextMap = {
+export const dictTypeActionTypeTextMap = {
   [DictTypeActionType.Add]: '新增',
   [DictTypeActionType.Edit]: '编辑',
 };

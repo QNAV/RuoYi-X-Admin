@@ -1,4 +1,5 @@
 import { useInitActionType } from '@/hooks';
+import { DictTypeActionType } from '@/pages/system/dict/model';
 import type { SysConfigVo } from '@/services/system/data-contracts';
 import type { ActionType } from '@ant-design/pro-components';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
@@ -8,13 +9,21 @@ const atomMainTableActions = atom<ActionType | undefined>(undefined);
 export const useAtomValueMainTableActions = () => useAtomValue(atomMainTableActions);
 export const useActionRefMainTable = () => useInitActionType(atomMainTableActions);
 
-const atomAddOrEditModal = atomWithReset<{
+export enum ConfigActionType {
+  Add,
+  Edit,
+}
+export const configActionTypeTextMap = {
+  [DictTypeActionType.Add]: '新增',
+  [DictTypeActionType.Edit]: '编辑',
+};
+export const atomAddOrEditModal = atomWithReset<{
   open: boolean;
-  actionType: 'add' | 'edit';
+  actionType: ConfigActionType;
   record?: SysConfigVo;
 }>({
   open: false,
-  actionType: 'add',
+  actionType: ConfigActionType.Add,
 });
 export const useAtomValueAddOrEditModal = () => useAtomValue(atomAddOrEditModal);
 export const useShowAddModal = () => {
@@ -22,7 +31,7 @@ export const useShowAddModal = () => {
   return () => {
     setAtom({
       open: true,
-      actionType: 'add',
+      actionType: ConfigActionType.Add,
     });
   };
 };
@@ -32,7 +41,7 @@ export const useShowEditModal = () => {
   return (record: SysConfigVo) => {
     setAtom({
       open: true,
-      actionType: 'edit',
+      actionType: ConfigActionType.Edit,
       record,
     });
   };

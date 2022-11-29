@@ -1,5 +1,5 @@
 import { BaseProTable } from '@/components';
-import { useQueryDict } from '@/models';
+import { useQueryDictSysYesNo } from '@/models';
 import ButtonAdd from '@/pages/system/config/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/config/components/ButtonEdit';
 import ButtonExport from '@/pages/system/config/components/ButtonExport';
@@ -14,7 +14,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 
 const useColumns = (): ProColumns<SysConfigVo>[] => {
-  const { data } = useQueryDict('sys_yes_no');
+  const { valueEnumSysYesNo } = useQueryDictSysYesNo();
 
   return [
     { title: '参数主键', dataIndex: 'configId', key: 'configId', valueType: 'text', hideInSearch: true },
@@ -26,7 +26,7 @@ const useColumns = (): ProColumns<SysConfigVo>[] => {
       dataIndex: 'configType',
       key: 'configType',
       valueType: 'select',
-      valueEnum: data?.valueEnum ?? {},
+      valueEnum: valueEnumSysYesNo,
     },
     { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
     {
@@ -67,7 +67,7 @@ const tableAlertOptionRender: ProTableProps<SysConfigVo, SysConfigPageQueryBo>['
   return (
     <ButtonRemove
       disabled={selectedRows.length === 0}
-      isBatch
+      batch
       configId={selectedRows.map((i) => i.configId).join(',') as unknown as number}
     />
   );
@@ -81,14 +81,14 @@ const TableMain: FC = () => {
   const [searchParams, setSearchParams] = useState<SysConfigPageQueryBo>({});
 
   return (
-    <BaseProTable
+    <BaseProTable<SysConfigVo, SysConfigPageQueryBo>
       rowKey="configId"
       actionRef={actionRef}
       columns={columns}
       tableAlertOptionRender={tableAlertOptionRender}
       request={async (...p) => {
         const params = convertParams(...p);
-        setSearchParams(params as SysConfigPageQueryBo);
+        setSearchParams(params);
         return await sysConfigPostList(params);
       }}
       toolbar={{

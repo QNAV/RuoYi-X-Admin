@@ -1,38 +1,30 @@
-import { Access } from '@/components';
+import { AccessWithState, BaseButtonRemove } from '@/components';
 import { useAtomValueMainTableActions } from '@/pages/system/config/model';
 import { sysConfigPostRemove } from '@/services/system/System';
-import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal } from 'antd';
+import { message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
   configId: number;
-  isBatch?: boolean;
+  batch?: boolean;
   disabled?: boolean;
-}> = ({ configId, disabled, isBatch }) => {
-  const text = isBatch ? '批量删除' : '删除';
-
+}> = ({ configId, disabled, batch }) => {
   const mainTableActions = useAtomValueMainTableActions();
 
-  const { mutateAsync, isLoading } = useMutation(
-    async (dictId: number) => {
-      await sysConfigPostRemove({ configIds: dictId });
+  const { mutateAsync, isLoading } = useMutation(sysConfigPostRemove, {
+    onSuccess: () => {
+      mainTableActions?.reload();
+      mainTableActions?.clearSelected?.();
+      message.success('删除成功');
     },
-    {
-      onSuccess: () => {
-        mainTableActions?.reload();
-        mainTableActions?.clearSelected?.();
-        message.success('删除成功');
-      },
-    },
-  );
+  });
 
   const onRemove = () => {
     Modal.confirm({
-      title: '删除参数',
+      title: '操作确认',
       content: `确定删除参数编号为 ${configId} 的参数吗？`,
-      onOk: async () => mutateAsync(configId),
+      onOk: () => mutateAsync({ configIds: configId }),
       okButtonProps: {
         loading: isLoading,
       },
@@ -40,11 +32,9 @@ const ButtonRemove: FC<{
   };
 
   return (
-    <Access accessible>
-      <Button type="link" danger disabled={disabled} icon={<DeleteOutlined />} onClick={onRemove}>
-        {text}
-      </Button>
-    </Access>
+    <AccessWithState accessKey="system:config:remove">
+      <BaseButtonRemove batch={batch} disabled={disabled} onClick={onRemove} />
+    </AccessWithState>
   );
 };
 

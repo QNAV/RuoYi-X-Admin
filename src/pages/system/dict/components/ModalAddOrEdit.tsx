@@ -2,7 +2,7 @@ import { AccessWithState } from '@/components';
 import { useQueryDictSysNormalDisable } from '@/models';
 import {
   DictTypeActionType,
-  dictTypeTextMap,
+  dictTypeActionTypeTextMap,
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
   useHideAddOrEditModal,
@@ -59,7 +59,7 @@ const ModalAddOrEdit: FC = () => {
       <ModalForm<SysDictTypeAddBo>
         formRef={formRef}
         width={500}
-        title={`${dictTypeTextMap[actionType]}字典类型`}
+        title={`${dictTypeActionTypeTextMap[actionType]}字典类型`}
         open={open}
         modalProps={{
           onCancel,

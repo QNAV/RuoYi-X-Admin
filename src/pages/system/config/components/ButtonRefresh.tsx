@@ -1,29 +1,33 @@
-import { Access } from '@/components';
 import { sysConfigPostRefreshCache } from '@/services/system/System';
 import { ReloadOutlined } from '@ant-design/icons';
+import { useMutation } from '@tanstack/react-query';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRefresh: FC = () => {
+  const { isLoading, mutateAsync } = useMutation(sysConfigPostRefreshCache, {
+    onSuccess: () => {
+      message.success('刷新成功');
+    },
+  });
+
   return (
-    <Access accessible>
-      <Button
-        danger
-        icon={<ReloadOutlined />}
-        onClick={() => {
-          Modal.confirm({
-            title: '刷新缓存？',
-            content: '确定刷新缓存吗？',
-            onOk: async () => {
-              await sysConfigPostRefreshCache();
-              message.success('刷新成功');
-            },
-          });
-        }}
-      >
-        刷新缓存
-      </Button>
-    </Access>
+    <Button
+      danger
+      icon={<ReloadOutlined />}
+      onClick={() => {
+        Modal.confirm({
+          title: '操作确认',
+          content: '确定刷新缓存吗？',
+          onOk: () => mutateAsync({}),
+          okButtonProps: {
+            loading: isLoading,
+          },
+        });
+      }}
+    >
+      刷新缓存
+    </Button>
   );
 };
 

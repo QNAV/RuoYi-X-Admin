@@ -1,6 +1,8 @@
-import { Access } from '@/components';
-import { useQueryDict } from '@/models';
+import { AccessWithState } from '@/components';
+import { useQueryDictSysYesNo } from '@/models';
 import {
+  ConfigActionType,
+  configActionTypeTextMap,
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
   useHideAddOrEditModal,
@@ -10,76 +12,77 @@ import { sysConfigPostAdd, sysConfigPostUpdateByKey } from '@/services/system/Sy
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormRadio, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
 import { message } from 'antd';
-import { useEffect, useRef } from 'react';
+import { startTransition, useEffect, useRef } from 'react';
 
 const ModalAddOrEdit = () => {
   const formRef = useRef<ProFormInstance>();
 
   const mainTableActions = useAtomValueMainTableActions();
 
-  const { data } = useQueryDict('sys_yes_no');
+  const { defaultValueSysYesNo, valueEnumSysYesNo } = useQueryDictSysYesNo();
 
   const { open, actionType, record } = useAtomValueAddOrEditModal();
   const hideAddOrEditModal = useHideAddOrEditModal();
   const onCancel = () => {
-    if (actionType === 'edit') {
+    if (actionType === ConfigActionType.Edit) {
       formRef.current?.resetFields();
     }
     hideAddOrEditModal();
   };
+  const actionTypeText = configActionTypeTextMap[actionType];
+
+  const onFinish = async (values: SysConfigAddBo) => {
+    if (actionType === ConfigActionType.Add) {
+      await sysConfigPostAdd(values);
+    } else {
+      await sysConfigPostUpdateByKey({ ...values, configId: record!.configId });
+    }
+
+    hideAddOrEditModal();
+    formRef.current?.resetFields();
+
+    mainTableActions?.reload();
+
+    message.success(`${actionTypeText}成功`);
+  };
 
   useEffect(() => {
-    if (open && actionType === 'edit') {
-      const timer = setTimeout(() => {
+    if (open && actionType === ConfigActionType.Edit) {
+      startTransition(() => {
         formRef.current?.setFieldsValue(record);
-        clearTimeout(timer);
-      }, 0);
+      });
     }
   }, [open]);
 
   return (
-    <Access accessible>
+    <AccessWithState accessKey={['system:config:add', 'system:config:edit']}>
       <ModalForm<SysConfigAddBo>
         formRef={formRef}
         width={500}
-        title={actionType === 'add' ? '新增字典类型' : '编辑字典类型'}
+        title={`${actionTypeText}参数设置`}
         open={open}
         modalProps={{
           onCancel,
           okText: '提交',
         }}
-        onFinish={async (values) => {
-          if (actionType === 'add') {
-            await sysConfigPostAdd(values);
-            message.success('新增成功');
-          } else {
-            await sysConfigPostUpdateByKey({ ...values, configId: record!.configId });
-            message.success('编辑成功');
-          }
-
-          mainTableActions?.reload();
-
-          hideAddOrEditModal();
-
-          formRef.current?.resetFields();
-        }}
+        onFinish={onFinish}
       >
-        <ProFormText name="configName" label="参数名称" required rules={[{ required: true }]} />
+        <ProFormText name="configName" label="参数名称" rules={[{ required: true }]} />
 
-        <ProFormText name="configKey" label="参数键名" required rules={[{ required: true }]} />
+        <ProFormText name="configKey" label="参数键名" rules={[{ required: true }]} />
 
-        <ProFormText name="configValue" label="参数键值" required rules={[{ required: true }]} />
+        <ProFormText name="configValue" label="参数键值" rules={[{ required: true }]} />
 
         <ProFormRadio.Group
           name="configType"
           label="系统内置"
-          valueEnum={data?.valueEnum ?? {}}
-          initialValue={data?.defaultValue}
+          valueEnum={valueEnumSysYesNo}
+          initialValue={defaultValueSysYesNo}
         />
 
         <ProFormTextArea name="remark" label="备注" />
       </ModalForm>
-    </Access>
+    </AccessWithState>
   );
 };
 
