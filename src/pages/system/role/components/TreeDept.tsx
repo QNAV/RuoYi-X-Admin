@@ -1,4 +1,4 @@
-import { Access, EmptySimple } from '@/components';
+import { AccessWithState, EmptySimple } from '@/components';
 import { OptionsDataScope } from '@/constants';
 import { useAtomValueRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
 import { sysDeptGetRoleDeptTreeSelect, sysRolePostDataScope } from '@/services/system/System';
@@ -118,7 +118,7 @@ const TreeDept: FC = () => {
           />
         </ProForm>
 
-        <Access accessible>
+        <AccessWithState accessKey="system:role:edit">
           {checkable ? (
             <Space>
               <Button
@@ -148,12 +148,12 @@ const TreeDept: FC = () => {
               编辑数据权限
             </Button>
           )}
-        </Access>
+        </AccessWithState>
       </header>
 
       {dataScope === '2' && (
         <>
-          <Space wrap className="mb-2">
+          <Space wrap className="my-2">
             {treeData.length > 0 && (
               <Button
                 size="small"

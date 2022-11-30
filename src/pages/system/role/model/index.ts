@@ -1,6 +1,5 @@
 import { useInitActionType } from '@/hooks';
-
-import type { SysRole, SysRoleQueryBo, SysRoleVo } from '@/services/system/data-contracts';
+import type { SysRole, SysRoleVo } from '@/services/system/data-contracts';
 import { sysMenuGetRoleMenuTreeSelect, sysRoleGetInfo, sysRolePostEdit } from '@/services/system/System';
 import type { TreeData } from '@/utils';
 import { filterCheckedTree, getExpandedKeys, getMenuIds } from '@/utils';
@@ -29,11 +28,6 @@ export const useShowRoleDetails = () => {
   };
 };
 export const useAtomValueRoleDetails = () => useAtomValue(atomRoleDetails);
-
-// 导出传参
-const atomSearchParams = atom<SysRoleQueryBo>({});
-export const useAtomValueSearchParams = () => useAtomValue(atomSearchParams);
-export const useSetSearchParams = () => useSetAtom(atomSearchParams);
 
 const namespace = 'sysRole';
 const queryKey = [namespace, 'details'];
@@ -112,7 +106,7 @@ export const useEditRoleDetails = (onSuccess: () => void) => {
       });
     },
     {
-      onSuccess: () => {
+      onSuccess: async () => {
         onSuccess();
         message.success('保存成功');
       },

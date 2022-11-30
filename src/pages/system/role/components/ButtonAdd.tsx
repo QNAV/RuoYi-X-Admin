@@ -1,31 +1,26 @@
-import { Access } from '@/components';
-import { useQueryDict } from '@/models';
+import { AccessWithState, BaseButtonAdd } from '@/components';
+import { useQueryDictSysNormalDisable } from '@/models';
 import { useAtomValueRoleListActions } from '@/pages/system/role/model';
 import type { SysRole } from '@/services/system/data-contracts';
 import { sysRolePostAdd } from '@/services/system/System';
-import { PlusOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { BetaSchemaForm } from '@ant-design/pro-components';
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
 
-const ButtonCreate: FC = () => {
+const ButtonAdd: FC = () => {
   const formRef = useRef<ProFormInstance<SysRole>>();
 
   const roleListActions = useAtomValueRoleListActions();
 
-  const { data } = useQueryDict('sys_normal_disable');
+  const { defaultValueSysNormalDisable, valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
   return (
-    <Access accessible>
+    <AccessWithState accessKey="system:role:add">
       <BetaSchemaForm
         title="新增角色"
-        trigger={
-          <Button type="primary" icon={<PlusOutlined />}>
-            新增
-          </Button>
-        }
+        trigger={<BaseButtonAdd />}
         formRef={formRef}
         onFinish={async (values) => {
           await sysRolePostAdd({
@@ -44,6 +39,9 @@ const ButtonCreate: FC = () => {
           return true;
         }}
         width={500}
+        modalProps={{
+          okText: '提交',
+        }}
         layoutType="ModalForm"
         columns={[
           {
@@ -74,10 +72,10 @@ const ButtonCreate: FC = () => {
                 title: '状态',
                 dataIndex: 'status',
                 key: 'status',
-                valueEnum: data?.valueEnum ?? {},
+                valueEnum: valueEnumSysNormalDisable,
                 valueType: 'radio',
                 formItemProps: {
-                  initialValue: data?.defaultValue,
+                  initialValue: defaultValueSysNormalDisable,
                   required: true,
                   rules: [{ required: true, message: '请选择状态' }],
                 },
@@ -88,6 +86,7 @@ const ButtonCreate: FC = () => {
                 key: 'roleSort',
                 valueType: 'digit',
                 formItemProps: {
+                  initialValue: 0,
                   required: true,
                   rules: [{ required: true, message: '请输入显示排序' }],
                 },
@@ -97,8 +96,8 @@ const ButtonCreate: FC = () => {
           { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea' },
         ]}
       />
-    </Access>
+    </AccessWithState>
   );
 };
 
-export default ButtonCreate;
+export default ButtonAdd;

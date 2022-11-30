@@ -1,4 +1,4 @@
-import { Access, EmptySimple } from '@/components';
+import { AccessWithState, EmptySimple } from '@/components';
 import { useEditRoleDetails, useQueryRoleTree } from '@/pages/system/role/model';
 import type { TreeData } from '@/utils';
 import { CaretDownOutlined, CaretRightOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
@@ -69,7 +69,7 @@ const TreeTransferMenuTree: FC = () => {
           )}
         </Space>
 
-        <Access accessible>
+        <AccessWithState accessKey="system:role:edit">
           {checkable ? (
             <Space wrap>
               <Button
@@ -105,7 +105,7 @@ const TreeTransferMenuTree: FC = () => {
               编辑菜单权限
             </Button>
           )}
-        </Access>
+        </AccessWithState>
       </header>
 
       <Spin spinning={isFetching}>

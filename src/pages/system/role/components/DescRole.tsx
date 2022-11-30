@@ -1,4 +1,5 @@
-import { useQueryDict } from '@/models';
+import { useCheckAccess } from '@/hooks';
+import { useQueryDictSysNormalDisable } from '@/models';
 import { useAtomValueRoleListActions, useEditRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
 import type { SysRole, SysRoleVo } from '@/services/system/data-contracts';
 import type { RowEditableConfig } from '@ant-design/pro-components';
@@ -7,12 +8,12 @@ import { Divider, Form, Spin } from 'antd';
 import type { FC, Key } from 'react';
 import { useState } from 'react';
 
-const DescDetails: FC = () => {
+const DescRole: FC = () => {
   const [editableKeys, setEditableKeys] = useState<Key[]>([]);
 
   const [form] = Form.useForm();
 
-  const { data: dictSysNormalDisable } = useQueryDict('sys_normal_disable');
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
   const actions = useAtomValueRoleListActions();
 
@@ -26,18 +27,22 @@ const DescDetails: FC = () => {
     actions?.reload();
   });
 
-  const editable: RowEditableConfig<SysRoleVo> | undefined = data
+  const checkAccess = useCheckAccess();
+
+  const editable: RowEditableConfig<SysRoleVo> | undefined = checkAccess('system:role:edit')
     ? {
         form,
         editableKeys,
         onChange: (keys, editableRows) => {
           setEditableKeys(keys);
 
-          const key = keys[0] as keyof SysRoleVo;
+          if (keys.length > 0) {
+            const key = keys[0] as keyof SysRoleVo;
 
-          form.setFieldsValue({
-            [key]: (editableRows as SysRoleVo)[key],
-          });
+            form.setFieldsValue({
+              [key]: (editableRows as SysRoleVo)[key],
+            });
+          }
         },
         onSave: async (key, record) => {
           await mutateAsync({
@@ -72,23 +77,14 @@ const DescDetails: FC = () => {
             title: '状态',
             dataIndex: 'status',
             key: 'status',
-            valueEnum: dictSysNormalDisable?.valueEnum ?? {},
+            valueEnum: valueEnumSysNormalDisable,
             valueType: 'radio',
-            formItemProps: {
-              initialValue: dictSysNormalDisable?.defaultValue,
-              required: true,
-              rules: [{ required: true, message: '请选择状态' }],
-            },
           },
           {
             title: '显示排序',
             dataIndex: 'roleSort',
             key: 'roleSort',
             valueType: 'digit',
-            formItemProps: {
-              required: true,
-              rules: [{ required: true, message: '请输入显示排序' }],
-            },
           },
           {
             title: '角色名称',
@@ -120,4 +116,4 @@ const DescDetails: FC = () => {
   );
 };
 
-export default DescDetails;
+export default DescRole;

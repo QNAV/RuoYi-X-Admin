@@ -1,9 +1,8 @@
 import { BasePageContainer, EmptySimple } from '@/components';
+import ButtonAdd from '@/pages/system/role/components/ButtonAdd';
 import ButtonAssignUser from '@/pages/system/role/components/ButtonAssignUser';
-import ButtonCreate from '@/pages/system/role/components/ButtonCreate';
-import ButtonDelete from '@/pages/system/role/components/ButtonDelete';
-import ButtonExport from '@/pages/system/role/components/ButtonExport';
-import DescDetails from '@/pages/system/role/components/DescDetails';
+import ButtonRemove from '@/pages/system/role/components/ButtonRemove';
+import DescRole from '@/pages/system/role/components/DescRole';
 import ListRole from '@/pages/system/role/components/ListRole';
 import TreeDept from '@/pages/system/role/components/TreeDept';
 import MenuTree from '@/pages/system/role/components/TreeMenu';
@@ -14,56 +13,67 @@ import { Space } from 'antd';
 import type { FC } from 'react';
 
 const PageRole: FC = () => {
-  const { md, xl } = useResponsive();
+  const { xl } = useResponsive();
 
   const { open } = useAtomValueRoleDetails();
 
   return (
     <BasePageContainer>
-      <ProCard ghost gutter={[16, 16]} wrap={!md}>
+      <ProCard ghost gutter={[16, 16]} wrap>
         <ProCard
           title="角色列表"
-          colSpan="450px"
-          extra={
-            <Space>
-              <ButtonExport />
-              <ButtonCreate />
-            </Space>
-          }
+          colSpan={{
+            xxl: 7,
+            xl: 10,
+            lg: 13,
+            md: 24,
+            sm: 24,
+            xs: 24,
+          }}
+          extra={<ButtonAdd />}
         >
           <ListRole />
         </ProCard>
 
-        {open ? (
-          <ProCard
-            split="horizontal"
-            title="角色详情"
-            extra={
-              <Space>
-                <ButtonDelete />
-                <ButtonAssignUser />
-              </Space>
-            }
-          >
-            <ProCard>
-              <DescDetails />
-            </ProCard>
-
-            <ProCard split={xl ? 'vertical' : 'horizontal'}>
+        <ProCard
+          split="horizontal"
+          title="角色详情"
+          colSpan={{
+            xxl: 17,
+            xl: 14,
+            lg: 11,
+            md: 24,
+            sm: 24,
+            xs: 24,
+          }}
+          extra={
+            <Space>
+              <ButtonRemove />
+              <ButtonAssignUser />
+            </Space>
+          }
+          className="h-full"
+        >
+          {open ? (
+            <>
               <ProCard>
-                <MenuTree />
+                <DescRole />
               </ProCard>
 
-              <ProCard>
-                <TreeDept />
+              <ProCard split={xl ? 'vertical' : 'horizontal'}>
+                <ProCard>
+                  <MenuTree />
+                </ProCard>
+
+                <ProCard>
+                  <TreeDept />
+                </ProCard>
               </ProCard>
-            </ProCard>
-          </ProCard>
-        ) : (
-          <ProCard title="角色详情" className="h-full">
+            </>
+          ) : (
             <EmptySimple description="点击选择左侧角色查看详情" />
-          </ProCard>
-        )}
+          )}
+        </ProCard>
       </ProCard>
     </BasePageContainer>
   );

@@ -1,19 +1,18 @@
-import { Access } from '@/components';
+import { AccessWithState, BaseButtonRemove } from '@/components';
 import { useAtomValueRoleDetails, useAtomValueRoleListActions, useHideRoleDetails } from '@/pages/system/role/model';
 import { sysRolePostRemove } from '@/services/system/System';
-import { DeleteOutlined } from '@ant-design/icons';
-import { Button, message, Modal } from 'antd';
+import { message, Modal } from 'antd';
 import type { FC } from 'react';
 
-const ButtonDelete: FC = () => {
+const ButtonRemove: FC = () => {
   const roleListActions = useAtomValueRoleListActions();
 
   const hideRoleDetails = useHideRoleDetails();
-  const { roleId } = useAtomValueRoleDetails();
+  const { roleId, open } = useAtomValueRoleDetails();
 
   const handleDel = () =>
     Modal.confirm({
-      title: '删除角色',
+      title: '操作确认',
       content: `确定删除角色编号为 ${roleId} 的数据吗？`,
       onOk: async () => {
         await sysRolePostRemove({ roleIds: roleId });
@@ -25,12 +24,10 @@ const ButtonDelete: FC = () => {
     });
 
   return (
-    <Access accessible>
-      <Button danger ghost icon={<DeleteOutlined />} onClick={handleDel}>
-        删除
-      </Button>
-    </Access>
+    <AccessWithState accessKey="system:role:remove">
+      <BaseButtonRemove type="primary" size="middle" disabled={!open} onClick={handleDel} />
+    </AccessWithState>
   );
 };
 
-export default ButtonDelete;
+export default ButtonRemove;
