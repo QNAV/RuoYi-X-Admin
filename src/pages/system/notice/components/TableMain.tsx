@@ -61,7 +61,7 @@ const tableAlertOptionRender: ProTableProps<SysNoticeVo, SysNoticePageQueryBo>['
 }) => {
   return (
     <ButtonRemove
-      isBatch
+      batch
       disabled={selectedRows.length === 0}
       noticeId={selectedRows.map((i) => i.noticeId).join(',') as unknown as number}
     />

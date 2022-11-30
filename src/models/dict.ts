@@ -45,3 +45,21 @@ export const useQueryDictSysYesNo = () => {
     valueEnumSysYesNo: data?.valueEnum ?? new Map(),
   };
 };
+
+// sys_notice_type
+export const useQueryDictSysNoticeType = () => {
+  const { data } = useQueryDict('sys_notice_type');
+  return {
+    defaultValueSysNoticeType: data?.defaultValue ?? null,
+    valueEnumSysNoticeType: data?.valueEnum ?? new Map(),
+  };
+};
+
+// sys_notice_status
+export const useQueryDictSysNoticeStatus = () => {
+  const { data } = useQueryDict('sys_notice_status');
+  return {
+    defaultValueSysNoticeStatus: data?.defaultValue ?? null,
+    valueEnumSysNoticeStatus: data?.valueEnum ?? new Map(),
+  };
+};

@@ -1,38 +1,31 @@
-import { Access } from '@/components';
+import { AccessWithState, BaseButtonRemove } from '@/components';
 import { useAtomValueMainTableActions } from '@/pages/system/notice/model';
 import { sysNoticePostRemove } from '@/services/system/System';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal } from 'antd';
+import { message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
   noticeId: number;
-  isBatch?: boolean;
+  batch?: boolean;
   disabled?: boolean;
-}> = ({ noticeId, disabled, isBatch }) => {
-  const text = isBatch ? '批量删除' : '删除';
-
+}> = ({ noticeId, disabled, batch }) => {
   const mainTableActions = useAtomValueMainTableActions();
 
-  const { mutateAsync, isLoading } = useMutation(
-    async (noticeId: number) => {
-      await sysNoticePostRemove({ noticeIds: noticeId });
+  const { mutateAsync, isLoading } = useMutation(sysNoticePostRemove, {
+    onSuccess: async () => {
+      mainTableActions?.reload();
+      mainTableActions?.clearSelected?.();
+      message.success('删除成功');
     },
-    {
-      onSuccess: () => {
-        mainTableActions?.reload();
-        mainTableActions?.clearSelected?.();
-        message.success('删除成功');
-      },
-    },
-  );
+  });
 
   const onRemove = () => {
     Modal.confirm({
-      title: '删除公告通知',
+      title: '操作确认',
       content: `确定删除公告编号为 ${noticeId} 的公告通知吗？`,
-      onOk: async () => mutateAsync(noticeId),
+      onOk: async () => mutateAsync({ noticeIds: noticeId }),
       okButtonProps: {
         loading: isLoading,
       },
@@ -40,11 +33,9 @@ const ButtonRemove: FC<{
   };
 
   return (
-    <Access accessible>
-      <Button type="link" danger disabled={disabled} icon={<DeleteOutlined />} onClick={onRemove}>
-        {text}
-      </Button>
-    </Access>
+    <AccessWithState accessKey="system:notice:remove">
+      <BaseButtonRemove batch={batch} disabled={disabled} icon={<DeleteOutlined />} onClick={onRemove} />
+    </AccessWithState>
   );
 };
 

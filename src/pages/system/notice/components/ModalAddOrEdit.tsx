@@ -1,7 +1,9 @@
-import { Access } from '@/components';
+import { AccessWithState } from '@/components';
 import { WangEditor } from '@/features';
-import { useQueryDict } from '@/models';
+import { useQueryDictSysNoticeStatus, useQueryDictSysNoticeType } from '@/models';
 import {
+  NoticeActionType,
+  noticeActionTypeTextMap,
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
   useHideAddOrEditModal,
@@ -11,67 +13,66 @@ import { sysNoticePostAdd, sysNoticePostEdit } from '@/services/system/System';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormItem, ProFormRadio, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import { message } from 'antd';
-import { useEffect, useRef } from 'react';
+import { startTransition, useEffect, useRef } from 'react';
 
 const ModalAddOrEdit = () => {
   const formRef = useRef<ProFormInstance>();
 
-  const { data: dictSysNoticeType } = useQueryDict('sys_notice_type');
-  const { data: dictSysNoticeStatus } = useQueryDict('sys_notice_status');
+  const { defaultValueSysNoticeType, valueEnumSysNoticeType } = useQueryDictSysNoticeType();
+  const { defaultValueSysNoticeStatus, valueEnumSysNoticeStatus } = useQueryDictSysNoticeStatus();
 
   const mainTableActions = useAtomValueMainTableActions();
 
   const { open, actionType, record } = useAtomValueAddOrEditModal();
   const hideAddOrEditModal = useHideAddOrEditModal();
   const onCancel = () => {
-    if (actionType === 'edit') {
+    if (actionType === NoticeActionType.Edit) {
       formRef.current?.resetFields();
     }
     hideAddOrEditModal();
   };
+  const actionTypeText = noticeActionTypeTextMap[actionType];
+
+  const onFinish = async (values: SysNoticeAddBo) => {
+    if (actionType === NoticeActionType.Add) {
+      await sysNoticePostAdd(values);
+    } else {
+      await sysNoticePostEdit({ ...values, noticeId: record!.noticeId });
+    }
+
+    hideAddOrEditModal();
+    formRef.current?.resetFields();
+
+    mainTableActions?.reload();
+
+    message.success(`${actionTypeText}成功`);
+  };
 
   useEffect(() => {
-    if (open && actionType === 'edit') {
-      const timer = setTimeout(() => {
+    if (open && NoticeActionType.Edit) {
+      startTransition(() => {
         formRef.current?.setFieldsValue(record);
-        clearTimeout(timer);
-      }, 0);
+      });
     }
   }, [open]);
 
   return (
-    <Access accessible>
+    <AccessWithState accessKey={['system:notice:add', 'system:notice:edit']}>
       <ModalForm<SysNoticeAddBo>
         formRef={formRef}
         width={800}
-        title={actionType === 'add' ? '新增公告' : '编辑公告'}
+        title={`${actionTypeText}公告通知`}
         open={open}
         modalProps={{
           onCancel,
           okText: '提交',
         }}
         grid
-        onFinish={async (values) => {
-          if (actionType === 'add') {
-            await sysNoticePostAdd(values);
-            message.success('新增成功');
-          } else {
-            await sysNoticePostEdit({ ...values, noticeId: record!.noticeId });
-            message.success('编辑成功');
-          }
-
-          mainTableActions?.reload();
-
-          hideAddOrEditModal();
-
-          formRef.current?.resetFields();
-          return true;
-        }}
+        onFinish={onFinish}
       >
         <ProFormText
           name="noticeTitle"
           label="公告标题"
-          required
           rules={[{ required: true }]}
           colProps={{
             span: 12,
@@ -81,9 +82,9 @@ const ModalAddOrEdit = () => {
         <ProFormSelect
           name="noticeType"
           label="公告类型"
-          required
           rules={[{ required: true }]}
-          valueEnum={dictSysNoticeType?.valueEnum ?? {}}
+          valueEnum={valueEnumSysNoticeType}
+          initialValue={defaultValueSysNoticeType}
           colProps={{
             span: 12,
           }}
@@ -92,15 +93,15 @@ const ModalAddOrEdit = () => {
         <ProFormRadio.Group
           name="status"
           label="状态"
-          valueEnum={dictSysNoticeStatus?.valueEnum ?? {}}
-          initialValue={dictSysNoticeStatus?.defaultValue}
+          valueEnum={valueEnumSysNoticeStatus}
+          initialValue={defaultValueSysNoticeStatus}
         />
 
         <ProFormItem name="noticeContent" label="内容">
           <WangEditor />
         </ProFormItem>
       </ModalForm>
-    </Access>
+    </AccessWithState>
   );
 };
 

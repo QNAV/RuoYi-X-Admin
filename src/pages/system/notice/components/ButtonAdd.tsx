@@ -1,18 +1,14 @@
-import { Access } from '@/components';
+import { AccessWithState, BaseButtonAdd } from '@/components';
 import { useShowAddModal } from '@/pages/system/notice/model';
-import { PlusOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonAdd: FC = () => {
   const showAddModal = useShowAddModal();
 
   return (
-    <Access accessible>
-      <Button icon={<PlusOutlined />} type="primary" onClick={showAddModal}>
-        新增
-      </Button>
-    </Access>
+    <AccessWithState accessKey="system:notice:add">
+      <BaseButtonAdd onClick={showAddModal} />
+    </AccessWithState>
   );
 };
 
