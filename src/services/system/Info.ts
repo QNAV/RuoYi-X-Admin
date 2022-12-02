@@ -27,5 +27,14 @@ export const sysLoginGetInfo = (params: RequestParams = {}) =>
     path: `/info`,
     method: 'GET',
     secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const sysLoginGetInfoSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseUserInfoVo>({
+    path: `/info`,
+    method: 'GET',
+    secure: true,
+    skipErrorHandler: true,
     ...params,
   });

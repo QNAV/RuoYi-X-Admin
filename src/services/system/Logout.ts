@@ -27,5 +27,14 @@ export const sysLoginPostLogout = (params: RequestParams = {}) =>
     path: `/logout`,
     method: 'POST',
     secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const sysLoginPostLogoutSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/logout`,
+    method: 'POST',
+    secure: true,
+    skipErrorHandler: true,
     ...params,
   });

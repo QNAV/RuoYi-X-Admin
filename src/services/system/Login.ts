@@ -29,5 +29,16 @@ export const sysLoginPostLogin = (data: UserNameLoginBo, params: RequestParams =
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const sysLoginPostLoginSkipErrorHandler = (data: UserNameLoginBo, params: RequestParams = {}) =>
+  request<ResponseLoginVo>({
+    path: `/login`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
     ...params,
   });

@@ -34,5 +34,21 @@ export const sysLoginGetXcxLogin = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const sysLoginGetXcxLoginSkipErrorHandler = (
+  query: {
+    /** 小程序code */
+    xcxCode: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseLoginVo>({
+    path: `/xcxLogin`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
     ...params,
   });

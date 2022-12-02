@@ -34,5 +34,21 @@ export const captchaGetSmsCaptcha = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const captchaGetSmsCaptchaSkipErrorHandler = (
+  query: {
+    /** 用户手机号 */
+    phoneNumber: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/captchaSms`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
     ...params,
   });

@@ -80,6 +80,7 @@ const describeReturnType = () => {
 }
 
 %>
+
 /**
 <%~ routeDocs.description %>
 
@@ -97,5 +98,18 @@ request <<%~ responseType %>>({
   <%~ securityTmpl ? `secure: ${securityTmpl},` : '' %>
   <%~ bodyContentKindTmpl ? `type: ${bodyContentKindTmpl},` : '' %>
   <%~ responseFormatTmpl ? `format: ${responseFormatTmpl},` : '' %>
+  skipErrorHandler: false,
   ...<%~ _.get(requestConfigParam, "name") %>,
   })
+  export const <%~ `${route.routeName.usage}SkipErrorHandler` %> = (<%~ wrapperArgs %>) =>
+  request <<%~ responseType %>>({
+    path: `<%~ path %>`,
+    method: '<%~ _.upperCase(method) %>',
+    <%~ queryTmpl ? `query: ${queryTmpl},` : '' %>
+    <%~ bodyTmpl ? `body: ${bodyTmpl},` : '' %>
+    <%~ securityTmpl ? `secure: ${securityTmpl},` : '' %>
+    <%~ bodyContentKindTmpl ? `type: ${bodyContentKindTmpl},` : '' %>
+    <%~ responseFormatTmpl ? `format: ${responseFormatTmpl},` : '' %>
+    skipErrorHandler: true,
+    ...<%~ _.get(requestConfigParam, "name") %>,
+    })

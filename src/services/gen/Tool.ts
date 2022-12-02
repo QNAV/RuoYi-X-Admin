@@ -42,8 +42,25 @@ export const genGetBatchGenCode = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const genGetBatchGenCodeSkipErrorHandler = (
+  query: {
+    /** 业务生成表名称，多个表用,分隔 */
+    tables: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<any>({
+    path: `/tool/gen/batchGenCode`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -68,8 +85,28 @@ export const genGetColumnList = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const genGetColumnListSkipErrorHandler = (
+  query: {
+    /**
+     * 生成业务表编号
+     * @format int64
+     */
+    tableId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<TableDataInfoGenTableColumn>({
+    path: `/tool/gen/column/list`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -86,8 +123,20 @@ export const genPostDbList = (data: GenTablePageQuery, params: RequestParams = {
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const genPostDbListSkipErrorHandler = (data: GenTablePageQuery, params: RequestParams = {}) =>
+  request<TableDataInfoGenTable>({
+    path: `/tool/gen/db/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -109,8 +158,25 @@ export const genGetDownload = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const genGetDownloadSkipErrorHandler = (
+  query: {
+    /** 业务生成表名称 */
+    tableName: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<any>({
+    path: `/tool/gen/download`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -127,8 +193,20 @@ export const genPostEdit = (data: GenTableReq, params: RequestParams = {}) =>
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const genPostEditSkipErrorHandler = (data: GenTableReq, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/tool/gen/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -150,8 +228,25 @@ export const genGetGenCode = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const genGetGenCodeSkipErrorHandler = (
+  query: {
+    /** 业务生成表名称 */
+    tableName: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/tool/gen/genCode`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -173,8 +268,25 @@ export const genPostImportTable = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const genPostImportTableSkipErrorHandler = (
+  query: {
+    /** 业务生成表名称组 */
+    tables: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/tool/gen/importTable`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -199,8 +311,28 @@ export const genGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const genGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * 生成表编号
+     * @format int64
+     */
+    tableId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseGenInfoVo>({
+    path: `/tool/gen/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -217,8 +349,20 @@ export const genPostList = (data: GenTablePageQuery, params: RequestParams = {})
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const genPostListSkipErrorHandler = (data: GenTablePageQuery, params: RequestParams = {}) =>
+  request<TableDataInfoGenTable>({
+    path: `/tool/gen/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -243,8 +387,28 @@ export const genGetPreview = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const genGetPreviewSkipErrorHandler = (
+  query: {
+    /**
+     * 代码生成表编号
+     * @format int64
+     */
+    tableId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseMapStringString>({
+    path: `/tool/gen/preview`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -269,8 +433,28 @@ export const genPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const genPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 代码生成表编号组
+     * @format int64
+     */
+    tableIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/tool/gen/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -292,5 +476,21 @@ export const genGetSynchDb = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const genGetSynchDbSkipErrorHandler = (
+  query: {
+    /** 业务生成表名称 */
+    tableName: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/tool/gen/synchDb`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
     ...params,
   });

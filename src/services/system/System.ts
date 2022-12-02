@@ -110,8 +110,20 @@ export const bizLogininforPostAdd = (data: BizLogininforAddBo, params: RequestPa
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const bizLogininforPostAddSkipErrorHandler = (data: BizLogininforAddBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/logininfor/add`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -128,8 +140,20 @@ export const bizLogininforPostEdit = (data: BizLogininforEditBo, params: Request
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const bizLogininforPostEditSkipErrorHandler = (data: BizLogininforEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/logininfor/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -146,8 +170,20 @@ export const bizLogininforPostExport = (data: BizLogininforQueryBo, params: Requ
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const bizLogininforPostExportSkipErrorHandler = (data: BizLogininforQueryBo, params: RequestParams = {}) =>
+  request<any>({
+    path: `/system/logininfor/export`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -172,8 +208,28 @@ export const bizLogininforGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const bizLogininforGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * 主键
+     * @format int64
+     */
+    infoId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseBizLogininforVo>({
+    path: `/system/logininfor/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -190,8 +246,20 @@ export const bizLogininforPostList = (data: BizLogininforPageQueryBo, params: Re
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const bizLogininforPostListSkipErrorHandler = (data: BizLogininforPageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoBizLogininforVo>({
+    path: `/system/logininfor/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -216,8 +284,28 @@ export const bizLogininforPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const bizLogininforPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 主键串
+     * @format int64
+     */
+    infoIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/logininfor/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -234,8 +322,20 @@ export const sysConfigPostAdd = (data: SysConfigAddBo, params: RequestParams = {
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysConfigPostAddSkipErrorHandler = (data: SysConfigAddBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/config/add`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -257,8 +357,25 @@ export const sysConfigGetConfigKey = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysConfigGetConfigKeySkipErrorHandler = (
+  query: {
+    /** 参数Key */
+    configKey: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/config/configKey`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -275,8 +392,20 @@ export const sysConfigPostEdit = (data: SysConfigEditBo, params: RequestParams =
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysConfigPostEditSkipErrorHandler = (data: SysConfigEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/config/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -293,8 +422,20 @@ export const sysConfigPostExport = (data: SysConfigQueryBo, params: RequestParam
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysConfigPostExportSkipErrorHandler = (data: SysConfigQueryBo, params: RequestParams = {}) =>
+  request<any>({
+    path: `/system/config/export`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -319,8 +460,28 @@ export const sysConfigGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysConfigGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * 参数ID
+     * @format int64
+     */
+    configId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseSysConfigVo>({
+    path: `/system/config/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -337,8 +498,20 @@ export const sysConfigPostList = (data: SysConfigPageQueryBo, params: RequestPar
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysConfigPostListSkipErrorHandler = (data: SysConfigPageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysConfigVo>({
+    path: `/system/config/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -353,8 +526,18 @@ export const sysConfigPostRefreshCache = (params: RequestParams = {}) =>
     path: `/system/config/refreshCache`,
     method: 'POST',
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysConfigPostRefreshCacheSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/config/refreshCache`,
+    method: 'POST',
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -379,8 +562,28 @@ export const sysConfigPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysConfigPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 参数ID串
+     * @format int64
+     */
+    configIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/config/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -397,8 +600,20 @@ export const sysConfigPostUpdateByKey = (data: SysConfigEditBo, params: RequestP
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysConfigPostUpdateByKeySkipErrorHandler = (data: SysConfigEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/config/updateByKey`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -415,8 +630,20 @@ export const sysDeptPostAdd = (data: SysDeptAddBo, params: RequestParams = {}) =
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDeptPostAddSkipErrorHandler = (data: SysDeptAddBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/dept/add`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -433,8 +660,20 @@ export const sysDeptPostEdit = (data: SysDeptEditBo, params: RequestParams = {})
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDeptPostEditSkipErrorHandler = (data: SysDeptEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/dept/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -459,8 +698,28 @@ export const sysDeptGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDeptGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * 部门ID
+     * @format int64
+     */
+    deptId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseSysDeptVo>({
+    path: `/system/dept/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -477,8 +736,20 @@ export const sysDeptPostList = (data: SysDeptQueryBo, params: RequestParams = {}
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDeptPostListSkipErrorHandler = (data: SysDeptQueryBo, params: RequestParams = {}) =>
+  request<ResponseListSysDeptVo>({
+    path: `/system/dept/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -503,8 +774,28 @@ export const sysDeptGetExcludeChild = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDeptGetExcludeChildSkipErrorHandler = (
+  query: {
+    /**
+     * 部门ID
+     * @format int64
+     */
+    deptId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseListSysDeptVo>({
+    path: `/system/dept/list/exclude`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -529,8 +820,28 @@ export const sysDeptPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDeptPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 部门ID串
+     * @format int64
+     */
+    deptId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/dept/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -555,8 +866,28 @@ export const sysDeptGetRoleDeptTreeSelect = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDeptGetRoleDeptTreeSelectSkipErrorHandler = (
+  query: {
+    /**
+     * 角色ID
+     * @format int64
+     */
+    roleId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseRoleDeptTreeSelectVo>({
+    path: `/system/dept/roleDeptTreeSelect`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -573,8 +904,20 @@ export const sysDeptPostTreeSelect = (data: SysDeptQueryBo, params: RequestParam
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDeptPostTreeSelectSkipErrorHandler = (data: SysDeptQueryBo, params: RequestParams = {}) =>
+  request<ResponseListTreeLong>({
+    path: `/system/dept/treeSelect`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -591,8 +934,20 @@ export const sysDictDataPostAdd = (data: SysDictDataAddBo, params: RequestParams
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictDataPostAddSkipErrorHandler = (data: SysDictDataAddBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/dict/data/add`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -609,8 +964,20 @@ export const sysDictDataPostEdit = (data: SysDictDataEditBo, params: RequestPara
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictDataPostEditSkipErrorHandler = (data: SysDictDataEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/dict/data/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -627,8 +994,20 @@ export const sysDictDataPostExport = (data: SysDictDataQueryBo, params: RequestP
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictDataPostExportSkipErrorHandler = (data: SysDictDataQueryBo, params: RequestParams = {}) =>
+  request<any>({
+    path: `/system/dict/data/export`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -653,8 +1032,28 @@ export const sysDictDataGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictDataGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * 字典code
+     * @format int64
+     */
+    dictCode: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseSysDictDataVo>({
+    path: `/system/dict/data/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -671,8 +1070,20 @@ export const sysDictDataPostList = (data: SysDictDataPageQueryBo, params: Reques
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictDataPostListSkipErrorHandler = (data: SysDictDataPageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysDictDataVo>({
+    path: `/system/dict/data/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -697,8 +1108,28 @@ export const sysDictDataPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictDataPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 字典code串
+     * @format int64
+     */
+    dictCodes: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/dict/data/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -720,8 +1151,25 @@ export const sysDictDataGetType = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictDataGetTypeSkipErrorHandler = (
+  query: {
+    /** 字典类型 */
+    dictType: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseListSysDictDataVo>({
+    path: `/system/dict/data/type`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -738,8 +1186,20 @@ export const sysDictTypePostAdd = (data: SysDictTypeAddBo, params: RequestParams
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictTypePostAddSkipErrorHandler = (data: SysDictTypeAddBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/dict/type/add`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -756,8 +1216,20 @@ export const sysDictTypePostEdit = (data: SysDictTypeEditBo, params: RequestPara
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictTypePostEditSkipErrorHandler = (data: SysDictTypeEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/dict/type/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -774,8 +1246,20 @@ export const sysDictTypePostExport = (data: SysDictTypeQueryBo, params: RequestP
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictTypePostExportSkipErrorHandler = (data: SysDictTypeQueryBo, params: RequestParams = {}) =>
+  request<any>({
+    path: `/system/dict/type/export`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -800,8 +1284,28 @@ export const sysDictTypeGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictTypeGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * 字典ID
+     * @format int64
+     */
+    dictId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseSysDictTypeVo>({
+    path: `/system/dict/type/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -818,8 +1322,20 @@ export const sysDictTypePostList = (data: SysDictTypePageQueryBo, params: Reques
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictTypePostListSkipErrorHandler = (data: SysDictTypePageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysDictTypeVo>({
+    path: `/system/dict/type/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -834,8 +1350,18 @@ export const optionSelectUsingGet = (params: RequestParams = {}) =>
     path: `/system/dict/type/optionSelect`,
     method: 'GET',
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const optionSelectUsingGetSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseListSysDictTypeVo>({
+    path: `/system/dict/type/optionSelect`,
+    method: 'GET',
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -850,8 +1376,18 @@ export const sysDictTypePostRefreshCache = (params: RequestParams = {}) =>
     path: `/system/dict/type/refreshCache`,
     method: 'POST',
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictTypePostRefreshCacheSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/dict/type/refreshCache`,
+    method: 'POST',
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -876,8 +1412,28 @@ export const sysDictTypePostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysDictTypePostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 字典ID串
+     * @format int64
+     */
+    dictIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/dict/type/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -894,8 +1450,20 @@ export const sysMenuPostAdd = (data: SysMenuAddBo, params: RequestParams = {}) =
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysMenuPostAddSkipErrorHandler = (data: SysMenuAddBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/menu/add`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -912,8 +1480,20 @@ export const sysMenuPostEdit = (data: SysMenuEditBo, params: RequestParams = {})
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysMenuPostEditSkipErrorHandler = (data: SysMenuEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/menu/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -938,8 +1518,28 @@ export const sysMenuGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysMenuGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * 菜单ID
+     * @format int64
+     */
+    menuId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseSysMenuVo>({
+    path: `/system/menu/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -956,8 +1556,20 @@ export const sysMenuPostList = (data: SysMenuQueryBo, params: RequestParams = {}
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysMenuPostListSkipErrorHandler = (data: SysMenuQueryBo, params: RequestParams = {}) =>
+  request<ResponseListSysMenuVo>({
+    path: `/system/menu/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -982,8 +1594,28 @@ export const sysMenuPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysMenuPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 菜单ID
+     * @format int64
+     */
+    menuId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/menu/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1008,8 +1640,28 @@ export const sysMenuGetRoleMenuTreeSelect = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysMenuGetRoleMenuTreeSelectSkipErrorHandler = (
+  query: {
+    /**
+     * 角色ID
+     * @format int64
+     */
+    roleId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseRoleMenuTreeSelectVo>({
+    path: `/system/menu/roleMenuTreeSelect`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1026,8 +1678,20 @@ export const sysMenuPostTreeSelect = (data: SysMenuQueryBo, params: RequestParam
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysMenuPostTreeSelectSkipErrorHandler = (data: SysMenuQueryBo, params: RequestParams = {}) =>
+  request<ResponseListTreeLong>({
+    path: `/system/menu/treeSelect`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1044,8 +1708,20 @@ export const sysNoticePostAdd = (data: SysNoticeAddBo, params: RequestParams = {
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysNoticePostAddSkipErrorHandler = (data: SysNoticeAddBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/notice/add`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1062,8 +1738,20 @@ export const sysNoticePostEdit = (data: SysNoticeEditBo, params: RequestParams =
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysNoticePostEditSkipErrorHandler = (data: SysNoticeEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/notice/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1088,8 +1776,28 @@ export const sysNoticeGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysNoticeGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * 公告ID
+     * @format int64
+     */
+    noticeId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseSysNoticeVo>({
+    path: `/system/notice/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1106,8 +1814,20 @@ export const sysNoticePostList = (data: SysNoticePageQueryBo, params: RequestPar
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysNoticePostListSkipErrorHandler = (data: SysNoticePageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysNoticeVo>({
+    path: `/system/notice/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1132,8 +1852,28 @@ export const sysNoticePostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysNoticePostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 公告ID串
+     * @format int64
+     */
+    noticeIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/notice/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1150,8 +1890,20 @@ export const sysOssConfigPostAdd = (data: SysOssConfigAddBo, params: RequestPara
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOssConfigPostAddSkipErrorHandler = (data: SysOssConfigAddBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/oss/config/add`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1168,8 +1920,20 @@ export const sysOssConfigPostChangeStatus = (data: SysOssConfigEditBo, params: R
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOssConfigPostChangeStatusSkipErrorHandler = (data: SysOssConfigEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/oss/config/changeStatus`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1186,8 +1950,20 @@ export const sysOssConfigPostEdit = (data: SysOssConfigEditBo, params: RequestPa
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOssConfigPostEditSkipErrorHandler = (data: SysOssConfigEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/oss/config/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1212,8 +1988,28 @@ export const sysOssConfigGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOssConfigGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * OSS配置ID
+     * @format int64
+     */
+    ossConfigId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseSysOssConfigVo>({
+    path: `/system/oss/config/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1230,8 +2026,20 @@ export const sysOssConfigPostList = (data: SysOssConfigPageQueryBo, params: Requ
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOssConfigPostListSkipErrorHandler = (data: SysOssConfigPageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysOssConfigVo>({
+    path: `/system/oss/config/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1256,8 +2064,28 @@ export const sysOssConfigPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOssConfigPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * OSS配置ID组
+     * @format int64
+     */
+    ossConfigIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/oss/config/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1282,8 +2110,28 @@ export const sysOssGetDownload = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOssGetDownloadSkipErrorHandler = (
+  query: {
+    /**
+     * OSS对象ID
+     * @format int64
+     */
+    ossId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<any>({
+    path: `/system/oss/download`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1300,8 +2148,20 @@ export const sysOssPostList = (data: SysOssPageQueryBo, params: RequestParams = 
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOssPostListSkipErrorHandler = (data: SysOssPageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysOssVo>({
+    path: `/system/oss/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1326,8 +2186,28 @@ export const sysOssGetListByIds = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOssGetListByIdsSkipErrorHandler = (
+  query: {
+    /**
+     * OSS对象ID串
+     * @format int64
+     */
+    ossIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseListSysOssVo>({
+    path: `/system/oss/listByIds`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1352,8 +2232,28 @@ export const sysOssPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOssPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * OSS对象ID组
+     * @format int64
+     */
+    ossIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/oss/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1387,8 +2287,37 @@ export const sysOssPostUpload = (
     body: data,
     secure: true,
     type: ContentType.FormData,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOssPostUploadSkipErrorHandler = (
+  query: {
+    /**
+     * 文件
+     * @format binary
+     */
+    file: File;
+  },
+  data: {
+    /**
+     * file
+     * @format binary
+     */
+    file: File;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseOssUploadVo>({
+    path: `/system/oss/upload`,
+    method: 'POST',
+    query: query,
+    body: data,
+    secure: true,
+    type: ContentType.FormData,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1405,8 +2334,20 @@ export const sysPostPostAdd = (data: SysPostAddBo, params: RequestParams = {}) =
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysPostPostAddSkipErrorHandler = (data: SysPostAddBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/post/add`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1423,8 +2364,20 @@ export const sysPostPostEdit = (data: SysPostEditBo, params: RequestParams = {})
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysPostPostEditSkipErrorHandler = (data: SysPostEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/post/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1441,8 +2394,20 @@ export const sysPostPostExport = (data: SysPostQueryBo, params: RequestParams = 
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysPostPostExportSkipErrorHandler = (data: SysPostQueryBo, params: RequestParams = {}) =>
+  request<any>({
+    path: `/system/post/export`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1467,8 +2432,28 @@ export const sysPostGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysPostGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * 岗位ID
+     * @format int64
+     */
+    postId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseSysPostVo>({
+    path: `/system/post/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1485,8 +2470,20 @@ export const sysPostPostList = (data: SysPostPageQueryBo, params: RequestParams 
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysPostPostListSkipErrorHandler = (data: SysPostPageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysPostVo>({
+    path: `/system/post/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1501,8 +2498,18 @@ export const sysPostGetOptionSelect = (params: RequestParams = {}) =>
     path: `/system/post/optionSelect`,
     method: 'GET',
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysPostGetOptionSelectSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseListSysPostVo>({
+    path: `/system/post/optionSelect`,
+    method: 'GET',
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1527,8 +2534,28 @@ export const sysPostPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysPostPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 岗位ID串
+     * @format int64
+     */
+    postIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/post/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1543,8 +2570,18 @@ export const sysProfileGetProfile = (params: RequestParams = {}) =>
     path: `/system/user/profile`,
     method: 'GET',
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysProfileGetProfileSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseProfileVo>({
+    path: `/system/user/profile`,
+    method: 'GET',
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1561,8 +2598,20 @@ export const sysProfilePostUpdateProfile = (data: LoginUserUpdateBo, params: Req
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysProfilePostUpdateProfileSkipErrorHandler = (data: LoginUserUpdateBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/user/profile`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1596,8 +2645,37 @@ export const sysProfilePostAvatar = (
     body: data,
     secure: true,
     type: ContentType.FormData,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysProfilePostAvatarSkipErrorHandler = (
+  query: {
+    /**
+     * 用户头像
+     * @format binary
+     */
+    avatarfile: File;
+  },
+  data: {
+    /**
+     * avatarfile
+     * @format binary
+     */
+    avatarfile: File;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseAvatarUploadVo>({
+    path: `/system/user/profile/avatar`,
+    method: 'POST',
+    query: query,
+    body: data,
+    secure: true,
+    type: ContentType.FormData,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1614,8 +2692,20 @@ export const sysProfilePostUpdatePwd = (data: UpdatePwdBo, params: RequestParams
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysProfilePostUpdatePwdSkipErrorHandler = (data: UpdatePwdBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/user/profile/updatePwd`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1632,8 +2722,20 @@ export const sysRolePostAdd = (data: SysRole, params: RequestParams = {}) =>
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysRolePostAddSkipErrorHandler = (data: SysRole, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/role/add`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1650,8 +2752,20 @@ export const sysRolePostAllocatedList = (data: SysUserPageQueryBo, params: Reque
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysRolePostAllocatedListSkipErrorHandler = (data: SysUserPageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysUserVo>({
+    path: `/system/role/authUser/allocatedList`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1668,8 +2782,20 @@ export const sysRolePostCancelAuthUser = (data: SysUserRole, params: RequestPara
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysRolePostCancelAuthUserSkipErrorHandler = (data: SysUserRole, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/role/authUser/cancel`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1686,8 +2812,20 @@ export const sysUserPostCancelAuthUserAll = (data: AuthUserAllBo, params: Reques
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserPostCancelAuthUserAllSkipErrorHandler = (data: AuthUserAllBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/role/authUser/cancelAll`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1704,8 +2842,20 @@ export const sysUserPostSelectAuthUserAll = (data: AuthUserAllBo, params: Reques
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserPostSelectAuthUserAllSkipErrorHandler = (data: AuthUserAllBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/role/authUser/selectAll`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1722,8 +2872,20 @@ export const sysRolePostUnallocatedList = (data: SysUserPageQueryBo, params: Req
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysRolePostUnallocatedListSkipErrorHandler = (data: SysUserPageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysUserVo>({
+    path: `/system/role/authUser/unallocatedList`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1740,8 +2902,20 @@ export const sysRolePostChangeStatus = (data: SysRole, params: RequestParams = {
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysRolePostChangeStatusSkipErrorHandler = (data: SysRole, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/role/changeStatus`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1758,8 +2932,20 @@ export const sysRolePostDataScope = (data: SysRole, params: RequestParams = {}) 
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysRolePostDataScopeSkipErrorHandler = (data: SysRole, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/role/dataScope`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1776,8 +2962,20 @@ export const sysRolePostEdit = (data: SysRole, params: RequestParams = {}) =>
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysRolePostEditSkipErrorHandler = (data: SysRole, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/role/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1794,8 +2992,20 @@ export const sysRolePostExport = (data: SysRoleQueryBo, params: RequestParams = 
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysRolePostExportSkipErrorHandler = (data: SysRoleQueryBo, params: RequestParams = {}) =>
+  request<any>({
+    path: `/system/role/export`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1820,8 +3030,28 @@ export const sysRoleGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysRoleGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * 角色ID
+     * @format int64
+     */
+    roleId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseSysRoleVo>({
+    path: `/system/role/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1838,8 +3068,20 @@ export const sysRolePostList = (data: SysRoleQueryBo, params: RequestParams = {}
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysRolePostListSkipErrorHandler = (data: SysRoleQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysRoleVo>({
+    path: `/system/role/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1854,8 +3096,18 @@ export const sysRoleGetOptionSelect = (params: RequestParams = {}) =>
     path: `/system/role/optionSelect`,
     method: 'GET',
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysRoleGetOptionSelectSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseListSysRoleVo>({
+    path: `/system/role/optionSelect`,
+    method: 'GET',
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1880,8 +3132,28 @@ export const sysRolePostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysRolePostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 角色ID串
+     * @format int64
+     */
+    roleIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/role/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1906,8 +3178,28 @@ export const sysUserGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserGetInfoSkipErrorHandler = (
+  query?: {
+    /**
+     * 用户ID
+     * @format int64
+     */
+    userId?: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseUserDetailVo>({
+    path: `/system/user/`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1924,8 +3216,20 @@ export const sysUserPostAdd = (data: SysUserAddBo, params: RequestParams = {}) =
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserPostAddSkipErrorHandler = (data: SysUserAddBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/user/add`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1950,8 +3254,28 @@ export const sysUserGetAuthRole = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserGetAuthRoleSkipErrorHandler = (
+  query: {
+    /**
+     * 用户ID
+     * @format int64
+     */
+    userId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseUserAuthRoleVo>({
+    path: `/system/user/authRole`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1968,8 +3292,20 @@ export const sysUserPostChangeStatus = (data: SysUserEditBo, params: RequestPara
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserPostChangeStatusSkipErrorHandler = (data: SysUserEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/user/changeStatus`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -1986,8 +3322,20 @@ export const sysUserPostEdit = (data: SysUserEditBo, params: RequestParams = {})
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserPostEditSkipErrorHandler = (data: SysUserEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/user/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -2004,8 +3352,20 @@ export const sysUserPostExport = (data: SysUserQueryBo, params: RequestParams = 
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserPostExportSkipErrorHandler = (data: SysUserQueryBo, params: RequestParams = {}) =>
+  request<any>({
+    path: `/system/user/export`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -2036,8 +3396,34 @@ export const sysUserPostImportData = (
     body: data,
     secure: true,
     type: ContentType.FormData,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserPostImportDataSkipErrorHandler = (
+  data: {
+    /**
+     * file
+     * @format binary
+     */
+    file: File;
+  },
+  query?: {
+    /** updateSupport */
+    updateSupport?: boolean;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/user/importData`,
+    method: 'POST',
+    query: query,
+    body: data,
+    secure: true,
+    type: ContentType.FormData,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -2052,8 +3438,18 @@ export const sysUserPostImportTemplate = (params: RequestParams = {}) =>
     path: `/system/user/importTemplate`,
     method: 'POST',
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserPostImportTemplateSkipErrorHandler = (params: RequestParams = {}) =>
+  request<any>({
+    path: `/system/user/importTemplate`,
+    method: 'POST',
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -2078,8 +3474,28 @@ export const sysUserGetInfo1 = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserGetInfo1SkipErrorHandler = (
+  query?: {
+    /**
+     * 用户ID
+     * @format int64
+     */
+    userId?: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseUserDetailVo>({
+    path: `/system/user/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -2096,8 +3512,20 @@ export const sysUserPostInsertAuthRole = (data: AuthRoleAllBo, params: RequestPa
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserPostInsertAuthRoleSkipErrorHandler = (data: AuthRoleAllBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/user/insertAuthRole`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -2114,8 +3542,20 @@ export const sysUserPostList = (data: SysUserPageQueryBo, params: RequestParams 
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserPostListSkipErrorHandler = (data: SysUserPageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysUserVo>({
+    path: `/system/user/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -2140,8 +3580,28 @@ export const sysUserPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 角色ID串
+     * @format int64
+     */
+    userIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/system/user/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -2158,5 +3618,16 @@ export const sysUserPostResetPwd = (data: SysUserEditBo, params: RequestParams =
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const sysUserPostResetPwdSkipErrorHandler = (data: SysUserEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/system/user/resetPwd`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
     ...params,
   });

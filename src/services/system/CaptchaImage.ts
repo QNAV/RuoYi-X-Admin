@@ -27,5 +27,14 @@ export const captchaGetGetCode = (params: RequestParams = {}) =>
     path: `/captchaImage`,
     method: 'GET',
     secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const captchaGetGetCodeSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseCaptchaImageVo>({
+    path: `/captchaImage`,
+    method: 'GET',
+    secure: true,
+    skipErrorHandler: true,
     ...params,
   });

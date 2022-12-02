@@ -37,8 +37,20 @@ export const bizUserPostAdd = (data: BizUserAddBo, params: RequestParams = {}) =
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const bizUserPostAddSkipErrorHandler = (data: BizUserAddBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/biz/user/add`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -55,8 +67,20 @@ export const bizUserPostEdit = (data: BizUserEditBo, params: RequestParams = {})
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const bizUserPostEditSkipErrorHandler = (data: BizUserEditBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/biz/user/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -73,8 +97,20 @@ export const bizUserPostExport = (data: BizUserQueryBo, params: RequestParams = 
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const bizUserPostExportSkipErrorHandler = (data: BizUserQueryBo, params: RequestParams = {}) =>
+  request<any>({
+    path: `/biz/user/export`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -99,8 +135,28 @@ export const bizUserGetInfo = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const bizUserGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * 主键
+     * @format int64
+     */
+    userId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseBizUserVo>({
+    path: `/biz/user/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -117,8 +173,20 @@ export const bizUserPostList = (data: BizUserPageQueryBo, params: RequestParams 
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const bizUserPostListSkipErrorHandler = (data: BizUserPageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoBizUserVo>({
+    path: `/biz/user/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -143,5 +211,24 @@ export const bizUserPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const bizUserPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 主键串
+     * @format int64
+     */
+    userIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/biz/user/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
     ...params,
   });

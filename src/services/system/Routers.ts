@@ -27,5 +27,14 @@ export const sysLoginGetRouters = (params: RequestParams = {}) =>
     path: `/routers`,
     method: 'GET',
     secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const sysLoginGetRoutersSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseListRouterVo>({
+    path: `/routers`,
+    method: 'GET',
+    secure: true,
+    skipErrorHandler: true,
     ...params,
   });

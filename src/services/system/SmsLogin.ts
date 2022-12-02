@@ -29,5 +29,16 @@ export const sysLoginPostSmsLogin = (data: SmsLoginBo, params: RequestParams = {
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const sysLoginPostSmsLoginSkipErrorHandler = (data: SmsLoginBo, params: RequestParams = {}) =>
+  request<ResponseLoginVo>({
+    path: `/smsLogin`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
     ...params,
   });

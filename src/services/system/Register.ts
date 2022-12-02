@@ -29,5 +29,16 @@ export const sysRegisterPostRegister = (data: UserNameRegisterBo, params: Reques
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const sysRegisterPostRegisterSkipErrorHandler = (data: UserNameRegisterBo, params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/register`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
     ...params,
   });

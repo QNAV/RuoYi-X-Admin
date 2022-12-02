@@ -37,8 +37,18 @@ export const cacheGetInfo = (params: RequestParams = {}) =>
     path: `/monitor/cache/info`,
     method: 'GET',
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const cacheGetInfoSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseCacheInfoVo>({
+    path: `/monitor/cache/info`,
+    method: 'GET',
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -53,8 +63,18 @@ export const sysLogininforPostClean = (params: RequestParams = {}) =>
     path: `/monitor/logininfor/clean`,
     method: 'POST',
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysLogininforPostCleanSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/monitor/logininfor/clean`,
+    method: 'POST',
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -71,8 +91,20 @@ export const sysLogininforPostExport = (data: SysLogininforQueryBo, params: Requ
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysLogininforPostExportSkipErrorHandler = (data: SysLogininforQueryBo, params: RequestParams = {}) =>
+  request<any>({
+    path: `/monitor/logininfor/export`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -89,8 +121,20 @@ export const sysLogininforPostList = (data: SysLogininforPageQueryBo, params: Re
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysLogininforPostListSkipErrorHandler = (data: SysLogininforPageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysLogininforVo>({
+    path: `/monitor/logininfor/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -115,8 +159,28 @@ export const sysLogininforPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysLogininforPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 登录日志ID组
+     * @format int64
+     */
+    infoIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/monitor/logininfor/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -131,8 +195,18 @@ export const sysOperLogPostClean = (params: RequestParams = {}) =>
     path: `/monitor/operlog/clean`,
     method: 'POST',
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOperLogPostCleanSkipErrorHandler = (params: RequestParams = {}) =>
+  request<ResponseVoid>({
+    path: `/monitor/operlog/clean`,
+    method: 'POST',
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -149,8 +223,20 @@ export const sysOperLogPostExport = (data: SysOperLogQueryBo, params: RequestPar
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOperLogPostExportSkipErrorHandler = (data: SysOperLogQueryBo, params: RequestParams = {}) =>
+  request<any>({
+    path: `/monitor/operlog/export`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -167,8 +253,20 @@ export const sysOperLogPostList = (data: SysOperLogPageQueryBo, params: RequestP
     body: data,
     secure: true,
     type: ContentType.Json,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOperLogPostListSkipErrorHandler = (data: SysOperLogPageQueryBo, params: RequestParams = {}) =>
+  request<TableDataInfoSysOperLogVo>({
+    path: `/monitor/operlog/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -193,8 +291,28 @@ export const sysOperLogPostRemove = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysOperLogPostRemoveSkipErrorHandler = (
+  query: {
+    /**
+     * 操作日志ID组
+     * @format int64
+     */
+    operIds: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/monitor/operlog/remove`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -216,8 +334,25 @@ export const sysUserOnlinePostForceLogout = (
     method: 'POST',
     query: query,
     secure: true,
+    skipErrorHandler: false,
     ...params,
   });
+export const sysUserOnlinePostForceLogoutSkipErrorHandler = (
+  query: {
+    /** tokenId */
+    tokenId: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<ResponseVoid>({
+    path: `/monitor/online/forceLogout`,
+    method: 'POST',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
 /**
  * No description
  *
@@ -241,5 +376,23 @@ export const sysUserOnlineGetList = (
     method: 'GET',
     query: query,
     secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const sysUserOnlineGetListSkipErrorHandler = (
+  query?: {
+    /** ip地址 */
+    ipaddr?: string;
+    /** 用户名 */
+    userName?: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<TableDataInfoSysUserOnlineVo>({
+    path: `/monitor/online/list`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
     ...params,
   });
