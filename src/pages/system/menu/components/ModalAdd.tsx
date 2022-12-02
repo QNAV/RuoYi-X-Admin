@@ -56,7 +56,7 @@ const ModalAdd: FC = () => {
 
         formRef.current?.resetFields();
 
-        message.success('新建成功');
+        message.success('新增成功');
       },
     },
   );
@@ -76,7 +76,7 @@ const ModalAdd: FC = () => {
     <Modal
       open={open}
       onCancel={hideModalAdd}
-      title="新建菜单"
+      title="新增菜单"
       width={515}
       onOk={() => handleSubmit()}
       okButtonProps={{

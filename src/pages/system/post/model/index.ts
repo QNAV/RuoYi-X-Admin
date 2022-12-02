@@ -9,7 +9,7 @@ const atomMainTableActions = atom<ActionType | undefined>(undefined);
 export const useActionRefMainTable = () => useInitActionType(atomMainTableActions);
 export const useAtomValueMainTableActions = () => useAtomValue(atomMainTableActions);
 
-// 新建或编辑弹窗
+// 新增或编辑弹窗
 const atomAddOrEditModal = atomWithReset<{
   open: boolean;
   record?: SysPostVo;

@@ -22,7 +22,7 @@ export const useResetSelectedMenuData = () => useResetAtom(atomSelectedMenuData)
 export const useAtomStateSelectedMenuData = () => useAtom(atomSelectedMenuData);
 export const useAtomValueSelectedMenuData = () => useAtomValue(atomSelectedMenuData);
 
-// 新建菜单弹窗
+// 新增菜单弹窗
 const atomModalAdd = atomWithReset<boolean>(false);
 export const useHideModalAdd = () => useResetAtom(atomModalAdd);
 export const useShowModalAdd = () => {

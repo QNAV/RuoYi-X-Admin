@@ -10,7 +10,7 @@ const ButtonAdd: FC = () => {
   return (
     <Access accessible>
       <Button type="primary" icon={<PlusOutlined />} onClick={showAddModal}>
-        新建
+        新增
       </Button>
     </Access>
   );

@@ -45,7 +45,7 @@ const ModalAddOrEdit: FC = () => {
       onSuccess: () => {
         mainTableActions?.reload();
         onCancel();
-        message.success(actionType === 'add' ? '新建成功' : '保存成功');
+        message.success(actionType === 'add' ? '新增成功' : '保存成功');
       },
     },
   );
@@ -68,7 +68,7 @@ const ModalAddOrEdit: FC = () => {
         loading: isLoading,
       }}
       onOk={() => mutate()}
-      title={actionType === 'add' ? '新建岗位' : '编辑岗位信息'}
+      title={actionType === 'add' ? '新增岗位' : '编辑岗位信息'}
     >
       <ProForm<SysPostAddBo> submitter={false} formRef={formRef}>
         <ProFormText name="postName" label="岗位名称" rules={[{ required: true }]} />

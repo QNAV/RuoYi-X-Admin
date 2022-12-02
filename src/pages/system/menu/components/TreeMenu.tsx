@@ -109,13 +109,13 @@ const TreeMenu: FC = () => {
           menu={{
             items: [
               {
-                label: '新建',
+                label: '新增',
                 key: 'create',
                 disabled: !selectedMenuData.hasSelected,
                 onClick: () => showCreateModal(),
               },
               {
-                label: '在根目录下新建',
+                label: '在根目录下新增',
                 key: 'createBase',
                 onClick: () => {
                   resetSelectedMenuId();

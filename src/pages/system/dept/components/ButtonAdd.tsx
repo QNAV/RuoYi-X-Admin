@@ -33,7 +33,7 @@ const ButtonAdd: FC = () => {
 
         refetch();
 
-        message.success('新建成功');
+        message.success('新增成功');
       },
     },
   );
@@ -43,7 +43,7 @@ const ButtonAdd: FC = () => {
       <BaseButtonAdd onClick={toggle} />
 
       <Modal
-        title="新建部门"
+        title="新增部门"
         okText="提交"
         open={open}
         onCancel={toggle}
