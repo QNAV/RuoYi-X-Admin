@@ -3,47 +3,46 @@ import { useActionRefRoleList, useShowRoleDetails } from '@/pages/system/role/mo
 import type { SysRoleVo } from '@/services/system/data-contracts';
 import { sysRolePostList } from '@/services/system/System';
 import { convertParams } from '@/utils';
+import type { ProListMetas } from '@ant-design/pro-components';
 import { ProList } from '@ant-design/pro-components';
 import type { FC } from 'react';
+
+const useMetas = (): ProListMetas<SysRoleVo> => {
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
+
+  return {
+    title: {
+      title: '角色名称',
+      dataIndex: 'roleName',
+      valueType: 'text',
+    },
+    subTitle: {
+      title: '状态',
+      dataIndex: 'status',
+      valueType: 'select',
+      valueEnum: valueEnumSysNormalDisable,
+    },
+    description: {
+      title: '权限字符',
+      dataIndex: 'roleKey',
+      valueType: 'text',
+    },
+  };
+};
 
 const ListRole: FC = () => {
   const roleListActionRef = useActionRefRoleList();
 
   const showRoleDetails = useShowRoleDetails();
 
-  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
+  const metas = useMetas();
 
   return (
     <ProList<SysRoleVo>
       ghost
       rowKey="roleId"
       actionRef={roleListActionRef}
-      metas={{
-        title: {
-          title: '角色名称',
-          dataIndex: 'roleName',
-          valueType: 'text',
-          formItemProps: {
-            required: true,
-            rules: [{ required: true, message: '请输入角色名称' }],
-          },
-        },
-        subTitle: {
-          title: '状态',
-          dataIndex: 'status',
-          valueType: 'select',
-          valueEnum: valueEnumSysNormalDisable,
-        },
-        description: {
-          title: '权限字符',
-          dataIndex: 'roleKey',
-          valueType: 'text',
-          formItemProps: {
-            required: true,
-            rules: [{ required: true, message: '请输入权限字符' }],
-          },
-        },
-      }}
+      metas={metas}
       tableAlertRender={false}
       rowSelection={{
         type: 'radio',

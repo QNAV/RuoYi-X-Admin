@@ -3,13 +3,13 @@ import { useQueryDictSysNormalDisable } from '@/models';
 import { useAtomValueRoleListActions } from '@/pages/system/role/model';
 import type { SysRole } from '@/services/system/data-contracts';
 import { sysRolePostAdd } from '@/services/system/System';
-import type { ProFormInstance } from '@ant-design/pro-components';
+import type { ProFormColumnsType, ProFormInstance } from '@ant-design/pro-components';
 import { BetaSchemaForm } from '@ant-design/pro-components';
 import { message } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
 
-const useColumns = () => {
+const useColumns = (): ProFormColumnsType<SysRole>[] => {
   const { defaultValueSysNormalDisable, valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
   return [
@@ -88,7 +88,7 @@ const ButtonAdd: FC = () => {
 
   return (
     <AccessWithState accessKey="system:role:add">
-      <BetaSchemaForm
+      <BetaSchemaForm<SysRole>
         title="新增角色"
         trigger={<BaseButtonAdd />}
         formRef={formRef}
