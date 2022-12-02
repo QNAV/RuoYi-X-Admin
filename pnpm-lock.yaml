@@ -5,10 +5,10 @@ specifiers:
   '@ant-design/pro-components': ^2.3.39
   '@commitlint/cli': ^17.3.0
   '@commitlint/config-conventional': ^17.3.0
-  '@sentry/react': ^7.22.0
-  '@sentry/tracing': ^7.22.0
-  '@tanstack/react-query': ^4.18.0
-  '@tanstack/react-query-devtools': ^4.18.0
+  '@sentry/react': ^7.23.0
+  '@sentry/tracing': ^7.23.0
+  '@tanstack/react-query': ^4.19.0
+  '@tanstack/react-query-devtools': ^4.19.0
   '@types/file-saver': ^2.0.5
   '@types/lodash-es': ^4.17.6
   '@types/nprogress': ^0.2.0
@@ -34,7 +34,7 @@ specifiers:
   file-saver: ^2.0.5
   highlight.js: ^11.7.0
   husky: ^8.0.2
-  jotai: ^1.10.0
+  jotai: ^1.11.0
   lint-staged: ^13.0.4
   lodash-es: ^4.17.21
   nprogress: ^0.2.0
@@ -59,10 +59,10 @@ specifiers:
 dependencies:
   '@ant-design/icons': 4.8.0_biqbaboplfbrettd7655fr4n2y
   '@ant-design/pro-components': 2.3.39_xfn6wvg5rjpkjns3br6ubwfyha
-  '@sentry/react': 7.22.0_react@18.2.0
-  '@sentry/tracing': 7.22.0
-  '@tanstack/react-query': 4.18.0_biqbaboplfbrettd7655fr4n2y
-  '@tanstack/react-query-devtools': 4.18.0_2ryzfomli4bbns3rdhwnpgjdhm
+  '@sentry/react': 7.23.0_react@18.2.0
+  '@sentry/tracing': 7.23.0
+  '@tanstack/react-query': 4.19.0_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query-devtools': 4.19.0_budcsmmktl2xfbndofa5sinodm
   '@wangeditor/editor': 5.1.23
   '@wangeditor/editor-for-react': 1.0.6_g2n2jaet4p6hcjvgwca4efbhfm
   ahooks: 3.7.2_react@18.2.0
@@ -72,7 +72,7 @@ dependencies:
   dayjs: 1.11.6
   file-saver: 2.0.5
   highlight.js: 11.7.0
-  jotai: 1.10.0_react@18.2.0
+  jotai: 1.11.0_react@18.2.0
   lodash-es: 4.17.21
   nprogress: 0.2.0
   qs: 6.11.0
@@ -1121,90 +1121,90 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@sentry/browser/7.22.0:
-    resolution: {integrity: sha512-8MA+f46+T3G7fb4BYYX9Wl3bMDloG5a3Ng0GWdBeq6DE2tXVHeCvba8Yrrcnn1qFHpmnOn5Nz4xWBUDs3uBFxA==}
+  /@sentry/browser/7.23.0:
+    resolution: {integrity: sha512-2/dLGOSaM5AvlRdMgYxDyxPxkUUqYyxF7QZ0NicdIXkKXa0fM38IdibeXrE8XzC7rF2B7DQZ6U7uDb1Yry60ig==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/core': 7.22.0
-      '@sentry/types': 7.22.0
-      '@sentry/utils': 7.22.0
+      '@sentry/core': 7.23.0
+      '@sentry/types': 7.23.0
+      '@sentry/utils': 7.23.0
       tslib: 1.14.1
     dev: false
 
-  /@sentry/core/7.22.0:
-    resolution: {integrity: sha512-qYJiJrL1mfQQln84mNunBRUkXq7xDGQQoNh4Sz9VYP5698va51zmS5BLYRCZ5CkPwRYNuhUqlUXN7bpYGYOOIA==}
+  /@sentry/core/7.23.0:
+    resolution: {integrity: sha512-oNLGsscSdMs1urCbpwe868NsoJWyeTOQXOm5w2e78yE7G6zm2Ra473NQio3lweaEvjQgSGpFyEfAn/3ubZbtPw==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.22.0
-      '@sentry/utils': 7.22.0
+      '@sentry/types': 7.23.0
+      '@sentry/utils': 7.23.0
       tslib: 1.14.1
     dev: false
 
-  /@sentry/react/7.22.0_react@18.2.0:
-    resolution: {integrity: sha512-nbZD+bobhV65r/4mpfRgGct1nrYWEmnNzTYZM4PQyPyImuk/VmNNdnzP3BLWqAnV4LvbVWEkgZIcquN8yA098g==}
+  /@sentry/react/7.23.0_react@18.2.0:
+    resolution: {integrity: sha512-MY8WhhImMYEbF8YMPHxs/fhQ9DftmWz1KxT52jEcZUAYfbwmt8zVy4LfBUpMNA4rFy72E9k4DsFQtD0FwCcp3g==}
     engines: {node: '>=8'}
     peerDependencies:
       react: 15.x || 16.x || 17.x || 18.x
     dependencies:
-      '@sentry/browser': 7.22.0
-      '@sentry/types': 7.22.0
-      '@sentry/utils': 7.22.0
+      '@sentry/browser': 7.23.0
+      '@sentry/types': 7.23.0
+      '@sentry/utils': 7.23.0
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
       tslib: 1.14.1
     dev: false
 
-  /@sentry/tracing/7.22.0:
-    resolution: {integrity: sha512-s68aSnrRaWQ+Z5oG9ozIegUkofZy9PwicuXYEPA8K/R30F1CVpHvDZ/3KlFnByl+aXTbAyLBQzN2sAObB5g4pQ==}
+  /@sentry/tracing/7.23.0:
+    resolution: {integrity: sha512-sbwvf6gjLgUTkBwZQOV7RkZPah7KnnpeVcwnNl+vigq6FNgNtejz53FFCo6t4mNGZSerfWbEy/c3C1LMX9AaXw==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/core': 7.22.0
-      '@sentry/types': 7.22.0
-      '@sentry/utils': 7.22.0
+      '@sentry/core': 7.23.0
+      '@sentry/types': 7.23.0
+      '@sentry/utils': 7.23.0
       tslib: 1.14.1
     dev: false
 
-  /@sentry/types/7.22.0:
-    resolution: {integrity: sha512-LhCL+wb1Jch+OesB2CIt6xpfO1Ab6CRvoNYRRzVumWPLns1T3ZJkarYfhbLaOEIb38EIbPgREdxn2AJT560U4Q==}
+  /@sentry/types/7.23.0:
+    resolution: {integrity: sha512-fZ5XfVRswVZhKoCutQ27UpIHP16tvyc6ws+xq+njHv8Jg8gFBCoOxlJxuFhegD2xxylAn1aiSHNAErFWdajbpA==}
     engines: {node: '>=8'}
     dev: false
 
-  /@sentry/utils/7.22.0:
-    resolution: {integrity: sha512-1GiNw1opIngxg0nktCTc9wibh4/LV12kclrnB9dAOHrqazZXHXZRAkjqrhQphKcMpT+3By91W6EofjaDt5a/hg==}
+  /@sentry/utils/7.23.0:
+    resolution: {integrity: sha512-ad/XXH03MfgDH/7N7FjKEOVaKrfQWdMaE0nCxZCr2RrvlitlmGQmPpms95epr1CpzSU3BDRImlILx6+TlrXOgg==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.22.0
+      '@sentry/types': 7.23.0
       tslib: 1.14.1
     dev: false
 
-  /@tanstack/match-sorter-utils/8.1.1:
-    resolution: {integrity: sha512-IdmEekEYxQsoLOR0XQyw3jD1GujBpRRYaGJYQUw1eOT1eUugWxdc7jomh1VQ1EKHcdwDLpLaCz/8y4KraU4T9A==}
+  /@tanstack/match-sorter-utils/8.7.0:
+    resolution: {integrity: sha512-OgfIPMHTfuw9JGcXCCoEHWFP/eSP2eyhCYwkrFnWBM3NbUPAgOlFP11DbM7cozDRVB0XbPr1tD4pLAtWKlVUVg==}
     engines: {node: '>=12'}
     dependencies:
       remove-accents: 0.4.2
     dev: false
 
-  /@tanstack/query-core/4.18.0:
-    resolution: {integrity: sha512-PP4mG8MD08sq64RZCqMfXMYfaj7+Oulwg7xZ/fJoEOdTZNcPIgaOkHajZvUBsNLbi/0ViMvJB4cFkL2Jg2WPbw==}
+  /@tanstack/query-core/4.19.0:
+    resolution: {integrity: sha512-q+4GvS05nG2UXDE4ng0NU5SQNhT+VqhRTLNVtgVw1tIKJfG3CyYQpP/JwAdzMB7NEqC8L5oo9NAaORxEQN53dg==}
     dev: false
 
-  /@tanstack/react-query-devtools/4.18.0_2ryzfomli4bbns3rdhwnpgjdhm:
-    resolution: {integrity: sha512-L51D0AUqLTs7J+W7RypJrUEKXsS0y0eEhXAgO+rhcZH6i8jVrKLhcNZStQSnE+UpZqPm73uxt2e8TJgYfzz0nw==}
+  /@tanstack/react-query-devtools/4.19.0_budcsmmktl2xfbndofa5sinodm:
+    resolution: {integrity: sha512-j9Md4xaWRRt/mKZe+sv+M41LfymtzdFcYNPIttGdBV4IQKnCSfuFMztBlIxTPbPGjMz2vTzx4QbYKeIyJxDysg==}
     peerDependencies:
-      '@tanstack/react-query': 4.18.0
+      '@tanstack/react-query': 4.19.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@tanstack/match-sorter-utils': 8.1.1
-      '@tanstack/react-query': 4.18.0_biqbaboplfbrettd7655fr4n2y
+      '@tanstack/match-sorter-utils': 8.7.0
+      '@tanstack/react-query': 4.19.0_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       superjson: 1.11.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
-  /@tanstack/react-query/4.18.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-s1kdbGMdVcfUIllzsHUqVUdktBT5uuIRgnvrqFNLjl9TSOXEoBSDrhjsGjao0INQZv8cMpQlgOh3YH9YtN6cKw==}
+  /@tanstack/react-query/4.19.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-gP4kmfQ3BvCYxTxA/3Xf0P24iNgW539Thk89KzP7X+i+EvFiWhEUMl1NtuI87bFrVEBHs+1ColFNimDidBh/Ww==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -1215,7 +1215,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 4.18.0
+      '@tanstack/query-core': 4.19.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
@@ -4084,9 +4084,9 @@ packages:
       minimatch: 3.1.2
     dev: true
 
-  /jotai/1.10.0_react@18.2.0:
-    resolution: {integrity: sha512-3Q8kQU3Ktds+80Ku4dVcvnwSXEcK0Fg0b6mC1+4wz3rmF64lOGNUySKXQ4njvYCWodR8bw2HygOKYSYkHxQQmA==}
-    engines: {node: '>=12.7.0'}
+  /jotai/1.11.0_react@18.2.0:
+    resolution: {integrity: sha512-8OzJmRxcTZoAOJSz6uTnmofmjAOgNOdAOy26rvyw3OBxt6XIoklNnfUTCm8wgp84SSLJbPZA01VS5O/SUz+QYg==}
+    engines: {node: '>=12.20.0'}
     peerDependencies:
       '@babel/core': '*'
       '@babel/template': '*'
