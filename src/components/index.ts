@@ -8,6 +8,8 @@ export * from './BaseButtonRemove';
 export * from './BasePageContainer';
 export * from './BaseProTable';
 export * from './BaseTableAlert';
+export * from './ButtonExpand';
+export * from './ButtonGroupEdit';
 export * from './EmptySimple';
 export * from './IconAntd';
 export * from './LoadingProgress';

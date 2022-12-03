@@ -1,8 +1,7 @@
-import { AccessWithState, EmptySimple } from '@/components';
+import { AccessWithState, ButtonExpand, ButtonGroupEdit, EmptySimple } from '@/components';
 import { useEditRoleDetails, useQueryRoleTree } from '@/pages/system/role/model';
 import type { TreeData } from '@/utils';
-import { CaretDownOutlined, CaretRightOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Space, Spin, Tree } from 'antd';
+import { Checkbox, Spin, Tree } from 'antd';
 import type { FC, Key } from 'react';
 import { useEffect, useState } from 'react';
 
@@ -25,8 +24,6 @@ const TreeTransferMenuTree: FC = () => {
   const { isLoading, mutate } = useEditRoleDetails(() => {
     refetch();
   });
-
-  const isAllExpanded = expandedKeys.length === data?.allExpandedKeys.length;
 
   // 全选/全不选
   const handleCheckedAllChange = (checked: boolean) => {
@@ -56,60 +53,34 @@ const TreeTransferMenuTree: FC = () => {
 
   return (
     <>
-      <header className="flex justify-between mb-2">
-        <Space wrap>
-          {treeData.length > 0 && (
-            <Button
-              size="small"
-              icon={isAllExpanded ? <CaretDownOutlined /> : <CaretRightOutlined />}
-              onClick={() => setExpandedKeys(isAllExpanded ? [] : data!.allExpandedKeys)}
-            >
-              {isAllExpanded ? '全部折叠' : '全部展开'}
-            </Button>
-          )}
-        </Space>
+      <header className="flex justify-between items-end mb-2">
+        <ButtonExpand
+          expanded={expandedKeys.length === data?.allExpandedKeys.length}
+          onChange={(expanded) => {
+            setExpandedKeys(expanded ? data?.allExpandedKeys ?? [] : []);
+          }}
+        />
 
         <AccessWithState accessKey="system:role:edit">
-          {checkable ? (
-            <Space wrap>
-              <Button
-                loading={isLoading}
-                onClick={() => {
-                  setCheckable(false);
-                  setTreeData(data?.selectedTreeData ?? []);
-                }}
-              >
-                取消编辑
-              </Button>
-              <Button
-                type="primary"
-                ghost
-                icon={<SaveOutlined />}
-                loading={isLoading}
-                onClick={() => mutate({ menuIds: checkedKeys })}
-              >
-                保存
-              </Button>
-            </Space>
-          ) : (
-            <Button
-              type="primary"
-              ghost
-              icon={<EditOutlined />}
-              onClick={() => {
-                setCheckable(true);
-                setCheckedKeys(data?.selectedMenuIds ?? []);
-                setTreeData(data?.treeData ?? []);
-              }}
-            >
-              编辑菜单权限
-            </Button>
-          )}
+          <ButtonGroupEdit
+            editable={checkable}
+            loading={isLoading}
+            onCancel={() => {
+              setCheckable(false);
+              setTreeData(data?.selectedTreeData ?? []);
+            }}
+            onSave={() => mutate({ menuIds: checkedKeys })}
+            onStartEdit={() => {
+              setCheckable(true);
+              setCheckedKeys(data?.selectedMenuIds ?? []);
+              setTreeData(data?.treeData ?? []);
+            }}
+          />
         </AccessWithState>
       </header>
 
       <Spin spinning={isFetching}>
-        <div className="pl-1 mb-2">
+        <div className="pl-1 mb-1">
           {checkable && (
             <Checkbox
               indeterminate={indeterminate}
@@ -138,6 +109,7 @@ const TreeTransferMenuTree: FC = () => {
             onCheck={(_) => {
               setCheckedKeys((_ as { checked: number[] }).checked);
             }}
+            height={500}
           />
         ) : (
           <EmptySimple description="暂未分配菜单权限" />
