@@ -45,6 +45,7 @@ export const layoutRoutes: Route[] = [
   {
     name: '首页',
     path: '/',
+    errorElement: lazyLoadPage('error'),
     element: lazyLoadLayouts(),
     children: [
       {
@@ -102,7 +103,7 @@ export const layoutRoutes: Route[] = [
             name: '字典管理-详情',
             path: 'dict/:dictType',
             element: lazyLoadPage('system/dictDetails'),
-            access: 'system:dict:query',
+            access: 'system:dict:list',
             isKeepAlive: true,
           },
           {
@@ -214,19 +215,7 @@ export const layoutRoutes: Route[] = [
         path: 'settings',
         element: lazyLoadPage('settings'),
       },
-      {
-        name: '403',
-        path: '403',
-        element: lazyLoadPage('exception/403'),
-        hideInTab: true,
-      },
       ...customRoutes,
-      {
-        name: '404',
-        path: '*',
-        element: lazyLoadPage('exception/404'),
-        hideInTab: true,
-      },
     ],
   },
 ];

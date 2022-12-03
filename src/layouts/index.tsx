@@ -1,4 +1,4 @@
-import { Access } from '@/components';
+import { Access, PermissionDenied } from '@/components';
 import type { KeepAliveElements } from '@/layouts/components/HeaderTabs';
 import HeaderTabs from '@/layouts/components/HeaderTabs';
 import IconLogout from '@/layouts/components/IconLogout';
@@ -7,10 +7,34 @@ import MenuItem from '@/layouts/components/MenuItem';
 import { useQueryInitialState } from '@/models';
 import { accessKeysMap, accessRoutes, isKeepAliveRoutesSet, settingsMap } from '@/routes';
 import { checkAccess, convertUserRoutesToMenus } from '@/utils';
+import type { ProTokenType } from '@ant-design/pro-components';
 import { ProLayout } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useMemo, useRef } from 'react';
-import { matchPath, Navigate, useLocation, useNavigate, useOutlet } from 'react-router-dom';
+import { matchPath, useLocation, useNavigate, useOutlet } from 'react-router-dom';
+
+const token: ProTokenType['layout'] = {
+  pageContainer: {
+    paddingBlockPageContainerContent: 0,
+    paddingInlinePageContainerContent: 0,
+  },
+  header: {
+    colorBgHeader: '#292f33',
+    colorHeaderTitle: '#fff',
+    colorTextMenu: '#dfdfdf',
+    colorTextMenuSecondary: '#dfdfdf',
+    colorTextMenuSelected: '#fff',
+    colorBgMenuItemSelected: '#22272b',
+    colorTextRightActionsItem: '#dfdfdf',
+  },
+  sider: {
+    colorMenuBackground: '#fff',
+    colorMenuItemDivider: '#dfdfdf',
+    colorTextMenu: '#595959',
+    colorTextMenuSelected: 'rgba(42,122,251,1)',
+    colorBgMenuItemSelected: 'rgba(230,243,254,1)',
+  },
+};
 
 const useKeepAliveOutlets = () => {
   const { pathname } = useLocation();
@@ -62,28 +86,7 @@ const Layouts: FC = () => {
       loading={isLoading}
       menuDataRender={() => convertUserRoutesToMenus(initialState?.userRoutes)}
       menuItemRender={MenuItem}
-      token={{
-        pageContainer: {
-          paddingBlockPageContainerContent: 0,
-          paddingInlinePageContainerContent: 0,
-        },
-        header: {
-          colorBgHeader: '#292f33',
-          colorHeaderTitle: '#fff',
-          colorTextMenu: '#dfdfdf',
-          colorTextMenuSecondary: '#dfdfdf',
-          colorTextMenuSelected: '#fff',
-          colorBgMenuItemSelected: '#22272b',
-          colorTextRightActionsItem: '#dfdfdf',
-        },
-        sider: {
-          colorMenuBackground: '#fff',
-          colorMenuItemDivider: '#dfdfdf',
-          colorTextMenu: '#595959',
-          colorTextMenuSelected: 'rgba(42,122,251,1)',
-          colorBgMenuItemSelected: 'rgba(230,243,254,1)',
-        },
-      }}
+      token={token}
       avatarProps={{
         size: 'small',
         src: initialState?.userInfo?.user?.avatar,
@@ -92,7 +95,7 @@ const Layouts: FC = () => {
       actionsRender={() => [<IconSetting key="IconSetting" />, <IconLogout key="IconLogout" />]}
     >
       {!isLoading && (
-        <Access accessible={accessible} fallback={<Navigate to="/403" />}>
+        <Access accessible={accessible} fallback={<PermissionDenied />}>
           {element}
         </Access>
       )}
