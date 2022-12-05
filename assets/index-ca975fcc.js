@@ -1,0 +1,1 @@
+import{ar as s,d as r,as as e,at as o}from"./index-0ddcbb89.js";globalThis.jotaiAtomCache=globalThis.jotaiAtomCache||{cache:new Map,get(t,a){return this.cache.has(t)?this.cache.get(t):(this.cache.set(t,a),a)}};const h=()=>{const t=s();return(t==null?void 0:t.status)===404?r(e,{}):r(o,{})};export{h as default};
