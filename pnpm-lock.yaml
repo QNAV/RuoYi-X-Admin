@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@ant-design/icons': ^4.8.0
-  '@ant-design/pro-components': ^2.3.40
+  '@ant-design/pro-components': ^2.3.41
   '@commitlint/cli': ^17.3.0
   '@commitlint/config-conventional': ^17.3.0
   '@sentry/react': ^7.23.0
@@ -58,7 +58,7 @@ specifiers:
 
 dependencies:
   '@ant-design/icons': 4.8.0_biqbaboplfbrettd7655fr4n2y
-  '@ant-design/pro-components': 2.3.40_oyfmaw7obiocvtyvu3c64vlxvi
+  '@ant-design/pro-components': 2.3.41_oyfmaw7obiocvtyvu3c64vlxvi
   '@sentry/react': 7.23.0_react@18.2.0
   '@sentry/tracing': 7.23.0
   '@tanstack/react-query': 4.19.1_biqbaboplfbrettd7655fr4n2y
@@ -203,22 +203,22 @@ packages:
       - react-dom
     dev: false
 
-  /@ant-design/pro-components/2.3.40_oyfmaw7obiocvtyvu3c64vlxvi:
-    resolution: {integrity: sha512-gBDh03awjdOBpxWIUDbG+WVotrok1QKh19H1FYrJqYSy16D8EUBegngYMHEStv/QZe3Zh5GtFODMfLmFG87I2w==}
+  /@ant-design/pro-components/2.3.41_oyfmaw7obiocvtyvu3c64vlxvi:
+    resolution: {integrity: sha512-i3VzUcWV4V/wdwsbgUEVJH/vHJCyHPNEzFDmSSrK+VG8oenKo6JvLTLzXXJdpQZV2A/AEmpOYJbMyC5EYhZ7sA==}
     peerDependencies:
       antd: '>=4.23.0'
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
       '@ant-design/pro-card': 2.1.2_oyfmaw7obiocvtyvu3c64vlxvi
-      '@ant-design/pro-descriptions': 2.0.34_oyfmaw7obiocvtyvu3c64vlxvi
+      '@ant-design/pro-descriptions': 2.0.35_oyfmaw7obiocvtyvu3c64vlxvi
       '@ant-design/pro-field': 2.1.26_oyfmaw7obiocvtyvu3c64vlxvi
-      '@ant-design/pro-form': 2.4.2_oyfmaw7obiocvtyvu3c64vlxvi
+      '@ant-design/pro-form': 2.4.3_oyfmaw7obiocvtyvu3c64vlxvi
       '@ant-design/pro-layout': 7.3.4_oyfmaw7obiocvtyvu3c64vlxvi
-      '@ant-design/pro-list': 2.0.35_oyfmaw7obiocvtyvu3c64vlxvi
+      '@ant-design/pro-list': 2.0.36_oyfmaw7obiocvtyvu3c64vlxvi
       '@ant-design/pro-provider': 2.1.2_oyfmaw7obiocvtyvu3c64vlxvi
       '@ant-design/pro-skeleton': 2.0.7_oyfmaw7obiocvtyvu3c64vlxvi
-      '@ant-design/pro-table': 3.2.2_oyfmaw7obiocvtyvu3c64vlxvi
+      '@ant-design/pro-table': 3.2.3_oyfmaw7obiocvtyvu3c64vlxvi
       '@ant-design/pro-utils': 2.4.2_oyfmaw7obiocvtyvu3c64vlxvi
       '@babel/runtime': 7.20.6
       antd: 5.0.4_biqbaboplfbrettd7655fr4n2y
@@ -229,14 +229,14 @@ packages:
       - rc-field-form
     dev: false
 
-  /@ant-design/pro-descriptions/2.0.34_oyfmaw7obiocvtyvu3c64vlxvi:
-    resolution: {integrity: sha512-nweiw+MTU9h9B3A6dSVyBoGk5b/F4r9g1aOCQreQk8NegqOGxmmBD+sJ2+UhHzuw4ygLwWIIk5thm2LiLS/Bcw==}
+  /@ant-design/pro-descriptions/2.0.35_oyfmaw7obiocvtyvu3c64vlxvi:
+    resolution: {integrity: sha512-uR6gBHArji9uB+HYH5qFILOewbp7M2D3GFUV2MYesjb+DH+lNDaUVNqPT3ADpIJ7fi/DIA3i7cLonPVHiiC/wA==}
     peerDependencies:
       antd: '>=4.23.0'
       react: '>=16.9.0'
     dependencies:
       '@ant-design/pro-field': 2.1.26_oyfmaw7obiocvtyvu3c64vlxvi
-      '@ant-design/pro-form': 2.4.2_oyfmaw7obiocvtyvu3c64vlxvi
+      '@ant-design/pro-form': 2.4.3_oyfmaw7obiocvtyvu3c64vlxvi
       '@ant-design/pro-skeleton': 2.0.7_oyfmaw7obiocvtyvu3c64vlxvi
       '@ant-design/pro-utils': 2.4.2_oyfmaw7obiocvtyvu3c64vlxvi
       '@babel/runtime': 7.20.6
@@ -273,8 +273,8 @@ packages:
       - react-dom
     dev: false
 
-  /@ant-design/pro-form/2.4.2_oyfmaw7obiocvtyvu3c64vlxvi:
-    resolution: {integrity: sha512-ZtHu27448/r275giY6MboJNYmwl+EP87ohMEMuJC0ppytlH/m2CttaHMcE8jDszcAHJ7BcvzazMW2UwDc8Umsg==}
+  /@ant-design/pro-form/2.4.3_oyfmaw7obiocvtyvu3c64vlxvi:
+    resolution: {integrity: sha512-lZcGRdAaO5HPwH4tjqBtxI56H+JneGHuU9hkh14MsCVolH5t4Gqo+ZpKgx+27mTMbsCz6vJPbutwzGPnXolpRw==}
     peerDependencies:
       '@types/lodash.merge': ^4.6.7
       antd: '>=4.23.0'
@@ -332,8 +332,8 @@ packages:
       warning: 4.0.3
     dev: false
 
-  /@ant-design/pro-list/2.0.35_oyfmaw7obiocvtyvu3c64vlxvi:
-    resolution: {integrity: sha512-hboe43UNSVmkBYJ+zazETKdIUF9W4bLby8MewfeDezd4EiP+KdH+XxOlAd0p9f7Sl+l4zVWM1uvk4q599Pp98Q==}
+  /@ant-design/pro-list/2.0.36_oyfmaw7obiocvtyvu3c64vlxvi:
+    resolution: {integrity: sha512-Yzjm5hT+yaCHZFmU9qLkmVNzbQoba0SjDwXm+w4d0pwAsmLnX1uwERUKBVyt6RtEMnXngRSjvIPgt7JSwXMG3w==}
     peerDependencies:
       antd: '>=4.23.0'
       react: '>=16.9.0'
@@ -342,7 +342,7 @@ packages:
       '@ant-design/icons': 4.8.0_biqbaboplfbrettd7655fr4n2y
       '@ant-design/pro-card': 2.1.2_oyfmaw7obiocvtyvu3c64vlxvi
       '@ant-design/pro-field': 2.1.26_oyfmaw7obiocvtyvu3c64vlxvi
-      '@ant-design/pro-table': 3.2.2_oyfmaw7obiocvtyvu3c64vlxvi
+      '@ant-design/pro-table': 3.2.3_oyfmaw7obiocvtyvu3c64vlxvi
       '@babel/runtime': 7.20.6
       antd: 5.0.4_biqbaboplfbrettd7655fr4n2y
       classnames: 2.3.2
@@ -389,8 +389,8 @@ packages:
       use-media-antd-query: 1.1.0_react@18.2.0
     dev: false
 
-  /@ant-design/pro-table/3.2.2_oyfmaw7obiocvtyvu3c64vlxvi:
-    resolution: {integrity: sha512-qSbJmwFPurrrEz9CiJ1UMjCTM/XB3NpLTyWRJtHHPg57qItPd/ekbKfUdrXXyXg/+WHzTT77fFZgiGoJo0whXA==}
+  /@ant-design/pro-table/3.2.3_oyfmaw7obiocvtyvu3c64vlxvi:
+    resolution: {integrity: sha512-+MZITj+PZCHbk9Bf9ERDw3u8V329ibufvlItXwyoLsxNW3qBS3Zywv0Qw/ebAYoxw6D29K8yaWoHSdekUvIXwg==}
     peerDependencies:
       antd: '>=4.23.0'
       rc-field-form: ^1.22.0
@@ -400,7 +400,7 @@ packages:
       '@ant-design/icons': 4.8.0_biqbaboplfbrettd7655fr4n2y
       '@ant-design/pro-card': 2.1.2_oyfmaw7obiocvtyvu3c64vlxvi
       '@ant-design/pro-field': 2.1.26_oyfmaw7obiocvtyvu3c64vlxvi
-      '@ant-design/pro-form': 2.4.2_oyfmaw7obiocvtyvu3c64vlxvi
+      '@ant-design/pro-form': 2.4.3_oyfmaw7obiocvtyvu3c64vlxvi
       '@ant-design/pro-provider': 2.1.2_oyfmaw7obiocvtyvu3c64vlxvi
       '@ant-design/pro-utils': 2.4.2_oyfmaw7obiocvtyvu3c64vlxvi
       '@babel/runtime': 7.20.6
