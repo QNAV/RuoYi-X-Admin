@@ -1,10 +1,10 @@
-import { Access, BasePageContainer, BaseProTable } from '@/components';
+import { BasePageContainer, BaseProTable } from '@/components';
+import ButtonForceLogout from '@/pages/monitor/online/components/ButtonForceLogout';
+import { useActionRefMainTable } from '@/pages/monitor/online/model';
 import type { SysUserOnlineVo } from '@/services/system/data-contracts';
-import { sysUserOnlineGetList, sysUserOnlinePostForceLogout } from '@/services/system/Monitor';
+import { sysUserOnlineGetList } from '@/services/system/Monitor';
 import { convertParams } from '@/utils';
-import { DeleteOutlined } from '@ant-design/icons';
-import type { ProColumns } from '@ant-design/pro-components';
-import { Button, message, Modal } from 'antd';
+import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
 const useColumns = (): ProColumns<SysUserOnlineVo>[] => {
@@ -33,7 +33,7 @@ const useColumns = (): ProColumns<SysUserOnlineVo>[] => {
       hideInSearch: true,
     },
     {
-      title: '主机',
+      title: '主机地址',
       dataIndex: 'ipaddr',
       key: 'ipaddr',
       valueType: 'text',
@@ -71,35 +71,34 @@ const useColumns = (): ProColumns<SysUserOnlineVo>[] => {
       title: '操作',
       valueType: 'option',
       fixed: 'right',
-      render: (dom, entity, index, action) => {
-        return (
-          <Access accessible>
-            <Button
-              icon={<DeleteOutlined />}
-              danger
-              type="link"
-              onClick={async () => {
-                Modal.confirm({
-                  title: '强退用户',
-                  content: `确定强退用户 ${entity.userName} 吗？`,
-                  onOk: async () => {
-                    await sysUserOnlinePostForceLogout({ tokenId: entity.tokenId });
-                    action?.reload();
-                    message.success('强制退出成功');
-                  },
-                });
-              }}
-            >
-              强退
-            </Button>
-          </Access>
-        );
+      render: (dom, entity) => {
+        return <ButtonForceLogout tokenId={entity.tokenId} userName={entity.userName} />;
       },
     },
   ];
 };
 
+const tableAlertOptionRender: ProTableProps<
+  SysUserOnlineVo,
+  {
+    /** ip地址 */
+    ipaddr?: string;
+    /** 用户名 */
+    userName?: string;
+  }
+>['tableAlertOptionRender'] = ({ selectedRows }) => {
+  return (
+    <ButtonForceLogout
+      batch
+      disabled={selectedRows.length === 0}
+      userName={selectedRows.map((i) => i.userName).join(',')}
+      tokenId={selectedRows.map((i) => i.tokenId).join(',')}
+    />
+  );
+};
+
 const PageOnline: FC = () => {
+  const actionRefMainTable = useActionRefMainTable();
   const columns = useColumns();
 
   return (
@@ -117,9 +116,10 @@ const PageOnline: FC = () => {
         scroll={{
           x: '105%',
         }}
+        actionRef={actionRefMainTable}
         columns={columns}
-        request={async (...p) => sysUserOnlineGetList(convertParams(...p))}
-        rowSelection={false}
+        request={(...p) => sysUserOnlineGetList(convertParams(...p))}
+        tableAlertOptionRender={tableAlertOptionRender}
       />
     </BasePageContainer>
   );

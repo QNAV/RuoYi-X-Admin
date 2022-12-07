@@ -6,7 +6,7 @@ import { checkAccess } from '@/utils';
 import type { FC } from 'react';
 
 export interface AccessWithStateProps extends Omit<AccessProps, 'accessible'>, CheckAccessOptions {
-  accessKey: string | string[];
+  accessKey: string | string[] | ((userAccessKey: Set<string>) => boolean);
 }
 
 export const AccessWithState: FC<AccessWithStateProps> = ({
@@ -18,10 +18,15 @@ export const AccessWithState: FC<AccessWithStateProps> = ({
 }) => {
   const { data } = useQueryInitialState();
 
-  const accessible = checkAccess(accessKey, new Set(data?.userInfo?.permissions ?? []), {
-    reverse,
-    strict,
-  });
+  const accessSet = new Set(data?.userInfo?.permissions ?? []);
+
+  const accessible =
+    typeof accessKey === 'function'
+      ? accessKey(accessSet)
+      : checkAccess(accessKey, accessSet, {
+          reverse,
+          strict,
+        });
 
   return (
     <Access accessible={accessible} fallback={fallback}>
