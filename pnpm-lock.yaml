@@ -27,14 +27,14 @@ specifiers:
   axios: ^1.2.1
   classnames: ^2.3.2
   cross-env: ^7.0.3
-  dayjs: ^1.11.6
+  dayjs: ^1.11.7
   eslint: ^8.29.0
   eslint-config-alloy: ^4.7.0
   eslint-plugin-react: ^7.31.11
   file-saver: ^2.0.5
   highlight.js: ^11.7.0
   husky: ^8.0.2
-  jotai: ^1.11.0
+  jotai: ^1.11.1
   lint-staged: ^13.1.0
   lodash-es: ^4.17.21
   nprogress: ^0.2.0
@@ -69,10 +69,10 @@ dependencies:
   antd: 5.0.4_biqbaboplfbrettd7655fr4n2y
   axios: 1.2.1
   classnames: 2.3.2
-  dayjs: 1.11.6
+  dayjs: 1.11.7
   file-saver: 2.0.5
   highlight.js: 11.7.0
-  jotai: 1.11.0_react@18.2.0
+  jotai: 1.11.1_react@18.2.0
   lodash-es: 4.17.21
   nprogress: 0.2.0
   qs: 6.11.0
@@ -93,7 +93,7 @@ devDependencies:
   '@types/react-dom': 18.0.9
   '@typescript-eslint/eslint-plugin': 5.45.1_tdm6ms4ntwhlpozn7kjqrhum74
   '@typescript-eslint/parser': 5.45.1_s5ps7njkmjlaqajutnox5ntcla
-  '@vitejs/plugin-react': 3.0.0-beta.0_vite@4.0.0-beta.0
+  '@vitejs/plugin-react': 3.0.0-beta.0_vite@4.0.0-beta.2
   autoprefixer: 10.4.13_postcss@8.4.19
   cross-env: 7.0.3
   eslint: 8.29.0
@@ -111,8 +111,8 @@ devDependencies:
   tailwindcss: 3.2.4_postcss@8.4.19
   tsx: 3.12.1
   typescript: 4.9.3
-  vite: 4.0.0-beta.0
-  vite-plugin-html: 3.2.0_vite@4.0.0-beta.0
+  vite: 4.0.0-beta.2
+  vite-plugin-html: 3.2.0_vite@4.0.0-beta.2
 
 packages:
 
@@ -263,7 +263,7 @@ packages:
       '@chenshuai2144/sketch-color': 1.0.8_react@18.2.0
       antd: 5.0.4_biqbaboplfbrettd7655fr4n2y
       classnames: 2.3.2
-      dayjs: 1.11.6
+      dayjs: 1.11.7
       lodash.tonumber: 4.0.3
       omit.js: 2.0.2
       rc-util: 5.25.2_biqbaboplfbrettd7655fr4n2y
@@ -346,7 +346,7 @@ packages:
       '@babel/runtime': 7.20.6
       antd: 5.0.4_biqbaboplfbrettd7655fr4n2y
       classnames: 2.3.2
-      dayjs: 1.11.6
+      dayjs: 1.11.7
       rc-resize-observer: 1.2.0_biqbaboplfbrettd7655fr4n2y
       rc-util: 4.21.1
       react: 18.2.0
@@ -406,7 +406,7 @@ packages:
       '@babel/runtime': 7.20.6
       antd: 5.0.4_biqbaboplfbrettd7655fr4n2y
       classnames: 2.3.2
-      dayjs: 1.11.6
+      dayjs: 1.11.7
       omit.js: 2.0.2
       rc-util: 5.25.2_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
@@ -431,7 +431,7 @@ packages:
       '@babel/runtime': 7.20.6
       antd: 5.0.4_biqbaboplfbrettd7655fr4n2y
       classnames: 2.3.2
-      dayjs: 1.11.6
+      dayjs: 1.11.7
       rc-util: 5.25.2_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -1165,7 +1165,7 @@ packages:
       '@tanstack/react-query': 4.19.1_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      superjson: 1.11.0
+      superjson: 1.12.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
@@ -1495,7 +1495,7 @@ packages:
       nanoid: 3.3.4
     dev: false
 
-  /@vitejs/plugin-react/3.0.0-beta.0_vite@4.0.0-beta.0:
+  /@vitejs/plugin-react/3.0.0-beta.0_vite@4.0.0-beta.2:
     resolution: {integrity: sha512-t8zyzMbXgrPvNpeKNn5eI/JJekYUVGklbzjmmelCePdlt3unrwZRtlsUWKDaH+8owbY7+I6bIpa4S2lwgkjXZg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -1506,7 +1506,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.19.6_@babel+core@7.20.5
       magic-string: 0.27.0
       react-refresh: 0.14.0
-      vite: 4.0.0-beta.0
+      vite: 4.0.0-beta.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1776,7 +1776,7 @@ packages:
     dependencies:
       '@types/js-cookie': 2.2.7
       ahooks-v3-count: 1.0.0
-      dayjs: 1.11.6
+      dayjs: 1.11.7
       intersection-observer: 0.12.2
       js-cookie: 2.2.1
       lodash: 4.17.21
@@ -1854,7 +1854,7 @@ packages:
       '@rc-component/tour': 1.0.1_biqbaboplfbrettd7655fr4n2y
       classnames: 2.3.2
       copy-to-clipboard: 3.3.3
-      dayjs: 1.11.6
+      dayjs: 1.11.7
       lodash: 4.17.21
       rc-cascader: 3.7.0_biqbaboplfbrettd7655fr4n2y
       rc-checkbox: 2.3.2_biqbaboplfbrettd7655fr4n2y
@@ -1871,7 +1871,7 @@ packages:
       rc-motion: 2.6.2_biqbaboplfbrettd7655fr4n2y
       rc-notification: 5.0.0-alpha.9_biqbaboplfbrettd7655fr4n2y
       rc-pagination: 3.2.0_biqbaboplfbrettd7655fr4n2y
-      rc-picker: 3.1.2_hk4it2saoa6yurflmehlixyvbq
+      rc-picker: 3.1.2_mlnkrlbros4rghcauwy625gk7y
       rc-progress: 3.4.1_biqbaboplfbrettd7655fr4n2y
       rc-rate: 2.9.2_biqbaboplfbrettd7655fr4n2y
       rc-resize-observer: 1.2.0_biqbaboplfbrettd7655fr4n2y
@@ -1881,7 +1881,7 @@ packages:
       rc-steps: 6.0.0-alpha.2_biqbaboplfbrettd7655fr4n2y
       rc-switch: 4.0.0_biqbaboplfbrettd7655fr4n2y
       rc-table: 7.26.0_biqbaboplfbrettd7655fr4n2y
-      rc-tabs: 12.4.1_biqbaboplfbrettd7655fr4n2y
+      rc-tabs: 12.4.2_biqbaboplfbrettd7655fr4n2y
       rc-textarea: 0.4.7_biqbaboplfbrettd7655fr4n2y
       rc-tooltip: 5.2.2_biqbaboplfbrettd7655fr4n2y
       rc-tree: 5.7.2_biqbaboplfbrettd7655fr4n2y
@@ -2569,8 +2569,8 @@ packages:
     resolution: {integrity: sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==}
     dev: true
 
-  /dayjs/1.11.6:
-    resolution: {integrity: sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==}
+  /dayjs/1.11.7:
+    resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
     dev: false
 
   /debug/4.3.4:
@@ -4048,8 +4048,8 @@ packages:
       minimatch: 3.1.2
     dev: true
 
-  /jotai/1.11.0_react@18.2.0:
-    resolution: {integrity: sha512-8OzJmRxcTZoAOJSz6uTnmofmjAOgNOdAOy26rvyw3OBxt6XIoklNnfUTCm8wgp84SSLJbPZA01VS5O/SUz+QYg==}
+  /jotai/1.11.1_react@18.2.0:
+    resolution: {integrity: sha512-pHpaZUdvIpcS12ryMCrwtvmT/IovZAbicfrlll/Rb9394rwhqKoDFsDs0kv4oWtBy/XHHNv7iSZnQFmntiQj+w==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@babel/core': '*'
@@ -5398,7 +5398,7 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /rc-picker/3.1.2_hk4it2saoa6yurflmehlixyvbq:
+  /rc-picker/3.1.2_mlnkrlbros4rghcauwy625gk7y:
     resolution: {integrity: sha512-PHf4E91JANMBVjovqhRcZw0fDZYWlDW9APhMD8VxBSs2QeKbnf+vE5BdA3YmHq227woSptbkm9rfhR4dgSn4+g==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -5417,7 +5417,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.20.6
       classnames: 2.3.2
-      dayjs: 1.11.6
+      dayjs: 1.11.7
       rc-trigger: 5.3.4_biqbaboplfbrettd7655fr4n2y
       rc-util: 5.25.2_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
@@ -5556,8 +5556,8 @@ packages:
       shallowequal: 1.1.0
     dev: false
 
-  /rc-tabs/12.4.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-yViBZypldDnPffk3IPTarplF1RAv8VQDDnOt9sHDU7pjCnqE72csCU+7kjbLPtPpYniIMQJYyWxh/lsBUcagSA==}
+  /rc-tabs/12.4.2_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-FFlGwuTjQUznWzJtyhmHc6KAp5lRQFxKUv9Aj1UtsOYe2e7WGmuzcrd+/LQchuPe0VjhaZPdGkmFGcqGqNO6ow==}
     engines: {node: '>=8.x'}
     peerDependencies:
       react: '>=16.9.0'
@@ -5981,8 +5981,8 @@ packages:
       yargs: 17.6.2
     dev: true
 
-  /rollup/3.5.1:
-    resolution: {integrity: sha512-hdQWTvPeiAbM6SUkxV70HdGUVxsgsc+CLy5fuh4KdgUBJ0SowXiix8gANgXoG3wEuLwfoJhCT2V+WwxfWq9Ikw==}
+  /rollup/3.6.0:
+    resolution: {integrity: sha512-qCgiBeSu2/AIOKWGFMiRkjPlGlcVwxAjwpGKQZOQYng+83Hip4PjrWHm7EQX1wnrvRqfTytEihRRfLHdX+hR4g==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -6393,8 +6393,8 @@ packages:
     resolution: {integrity: sha512-GP6WDNWf+o403jrEp9c5jibKavrtLW+/qYGhFxFrG8maXhwTBI7gLLhiBb0o7uFccWN+EOS9aMO6cGHWAO07OA==}
     dev: false
 
-  /superjson/1.11.0:
-    resolution: {integrity: sha512-6PfAg1FKhqkwWvPb2uXhH4MkMttdc17eJ91+Aoz4s1XUEDZFmLfFx/xVA3wgkPxAGy5dpozgGdK6V/n20Wj9yg==}
+  /superjson/1.12.0:
+    resolution: {integrity: sha512-B4tefmFqj8KDShHi2br2rz0kBlUJuQHtxMCydEuHvooL+6EscROTNWRfOLMDxW1dS/daK2zZr3C3N9DU+jXATQ==}
     engines: {node: '>=10'}
     dependencies:
       copy-anything: 3.0.3
@@ -6773,7 +6773,7 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-plugin-html/3.2.0_vite@4.0.0-beta.0:
+  /vite-plugin-html/3.2.0_vite@4.0.0-beta.2:
     resolution: {integrity: sha512-2VLCeDiHmV/BqqNn5h2V+4280KRgQzCFN47cst3WiNK848klESPQnzuC3okH5XHtgwHH/6s1Ho/YV6yIO0pgoQ==}
     peerDependencies:
       vite: '>=2.0.0'
@@ -6790,11 +6790,11 @@ packages:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 4.0.0-beta.0
+      vite: 4.0.0-beta.2
     dev: true
 
-  /vite/4.0.0-beta.0:
-    resolution: {integrity: sha512-tKaoV1EgHX9VQiQmik2f3bGo1prHmI2PMkQcyM4WvvUC7JBxg8+Nm3UM7Gr56F+O0up8rSXS4WuonChM0hVgBA==}
+  /vite/4.0.0-beta.2:
+    resolution: {integrity: sha512-mfaG5uQBHSxFqveMV6FdkVphe3bhI5+/QQgrVeiqf35lwpg9LTNIe8Le/tDttmXqabPByKym4Q3MVObq1Y/O7Q==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -6821,7 +6821,7 @@ packages:
       esbuild: 0.15.18
       postcss: 8.4.19
       resolve: 1.22.1
-      rollup: 3.5.1
+      rollup: 3.6.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
