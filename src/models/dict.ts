@@ -63,3 +63,21 @@ export const useQueryDictSysNoticeStatus = () => {
     valueEnumSysNoticeStatus: data?.valueEnum ?? new Map(),
   };
 };
+
+// sys_oper_type
+export const useQueryDictSysOperType = () => {
+  const { data } = useQueryDict('sys_oper_type');
+  return {
+    defaultValueSysOperType: data?.defaultValue ?? null,
+    valueEnumSysOperType: data?.valueEnum ?? new Map(),
+  };
+};
+
+// sys_common_status
+export const useQueryDictSysCommonStatus = () => {
+  const { data } = useQueryDict('sys_common_status');
+  return {
+    defaultValueSysCommonStatus: data?.defaultValue ?? null,
+    valueEnumSysCommonStatus: data?.valueEnum ?? new Map(),
+  };
+};

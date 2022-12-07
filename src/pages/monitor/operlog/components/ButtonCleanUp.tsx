@@ -1,4 +1,4 @@
-import { Access } from '@/components';
+import { AccessWithState } from '@/components';
 import { useAtomValueMainTableActions } from '@/pages/monitor/operlog/model';
 import { sysOperLogPostClean } from '@/services/system/Monitor';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -9,32 +9,30 @@ import type { FC } from 'react';
 const ButtonCleanUp: FC = () => {
   const tableActions = useAtomValueMainTableActions();
 
-  const { isLoading, mutate } = useMutation(() => sysOperLogPostClean(), {
+  const { isLoading, mutate } = useMutation(sysOperLogPostClean, {
     onSuccess: () => {
+      message.success('清空成功');
       tableActions?.reload();
-      message.success('清空操作日志成功');
     },
   });
 
+  const onCleanUp = () => {
+    Modal.confirm({
+      title: '操作确认',
+      content: '确认清空操作日志吗？',
+      okButtonProps: {
+        loading: isLoading,
+      },
+      onOk: () => mutate({}),
+    });
+  };
+
   return (
-    <Access accessible>
-      <Button
-        danger
-        icon={<DeleteOutlined />}
-        onClick={() =>
-          Modal.confirm({
-            title: '清空操作日志',
-            content: '确认清空操作日志吗？',
-            okButtonProps: {
-              loading: isLoading,
-            },
-            onOk: mutate,
-          })
-        }
-      >
+    <AccessWithState accessKey="monitor:operlog:remove">
+      <Button danger icon={<DeleteOutlined />} onClick={() => onCleanUp()}>
         清空
       </Button>
-    </Access>
+    </AccessWithState>
   );
 };
 

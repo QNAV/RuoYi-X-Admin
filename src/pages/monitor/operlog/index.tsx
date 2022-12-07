@@ -1,5 +1,5 @@
 import { BasePageContainer, BaseProTable } from '@/components';
-import { useQueryDict } from '@/models';
+import { useQueryDictSysCommonStatus, useQueryDictSysOperType } from '@/models';
 import ButtonCleanUp from '@/pages/monitor/operlog/components/ButtonCleanUp';
 import ButtonExport from '@/pages/monitor/operlog/components/ButtonExport';
 import ButtonRemove from '@/pages/monitor/operlog/components/ButtonRemove';
@@ -12,8 +12,8 @@ import type { FC } from 'react';
 import { useState } from 'react';
 
 const useColumns = (): ProColumns<SysOperLogVo>[] => {
-  const { data: dictSysCommonStatus } = useQueryDict('sys_common_status');
-  const { data: dictSysOperType } = useQueryDict('sys_oper_type');
+  const { valueEnumSysCommonStatus } = useQueryDictSysCommonStatus();
+  const { valueEnumSysOperType } = useQueryDictSysOperType();
 
   return [
     { title: '日志编号', dataIndex: 'operId', key: 'operId', valueType: 'text', hideInSearch: true },
@@ -23,7 +23,7 @@ const useColumns = (): ProColumns<SysOperLogVo>[] => {
       dataIndex: 'businessType',
       key: 'businessType',
       valueType: 'select',
-      valueEnum: dictSysOperType?.valueEnum ?? {},
+      valueEnum: valueEnumSysOperType,
     },
     {
       title: '请求方式',
@@ -40,7 +40,7 @@ const useColumns = (): ProColumns<SysOperLogVo>[] => {
       dataIndex: 'status',
       key: 'status',
       valueType: 'select',
-      valueEnum: dictSysCommonStatus?.valueEnum ?? {},
+      valueEnum: valueEnumSysCommonStatus,
     },
     { title: '操作日期', dataIndex: 'operTime', key: 'operTime', valueType: 'dateTime', hideInSearch: true },
     {
@@ -61,7 +61,7 @@ const tableAlertOptionRender: ProTableProps<SysOperLogVo, SysOperLogPageQueryBo>
 }) => {
   return (
     <ButtonRemove
-      isBatch
+      batch
       disabled={selectedRows.length === 0}
       operId={selectedRows.map((i) => i.operId).join(',') as unknown as number}
     />
@@ -83,7 +83,7 @@ const PageOperlog: FC = () => {
         columns={columns}
         request={async (...p) => {
           const params = convertParams(...p);
-          setSearchParams(params as SysOperLogPageQueryBo);
+          setSearchParams(params);
           return await sysOperLogPostList(params);
         }}
         toolbar={{
