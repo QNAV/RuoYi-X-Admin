@@ -1,38 +1,31 @@
-import { Access } from '@/components';
+import { AccessWithState, BaseButtonRemove } from '@/components';
 import { useAtomValueMainTableActions } from '@/pages/monitor/logininfor/model';
 import { sysLogininforPostRemove } from '@/services/system/Monitor';
-import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal } from 'antd';
+import { message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
   infoId: number;
-  isBatch?: boolean;
+  batch?: boolean;
   disabled?: boolean;
-}> = ({ infoId, disabled, isBatch }) => {
-  const text = isBatch ? '批量删除' : '删除';
-
+}> = ({ infoId, disabled, batch }) => {
   const mainTableActions = useAtomValueMainTableActions();
 
-  const { mutateAsync, isLoading } = useMutation(
-    async (infoId: number) => {
-      await sysLogininforPostRemove({ infoIds: infoId });
-    },
-    {
-      onSuccess: () => {
-        mainTableActions?.reload();
-        mainTableActions?.clearSelected?.();
-        message.success('删除成功');
-      },
-    },
-  );
+  const { mutateAsync, isLoading } = useMutation(sysLogininforPostRemove, {
+    onSuccess: () => {
+      message.success('删除成功');
 
-  const onRemove = () => {
+      mainTableActions?.reload();
+      mainTableActions?.clearSelected?.();
+    },
+  });
+
+  const handleRemove = () => {
     Modal.confirm({
-      title: '删除访问记录',
+      title: '操作确认',
       content: `确定删除访问编号为 ${infoId} 的访问记录吗？`,
-      onOk: async () => mutateAsync(infoId),
+      onOk: () => mutateAsync({ infoIds: infoId }),
       okButtonProps: {
         loading: isLoading,
       },
@@ -40,11 +33,9 @@ const ButtonRemove: FC<{
   };
 
   return (
-    <Access accessible>
-      <Button type="link" danger disabled={disabled} icon={<DeleteOutlined />} onClick={onRemove}>
-        {text}
-      </Button>
-    </Access>
+    <AccessWithState accessKey="monitor:logininfor:remove">
+      <BaseButtonRemove batch={batch} disabled={disabled} onClick={handleRemove} />
+    </AccessWithState>
   );
 };
 

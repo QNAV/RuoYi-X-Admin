@@ -1,24 +1,21 @@
-import { Access } from '@/components';
+import { AccessWithState, BaseButtonExport } from '@/components';
 import type { SysLogininforPageQueryBo } from '@/services/system/data-contracts';
 import { sysLogininforPostExport } from '@/services/system/Monitor';
-import { DownloadOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import type { FC } from 'react';
 
 const ButtonExport: FC<{ searchParams: SysLogininforPageQueryBo }> = ({ searchParams }) => {
-  const { isLoading, mutate } = useMutation(() => sysLogininforPostExport(searchParams), {
+  const { isLoading, mutate } = useMutation(sysLogininforPostExport, {
     onSuccess: () => {
       message.success('导出成功');
     },
   });
 
   return (
-    <Access accessible>
-      <Button ghost type="primary" icon={<DownloadOutlined />} loading={isLoading} onClick={() => mutate()}>
-        导出当前列表
-      </Button>
-    </Access>
+    <AccessWithState accessKey="monitor:logininfor:export">
+      <BaseButtonExport loading={isLoading} onClick={() => mutate(searchParams)} />
+    </AccessWithState>
   );
 };
 

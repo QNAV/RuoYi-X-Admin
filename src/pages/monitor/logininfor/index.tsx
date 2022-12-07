@@ -41,7 +41,7 @@ const tableAlertOptionRender: ProTableProps<SysLogininforVo, SysLogininforPageQu
 }) => {
   return (
     <ButtonRemove
-      isBatch
+      batch
       disabled={selectedRows.length === 0}
       infoId={selectedRows.map((i) => i.infoId).join(',') as unknown as number}
     />
