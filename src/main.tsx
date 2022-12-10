@@ -10,7 +10,6 @@ import 'dayjs/locale/zh-cn';
 import { Provider } from 'jotai';
 import { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import type { RouterProviderProps } from 'react-router-dom';
 import {
   createBrowserRouter,
   createRoutesFromChildren,
@@ -56,7 +55,7 @@ createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
       <ConfigProvider>
         <ProComponentsProvider>
-          <RouterProvider router={router as RouterProviderProps['router']} />
+          <RouterProvider router={router} />
         </ProComponentsProvider>
       </ConfigProvider>
       <ReactQueryDevtools position="bottom-right" />
