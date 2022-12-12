@@ -155,28 +155,10 @@ export const layoutRoutes: Route[] = [
             access: 'monitor:online:list',
           },
           {
-            name: '数据监控',
-            path: 'druid',
-            element: lazyLoadPage('monitor/druid'),
-            access: 'monitor:druid:list',
-          },
-          {
             name: '缓存管理',
             path: 'cache',
             element: lazyLoadPage('monitor/cache'),
             access: 'monitor:cache:list',
-          },
-          {
-            name: 'Admin 监控',
-            path: 'Admin',
-            element: lazyLoadPage('monitor/admin'),
-            access: 'monitor:admin:list',
-          },
-          {
-            name: '任务调度中心',
-            path: 'XxlJob',
-            element: lazyLoadPage('monitor/job'),
-            access: 'monitor:xxljob:list',
           },
         ],
       },
