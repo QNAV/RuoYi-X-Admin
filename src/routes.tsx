@@ -184,12 +184,6 @@ export const layoutRoutes: Route[] = [
             element: lazyLoadPage('tool/gen-edit'),
             access: 'tool:gen:list',
           },
-          {
-            name: '系统接口',
-            path: 'swagger',
-            element: lazyLoadPage('tool/swagger'),
-            access: 'tool:swagger:list',
-          },
         ],
       },
       {
