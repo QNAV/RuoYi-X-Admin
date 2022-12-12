@@ -66,8 +66,8 @@ const createFormData = (input: Record<string, unknown>): FormData => {
 };
 
 const redirectToLoginPage = () => {
-  window.location.href = `${import.meta.env.VITE_BASE_NAME}login?${createSearchParams({
-    redirect: window.location.pathname.replace(import.meta.env.VITE_BASE_NAME, '/'),
+  window.location.href = `${import.meta.env.BASE_URL}login?${createSearchParams({
+    redirect: window.location.pathname.replace(import.meta.env.BASE_URL, '/'),
   })}`;
 };
 

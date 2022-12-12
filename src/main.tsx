@@ -20,45 +20,47 @@ import {
 } from 'react-router-dom';
 import './main.css';
 
-dayjs.locale('zh-cn');
+const bootstrap = () => {
+  dayjs.locale('zh-cn');
 
-Sentry.init({
-  dsn: 'https://fd72e8f1a1e8477db459c343537c5c91@o1364137.ingest.sentry.io/4503962906591232',
-  integrations: [
-    new BrowserTracing({
-      routingInstrumentation: Sentry.reactRouterV6Instrumentation(
-        useEffect,
-        useLocation,
-        useNavigationType,
-        createRoutesFromChildren,
-        matchRoutes,
-      ),
-    }),
-  ],
-  tracesSampleRate: 1.0,
-});
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
     },
-  },
-});
+  });
 
-const sentryCreateBrowserRouter = Sentry.wrapCreateBrowserRouter(createBrowserRouter);
+  Sentry.init({
+    dsn: 'https://fd72e8f1a1e8477db459c343537c5c91@o1364137.ingest.sentry.io/4503962906591232',
+    integrations: [
+      new BrowserTracing({
+        routingInstrumentation: Sentry.reactRouterV6Instrumentation(
+          useEffect,
+          useLocation,
+          useNavigationType,
+          createRoutesFromChildren,
+          matchRoutes,
+        ),
+      }),
+    ],
+    tracesSampleRate: 1.0,
+  });
 
-const router = sentryCreateBrowserRouter(routes, { basename: import.meta.env.VITE_BASE_NAME });
+  const router = Sentry.wrapCreateBrowserRouter(createBrowserRouter)(routes, { basename: import.meta.env.BASE_URL });
 
-createRoot(document.getElementById('root')!).render(
-  <Provider>
-    <QueryClientProvider client={queryClient}>
-      <ConfigProvider>
-        <ProComponentsProvider>
-          <RouterProvider router={router} />
-        </ProComponentsProvider>
-      </ConfigProvider>
-      <ReactQueryDevtools position="bottom-right" />
-    </QueryClientProvider>
-  </Provider>,
-);
+  createRoot(document.getElementById('root')!).render(
+    <Provider>
+      <QueryClientProvider client={queryClient}>
+        <ConfigProvider>
+          <ProComponentsProvider>
+            <RouterProvider router={router} />
+          </ProComponentsProvider>
+        </ConfigProvider>
+        <ReactQueryDevtools position="bottom-right" />
+      </QueryClientProvider>
+    </Provider>,
+  );
+};
+
+bootstrap();

@@ -2,40 +2,36 @@ import react from '@vitejs/plugin-react';
 import jotaiDebugLabel from 'jotai/babel/plugin-debug-label';
 import jotaiReactRefresh from 'jotai/babel/plugin-react-refresh';
 import { visualizer } from 'rollup-plugin-visualizer';
-import type { UserConfig } from 'vite';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 
-const plugins: UserConfig['plugins'] = [react({ babel: { plugins: [jotaiDebugLabel, jotaiReactRefresh] } })];
-
-const pluginVis = visualizer({
-  open: true,
-  gzipSize: true,
-});
-
-const genPluginHTML = (injectGhScript: boolean) =>
-  createHtmlPlugin({
-    minify: false,
-    inject: {
-      data: {
-        injectScript: injectGhScript ? `<script src="/404.js"></script>` : '',
-      },
-    },
-  });
+const baseMap = {
+  development: '/',
+  staging: '/',
+  production: '/',
+  gh: '/RuoYi-X-Admin/',
+};
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd());
-
-  plugins.push(genPluginHTML(mode === 'gh'));
-
-  if (process.env.vis) {
-    plugins.push(pluginVis);
-  }
-
   return {
-    base: env.VITE_BASE_NAME,
-    plugins,
+    base: baseMap[mode],
+    plugins: [
+      react({ babel: { plugins: [jotaiDebugLabel, jotaiReactRefresh] } }),
+      {
+        ...visualizer({
+          open: true,
+        }),
+        apply: () => !!process.env.vis,
+      },
+      createHtmlPlugin({
+        inject: {
+          data: {
+            injectScript: mode === 'gh' ? `<script src="/404.js"></script>` : '',
+          },
+        },
+      }),
+    ],
     resolve: {
       alias: [{ find: '@/', replacement: '/src/' }],
     },
