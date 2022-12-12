@@ -1,17 +1,9 @@
-import type { ConfigContextPropsType } from '@ant-design/pro-components';
-import { ProProvider } from '@ant-design/pro-components';
-import type { FC, ProviderProps, ReactNode } from 'react';
-import { useContext, useMemo } from 'react';
+import type { ProRenderFieldPropsType } from '@ant-design/pro-components';
+import { ProConfigProvider } from '@ant-design/pro-components';
+import type { FC, ReactNode } from 'react';
+
+const valueTypeMap: Record<string, ProRenderFieldPropsType> = {};
 
 export const ProComponentsProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const context = useContext(ProProvider);
-
-  const value: ProviderProps<ConfigContextPropsType>['value'] = useMemo(() => {
-    return {
-      ...context,
-      valueTypeMap: {},
-    };
-  }, [context]);
-
-  return <ProProvider.Provider value={value}>{children}</ProProvider.Provider>;
+  return <ProConfigProvider valueTypeMap={valueTypeMap}>{children}</ProConfigProvider>;
 };
