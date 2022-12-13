@@ -95,23 +95,6 @@ const PageLoginInfo: FC = () => {
           setSearchParams(params);
           return await sysLogininforPostList(params);
         }}
-        beforeSearchSubmit={(params) => {
-          const { dateTimeRange, ...rest } = params;
-
-          let dateTimeRangeParams = {};
-
-          if (dateTimeRange) {
-            dateTimeRangeParams = {
-              beginTime: dateTimeRange[0],
-              endTime: dateTimeRange[1],
-            };
-          }
-
-          return {
-            ...rest,
-            ...dateTimeRangeParams,
-          };
-        }}
         toolbar={{
           actions: [
             <ButtonCleanUp key="ButtonCleanUp" />,

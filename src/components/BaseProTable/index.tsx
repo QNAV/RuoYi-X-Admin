@@ -34,20 +34,28 @@ const defaultTableProps: ProTableProps<Record<string, any>, Record<string, any>>
   },
   defaultSize: 'small',
   beforeSearchSubmit: (params) => {
-    const { createTimeRange, ...rest } = params;
+    const { createDateTimeRange, dateTimeRange, ...rest } = params;
 
     let createTimeParams = {};
-
-    if (createTimeRange) {
+    if (createDateTimeRange) {
       createTimeParams = {
-        beginCreateTime: createTimeRange[0],
-        endCreateTime: createTimeRange[1],
+        beginCreateTime: createDateTimeRange[0],
+        endCreateTime: createDateTimeRange[1],
+      };
+    }
+
+    let dateTimeParams = {};
+    if (dateTimeRange) {
+      dateTimeParams = {
+        beginTime: dateTimeRange[0],
+        endTime: dateTimeRange[1],
       };
     }
 
     return {
       ...rest,
       ...createTimeParams,
+      ...dateTimeParams,
     };
   },
   tableAlertRender: ({ selectedRowKeys, onCleanSelected }) => {

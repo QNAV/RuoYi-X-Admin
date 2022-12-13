@@ -42,7 +42,14 @@ const useColumns = (): ProColumns<SysOperLogVo>[] => {
       valueType: 'select',
       valueEnum: valueEnumSysCommonStatus,
     },
-    { title: '操作日期', dataIndex: 'operTime', key: 'operTime', valueType: 'dateTime', hideInSearch: true },
+    { title: '操作时间', dataIndex: 'operTime', key: 'operTime', valueType: 'dateTime', hideInSearch: true },
+    {
+      title: '操作时间',
+      dataIndex: 'dateTimeRange',
+      key: 'dateTimeRange',
+      valueType: 'dateTimeRange',
+      hideInTable: true,
+    },
     {
       title: '操作',
       dataIndex: 'option',
