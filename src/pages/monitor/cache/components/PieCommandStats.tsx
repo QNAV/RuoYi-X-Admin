@@ -37,7 +37,6 @@ const PieCommandStats: FC<{
 
   useEffect(() => {
     return () => {
-      console.log(111);
       piePlotRef.current?.destroy();
     };
   }, []);
