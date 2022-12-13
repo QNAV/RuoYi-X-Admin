@@ -78,15 +78,12 @@ const useColumns = (): ProColumns<SysUserOnlineVo>[] => {
   ];
 };
 
-const tableAlertOptionRender: ProTableProps<
-  SysUserOnlineVo,
-  {
-    /** ip地址 */
-    ipaddr?: string;
-    /** 用户名 */
-    userName?: string;
-  }
->['tableAlertOptionRender'] = ({ selectedRows }) => {
+interface Params {
+  ipaddr?: string;
+  userName?: string;
+}
+
+const tableAlertOptionRender: ProTableProps<SysUserOnlineVo, Params>['tableAlertOptionRender'] = ({ selectedRows }) => {
   return (
     <ButtonForceLogout
       batch
@@ -103,15 +100,7 @@ const PageOnline: FC = () => {
 
   return (
     <BasePageContainer>
-      <BaseProTable<
-        SysUserOnlineVo,
-        {
-          /** ip地址 */
-          ipaddr?: string;
-          /** 用户名 */
-          userName?: string;
-        }
-      >
+      <BaseProTable<SysUserOnlineVo, Params>
         rowKey="tokenId"
         scroll={{
           x: '105%',
