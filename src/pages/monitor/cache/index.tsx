@@ -5,6 +5,7 @@ import PieUsedMemory from '@/pages/monitor/cache/components/PieUsedMemory';
 import { cacheGetInfo } from '@/services/system/Monitor';
 import { ProCard } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
+import { Spin } from 'antd';
 import type { FC } from 'react';
 
 const colSpan = {
@@ -17,7 +18,7 @@ const colSpan = {
 };
 
 const PageCache: FC = () => {
-  const { data } = useRequest(async () => {
+  const { data, loading } = useRequest(async () => {
     const { dbSize, info, commandStats } = await cacheGetInfo();
 
     return {
@@ -25,34 +26,32 @@ const PageCache: FC = () => {
         ...info,
         dbSize,
       } as unknown as Record<string, string>,
-      commandStats,
+      commandStats: commandStats?.map((i) => ({
+        name: i.name,
+        value: Number(i.value),
+      })),
     };
   });
 
   return (
     <BasePageContainer>
-      <ProCard ghost direction="column" gutter={[16, 16]}>
-        <ProCard title="基本信息">
-          <Descriptions dataSource={data?.info} />
-        </ProCard>
-
-        <ProCard ghost gutter={[16, 16]} wrap>
-          <ProCard title="命令统计" colSpan={colSpan}>
-            <PieCommandStats
-              data={
-                data?.commandStats?.map((i) => ({
-                  name: i.name,
-                  value: Number(i.value),
-                })) ?? []
-              }
-            />
+      <Spin spinning={loading}>
+        <ProCard ghost direction="column" gutter={[16, 16]}>
+          <ProCard title="基本信息">
+            <Descriptions dataSource={data?.info} />
           </ProCard>
 
-          <ProCard title="内存信息" colSpan={colSpan}>
-            <PieUsedMemory data={parseFloat(data?.info?.['used_memory_human'] ?? '0')} />
+          <ProCard ghost gutter={[16, 16]} wrap>
+            <ProCard title="命令统计" colSpan={colSpan}>
+              <PieCommandStats data={data?.commandStats} />
+            </ProCard>
+
+            <ProCard title="内存信息" colSpan={colSpan}>
+              <PieUsedMemory data={parseFloat(data?.info?.['used_memory_human'] ?? '0')} />
+            </ProCard>
           </ProCard>
         </ProCard>
-      </ProCard>
+      </Spin>
     </BasePageContainer>
   );
 };

@@ -1,6 +1,6 @@
 import { Gauge } from '@antv/g2plot';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const ticks = [0, 1 / 3, 2 / 3, 1];
 const color = ['#30BF78', '#FAAD14', '#F4664A'];
@@ -8,10 +8,10 @@ const color = ['#30BF78', '#FAAD14', '#F4664A'];
 const PieUsedMemory: FC<{
   data: number;
 }> = ({ data }) => {
-  const [gauge, setGauge] = useState<Gauge>();
+  const gaugeRef = useRef<Gauge>();
 
   useEffect(() => {
-    let g: Gauge | undefined = gauge;
+    let g: Gauge | undefined = gaugeRef.current;
 
     if (!g) {
       g = new Gauge('PieUsedMemory', {
@@ -55,7 +55,7 @@ const PieUsedMemory: FC<{
         },
       });
 
-      setGauge(g);
+      gaugeRef.current = g;
 
       g.render();
     }
@@ -65,7 +65,7 @@ const PieUsedMemory: FC<{
 
   useEffect(() => {
     return () => {
-      gauge?.destroy();
+      gaugeRef.current?.destroy();
     };
   }, []);
 

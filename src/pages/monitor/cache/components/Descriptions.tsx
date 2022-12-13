@@ -90,7 +90,7 @@ const column = {
   xs: 1,
 };
 
-const Descriptions: FC<{ dataSource?: Record<any, any> }> = ({ dataSource }) => {
+const Descriptions: FC<{ dataSource?: Record<string, string> }> = ({ dataSource = {} }) => {
   return <ProDescriptions columns={columns} column={column} dataSource={dataSource} />;
 };
 
