@@ -45,7 +45,7 @@ const columns: ProDescriptionsItemProps[] = [
     dataIndex: 'used_cpu_user_children',
     title: '使用 CPU',
     valueType: 'text',
-    renderText: (text) => parseFloat(text).toFixed(2),
+    renderText: (text) => (text ? parseFloat(text).toFixed(2) : '-'),
   },
   // 内存配置
   {
@@ -77,7 +77,8 @@ const columns: ProDescriptionsItemProps[] = [
     dataIndex: 'instantaneous_input_kbps',
     title: '网络入口/出口',
     valueType: 'text',
-    renderText: (text, record) => `${record.instantaneous_input_kbps}kps/${record.instantaneous_output_kbps}kps`,
+    renderText: (text, record) =>
+      `${record?.instantaneous_input_kbps ?? 0}kps/${record?.instantaneous_output_kbps ?? 0}kps`,
   },
 ];
 

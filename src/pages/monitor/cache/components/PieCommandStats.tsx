@@ -1,6 +1,6 @@
 import { Pie } from '@antv/g2plot';
 import type { FC } from 'react';
-import { useEffect, useRef } from 'react';
+import { startTransition, useEffect, useRef } from 'react';
 
 const PieCommandStats: FC<{
   data?: {
@@ -10,11 +10,13 @@ const PieCommandStats: FC<{
 }> = ({ data = [] }) => {
   const piePlotRef = useRef<Pie>();
 
-  useEffect(() => {
-    let p: Pie | undefined = piePlotRef.current;
+  startTransition(() => {
+    piePlotRef.current?.changeData(data);
+  });
 
-    if (!p) {
-      p = new Pie('PieCommandStats', {
+  useEffect(() => {
+    if (!piePlotRef.current) {
+      const piePlot = new Pie('PieCommandStats', {
         appendPadding: 10,
         data,
         angleField: 'value',
@@ -27,17 +29,14 @@ const PieCommandStats: FC<{
         interactions: [{ type: 'pie-legend-active' }, { type: 'element-active' }],
       });
 
-      piePlotRef.current = p;
+      piePlotRef.current = piePlot;
 
-      p.render();
+      piePlot.render();
     }
 
-    p.changeData(data);
-  }, [data]);
-
-  useEffect(() => {
     return () => {
       piePlotRef.current?.destroy();
+      piePlotRef.current = undefined;
     };
   }, []);
 

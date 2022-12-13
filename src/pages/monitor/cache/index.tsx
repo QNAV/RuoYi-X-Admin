@@ -17,21 +17,24 @@ const colSpan = {
   xs: 24,
 };
 
-const PageCache: FC = () => {
-  const { data, loading } = useRequest(async () => {
-    const { dbSize, info, commandStats } = await cacheGetInfo();
+const getInfo = async () => {
+  const { dbSize, info, commandStats } = await cacheGetInfo();
 
-    return {
-      info: {
-        ...info,
-        dbSize,
-      } as unknown as Record<string, string>,
-      commandStats: commandStats?.map((i) => ({
-        name: i.name,
-        value: Number(i.value),
-      })),
-    };
-  });
+  return {
+    info: {
+      ...info,
+      dbSize,
+    } as unknown as Record<string, string>,
+    commandStats: commandStats?.map((i) => ({
+      name: i.name,
+      value: Number(i.value),
+    })),
+    used_memory_human: info?.used_memory_human ? parseFloat(info.used_memory_human as unknown as string) : 0,
+  };
+};
+
+const PageCache: FC = () => {
+  const { data, loading } = useRequest(getInfo);
 
   return (
     <BasePageContainer>
@@ -47,7 +50,7 @@ const PageCache: FC = () => {
             </ProCard>
 
             <ProCard title="内存信息" colSpan={colSpan}>
-              <PieUsedMemory data={parseFloat(data?.info?.['used_memory_human'] ?? '0')} />
+              <PieUsedMemory data={data?.used_memory_human} />
             </ProCard>
           </ProCard>
         </ProCard>

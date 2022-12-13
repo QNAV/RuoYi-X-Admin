@@ -1,20 +1,22 @@
 import { Gauge } from '@antv/g2plot';
 import type { FC } from 'react';
-import { useEffect, useRef } from 'react';
+import { startTransition, useEffect, useRef } from 'react';
 
 const ticks = [0, 1 / 3, 2 / 3, 1];
 const color = ['#30BF78', '#FAAD14', '#F4664A'];
 
 const PieUsedMemory: FC<{
-  data: number;
-}> = ({ data }) => {
+  data?: number;
+}> = ({ data = 0 }) => {
   const gaugeRef = useRef<Gauge>();
 
-  useEffect(() => {
-    let g: Gauge | undefined = gaugeRef.current;
+  startTransition(() => {
+    gaugeRef.current?.changeData(data / 1000);
+  });
 
-    if (!g) {
-      g = new Gauge('PieUsedMemory', {
+  useEffect(() => {
+    if (!gaugeRef.current) {
+      const gauge = new Gauge('PieUsedMemory', {
         percent: 0,
         range: {
           ticks: [0, 1],
@@ -55,17 +57,14 @@ const PieUsedMemory: FC<{
         },
       });
 
-      gaugeRef.current = g;
+      gaugeRef.current = gauge;
 
-      g.render();
+      gauge.render();
     }
 
-    g.changeData(data / 1000);
-  }, [data]);
-
-  useEffect(() => {
     return () => {
       gaugeRef.current?.destroy();
+      gaugeRef.current = undefined;
     };
   }, []);
 
