@@ -3,34 +3,43 @@ import { useEffect, useRef } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 
 export const useActivated = (callback: () => void, ignoreFirstRender = true) => {
-  const pattern = useRef<string>();
+  const ref = useRef<{
+    pattern?: string;
+    isActivated?: boolean;
+  }>({});
 
   const { pathname } = useLocation();
 
   useEffect(() => {
     const currentPattern = isKeepAliveRoutes.find((i) => matchPath(i, pathname));
 
+    ref.current.isActivated = false;
+
     if (!currentPattern) {
       return;
     }
 
-    if (pattern.current === undefined && ignoreFirstRender) {
-      pattern.current = currentPattern;
+    if (ref.current.pattern === undefined && ignoreFirstRender) {
+      ref.current.pattern = currentPattern;
       return;
     }
 
-    if (pattern.current === undefined && !ignoreFirstRender) {
-      pattern.current = currentPattern;
+    if (ref.current.pattern === undefined && !ignoreFirstRender) {
+      ref.current.pattern = currentPattern;
       callback();
       return;
     }
 
-    if (!matchPath(pattern.current!, pathname)) {
+    if (!matchPath(ref.current.pattern!, pathname)) {
       return;
     }
 
+    ref.current.isActivated = true;
+
     callback();
   }, [pathname]);
+
+  return ref.current.isActivated;
 };
 
 export const useDeactivated = (callback: () => void) => {

@@ -11,6 +11,15 @@ export type KeepAliveElements = Record<string, ReturnType<typeof useOutlet>>;
 interface HeaderTabsProps {
   keepAliveElements: KeepAliveElements;
 }
+const defaultTabs = [
+  {
+    key: '/',
+    label: '首页',
+    pathname: '/',
+    search: '',
+    closable: false,
+  },
+];
 
 const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
   const { pathname, search } = useLocation();
@@ -27,15 +36,7 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
       search: string;
       closable: boolean;
     }[]
-  >([
-    {
-      key: '/',
-      label: '首页',
-      pathname: '/',
-      search,
-      closable: false,
-    },
-  ]);
+  >(defaultTabs);
 
   const onClose = (targetKey: string) => {
     const currActiveKeyIndex = items.findIndex(({ key }) => key === targetKey);
@@ -47,7 +48,7 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
 
     setItems((v) => v.filter(({ key }) => key !== targetKey));
 
-    if (keepAliveElements[targetKey] !== undefined) {
+    if (keepAliveElements.hasOwnProperty(targetKey)) {
       delete keepAliveElements[targetKey];
     }
   };
@@ -64,10 +65,23 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
       return;
     }
 
-    setItems((v = []) => {
-      const { name, hideInTab, closableTab } = settingsMap[currRouteSettingsKey];
+    const { name, hideInTab, closableTab } = settingsMap[currRouteSettingsKey];
 
-      if (v.find((item) => item.key === currRouteSettingsKey) || hideInTab) return v;
+    if (hideInTab) return;
+
+    setItems((v = []) => {
+      if (v.find((item) => item.key === currRouteSettingsKey && item.search === search)) return v;
+
+      if (v.find((item) => item.key === currRouteSettingsKey && item.search !== search)) {
+        return v.map((item) => ({
+          ...item,
+          ...(item.key === currRouteSettingsKey && item.search !== search
+            ? {
+                search,
+              }
+            : {}),
+        }));
+      }
 
       return [...v, { key: currRouteSettingsKey, label: name, pathname, search, closable: closableTab }];
     });
