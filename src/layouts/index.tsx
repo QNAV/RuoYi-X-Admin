@@ -1,9 +1,9 @@
 import { Access, PermissionDenied } from '@/components';
-import type { KeepAliveElements } from '@/layouts/components/HeaderTabs';
-import HeaderTabs from '@/layouts/components/HeaderTabs';
 import IconLogout from '@/layouts/components/IconLogout';
 import IconSetting from '@/layouts/components/IconSetting';
 import MenuItem from '@/layouts/components/MenuItem';
+import type { KeepAliveElements } from '@/layouts/components/TabsHeader';
+import TabsHeader from '@/layouts/components/TabsHeader';
 import { useQueryInitialState } from '@/models';
 import { accessKeysMap, accessRoutes, isKeepAliveRoutesSet, settingsMap } from '@/routes';
 import { checkAccess, convertUserRoutesToMenus } from '@/utils';
@@ -35,7 +35,7 @@ const useKeepAliveOutlets = () => {
 
   return (
     <>
-      <HeaderTabs keepAliveElements={keepAliveElements.current} />
+      <TabsHeader keepAliveElements={keepAliveElements.current} />
       {Object.entries(keepAliveElements.current).map(([key, element]) => (
         <div key={key} hidden={!matchPath(key, pathname)}>
           {element}

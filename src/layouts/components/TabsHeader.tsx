@@ -1,4 +1,3 @@
-import { useSetCloseGlobalTab } from '@/models';
 import { settingsMap } from '@/routes';
 import { Tabs } from 'antd';
 import type { FC } from 'react';
@@ -11,7 +10,16 @@ export type KeepAliveElements = Record<string, ReturnType<typeof useOutlet>>;
 interface HeaderTabsProps {
   keepAliveElements: KeepAliveElements;
 }
-const defaultTabs = [
+
+interface TabItem {
+  key: string;
+  label: string;
+  pathname: string;
+  search: string;
+  closable: boolean;
+}
+
+const defaultTabs: TabItem[] = [
   {
     key: '/',
     label: '首页',
@@ -21,24 +29,19 @@ const defaultTabs = [
   },
 ];
 
-const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
+const TabsHeader: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
 
-  const setCloseGlobalTab = useSetCloseGlobalTab();
-
   const [activeKey, setActiveKey] = useState<string>('');
-  const [items, setItems] = useState<
-    {
-      key: string;
-      label: string;
-      pathname: string;
-      search: string;
-      closable: boolean;
-    }[]
-  >(defaultTabs);
+  const [items, setItems] = useState<TabItem[]>(defaultTabs);
 
-  const onClose = (targetKey: string) => {
+  const handleChange = (key: string) => {
+    const { pathname, search } = items.find((item) => item.key === key)!;
+    navigate(`${pathname}${search}`);
+  };
+
+  const handleClose = (targetKey: string) => {
     const currActiveKeyIndex = items.findIndex(({ key }) => key === targetKey);
 
     const { pathname, search } =
@@ -54,10 +57,6 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
   };
 
   useEffect(() => {
-    setCloseGlobalTab(onClose);
-  }, []);
-
-  useEffect(() => {
     const currRouteSettingsKey = Object.keys(settingsMap).find((key) => matchPath(key, pathname));
 
     if (currRouteSettingsKey === undefined) {
@@ -65,25 +64,32 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
       return;
     }
 
-    const { name, hideInTab, closableTab } = settingsMap[currRouteSettingsKey];
+    const { name: label, hideInTab, closableTab: closable } = settingsMap[currRouteSettingsKey];
 
+    // 如果当前路由配置在标签页中隐藏，则直接返回
     if (hideInTab) return;
 
     setItems((v = []) => {
-      if (v.find((item) => item.key === currRouteSettingsKey && item.search === search)) return v;
-
-      if (v.find((item) => item.key === currRouteSettingsKey && item.search !== search)) {
-        return v.map((item) => ({
-          ...item,
-          ...(item.key === currRouteSettingsKey && item.search !== search
-            ? {
-                search,
-              }
-            : {}),
-        }));
+      // 如果当前路由不在标签页中，向标签页中添加当前路由
+      if (v.every(({ key }) => key !== currRouteSettingsKey)) {
+        return [...v, { key: currRouteSettingsKey, label, pathname, search, closable }];
       }
 
-      return [...v, { key: currRouteSettingsKey, label: name, pathname, search, closable: closableTab }];
+      // 如果当前路由已经在标签页中，并且 pathname 与 search 与缓存中的一致，则直接返回
+      if (v.some((item) => item.key === currRouteSettingsKey && item.pathname === pathname && item.search === search))
+        return v;
+
+      return v.map((item) => {
+        if (item.key !== currRouteSettingsKey) {
+          return item;
+        }
+
+        return {
+          ...item,
+          search: item.search === search ? item.search : search,
+          pathname: item.pathname === pathname ? item.pathname : pathname,
+        };
+      });
     });
 
     setActiveKey(currRouteSettingsKey);
@@ -95,17 +101,16 @@ const HeaderTabs: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
       type="editable-card"
       items={items}
       activeKey={activeKey}
-      onChange={(key) => {
-        const { pathname, search } = items.find((item) => item.key === key)!;
-        navigate(`${pathname}${search}`);
-      }}
+      onChange={handleChange}
       onEdit={(targetKey) => {
-        if (typeof targetKey === 'string') {
-          onClose(targetKey);
+        if (typeof targetKey !== 'string') {
+          return;
         }
+
+        handleClose(targetKey);
       }}
     />
   );
 };
 
-export default HeaderTabs;
+export default TabsHeader;

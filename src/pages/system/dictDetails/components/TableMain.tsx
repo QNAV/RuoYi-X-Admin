@@ -74,6 +74,8 @@ const tableAlertOptionRender: ProTableProps<SysDictDataVo, 'text'>['tableAlertOp
   );
 };
 
+let lastDictType: string;
+
 const TableMain: FC = () => {
   const params = useParams<{ dictType: string }>();
 
@@ -96,7 +98,7 @@ const TableMain: FC = () => {
       }, {});
     },
     {
-      manual: true,
+      ready: !!params.dictType,
       onSuccess: (data) => {
         const dictType = params.dictType!;
         setCurDictType({
@@ -105,15 +107,22 @@ const TableMain: FC = () => {
         });
         startTransition(() => {
           formRef.current?.setFieldsValue({ dictType });
-          actionRef.current?.reload();
+          actionRef?.current?.clearSelected?.();
+          actionRef.current?.reloadAndRest?.();
         });
       },
     },
   );
 
   useActivated(() => {
+    if (params.dictType === undefined || params.dictType === lastDictType) {
+      return;
+    }
+
+    lastDictType = params.dictType;
+
     run();
-  }, false);
+  });
 
   return (
     <BaseProTable<SysDictDataVo, SysDictDataQueryBo>
@@ -140,6 +149,8 @@ const TableMain: FC = () => {
             showSearch
             fieldProps={{
               onChange: (value) => {
+                actionRef?.current?.clearSelected?.();
+                actionRef.current?.reset?.();
                 setCurDictType({
                   dictType: value,
                   dictName: valueEnum![value]!,
