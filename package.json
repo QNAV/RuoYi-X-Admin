@@ -19,8 +19,8 @@
     "@ant-design/icons": "^4.8.0",
     "@ant-design/pro-components": "^2.3.47",
     "@antv/g2plot": "^2.4.23",
-    "@sentry/react": "^7.26.0",
-    "@sentry/tracing": "^7.26.0",
+    "@sentry/react": "^7.27.0",
+    "@sentry/tracing": "^7.27.0",
     "@tanstack/react-query": "^4.20.4",
     "@tanstack/react-query-devtools": "^4.20.4",
     "@wangeditor/editor": "^5.1.23",
@@ -39,7 +39,7 @@
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.5"
+    "react-router-dom": "^6.5.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
@@ -56,7 +56,7 @@
     "@vitejs/plugin-react": "^3.0.0",
     "autoprefixer": "^10.4.13",
     "cross-env": "^7.0.3",
-    "eslint": "^8.29.0",
+    "eslint": "^8.30.0",
     "eslint-config-alloy": "^4.7.0",
     "eslint-plugin-react": "^7.31.11",
     "husky": "^8.0.2",
