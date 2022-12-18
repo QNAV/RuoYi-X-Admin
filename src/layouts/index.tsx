@@ -56,7 +56,7 @@ const Layouts: FC = () => {
   const accessible = useMemo(() => {
     const currRouteAccessKey = accessRoutes.find((key) => matchPath(key, pathname));
 
-    if (!currRouteAccessKey) return true;
+    if (currRouteAccessKey === undefined) return true;
 
     return checkAccess(accessKeysMap[currRouteAccessKey], new Set(initialState?.userInfo?.permissions));
   }, [pathname, initialState?.userInfo?.permissions]);

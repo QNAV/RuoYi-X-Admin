@@ -1,5 +1,7 @@
+import { useSetGlobalTabsMutation } from '@/models';
 import { settingsMap } from '@/routes';
-import { Tabs } from 'antd';
+import { ClearOutlined } from '@ant-design/icons';
+import { Button, Tabs, Tooltip } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import type { useOutlet } from 'react-router-dom';
@@ -33,7 +35,7 @@ const TabsHeader: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
 
-  const [activeKey, setActiveKey] = useState<string>('');
+  const [activeKey, setActiveKey] = useState<string>();
   const [items, setItems] = useState<TabItem[]>(defaultTabs);
 
   const handleChange = (key: string) => {
@@ -41,7 +43,7 @@ const TabsHeader: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
     navigate(`${pathname}${search}`);
   };
 
-  const handleClose = (targetKey: string) => {
+  const handleRemoveTab = (targetKey: string) => {
     const currActiveKeyIndex = items.findIndex(({ key }) => key === targetKey);
 
     const { pathname, search } =
@@ -56,11 +58,19 @@ const TabsHeader: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
     }
   };
 
+  const handleClearTabs = () => {
+    Object.keys(keepAliveElements).forEach((key) => {
+      delete keepAliveElements[key];
+    });
+    setItems(defaultTabs);
+    navigate('/');
+  };
+
   useEffect(() => {
     const currRouteSettingsKey = Object.keys(settingsMap).find((key) => matchPath(key, pathname));
 
     if (currRouteSettingsKey === undefined) {
-      setActiveKey('');
+      setActiveKey(undefined);
       return;
     }
 
@@ -95,6 +105,14 @@ const TabsHeader: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
     setActiveKey(currRouteSettingsKey);
   }, [pathname]);
 
+  const setGlobalTabsMutation = useSetGlobalTabsMutation();
+  useEffect(() => {
+    setGlobalTabsMutation({
+      removeTab: handleRemoveTab,
+      clearTabs: handleClearTabs,
+    });
+  }, []);
+
   return (
     <Tabs
       hideAdd
@@ -106,9 +124,13 @@ const TabsHeader: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
         if (typeof targetKey !== 'string') {
           return;
         }
-
-        handleClose(targetKey);
+        handleRemoveTab(targetKey);
       }}
+      tabBarExtraContent={
+        <Tooltip title="清空标签页" placement="bottomRight">
+          <Button type="text" onClick={handleClearTabs} icon={<ClearOutlined />} />
+        </Tooltip>
+      }
     />
   );
 };

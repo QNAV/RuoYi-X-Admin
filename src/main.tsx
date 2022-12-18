@@ -10,7 +10,6 @@ import 'dayjs/locale/zh-cn';
 import { Provider } from 'jotai';
 import { StrictMode, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import type { RouterProviderProps } from 'react-router-dom';
 import {
   createBrowserRouter,
   createRoutesFromChildren,
@@ -29,32 +28,29 @@ const bootstrap = () => {
       queries: {
         retry: false,
       },
+      mutations: {
+        retry: false,
+      },
     },
   });
 
-  let router: RouterProviderProps['router'];
-
-  if (import.meta.env.DEV) {
-    router = createBrowserRouter(routes, { basename: import.meta.env.BASE_URL });
-  } else {
-    Sentry.init({
-      dsn: 'https://fd72e8f1a1e8477db459c343537c5c91@o1364137.ingest.sentry.io/4503962906591232',
-      integrations: [
-        new BrowserTracing({
-          routingInstrumentation: Sentry.reactRouterV6Instrumentation(
-            useEffect,
-            useLocation,
-            useNavigationType,
-            createRoutesFromChildren,
-            matchRoutes,
-          ),
-        }),
-      ],
-      tracesSampleRate: 1.0,
-    });
-
-    router = Sentry.wrapCreateBrowserRouter(createBrowserRouter)(routes, { basename: import.meta.env.BASE_URL });
-  }
+  Sentry.init({
+    dsn: 'https://fd72e8f1a1e8477db459c343537c5c91@o1364137.ingest.sentry.io/4503962906591232',
+    enabled: !import.meta.env.DEV,
+    integrations: [
+      new BrowserTracing({
+        routingInstrumentation: Sentry.reactRouterV6Instrumentation(
+          useEffect,
+          useLocation,
+          useNavigationType,
+          createRoutesFromChildren,
+          matchRoutes,
+        ),
+      }),
+    ],
+    tracesSampleRate: 1.0,
+  });
+  const router = Sentry.wrapCreateBrowserRouter(createBrowserRouter)(routes, { basename: import.meta.env.BASE_URL });
 
   createRoot(document.getElementById('root')!).render(
     <StrictMode>

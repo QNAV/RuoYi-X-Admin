@@ -1,21 +1,33 @@
 import { getRoutesAccessKeysMap, getRoutesSettingsMap, lazyLoadLayouts, lazyLoadPage } from '@/utils';
 import type { IndexRouteObject, NonIndexRouteObject } from 'react-router-dom';
 
-interface CustomIndexRouteObject extends IndexRouteObject {
-  name?: string;
-  access?: string | string[];
-  hideInTab?: boolean;
-  closableTab?: boolean;
-  isKeepAlive?: boolean;
+type CustomIndexRouteObject = IndexRouteObject & CustomRouteObject;
+
+interface CustomNonIndexRouteObject extends NonIndexRouteObject, CustomRouteObject {
+  children?: Route[];
 }
 
-interface CustomNonIndexRouteObject extends NonIndexRouteObject {
+export interface CustomRouteObject {
+  /**
+   * @description: 路由名称，用做 tab 标签页的标题
+   */
   name?: string;
+  /**
+   * @description: 路由权限
+   */
   access?: string | string[];
+  /**
+   * @description: 是否隐藏路由，用于隐藏 tab 标签页, 默认为 false
+   */
   hideInTab?: boolean;
+  /**
+   * @description: 是否可关闭 tab 标签页, 默认为 true
+   */
   closableTab?: boolean;
+  /**
+   * @description: 是否缓存页面, 默认为 false
+   */
   isKeepAlive?: boolean;
-  children?: Route[];
 }
 
 export type Route = CustomIndexRouteObject | CustomNonIndexRouteObject;
@@ -52,6 +64,7 @@ export const layoutRoutes: Route[] = [
         name: '首页',
         index: true,
         element: lazyLoadPage('home'),
+        closableTab: false,
       },
       {
         name: '系统管理',
@@ -207,7 +220,7 @@ export const routes: Route[] = [
 
 export const accessKeysMap = getRoutesAccessKeysMap(routes);
 export const accessRoutes = Object.keys(accessKeysMap);
-
 export const settingsMap = getRoutesSettingsMap(routes);
+
 export const isKeepAliveRoutes = Object.keys(settingsMap).filter((key) => settingsMap[key].isKeepAlive);
 export const isKeepAliveRoutesSet = new Set(isKeepAliveRoutes);

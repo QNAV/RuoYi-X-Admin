@@ -1,5 +1,5 @@
 import { IconAntd } from '@/components';
-import type { Route } from '@/routes';
+import type { CustomRouteObject, Route } from '@/routes';
 import type { RouterVo } from '@/services/system/data-contracts';
 import type { MenuDataItem } from '@ant-design/pro-components';
 import qs from 'qs';
@@ -30,10 +30,7 @@ export const getRoutesAccessKeysMap = (routes: Route[], parentPath = ''): Record
   return accessKeys;
 };
 
-type GetRouteSettingsMapReturnType = Record<
-  string,
-  Required<Pick<Route, 'name' | 'isKeepAlive' | 'hideInTab' | 'closableTab'>>
->;
+type GetRouteSettingsMapReturnType = Record<string, Required<Omit<CustomRouteObject, 'access'>>>;
 export const getRoutesSettingsMap = (routes: Route[], parentPath = ''): GetRouteSettingsMapReturnType => {
   const settings: GetRouteSettingsMapReturnType = {};
 
@@ -64,14 +61,12 @@ export const convertUserRoutesToMenus = (userRoutes: RouterVo[] = []): MenuDataI
 
     let children: MenuDataItem[] = [];
 
-    const queryString = query ? `?${qs.stringify(JSON.parse(query))}` : '';
-
     if (item.children && item.children.length > 0) {
       children = convertUserRoutesToMenus(item.children);
     }
 
     menus.push({
-      path: `${path}${queryString}`,
+      path: `${path}${query ? `?${qs.stringify(JSON.parse(query))}` : ''}`,
       name: meta?.title,
       hideInMenu: hidden,
       icon: <IconAntd name={meta?.icon} />,
