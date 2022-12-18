@@ -8,7 +8,7 @@ import {
 
 import type { SysUserAddBo } from '@/services/system/data-contracts';
 import {
-  sysConfigGetConfigKey,
+  sysConfigGetConfigKeySkipErrorHandler,
   sysDeptPostTreeSelect,
   sysUserGetInfo,
   sysUserGetInfo1,
@@ -49,9 +49,9 @@ const ModalAddOrEdit: FC = () => {
   });
 
   const { data: initPwd } = useRequest(async () => {
-    const res: any = await sysConfigGetConfigKey({ configKey: 'sys.user.initPassword' });
+    const { data } = await sysConfigGetConfigKeySkipErrorHandler({ configKey: 'sys.user.initPassword' });
 
-    return res!.data!.msg as string;
+    return data.msg;
   });
 
   const { data: treeData } = useRequest(() => sysDeptPostTreeSelect({}), {});
