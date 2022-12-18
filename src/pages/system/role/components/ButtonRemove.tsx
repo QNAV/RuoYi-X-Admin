@@ -1,4 +1,5 @@
-import { AccessWithState, BaseButtonRemove } from '@/components';
+import { BaseButtonRemove } from '@/components';
+import { AccessWithState } from '@/features';
 import { useAtomValueRoleDetails, useAtomValueRoleListActions, useHideRoleDetails } from '@/pages/system/role/model';
 import { sysRolePostRemove } from '@/services/system/System';
 import { useMutation } from '@tanstack/react-query';

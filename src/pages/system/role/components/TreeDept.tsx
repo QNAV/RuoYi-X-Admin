@@ -1,5 +1,6 @@
-import { AccessWithState, EmptySimple } from '@/components';
+import { EmptySimple } from '@/components';
 import { OptionsDataScope } from '@/constants';
+import { AccessWithState } from '@/features';
 import { useAtomValueRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
 import { sysDeptGetRoleDeptTreeSelect, sysRolePostDataScope } from '@/services/system/System';
 import type { TreeData } from '@/utils';

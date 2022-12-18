@@ -1,4 +1,5 @@
-import { AccessWithState, BaseButtonRemove } from '@/components';
+import { BaseButtonRemove } from '@/components';
+import { AccessWithState } from '@/features';
 import { useAtomValueMainTableActions } from '@/pages/system/notice/model';
 import { sysNoticePostRemove } from '@/services/system/System';
 import { DeleteOutlined } from '@ant-design/icons';

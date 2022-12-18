@@ -1,4 +1,5 @@
-import { AccessWithState, BaseButtonRemove } from '@/components';
+import { BaseButtonRemove } from '@/components';
+import { AccessWithState } from '@/features';
 import { useAtomValueMainTableActions } from '@/pages/monitor/logininfor/model';
 import { sysLogininforPostRemove } from '@/services/system/Monitor';
 import { message, Modal } from 'antd';

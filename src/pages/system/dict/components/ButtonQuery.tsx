@@ -1,4 +1,5 @@
-import { AccessWithState, BaseButtonQuery } from '@/components';
+import { BaseButtonQuery } from '@/components';
+import { AccessWithState } from '@/features';
 import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 

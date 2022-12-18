@@ -1,4 +1,5 @@
-import { AccessWithState, BaseButtonEdit } from '@/components';
+import { BaseButtonEdit } from '@/components';
+import { AccessWithState } from '@/features';
 import { useShowEditModal } from '@/pages/system/dict/model';
 import type { SysDictTypeVo } from '@/services/system/data-contracts';
 import type { FC } from 'react';

@@ -1,5 +1,4 @@
-import { AccessWithState } from '@/components';
-import { WangEditor } from '@/features';
+import { AccessWithState, WangEditor } from '@/features';
 import { useQueryDictSysNoticeStatus, useQueryDictSysNoticeType } from '@/models';
 import {
   NoticeActionType,

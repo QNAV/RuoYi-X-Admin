@@ -1,4 +1,5 @@
-import { AccessWithState, BaseButtonAdd } from '@/components';
+import { BaseButtonAdd } from '@/components';
+import { AccessWithState } from '@/features';
 import { useShowAddModal } from '@/pages/system/notice/model';
 import type { FC } from 'react';
 

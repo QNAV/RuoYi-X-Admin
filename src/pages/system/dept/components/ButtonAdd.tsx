@@ -1,4 +1,5 @@
-import { AccessWithState, BaseButtonAdd } from '@/components';
+import { BaseButtonAdd } from '@/components';
+import { AccessWithState } from '@/features';
 import { useQueryDictSysNormalDisable } from '@/models';
 import { useQueryDeptOptions } from '@/pages/system/dept/model';
 import type { SysDeptAddBo } from '@/services/system/data-contracts';

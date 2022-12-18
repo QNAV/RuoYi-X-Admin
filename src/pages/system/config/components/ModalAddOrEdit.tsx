@@ -1,4 +1,4 @@
-import { AccessWithState } from '@/components';
+import { AccessWithState } from '@/features';
 import { useQueryDictSysYesNo } from '@/models';
 import {
   ConfigActionType,

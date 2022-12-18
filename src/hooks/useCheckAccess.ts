@@ -7,8 +7,15 @@ export const useCheckAccess = () => {
   const { data } = useQueryInitialState();
 
   return useCallback(
-    (accessKey: string | string[], options?: CheckAccessOptions) =>
-      checkAccess(accessKey, new Set(data?.userInfo?.permissions ?? []), options),
+    (accessKey: string | string[] | ((accessSet: Set<string>) => boolean), options?: CheckAccessOptions) => {
+      const accessSet = new Set(data?.userInfo?.permissions ?? []);
+
+      if (typeof accessKey === 'function') {
+        return accessKey(accessSet);
+      }
+
+      return checkAccess(accessKey, accessSet, options);
+    },
     [data],
   );
 };

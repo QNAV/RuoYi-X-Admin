@@ -1,4 +1,4 @@
-import { AccessWithState } from '@/components';
+import { AccessWithState } from '@/features';
 import { useQueryDictSysNormalDisable } from '@/models';
 import {
   DictTypeActionType,

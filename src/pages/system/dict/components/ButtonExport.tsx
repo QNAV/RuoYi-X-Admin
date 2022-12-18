@@ -1,4 +1,5 @@
-import { AccessWithState, BaseButtonExport } from '@/components';
+import { BaseButtonExport } from '@/components';
+import { AccessWithState } from '@/features';
 import type { SysDictTypeQueryBo } from '@/services/system/data-contracts';
 import { sysDictTypePostExport } from '@/services/system/System';
 import { useMutation } from '@tanstack/react-query';

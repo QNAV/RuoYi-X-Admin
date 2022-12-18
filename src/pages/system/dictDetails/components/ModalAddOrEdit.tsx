@@ -20,7 +20,7 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { message } from 'antd';
+import { Button, message } from 'antd';
 import type { FC } from 'react';
 import { startTransition, useEffect, useRef } from 'react';
 
@@ -71,7 +71,7 @@ const ModalAddOrEdit: FC = () => {
   }, [open]);
 
   return (
-    <Access accessible>
+    <Access accessible fallback={<Button>111</Button>}>
       <ModalForm<SysDictDataAddBo>
         formRef={formRef}
         width={500}

@@ -1,4 +1,5 @@
-import { AccessWithState, BaseButtonExport } from '@/components';
+import { BaseButtonExport } from '@/components';
+import { AccessWithState } from '@/features';
 import type { SysLogininforPageQueryBo } from '@/services/system/data-contracts';
 import { sysLogininforPostExport } from '@/services/system/Monitor';
 import { useMutation } from '@tanstack/react-query';

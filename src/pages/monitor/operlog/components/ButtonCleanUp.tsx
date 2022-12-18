@@ -1,4 +1,4 @@
-import { AccessWithState } from '@/components';
+import { AccessWithState } from '@/features';
 import { useAtomValueMainTableActions } from '@/pages/monitor/operlog/model';
 import { sysOperLogPostClean } from '@/services/system/Monitor';
 import { DeleteOutlined } from '@ant-design/icons';

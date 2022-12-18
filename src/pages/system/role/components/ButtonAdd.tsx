@@ -1,4 +1,5 @@
-import { AccessWithState, BaseButtonAdd } from '@/components';
+import { BaseButtonAdd } from '@/components';
+import { AccessWithState } from '@/features';
 import { useQueryDictSysNormalDisable } from '@/models';
 import { useAtomValueRoleListActions } from '@/pages/system/role/model';
 import type { SysRole } from '@/services/system/data-contracts';

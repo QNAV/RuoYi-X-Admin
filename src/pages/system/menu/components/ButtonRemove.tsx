@@ -1,4 +1,5 @@
-import { AccessWithState, BaseButtonRemove } from '@/components';
+import { BaseButtonRemove } from '@/components';
+import { AccessWithState } from '@/features';
 import { useAtomValueSelectedMenuData, useDeleteMenu } from '@/pages/system/menu/model';
 import type { FC } from 'react';
 

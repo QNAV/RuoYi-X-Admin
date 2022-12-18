@@ -1,4 +1,4 @@
-import { AccessWithState } from '@/components';
+import { AccessWithState } from '@/features';
 import { useAtomValueMainTableActions } from '@/pages/monitor/online/model';
 import { sysUserOnlinePostForceLogout } from '@/services/system/Monitor';
 import { rootKey } from '@/utils';

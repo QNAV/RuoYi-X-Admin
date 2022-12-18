@@ -1,4 +1,4 @@
-import { AccessWithState } from '@/components';
+import { AccessWithState } from '@/features';
 import { useAtomValueRoleDetails } from '@/pages/system/role/model';
 import { UserOutlined } from '@ant-design/icons';
 import { Button } from 'antd';

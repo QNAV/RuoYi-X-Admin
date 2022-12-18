@@ -1,4 +1,4 @@
-import { AccessWithState } from '@/components';
+import { AccessWithState } from '@/features';
 import { useAtomValueMainTableActions } from '@/pages/monitor/logininfor/model';
 import { sysLogininforPostClean } from '@/services/system/Monitor';
 import { DeleteOutlined } from '@ant-design/icons';

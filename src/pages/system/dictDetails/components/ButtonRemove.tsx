@@ -1,4 +1,5 @@
-import { AccessWithState, BaseButtonRemove } from '@/components';
+import { BaseButtonRemove } from '@/components';
+import { AccessWithState } from '@/features';
 import { useAtomValueMainTableActions } from '@/pages/system/dictDetails/model';
 import { sysDictDataPostRemove } from '@/services/system/System';
 import { useMutation } from '@tanstack/react-query';

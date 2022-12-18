@@ -1,4 +1,5 @@
-import { AccessWithState, ButtonExpand, ButtonGroupEdit, EmptySimple } from '@/components';
+import { ButtonExpand, ButtonGroupEdit, EmptySimple } from '@/components';
+import { AccessWithState } from '@/features';
 import { useEditRoleDetails, useQueryRoleTree } from '@/pages/system/role/model';
 import type { TreeData } from '@/utils';
 import { Checkbox, Spin, Tree } from 'antd';
