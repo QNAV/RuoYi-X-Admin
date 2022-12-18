@@ -1,1 +1,0 @@
-import{j as a}from"./jsx-runtime-5957e344.js";import{aQ as o,aR as s,aS as e}from"./index-567137d1.js";globalThis.jotaiAtomCache=globalThis.jotaiAtomCache||{cache:new Map,get(t,r){return this.cache.has(t)?this.cache.get(t):(this.cache.set(t,r),r)}};const i=()=>{const t=o();return(t==null?void 0:t.status)===404?a(s,{}):a(e,{})};export{i as default};
