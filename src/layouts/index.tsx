@@ -1,17 +1,16 @@
 import { Access, PermissionDenied } from '@/components';
 import IconLogout from '@/layouts/components/IconLogout';
 import IconSetting from '@/layouts/components/IconSetting';
+import KeepAliveOutlet from '@/layouts/components/KeepAliveOutlet';
 import MenuItem from '@/layouts/components/MenuItem';
-import type { KeepAliveElements } from '@/layouts/components/TabsHeader';
-import TabsHeader from '@/layouts/components/TabsHeader';
 import { useQueryInitialState } from '@/models';
-import { accessKeysMap, accessRoutes, isKeepAliveRoutesSet, settingsMap } from '@/routes';
+import { accessKeysMap, accessRoutes } from '@/routes';
 import { checkAccess, convertUserRoutesToMenus } from '@/utils';
 import type { ProTokenType } from '@ant-design/pro-components';
 import { ProLayout } from '@ant-design/pro-components';
 import type { FC } from 'react';
-import { useMemo, useRef } from 'react';
-import { matchPath, useLocation, useNavigate, useOutlet } from 'react-router-dom';
+import { useMemo } from 'react';
+import { matchPath, useLocation, useNavigate } from 'react-router-dom';
 
 const token: ProTokenType['layout'] = {
   pageContainer: {
@@ -20,36 +19,9 @@ const token: ProTokenType['layout'] = {
   },
 };
 
-const useKeepAliveOutlets = () => {
-  const { pathname } = useLocation();
-  const element = useOutlet();
-
-  const keepAliveElements = useRef<KeepAliveElements>({});
-
-  const currRouteSettingsKey = Object.keys(settingsMap).find((key) => matchPath(key, pathname));
-  const isKeepAlive = currRouteSettingsKey ? isKeepAliveRoutesSet.has(currRouteSettingsKey) : false;
-
-  if (isKeepAlive) {
-    keepAliveElements.current[currRouteSettingsKey!] = element;
-  }
-
-  return (
-    <>
-      <TabsHeader keepAliveElements={keepAliveElements.current} />
-      {Object.entries(keepAliveElements.current).map(([key, element]) => (
-        <div key={key} hidden={!matchPath(key, pathname)}>
-          {element}
-        </div>
-      ))}
-      {!isKeepAlive && element}
-    </>
-  );
-};
-
 const Layouts: FC = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const element = useKeepAliveOutlets();
 
   const { data: initialState, isLoading } = useQueryInitialState();
 
@@ -80,7 +52,7 @@ const Layouts: FC = () => {
     >
       {!isLoading && (
         <Access accessible={accessible} fallback={<PermissionDenied />}>
-          {element}
+          <KeepAliveOutlet />
         </Access>
       )}
     </ProLayout>
