@@ -36,7 +36,7 @@ const bootstrap = () => {
 
   Sentry.init({
     dsn: 'https://fd72e8f1a1e8477db459c343537c5c91@o1364137.ingest.sentry.io/4503962906591232',
-    enabled: !import.meta.env.DEV,
+    enabled: import.meta.env.PROD,
     integrations: [
       new BrowserTracing({
         routingInstrumentation: Sentry.reactRouterV6Instrumentation(
