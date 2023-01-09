@@ -65,7 +65,7 @@ const createFormData = (input: Record<string, unknown>): FormData => {
   }, new FormData());
 };
 
-const redirectToLoginPage = () => {
+export const redirectToLoginPage = () => {
   window.location.href = `${import.meta.env.BASE_URL}login?${createSearchParams({
     redirect: window.location.pathname.replace(import.meta.env.BASE_URL, '/'),
   })}`;
