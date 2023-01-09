@@ -5,15 +5,15 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 
-const baseMap = {
-  development: '/',
-  staging: '/',
-  production: '/',
-  gh: '/RuoYi-X-Admin/',
-};
-
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
+  const baseMap = {
+    development: '/',
+    staging: '/',
+    production: '/',
+    gh: '/RuoYi-X-Admin/',
+  };
+
   return {
     base: baseMap[mode],
     plugins: [
@@ -34,6 +34,13 @@ export default defineConfig(({ mode }) => {
     ],
     resolve: {
       alias: [{ find: '@/', replacement: '/src/' }],
+    },
+    css: {
+      preprocessorOptions: {
+        less: {
+          javascriptEnabled: true,
+        },
+      },
     },
   };
 });
