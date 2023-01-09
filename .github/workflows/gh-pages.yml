@@ -13,13 +13,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.2.0
+        uses: actions/checkout@v3.3.0
 
       - name: Install PNPM
         uses: pnpm/action-setup@v2.2.4
 
       - name: Use Node.js 16.x
-        uses: actions/setup-node@v3.5.1
+        uses: actions/setup-node@v3.6.0
         with:
           node-version: 16.x
           cache: 'pnpm'
@@ -30,7 +30,7 @@ jobs:
           pnpm build:gh
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3.9.0
+        uses: peaceiris/actions-gh-pages@v3.9.1
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
