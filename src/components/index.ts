@@ -15,3 +15,4 @@ export * from './ButtonGroupEdit';
 export * from './EmptySimple';
 export * from './IconAntd';
 export * from './LoadingProgress';
+export * from './RouteError';
