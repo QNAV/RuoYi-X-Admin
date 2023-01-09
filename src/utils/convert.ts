@@ -67,11 +67,11 @@ export const convertParams = <T extends Record<string, any>>(
   };
 };
 
-export const convertDict2ValueEnum = (dict: SysDictDataVo[], valueType?: 'number' | 'string') => {
-  let defaultValue: null | Key = null;
+export const convertDict2ValueEnum = (dict: SysDictDataVo[]) => {
+  let defaultValue: null | string = null;
 
-  const valueEnum: ValueEnumMap<Key> = dict.reduce((pre, item) => {
-    const value = valueType === 'number' ? Number(item.dictValue) : item.dictValue;
+  const valueEnum: ValueEnumMap<string> = dict.reduce((pre, item) => {
+    const value = item.dictValue as string;
 
     if (item.isDefault === 'Y') {
       defaultValue = value;

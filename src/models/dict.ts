@@ -1,16 +1,14 @@
+import type { ValueEnumMap } from '@/constants';
 import { sysDictDataGetType } from '@/services/system/System';
 import { convertDict2ValueEnum } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 
-export const useQueryDict = (dictType: string, options: { valueType?: 'number' | 'string' } = {}) => {
-  const { valueType = 'string' } = options;
-
+export const useQueryDict = (dictType: string) => {
   return useQuery(
     ['global', 'dict', dictType],
     async () => {
       const dict = await sysDictDataGetType({ dictType });
-
-      return convertDict2ValueEnum(dict, valueType);
+      return convertDict2ValueEnum(dict);
     },
     {
       cacheTime: Infinity,
@@ -22,62 +20,76 @@ export const useQueryDict = (dictType: string, options: { valueType?: 'number' |
 // sys_normal_disable
 export const useQueryDictSysNormalDisable = () => {
   const { data } = useQueryDict('sys_normal_disable');
+  const defaultValueSysNormalDisable: string | null = data?.defaultValue ?? null;
+  const valueEnumSysNormalDisable: ValueEnumMap<string> = data?.valueEnum ?? new Map();
   return {
-    defaultValueSysNormalDisable: data?.defaultValue ?? null,
-    valueEnumSysNormalDisable: data?.valueEnum ?? new Map(),
+    defaultValueSysNormalDisable,
+    valueEnumSysNormalDisable,
   };
 };
 
 // sys_show_hide
 export const useQueryDictSysShowHide = () => {
   const { data } = useQueryDict('sys_show_hide');
+  const defaultValueSysShowHide: string | null = data?.defaultValue ?? null;
+  const valueEnumSysShowHide: ValueEnumMap<string> = data?.valueEnum ?? new Map();
   return {
-    defaultValueSysShowHide: data?.defaultValue ?? null,
-    valueEnumSysShowHide: data?.valueEnum ?? new Map(),
+    defaultValueSysShowHide,
+    valueEnumSysShowHide,
   };
 };
 
 // sys_yes_no
 export const useQueryDictSysYesNo = () => {
   const { data } = useQueryDict('sys_yes_no');
+  const defaultValueSysYesNo: string | null = data?.defaultValue ?? null;
+  const valueEnumSysYesNo: ValueEnumMap<string> = data?.valueEnum ?? new Map();
   return {
-    defaultValueSysYesNo: data?.defaultValue ?? null,
-    valueEnumSysYesNo: data?.valueEnum ?? new Map(),
+    defaultValueSysYesNo,
+    valueEnumSysYesNo,
   };
 };
 
 // sys_notice_type
 export const useQueryDictSysNoticeType = () => {
   const { data } = useQueryDict('sys_notice_type');
+  const defaultValueSysNoticeType: string | null = data?.defaultValue ?? null;
+  const valueEnumSysNoticeType: ValueEnumMap<string> = data?.valueEnum ?? new Map();
   return {
-    defaultValueSysNoticeType: data?.defaultValue ?? null,
-    valueEnumSysNoticeType: data?.valueEnum ?? new Map(),
+    defaultValueSysNoticeType,
+    valueEnumSysNoticeType,
   };
 };
 
 // sys_notice_status
 export const useQueryDictSysNoticeStatus = () => {
   const { data } = useQueryDict('sys_notice_status');
+  const defaultValueSysNoticeStatus: string | null = data?.defaultValue ?? null;
+  const valueEnumSysNoticeStatus: ValueEnumMap<string> = data?.valueEnum ?? new Map();
   return {
-    defaultValueSysNoticeStatus: data?.defaultValue ?? null,
-    valueEnumSysNoticeStatus: data?.valueEnum ?? new Map(),
+    defaultValueSysNoticeStatus,
+    valueEnumSysNoticeStatus,
   };
 };
 
 // sys_oper_type
 export const useQueryDictSysOperType = () => {
   const { data } = useQueryDict('sys_oper_type');
+  const defaultValueSysOperType: string | null = data?.defaultValue ?? null;
+  const valueEnumSysOperType: ValueEnumMap<string> = data?.valueEnum ?? new Map();
   return {
-    defaultValueSysOperType: data?.defaultValue ?? null,
-    valueEnumSysOperType: data?.valueEnum ?? new Map(),
+    defaultValueSysOperType,
+    valueEnumSysOperType,
   };
 };
 
 // sys_common_status
 export const useQueryDictSysCommonStatus = () => {
   const { data } = useQueryDict('sys_common_status');
+  const defaultValueSysCommonStatus: string | null = data?.defaultValue ?? null;
+  const valueEnumSysCommonStatus: ValueEnumMap<string> = data?.valueEnum ?? new Map();
   return {
-    defaultValueSysCommonStatus: data?.defaultValue ?? null,
-    valueEnumSysCommonStatus: data?.valueEnum ?? new Map(),
+    defaultValueSysCommonStatus,
+    valueEnumSysCommonStatus,
   };
 };

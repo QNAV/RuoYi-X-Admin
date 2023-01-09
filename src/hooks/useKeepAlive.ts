@@ -1,4 +1,3 @@
-import { isKeepAliveRoutes } from '@/routes';
 import { useEffect, useRef } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 
@@ -11,7 +10,7 @@ export const useActivated = (callback: () => void, ignoreFirstRender = true) => 
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const currentPattern = isKeepAliveRoutes.find((i) => matchPath(i, pathname));
+    const currentPattern = '';
 
     ref.current.isActivated = false;
 

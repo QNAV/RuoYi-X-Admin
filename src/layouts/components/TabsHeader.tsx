@@ -1,4 +1,3 @@
-import { useSetGlobalTabsMutation } from '@/models';
 import { settingsMap } from '@/routes';
 import { ClearOutlined } from '@ant-design/icons';
 import { Button, Tabs, Tooltip } from 'antd';
@@ -104,14 +103,6 @@ const TabsHeader: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
 
     setActiveKey(currRouteSettingsKey);
   }, [pathname]);
-
-  const setGlobalTabsMutation = useSetGlobalTabsMutation();
-  useEffect(() => {
-    setGlobalTabsMutation({
-      removeTab: handleRemoveTab,
-      clearTabs: handleClearTabs,
-    });
-  }, []);
 
   return (
     <Tabs

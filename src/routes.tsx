@@ -1,4 +1,4 @@
-import { getRoutesAccessKeysMap, getRoutesSettingsMap, lazyLoadLayouts, lazyLoadPage } from '@/utils';
+import { lazyLoadLayouts, lazyLoadPage } from '@/utils';
 import type { IndexRouteObject, NonIndexRouteObject } from 'react-router-dom';
 
 type CustomIndexRouteObject = IndexRouteObject & CustomRouteObject;
@@ -217,10 +217,3 @@ export const routes: Route[] = [
     element: lazyLoadPage('login'),
   },
 ];
-
-export const accessKeysMap = getRoutesAccessKeysMap(routes);
-export const accessRoutes = Object.keys(accessKeysMap);
-export const settingsMap = getRoutesSettingsMap(routes);
-
-export const isKeepAliveRoutes = Object.keys(settingsMap).filter((key) => settingsMap[key].isKeepAlive);
-export const isKeepAliveRoutesSet = new Set(isKeepAliveRoutes);
