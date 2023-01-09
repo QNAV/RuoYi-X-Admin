@@ -1,15 +1,16 @@
-import { settingsMap } from '@/routes';
-import { ClearOutlined } from '@ant-design/icons';
-import { Button, Tabs, Tooltip } from 'antd';
+import type { RouteSetting } from '@/utils';
+import { ConfigProvider, Dropdown, Tabs } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import type { useOutlet } from 'react-router-dom';
-import { matchPath, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export type KeepAliveElements = Record<string, ReturnType<typeof useOutlet>>;
 
 interface HeaderTabsProps {
-  keepAliveElements: KeepAliveElements;
+  currRouteSettings?: RouteSetting;
+  removeElementByKey: (key: string) => void;
+  refreshElementByKey: (key: string) => void;
 }
 
 interface TabItem {
@@ -18,6 +19,7 @@ interface TabItem {
   pathname: string;
   search: string;
   closable: boolean;
+  keepAlive: boolean;
 }
 
 const defaultTabs: TabItem[] = [
@@ -27,10 +29,11 @@ const defaultTabs: TabItem[] = [
     pathname: '/',
     search: '',
     closable: false,
+    keepAlive: true,
   },
 ];
 
-const TabsHeader: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
+const TabsHeader: FC<HeaderTabsProps> = ({ currRouteSettings, refreshElementByKey, removeElementByKey }) => {
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
 
@@ -40,6 +43,10 @@ const TabsHeader: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
   const handleChange = (key: string) => {
     const { pathname, search } = items.find((item) => item.key === key)!;
     navigate(`${pathname}${search}`);
+  };
+
+  const handelRefreshTab = (targetKey: string) => {
+    refreshElementByKey(targetKey);
   };
 
   const handleRemoveTab = (targetKey: string) => {
@@ -52,77 +59,181 @@ const TabsHeader: FC<HeaderTabsProps> = ({ keepAliveElements }) => {
 
     setItems((v) => v.filter(({ key }) => key !== targetKey));
 
-    if (keepAliveElements.hasOwnProperty(targetKey)) {
-      delete keepAliveElements[targetKey];
-    }
+    removeElementByKey(targetKey);
   };
 
-  const handleClearTabs = () => {
-    Object.keys(keepAliveElements).forEach((key) => {
-      delete keepAliveElements[key];
+  const handleRemoveOtherTabs = (targetKey: string, url: string) => {
+    setItems((e) => {
+      e.filter((i) => i.closable && i.key !== targetKey).forEach(({ key }) => {
+        removeElementByKey(key);
+      });
+
+      return e.filter((i) => !i.closable || i.key === targetKey);
     });
-    setItems(defaultTabs);
+
+    navigate(url);
+  };
+
+  const handelRemoveLeftTabs = (targetKey: string, currActiveKeyIndex: number, url: string) => {
+    setItems((e) => {
+      const removeKeys = e.filter((i, index) => i.closable && index < currActiveKeyIndex).map((i) => i.key);
+
+      removeKeys.forEach((key) => {
+        removeElementByKey(key);
+      });
+
+      return e.filter((i) => !removeKeys.includes(i.key));
+    });
+
+    navigate(url);
+  };
+
+  const handelRemoveRightTabs = (targetKey: string, currActiveKeyIndex: number, url: string) => {
+    setItems((e) => {
+      const removeKeys = e.filter((i, index) => i.closable && index > currActiveKeyIndex).map((i) => i.key);
+
+      removeKeys.forEach((key) => {
+        removeElementByKey(key);
+      });
+
+      return e.filter((i) => !removeKeys.includes(i.key));
+    });
+
+    navigate(url);
+  };
+
+  const handleRemoveAllTabs = () => {
     navigate('/');
+
+    setItems((e) => {
+      e.filter((i) => i.closable && i.keepAlive).forEach(({ key }) => {
+        removeElementByKey(key);
+      });
+
+      return defaultTabs;
+    });
   };
 
   useEffect(() => {
-    const currRouteSettingsKey = Object.keys(settingsMap).find((key) => matchPath(key, pathname));
-
-    if (currRouteSettingsKey === undefined) {
+    if (currRouteSettings === undefined) {
       setActiveKey(undefined);
       return;
     }
 
-    const { name: label, hideInTab, closableTab: closable } = settingsMap[currRouteSettingsKey];
-
-    // 如果当前路由配置在标签页中隐藏，则直接返回
-    if (hideInTab) return;
+    const { name: label, closableTab: closable, key, isKeepAlive } = currRouteSettings;
 
     setItems((v = []) => {
       // 如果当前路由不在标签页中，向标签页中添加当前路由
-      if (v.every(({ key }) => key !== currRouteSettingsKey)) {
-        return [...v, { key: currRouteSettingsKey, label, pathname, search, closable }];
+      if (v.every((i) => i.key !== key)) {
+        return [...v, { key, label, pathname, search, closable, keepAlive: isKeepAlive }];
       }
 
       // 如果当前路由已经在标签页中，并且 pathname 与 search 与缓存中的一致，则直接返回
-      if (v.some((item) => item.key === currRouteSettingsKey && item.pathname === pathname && item.search === search))
-        return v;
+      if (v.some((i) => i.key === key && i.pathname === pathname && i.search === search)) return v;
 
-      return v.map((item) => {
-        if (item.key !== currRouteSettingsKey) {
-          return item;
+      return v.map((i) => {
+        if (i.key !== key) {
+          return i;
         }
 
         return {
-          ...item,
-          search: item.search === search ? item.search : search,
-          pathname: item.pathname === pathname ? item.pathname : pathname,
+          ...i,
+          search: i.search === search ? i.search : search,
+          pathname: i.pathname === pathname ? i.pathname : pathname,
         };
       });
     });
 
-    setActiveKey(currRouteSettingsKey);
+    setActiveKey(key);
   }, [pathname]);
 
   return (
-    <Tabs
-      hideAdd
-      type="editable-card"
-      items={items}
-      activeKey={activeKey}
-      onChange={handleChange}
-      onEdit={(targetKey) => {
-        if (typeof targetKey !== 'string') {
-          return;
-        }
-        handleRemoveTab(targetKey);
+    <ConfigProvider
+      theme={{
+        components: {
+          Tabs: {
+            colorBgContainer: '#f5f5f5',
+            colorFillAlter: '#fff',
+            margin: 0,
+          },
+        },
       }}
-      tabBarExtraContent={
-        <Tooltip title="清空标签页" placement="bottomRight">
-          <Button type="text" onClick={handleClearTabs} icon={<ClearOutlined />} />
-        </Tooltip>
-      }
-    />
+    >
+      <Tabs
+        hideAdd
+        type="editable-card"
+        className="bg-white"
+        items={items}
+        activeKey={activeKey}
+        onChange={handleChange}
+        onEdit={(targetKey) => {
+          if (typeof targetKey !== 'string') {
+            return;
+          }
+          handleRemoveTab(targetKey);
+        }}
+        renderTabBar={(tabBarProps, DefaultTabBar) => (
+          <DefaultTabBar {...tabBarProps}>
+            {(node) => {
+              const index = items.findIndex(({ key }) => key === node.key);
+              const { pathname, search } = items[index];
+              const url = `${pathname}${search}`;
+              const isFirst = index === 0;
+              const isFirstLeft = index === 1;
+              const isLastRight = index === items.length - 1;
+              return (
+                <Dropdown
+                  key={node.key}
+                  menu={{
+                    items: [
+                      {
+                        label: '重新加载',
+                        key: 'refresh',
+                        disabled: node.key !== activeKey,
+                        onClick: () => handelRefreshTab(node.key as string),
+                      },
+                      {
+                        type: 'divider',
+                      },
+                      {
+                        label: '关闭左侧',
+                        key: 'closeLeft',
+                        disabled: isFirst || isFirstLeft,
+                        onClick: () => handelRemoveLeftTabs(node.key as string, index, url),
+                      },
+                      {
+                        label: '关闭右侧',
+                        key: 'closeRight',
+                        disabled: isLastRight,
+                        onClick: () => handelRemoveRightTabs(node.key as string, index, url),
+                      },
+                      {
+                        type: 'divider',
+                      },
+                      {
+                        label: '关闭其他',
+                        key: 'closeOther',
+                        disabled: isFirst,
+                        onClick: () => handleRemoveOtherTabs(node.key as string, url),
+                      },
+                      {
+                        label: '关闭全部',
+                        key: 'closeAll',
+                        disabled: isFirst,
+                        onClick: () => handleRemoveAllTabs(),
+                      },
+                    ],
+                  }}
+                  trigger={['contextMenu']}
+                >
+                  {node}
+                </Dropdown>
+              );
+            }}
+          </DefaultTabBar>
+        )}
+      />
+    </ConfigProvider>
   );
 };
 
