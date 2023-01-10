@@ -16,7 +16,7 @@
     "vis": "tsc --extendedDiagnostics && cross-env vis=1 vite build"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.8.0",
+    "@ant-design/icons": "^5.0.0",
     "@ant-design/pro-components": "^2.3.51",
     "@antv/g2plot": "^2.4.23",
     "@sentry/react": "^7.29.0",
@@ -26,7 +26,7 @@
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-react": "^1.0.6",
     "ahooks": "^3.7.4",
-    "antd": "^5.1.3",
+    "antd": "^5.1.4",
     "axios": "1.2.1",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.7",
@@ -39,7 +39,7 @@
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.6.1"
+    "react-router-dom": "^6.6.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.1",
@@ -51,8 +51,8 @@
     "@types/react": "^18.0.26",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.0.10",
-    "@typescript-eslint/eslint-plugin": "^5.48.0",
-    "@typescript-eslint/parser": "^5.48.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
     "@vitejs/plugin-react": "^3.0.1",
     "autoprefixer": "^10.4.13",
     "cross-env": "^7.0.3",
