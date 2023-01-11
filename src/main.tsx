@@ -70,7 +70,7 @@ const bootstrap = () => {
   });
   const router = Sentry.wrapCreateBrowserRouter(createBrowserRouter)(routes, { basename: import.meta.env.BASE_URL });
 
-  createRoot(document.getElementById('root')!).render(
+  createRoot(document.getElementById('root') as HTMLElement).render(
     <StrictMode>
       <Provider>
         <QueryClientProvider client={queryClient}>
