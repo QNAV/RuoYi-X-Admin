@@ -1,3 +1,4 @@
+import TabBarExtraContent from '@/layouts/components/TabBarExtraContent';
 import type { RouteSetting } from '@/utils';
 import { ConfigProvider, Dropdown, Tabs } from 'antd';
 import type { FC } from 'react';
@@ -232,6 +233,7 @@ const TabsHeader: FC<HeaderTabsProps> = ({ currRouteSettings, refreshElementByKe
             }}
           </DefaultTabBar>
         )}
+        tabBarExtraContent={<TabBarExtraContent />}
       />
     </ConfigProvider>
   );

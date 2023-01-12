@@ -1,10 +1,9 @@
 import { checkToken, clearToken, getToken } from '@/utils';
-import { RequestCanceler } from './requestCanceler';
-
-import { message, Modal } from 'antd';
+import { message } from 'antd';
 import type { AxiosRequestConfig, AxiosResponse, ResponseType } from 'axios';
 import axios from 'axios';
 import { createSearchParams } from 'react-router-dom';
+import { RequestCanceler } from './requestCanceler';
 
 export type QueryParamsType = Record<string | number, any>;
 
@@ -65,10 +64,14 @@ const createFormData = (input: Record<string, unknown>): FormData => {
   }, new FormData());
 };
 
-export const redirectToLoginPage = () => {
-  window.location.href = `${import.meta.env.BASE_URL}login?${createSearchParams({
+export const redirectToLoginPage = (msg?: string) => {
+  const searchParams: Record<string, string> = {
     redirect: window.location.pathname.replace(import.meta.env.BASE_URL, '/'),
-  })}`;
+  };
+
+  if (msg) searchParams.msg = msg;
+
+  window.location.href = `${import.meta.env.BASE_URL}login?${createSearchParams(searchParams)}`;
 };
 
 const requestCanceler = new RequestCanceler();
@@ -117,8 +120,6 @@ instance.interceptors.response.use(
   },
 );
 
-let modal: ReturnType<typeof Modal.confirm> | null = null;
-
 export function request<D extends ResponseStructure>(
   params: { skipErrorHandler?: false } & Omit<FullRequestParams, 'skipErrorHandler'>,
 ): Promise<D['data']>;
@@ -160,21 +161,8 @@ export function request({ secure, path, type, query, format, body, skipErrorHand
         return axiosResponse.data?.data ?? axiosResponse.data;
       case 401:
         requestCanceler.clearPendingRequest();
-
-        if (modal) return;
-
-        modal = Modal.confirm({
-          title: '提示',
-          content: '登录已过期，请重新登录',
-          okText: '前往登录页',
-          onOk: () => {
-            clearToken();
-            redirectToLoginPage();
-          },
-          onCancel: () => {
-            modal = null;
-          },
-        });
+        clearToken();
+        redirectToLoginPage('登录已过期，请重新登录');
         break;
       default:
         message.error(axiosResponse.data?.msg ?? '网络错误，请稍后再试');
