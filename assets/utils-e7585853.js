@@ -1,1 +1,0 @@
-import{b as m,l as u}from"./index-7a6a4985.js";import{r}from"./jsx-runtime-0e3d513e.js";const a=Symbol();function A(t){const o=m(t,(n,s,e)=>{const c=typeof e=="function"?e(n(o)):e;s(o,c===a?t:c)});return o}const f="w";function C(t,o){const n=u(o),s=r.useContext(n).s;return r.useCallback(()=>s[f](t,a),[s,t])}m(()=>[]);export{A as a,C as u};

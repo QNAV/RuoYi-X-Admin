@@ -1,0 +1,1 @@
+import{a}from"./jsx-runtime-f6344dff.js";globalThis.jotaiAtomCache=globalThis.jotaiAtomCache||{cache:new Map,get(t,e){return this.cache.has(t)?this.cache.get(t):(this.cache.set(t,e),e)}};function c(){return a("h1",{children:"TODO"})}export{c as default};
