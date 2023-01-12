@@ -1,7 +1,8 @@
+import { useAtomValueKeepAliveRoutes } from '@/models';
 import { useEffect, useRef } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 
-export const useActivated = (callback: () => void, ignoreFirstRender = true) => {
+export const useActivated = (callback?: () => void, ignoreFirstRender = true) => {
   const ref = useRef<{
     pattern?: string;
     isActivated?: boolean;
@@ -9,39 +10,38 @@ export const useActivated = (callback: () => void, ignoreFirstRender = true) => 
 
   const { pathname } = useLocation();
 
-  useEffect(() => {
-    const currentPattern = '';
+  const atomValueKeepAliveRoutes = useAtomValueKeepAliveRoutes();
 
-    ref.current.isActivated = false;
+  useEffect(() => {
+    if (ref.current.pattern && !matchPath(ref.current.pattern, pathname)) {
+      ref.current.isActivated = false;
+      return;
+    }
+
+    if (ref.current.isActivated) {
+      return;
+    }
+
+    const currentPattern = atomValueKeepAliveRoutes.find((i) => matchPath(i, pathname));
 
     if (!currentPattern) {
       return;
     }
 
-    if (ref.current.pattern === undefined && ignoreFirstRender) {
-      ref.current.pattern = currentPattern;
-      return;
-    }
-
-    if (ref.current.pattern === undefined && !ignoreFirstRender) {
-      ref.current.pattern = currentPattern;
-      callback();
-      return;
-    }
-
-    if (!matchPath(ref.current.pattern!, pathname)) {
-      return;
-    }
-
     ref.current.isActivated = true;
 
-    callback();
+    if (ref.current.pattern === undefined) {
+      ref.current.pattern = currentPattern;
+      if (ignoreFirstRender) return;
+    }
+
+    callback?.();
   }, [pathname]);
 
   return ref.current.isActivated;
 };
 
-export const useDeactivated = (callback: () => void) => {
+export const useDeactivated = (callback?: () => void) => {
   const hasActivated = useRef<boolean>(false);
 
   const { pathname } = useLocation();
@@ -53,10 +53,12 @@ export const useDeactivated = (callback: () => void) => {
 
     hasActivated.current = false;
 
-    callback();
+    callback?.();
   }, [pathname]);
 
   useActivated(() => {
     hasActivated.current = true;
-  }, false);
+  });
+
+  return hasActivated.current;
 };

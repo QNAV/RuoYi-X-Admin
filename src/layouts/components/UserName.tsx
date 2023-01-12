@@ -49,7 +49,7 @@ const UserName: FC = () => {
       <Button type="text">
         <Space>
           <Avatar src={data?.userInfo?.user?.avatar ?? ''} icon={<UserOutlined />} size="small" />
-          {data?.userInfo?.user?.nickName ?? ''}
+          <span>{data?.userInfo?.user?.nickName ?? ''}</span>
         </Space>
       </Button>
     </Dropdown>

@@ -5,11 +5,11 @@ import TabsHeader from '@/layouts/components/TabsHeader';
 import { useQueryInitialState } from '@/models';
 import type { RouteSetting } from '@/utils';
 import type { ProTokenType } from '@ant-design/pro-components';
-import { ProLayout } from '@ant-design/pro-components';
+import { ProLayout, RouteContext } from '@ant-design/pro-components';
 import classNames from 'classnames';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
-import { matchPath, Navigate, useLocation, useOutlet } from 'react-router-dom';
+import { matchPath, Navigate, useLocation, useNavigate, useOutlet } from 'react-router-dom';
 import './index.less';
 
 const token: ProTokenType['layout'] = {
@@ -29,6 +29,7 @@ const token: ProTokenType['layout'] = {
 
 const Layouts: FC = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const element = useOutlet();
 
   const { data: initialState, isLoading, isError } = useQueryInitialState();
@@ -58,8 +59,6 @@ const Layouts: FC = () => {
     }));
   };
 
-  const [collapsed, setCollapsed] = useState(false);
-
   if (isError) {
     return <Navigate to="/login" replace />;
   }
@@ -75,37 +74,43 @@ const Layouts: FC = () => {
       token={token}
       siderWidth={200}
       disableMobile
-      onCollapse={setCollapsed}
+      onMenuHeaderClick={() => navigate('/')}
     >
-      <header
-        className={classNames(
-          collapsed ? 'w-[calc(100%-60px)]' : 'w-[calc(100%-200px)]',
-          'fixed',
-          'top-0',
-          'right-0',
-          'z-10',
+      <RouteContext.Consumer>
+        {({ collapsed }) => (
+          <>
+            <header
+              className={classNames(
+                collapsed ? 'w-[calc(100%-60px)]' : 'w-[calc(100%-200px)]',
+                'fixed',
+                'top-0',
+                'right-0',
+                'z-10',
+              )}
+            >
+              <TabsHeader
+                currRouteSettings={currRouteSettingsKey ? routeSettingMap[currRouteSettingsKey] : undefined}
+                refreshElementByKey={refreshElementByKey}
+                removeElementByKey={removeElementByKey}
+              />
+            </header>
+            {!isLoading && (
+              <Access accessible={!!currRouteSettingsKey} fallback={<PermissionDenied />}>
+                {Object.entries(keepAliveElements.current).map(([key, element]) => (
+                  <div key={`${key}_${cacheKeyMap?.[key] ?? '_'}`} hidden={!matchPath(key, pathname)} className="mt-10">
+                    {element}
+                  </div>
+                ))}
+                {!isKeepAlive && (
+                  <div key={`${currRouteSettingsKey}_${cacheKeyMap?.[currRouteSettingsKey!]}`} className="mt-10">
+                    {element}
+                  </div>
+                )}
+              </Access>
+            )}
+          </>
         )}
-      >
-        <TabsHeader
-          currRouteSettings={currRouteSettingsKey ? routeSettingMap[currRouteSettingsKey] : undefined}
-          refreshElementByKey={refreshElementByKey}
-          removeElementByKey={removeElementByKey}
-        />
-      </header>
-      {!isLoading && (
-        <Access accessible={!!currRouteSettingsKey} fallback={<PermissionDenied />}>
-          {Object.entries(keepAliveElements.current).map(([key, element]) => (
-            <div key={`${key}_${cacheKeyMap?.[key] ?? '_'}`} hidden={!matchPath(key, pathname)} className="mt-10">
-              {element}
-            </div>
-          ))}
-          {!isKeepAlive && (
-            <div key={`${currRouteSettingsKey}_${cacheKeyMap?.[currRouteSettingsKey!]}`} className="mt-10">
-              {element}
-            </div>
-          )}
-        </Access>
-      )}
+      </RouteContext.Consumer>
     </ProLayout>
   );
 };

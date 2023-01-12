@@ -81,7 +81,7 @@ const bootstrap = () => {
               </ProComponentsProvider>
             </App>
           </ConfigProvider>
-          <ReactQueryDevtools position="bottom-right" />
+          <ReactQueryDevtools />
         </QueryClientProvider>
       </Provider>
     </StrictMode>,
