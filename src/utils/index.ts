@@ -8,4 +8,3 @@ export * from './requestCanceler';
 export * from './routes';
 export * from './token';
 export * from './tree';
-export * from './validator';

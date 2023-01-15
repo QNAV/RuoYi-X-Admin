@@ -31,8 +31,10 @@ const bootstrap = () => {
     return;
   }
 
+  const BASE_URL = import.meta.env.BASE_URL;
+
   // 不存在 token 时跳转到登录页
-  const currBasename = window.location.pathname.replace(import.meta.env.BASE_URL, '/');
+  const currBasename = window.location.pathname.replace(BASE_URL, '/');
   if (currBasename !== '/login' && !checkToken()) {
     redirectToLoginPage();
     return;
@@ -68,7 +70,7 @@ const bootstrap = () => {
     ],
     tracesSampleRate: 1.0,
   });
-  const router = Sentry.wrapCreateBrowserRouter(createBrowserRouter)(routes, { basename: import.meta.env.BASE_URL });
+  const router = Sentry.wrapCreateBrowserRouter(createBrowserRouter)(routes, { basename: BASE_URL });
 
   createRoot(document.getElementById('root') as HTMLElement).render(
     <StrictMode>
