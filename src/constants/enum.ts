@@ -1,7 +1,11 @@
-export type ValueEnumMap<K> = Map<
-  K,
-  { text: string; status?: 'Default' | 'Error' | 'Success' | 'Processing' | 'Warning' }
->;
+export enum DictStatus {
+  DEFAULT = 'Default',
+  ERROR = 'Error',
+  SUCCESS = 'Success',
+  PROCESSING = 'Processing',
+  WARNING = 'Warning',
+}
+export type ValueEnumMap<K> = Map<K, { text: string; status?: DictStatus }>;
 
 /**
  * 菜单类型
@@ -26,8 +30,8 @@ export enum YesNoStatus {
   NO = '1',
 }
 export const YesNoStatusMap: ValueEnumMap<YesNoStatus> = new Map([
-  [YesNoStatus.YES, { text: '是', status: 'Success' }],
-  [YesNoStatus.NO, { text: '否', status: 'Error' }],
+  [YesNoStatus.YES, { text: '是', status: DictStatus.SUCCESS }],
+  [YesNoStatus.NO, { text: '否', status: DictStatus.ERROR }],
 ]);
 
 // JAVA类型
@@ -105,9 +109,9 @@ export enum ListClass {
 }
 export const ListClassMap: ValueEnumMap<ListClass> = new Map([
   [ListClass.NONE, { text: '无' }],
-  [ListClass.DEFAULT, { text: '默认', status: 'Default' }],
-  [ListClass.ERROR, { text: '错误', status: 'Error' }],
-  [ListClass.SUCCESS, { text: '成功', status: 'Success' }],
-  [ListClass.PROCESSING, { text: '进行中', status: 'Processing' }],
-  [ListClass.WARNING, { text: '警告', status: 'Warning' }],
+  [ListClass.DEFAULT, { text: '默认', status: DictStatus.DEFAULT }],
+  [ListClass.ERROR, { text: '错误', status: DictStatus.ERROR }],
+  [ListClass.SUCCESS, { text: '成功', status: DictStatus.SUCCESS }],
+  [ListClass.PROCESSING, { text: '进行中', status: DictStatus.PROCESSING }],
+  [ListClass.WARNING, { text: '警告', status: DictStatus.WARNING }],
 ]);
