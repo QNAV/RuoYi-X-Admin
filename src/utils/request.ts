@@ -1,13 +1,15 @@
 import { checkToken, clearToken, getToken } from '@/utils';
 import { message } from 'antd';
-import type { AxiosRequestConfig, AxiosResponse, ResponseType } from 'axios';
+import type { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, ResponseType } from 'axios';
 import axios from 'axios';
 import { createSearchParams } from 'react-router-dom';
 import { RequestCanceler } from './requestCanceler';
 
 export type QueryParamsType = Record<string | number, any>;
 
-export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'params' | 'url' | 'responseType'> {
+export interface FullRequestParams
+  extends Omit<AxiosRequestConfig, 'headers' | 'data' | 'params' | 'url' | 'responseType'> {
+  headers?: Partial<AxiosRequestHeaders>;
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -85,17 +87,12 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  const { headers = {}, ...restConfig } = config;
+  config.headers.Authorization = getToken();
+  config.headers.datasource = 'master';
 
-  headers.Authorization = getToken();
-  headers.datasource = 'master';
+  requestCanceler.addPendingRequest(config);
 
-  requestCanceler.addPendingRequest(restConfig);
-
-  return {
-    ...restConfig,
-    headers,
-  };
+  return config;
 });
 
 instance.interceptors.response.use(
@@ -141,11 +138,13 @@ export function request({ secure, path, type, query, format, body, skipErrorHand
     data = JSON.stringify(body);
   }
 
+  const headers: Partial<AxiosRequestHeaders> = type && type !== ContentType.FormData ? { 'Content-Type': type } : {};
+
   return instance({
     ...params,
     headers: {
+      ...headers,
       ...(params.headers || {}),
-      ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
     },
     params: query,
     responseType: format,
