@@ -1,15 +1,13 @@
 import { checkToken, clearToken, getToken } from '@/utils';
 import { message } from 'antd';
-import type { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, ResponseType } from 'axios';
+import type { AxiosRequestConfig, AxiosResponse, ResponseType } from 'axios';
 import axios from 'axios';
 import { createSearchParams } from 'react-router-dom';
 import { RequestCanceler } from './requestCanceler';
 
 export type QueryParamsType = Record<string | number, any>;
 
-export interface FullRequestParams
-  extends Omit<AxiosRequestConfig, 'headers' | 'data' | 'params' | 'url' | 'responseType'> {
-  headers?: Partial<AxiosRequestHeaders>;
+export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'params' | 'url' | 'responseType'> {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -138,12 +136,10 @@ export function request({ secure, path, type, query, format, body, skipErrorHand
     data = JSON.stringify(body);
   }
 
-  const headers: Partial<AxiosRequestHeaders> = type && type !== ContentType.FormData ? { 'Content-Type': type } : {};
-
   return instance({
     ...params,
     headers: {
-      ...headers,
+      ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
       ...(params.headers || {}),
     },
     params: query,
