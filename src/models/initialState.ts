@@ -2,8 +2,7 @@ import { sysLoginGetInfo } from '@/services/system/Info';
 import { sysLoginGetRouters } from '@/services/system/Routers';
 import { convertUserRoutesToMenus, getRouteSettingMap } from '@/utils';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useAtomValue, useSetAtom } from 'jotai/react';
-import { atom } from 'jotai/vanilla';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 
 const initialStateQueryKey = ['global', 'initialState'];
 
