@@ -11,19 +11,18 @@
 
 import type { RequestParams } from '@/utils';
 import { ContentType, request } from '@/utils';
-import type { ResponseLoginVo, UserNameLoginBo } from './data-contracts';
+import type { RLoginVo, UserNameLoginBo } from './data-contracts';
 
 /**
- * No description
+ * @description 用户名登录方法
  *
  * @tags SysLoginService
  * @name sysLoginPostLogin
- * @summary 用户名登录方法
  * @request POST:/login
  * @secure
  */
 export const sysLoginPostLogin = (data: UserNameLoginBo, params: RequestParams = {}) =>
-  request<ResponseLoginVo>({
+  request<RLoginVo>({
     path: `/login`,
     method: 'POST',
     body: data,
@@ -33,7 +32,7 @@ export const sysLoginPostLogin = (data: UserNameLoginBo, params: RequestParams =
     ...params,
   });
 export const sysLoginPostLoginSkipErrorHandler = (data: UserNameLoginBo, params: RequestParams = {}) =>
-  request<ResponseLoginVo>({
+  request<RLoginVo>({
     path: `/login`,
     method: 'POST',
     body: data,

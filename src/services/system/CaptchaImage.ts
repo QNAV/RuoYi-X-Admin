@@ -11,19 +11,18 @@
 
 import type { RequestParams } from '@/utils';
 import { request } from '@/utils';
-import type { ResponseCaptchaImageVo } from './data-contracts';
+import type { RCaptchaImageVo } from './data-contracts';
 
 /**
- * No description
+ * @description 生成验证码
  *
  * @tags CaptchaService
  * @name captchaGetGetCode
- * @summary 生成验证码
  * @request GET:/captchaImage
  * @secure
  */
 export const captchaGetGetCode = (params: RequestParams = {}) =>
-  request<ResponseCaptchaImageVo>({
+  request<RCaptchaImageVo>({
     path: `/captchaImage`,
     method: 'GET',
     secure: true,
@@ -31,7 +30,7 @@ export const captchaGetGetCode = (params: RequestParams = {}) =>
     ...params,
   });
 export const captchaGetGetCodeSkipErrorHandler = (params: RequestParams = {}) =>
-  request<ResponseCaptchaImageVo>({
+  request<RCaptchaImageVo>({
     path: `/captchaImage`,
     method: 'GET',
     secure: true,

@@ -11,19 +11,18 @@
 
 import type { RequestParams } from '@/utils';
 import { request } from '@/utils';
-import type { ResponseUserInfoVo } from './data-contracts';
+import type { RUserInfoVo } from './data-contracts';
 
 /**
- * No description
+ * @description 获取已登录用户信息
  *
  * @tags SysLoginService
  * @name sysLoginGetInfo
- * @summary 获取已登录用户信息
  * @request GET:/info
  * @secure
  */
 export const sysLoginGetInfo = (params: RequestParams = {}) =>
-  request<ResponseUserInfoVo>({
+  request<RUserInfoVo>({
     path: `/info`,
     method: 'GET',
     secure: true,
@@ -31,7 +30,7 @@ export const sysLoginGetInfo = (params: RequestParams = {}) =>
     ...params,
   });
 export const sysLoginGetInfoSkipErrorHandler = (params: RequestParams = {}) =>
-  request<ResponseUserInfoVo>({
+  request<RUserInfoVo>({
     path: `/info`,
     method: 'GET',
     secure: true,

@@ -11,50 +11,41 @@
 
 import type { RequestParams } from '@/utils';
 import { ContentType, request } from '@/utils';
-import type {
-  GenTablePageQuery,
-  GenTableReq,
-  ResponseGenInfoVo,
-  ResponseMapStringString,
-  ResponseVoid,
-  TableDataInfoGenTable,
-  TableDataInfoGenTableColumn,
-} from './data-contracts';
+import type { GenTable, GenTablePageQuery, RGenInfoVo, RMapStringString, RVoid, TableDataInfo } from './data-contracts';
 
 /**
- * No description
+ * @description 删除代码生成
  *
  * @tags GenService
- * @name genGetBatchGenCode
- * @summary 批量生成代码
- * @request GET:/tool/gen/batchGenCode
+ * @name genPostRemove
+ * @request POST:/tool/gen/remove
  * @secure
  */
-export const genGetBatchGenCode = (
+export const genPostRemove = (
   query: {
-    /** 业务生成表名称，多个表用,分隔 */
-    tables: string;
+    /** 代码生成表编号组 */
+    tableIds: number[];
   },
   params: RequestParams = {},
 ) =>
-  request<any>({
-    path: `/tool/gen/batchGenCode`,
-    method: 'GET',
+  request<RVoid>({
+    path: `/tool/gen/remove`,
+    method: 'POST',
     query: query,
     secure: true,
     skipErrorHandler: false,
     ...params,
   });
-export const genGetBatchGenCodeSkipErrorHandler = (
+export const genPostRemoveSkipErrorHandler = (
   query: {
-    /** 业务生成表名称，多个表用,分隔 */
-    tables: string;
+    /** 代码生成表编号组 */
+    tableIds: number[];
   },
   params: RequestParams = {},
 ) =>
-  request<any>({
-    path: `/tool/gen/batchGenCode`,
-    method: 'GET',
+  request<RVoid>({
+    path: `/tool/gen/remove`,
+    method: 'POST',
     query: query,
     secure: true,
     skipErrorHandler: true,
@@ -62,45 +53,67 @@ export const genGetBatchGenCodeSkipErrorHandler = (
   });
 
 /**
- * No description
+ * @description 查询代码生成列表
  *
  * @tags GenService
- * @name genGetColumnList
- * @summary 查询数据表字段列表
- * @request GET:/tool/gen/column/list
+ * @name genPostList
+ * @request POST:/tool/gen/list
  * @secure
  */
-export const genGetColumnList = (
+export const genPostList = (data: GenTablePageQuery, params: RequestParams = {}) =>
+  request<TableDataInfo>({
+    path: `/tool/gen/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const genPostListSkipErrorHandler = (data: GenTablePageQuery, params: RequestParams = {}) =>
+  request<TableDataInfo>({
+    path: `/tool/gen/list`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * @description 导入表结构（保存）
+ *
+ * @tags GenService
+ * @name genPostImportTable
+ * @request POST:/tool/gen/importTable
+ * @secure
+ */
+export const genPostImportTable = (
   query: {
-    /**
-     * 生成业务表编号
-     * @format int64
-     */
-    tableId: number;
+    /** 业务生成表名称组 */
+    tables: string[];
   },
   params: RequestParams = {},
 ) =>
-  request<TableDataInfoGenTableColumn>({
-    path: `/tool/gen/column/list`,
-    method: 'GET',
+  request<RVoid>({
+    path: `/tool/gen/importTable`,
+    method: 'POST',
     query: query,
     secure: true,
     skipErrorHandler: false,
     ...params,
   });
-export const genGetColumnListSkipErrorHandler = (
+export const genPostImportTableSkipErrorHandler = (
   query: {
-    /**
-     * 生成业务表编号
-     * @format int64
-     */
-    tableId: number;
+    /** 业务生成表名称组 */
+    tables: string[];
   },
   params: RequestParams = {},
 ) =>
-  request<TableDataInfoGenTableColumn>({
-    path: `/tool/gen/column/list`,
-    method: 'GET',
+  request<RVoid>({
+    path: `/tool/gen/importTable`,
+    method: 'POST',
     query: query,
     secure: true,
     skipErrorHandler: true,
@@ -108,16 +121,44 @@ export const genGetColumnListSkipErrorHandler = (
   });
 
 /**
- * No description
+ * @description 修改保存代码生成业务
+ *
+ * @tags GenService
+ * @name genPostEdit
+ * @request POST:/tool/gen/edit
+ * @secure
+ */
+export const genPostEdit = (data: GenTable, params: RequestParams = {}) =>
+  request<RVoid>({
+    path: `/tool/gen/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const genPostEditSkipErrorHandler = (data: GenTable, params: RequestParams = {}) =>
+  request<RVoid>({
+    path: `/tool/gen/edit`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * @description 查询数据库列表
  *
  * @tags GenService
  * @name genPostDbList
- * @summary 查询数据库列表
  * @request POST:/tool/gen/db/list
  * @secure
  */
 export const genPostDbList = (data: GenTablePageQuery, params: RequestParams = {}) =>
-  request<TableDataInfoGenTable>({
+  request<TableDataInfo>({
     path: `/tool/gen/db/list`,
     method: 'POST',
     body: data,
@@ -127,7 +168,7 @@ export const genPostDbList = (data: GenTablePageQuery, params: RequestParams = {
     ...params,
   });
 export const genPostDbListSkipErrorHandler = (data: GenTablePageQuery, params: RequestParams = {}) =>
-  request<TableDataInfoGenTable>({
+  request<TableDataInfo>({
     path: `/tool/gen/db/list`,
     method: 'POST',
     body: data,
@@ -138,11 +179,178 @@ export const genPostDbListSkipErrorHandler = (data: GenTablePageQuery, params: R
   });
 
 /**
- * No description
+ * @description 同步数据库
+ *
+ * @tags GenService
+ * @name genGetSynchDb
+ * @request GET:/tool/gen/synchDb
+ * @secure
+ */
+export const genGetSynchDb = (
+  query: {
+    /** 业务生成表名称 */
+    tableName: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<RVoid>({
+    path: `/tool/gen/synchDb`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const genGetSynchDbSkipErrorHandler = (
+  query: {
+    /** 业务生成表名称 */
+    tableName: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<RVoid>({
+    path: `/tool/gen/synchDb`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * @description 预览代码
+ *
+ * @tags GenService
+ * @name genGetPreview
+ * @request GET:/tool/gen/preview
+ * @secure
+ */
+export const genGetPreview = (
+  query: {
+    /**
+     * 代码生成表编号
+     * @format int64
+     */
+    tableId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<RMapStringString>({
+    path: `/tool/gen/preview`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const genGetPreviewSkipErrorHandler = (
+  query: {
+    /**
+     * 代码生成表编号
+     * @format int64
+     */
+    tableId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<RMapStringString>({
+    path: `/tool/gen/preview`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * @description 获取代码生成业务信息
+ *
+ * @tags GenService
+ * @name genGetInfo
+ * @request GET:/tool/gen/info
+ * @secure
+ */
+export const genGetInfo = (
+  query: {
+    /**
+     * 生成表编号
+     * @format int64
+     */
+    tableId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<RGenInfoVo>({
+    path: `/tool/gen/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const genGetInfoSkipErrorHandler = (
+  query: {
+    /**
+     * 生成表编号
+     * @format int64
+     */
+    tableId: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<RGenInfoVo>({
+    path: `/tool/gen/info`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * @description 生成代码（自定义路径）
+ *
+ * @tags GenService
+ * @name genGetGenCode
+ * @request GET:/tool/gen/genCode
+ * @secure
+ */
+export const genGetGenCode = (
+  query: {
+    /** 业务生成表名称 */
+    tableName: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<RVoid>({
+    path: `/tool/gen/genCode`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const genGetGenCodeSkipErrorHandler = (
+  query: {
+    /** 业务生成表名称 */
+    tableName: string;
+  },
+  params: RequestParams = {},
+) =>
+  request<RVoid>({
+    path: `/tool/gen/genCode`,
+    method: 'GET',
+    query: query,
+    secure: true,
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * @description 生成代码（下载方式）
  *
  * @tags GenService
  * @name genGetDownload
- * @summary 生成代码（下载方式）
  * @request GET:/tool/gen/download
  * @secure
  */
@@ -178,68 +386,43 @@ export const genGetDownloadSkipErrorHandler = (
   });
 
 /**
- * No description
+ * @description 查询数据表字段列表
  *
  * @tags GenService
- * @name genPostEdit
- * @summary 修改保存代码生成业务
- * @request POST:/tool/gen/edit
+ * @name genGetColumnList
+ * @request GET:/tool/gen/column/list
  * @secure
  */
-export const genPostEdit = (data: GenTableReq, params: RequestParams = {}) =>
-  request<ResponseVoid>({
-    path: `/tool/gen/edit`,
-    method: 'POST',
-    body: data,
-    secure: true,
-    type: ContentType.Json,
-    skipErrorHandler: false,
-    ...params,
-  });
-export const genPostEditSkipErrorHandler = (data: GenTableReq, params: RequestParams = {}) =>
-  request<ResponseVoid>({
-    path: `/tool/gen/edit`,
-    method: 'POST',
-    body: data,
-    secure: true,
-    type: ContentType.Json,
-    skipErrorHandler: true,
-    ...params,
-  });
-
-/**
- * No description
- *
- * @tags GenService
- * @name genGetGenCode
- * @summary 生成代码（自定义路径）
- * @request GET:/tool/gen/genCode
- * @secure
- */
-export const genGetGenCode = (
+export const genGetColumnList = (
   query: {
-    /** 业务生成表名称 */
-    tableName: string;
+    /**
+     * 生成业务表编号
+     * @format int64
+     */
+    tableId: number;
   },
   params: RequestParams = {},
 ) =>
-  request<ResponseVoid>({
-    path: `/tool/gen/genCode`,
+  request<TableDataInfo>({
+    path: `/tool/gen/column/list`,
     method: 'GET',
     query: query,
     secure: true,
     skipErrorHandler: false,
     ...params,
   });
-export const genGetGenCodeSkipErrorHandler = (
+export const genGetColumnListSkipErrorHandler = (
   query: {
-    /** 业务生成表名称 */
-    tableName: string;
+    /**
+     * 生成业务表编号
+     * @format int64
+     */
+    tableId: number;
   },
   params: RequestParams = {},
 ) =>
-  request<ResponseVoid>({
-    path: `/tool/gen/genCode`,
+  request<TableDataInfo>({
+    path: `/tool/gen/column/list`,
     method: 'GET',
     query: query,
     secure: true,
@@ -248,246 +431,37 @@ export const genGetGenCodeSkipErrorHandler = (
   });
 
 /**
- * No description
+ * @description 批量生成代码
  *
  * @tags GenService
- * @name genPostImportTable
- * @summary 导入表结构（保存）
- * @request POST:/tool/gen/importTable
+ * @name genGetBatchGenCode
+ * @request GET:/tool/gen/batchGenCode
  * @secure
  */
-export const genPostImportTable = (
+export const genGetBatchGenCode = (
   query: {
-    /** 业务生成表名称组 */
+    /** 业务生成表名称，多个表用,分隔 */
     tables: string;
   },
   params: RequestParams = {},
 ) =>
-  request<ResponseVoid>({
-    path: `/tool/gen/importTable`,
-    method: 'POST',
+  request<any>({
+    path: `/tool/gen/batchGenCode`,
+    method: 'GET',
     query: query,
     secure: true,
     skipErrorHandler: false,
     ...params,
   });
-export const genPostImportTableSkipErrorHandler = (
+export const genGetBatchGenCodeSkipErrorHandler = (
   query: {
-    /** 业务生成表名称组 */
+    /** 业务生成表名称，多个表用,分隔 */
     tables: string;
   },
   params: RequestParams = {},
 ) =>
-  request<ResponseVoid>({
-    path: `/tool/gen/importTable`,
-    method: 'POST',
-    query: query,
-    secure: true,
-    skipErrorHandler: true,
-    ...params,
-  });
-
-/**
- * No description
- *
- * @tags GenService
- * @name genGetInfo
- * @summary 获取代码生成业务信息
- * @request GET:/tool/gen/info
- * @secure
- */
-export const genGetInfo = (
-  query: {
-    /**
-     * 生成表编号
-     * @format int64
-     */
-    tableId: number;
-  },
-  params: RequestParams = {},
-) =>
-  request<ResponseGenInfoVo>({
-    path: `/tool/gen/info`,
-    method: 'GET',
-    query: query,
-    secure: true,
-    skipErrorHandler: false,
-    ...params,
-  });
-export const genGetInfoSkipErrorHandler = (
-  query: {
-    /**
-     * 生成表编号
-     * @format int64
-     */
-    tableId: number;
-  },
-  params: RequestParams = {},
-) =>
-  request<ResponseGenInfoVo>({
-    path: `/tool/gen/info`,
-    method: 'GET',
-    query: query,
-    secure: true,
-    skipErrorHandler: true,
-    ...params,
-  });
-
-/**
- * No description
- *
- * @tags GenService
- * @name genPostList
- * @summary 查询代码生成列表
- * @request POST:/tool/gen/list
- * @secure
- */
-export const genPostList = (data: GenTablePageQuery, params: RequestParams = {}) =>
-  request<TableDataInfoGenTable>({
-    path: `/tool/gen/list`,
-    method: 'POST',
-    body: data,
-    secure: true,
-    type: ContentType.Json,
-    skipErrorHandler: false,
-    ...params,
-  });
-export const genPostListSkipErrorHandler = (data: GenTablePageQuery, params: RequestParams = {}) =>
-  request<TableDataInfoGenTable>({
-    path: `/tool/gen/list`,
-    method: 'POST',
-    body: data,
-    secure: true,
-    type: ContentType.Json,
-    skipErrorHandler: true,
-    ...params,
-  });
-
-/**
- * No description
- *
- * @tags GenService
- * @name genGetPreview
- * @summary 预览代码
- * @request GET:/tool/gen/preview
- * @secure
- */
-export const genGetPreview = (
-  query: {
-    /**
-     * 代码生成表编号
-     * @format int64
-     */
-    tableId: number;
-  },
-  params: RequestParams = {},
-) =>
-  request<ResponseMapStringString>({
-    path: `/tool/gen/preview`,
-    method: 'GET',
-    query: query,
-    secure: true,
-    skipErrorHandler: false,
-    ...params,
-  });
-export const genGetPreviewSkipErrorHandler = (
-  query: {
-    /**
-     * 代码生成表编号
-     * @format int64
-     */
-    tableId: number;
-  },
-  params: RequestParams = {},
-) =>
-  request<ResponseMapStringString>({
-    path: `/tool/gen/preview`,
-    method: 'GET',
-    query: query,
-    secure: true,
-    skipErrorHandler: true,
-    ...params,
-  });
-
-/**
- * No description
- *
- * @tags GenService
- * @name genPostRemove
- * @summary 删除代码生成
- * @request POST:/tool/gen/remove
- * @secure
- */
-export const genPostRemove = (
-  query: {
-    /**
-     * 代码生成表编号组
-     * @format int64
-     */
-    tableIds: number;
-  },
-  params: RequestParams = {},
-) =>
-  request<ResponseVoid>({
-    path: `/tool/gen/remove`,
-    method: 'POST',
-    query: query,
-    secure: true,
-    skipErrorHandler: false,
-    ...params,
-  });
-export const genPostRemoveSkipErrorHandler = (
-  query: {
-    /**
-     * 代码生成表编号组
-     * @format int64
-     */
-    tableIds: number;
-  },
-  params: RequestParams = {},
-) =>
-  request<ResponseVoid>({
-    path: `/tool/gen/remove`,
-    method: 'POST',
-    query: query,
-    secure: true,
-    skipErrorHandler: true,
-    ...params,
-  });
-
-/**
- * No description
- *
- * @tags GenService
- * @name genGetSynchDb
- * @summary 同步数据库
- * @request GET:/tool/gen/synchDb
- * @secure
- */
-export const genGetSynchDb = (
-  query: {
-    /** 业务生成表名称 */
-    tableName: string;
-  },
-  params: RequestParams = {},
-) =>
-  request<ResponseVoid>({
-    path: `/tool/gen/synchDb`,
-    method: 'GET',
-    query: query,
-    secure: true,
-    skipErrorHandler: false,
-    ...params,
-  });
-export const genGetSynchDbSkipErrorHandler = (
-  query: {
-    /** 业务生成表名称 */
-    tableName: string;
-  },
-  params: RequestParams = {},
-) =>
-  request<ResponseVoid>({
-    path: `/tool/gen/synchDb`,
+  request<any>({
+    path: `/tool/gen/batchGenCode`,
     method: 'GET',
     query: query,
     secure: true,

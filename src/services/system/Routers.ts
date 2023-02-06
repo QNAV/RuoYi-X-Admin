@@ -11,19 +11,18 @@
 
 import type { RequestParams } from '@/utils';
 import { request } from '@/utils';
-import type { ResponseListRouterVo } from './data-contracts';
+import type { RListRouterVo } from './data-contracts';
 
 /**
- * No description
+ * @description 获取菜单路由信息
  *
  * @tags SysLoginService
  * @name sysLoginGetRouters
- * @summary 获取菜单路由信息
  * @request GET:/routers
  * @secure
  */
 export const sysLoginGetRouters = (params: RequestParams = {}) =>
-  request<ResponseListRouterVo>({
+  request<RListRouterVo>({
     path: `/routers`,
     method: 'GET',
     secure: true,
@@ -31,7 +30,7 @@ export const sysLoginGetRouters = (params: RequestParams = {}) =>
     ...params,
   });
 export const sysLoginGetRoutersSkipErrorHandler = (params: RequestParams = {}) =>
-  request<ResponseListRouterVo>({
+  request<RListRouterVo>({
     path: `/routers`,
     method: 'GET',
     secure: true,

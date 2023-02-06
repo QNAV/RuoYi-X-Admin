@@ -11,25 +11,24 @@
 
 import type { RequestParams } from '@/utils';
 import { request } from '@/utils';
-import type { ResponseVoid } from './data-contracts';
+import type { RVoid } from './data-contracts';
 
 /**
- * No description
+ * @description 短信验证码
  *
  * @tags CaptchaService
  * @name captchaGetSmsCaptcha
- * @summary 短信验证码
  * @request GET:/captchaSms
  * @secure
  */
 export const captchaGetSmsCaptcha = (
   query: {
     /** 用户手机号 */
-    phoneNumber: string;
+    用户手机号: string;
   },
   params: RequestParams = {},
 ) =>
-  request<ResponseVoid>({
+  request<RVoid>({
     path: `/captchaSms`,
     method: 'GET',
     query: query,
@@ -40,11 +39,11 @@ export const captchaGetSmsCaptcha = (
 export const captchaGetSmsCaptchaSkipErrorHandler = (
   query: {
     /** 用户手机号 */
-    phoneNumber: string;
+    用户手机号: string;
   },
   params: RequestParams = {},
 ) =>
-  request<ResponseVoid>({
+  request<RVoid>({
     path: `/captchaSms`,
     method: 'GET',
     query: query,

@@ -11,19 +11,18 @@
 
 import type { RequestParams } from '@/utils';
 import { ContentType, request } from '@/utils';
-import type { ResponseVoid, UserNameRegisterBo } from './data-contracts';
+import type { RVoid, UserNameRegisterBo } from './data-contracts';
 
 /**
- * No description
+ * @description 用户注册
  *
  * @tags SysRegisterService
  * @name sysRegisterPostRegister
- * @summary 用户注册
  * @request POST:/register
  * @secure
  */
 export const sysRegisterPostRegister = (data: UserNameRegisterBo, params: RequestParams = {}) =>
-  request<ResponseVoid>({
+  request<RVoid>({
     path: `/register`,
     method: 'POST',
     body: data,
@@ -33,7 +32,7 @@ export const sysRegisterPostRegister = (data: UserNameRegisterBo, params: Reques
     ...params,
   });
 export const sysRegisterPostRegisterSkipErrorHandler = (data: UserNameRegisterBo, params: RequestParams = {}) =>
-  request<ResponseVoid>({
+  request<RVoid>({
     path: `/register`,
     method: 'POST',
     body: data,

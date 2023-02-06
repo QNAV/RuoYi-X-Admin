@@ -11,19 +11,18 @@
 
 import type { RequestParams } from '@/utils';
 import { ContentType, request } from '@/utils';
-import type { ResponseLoginVo, SmsLoginBo } from './data-contracts';
+import type { RLoginVo, SmsLoginBo } from './data-contracts';
 
 /**
- * No description
+ * @description 短信登录(示例)
  *
  * @tags SysLoginService
  * @name sysLoginPostSmsLogin
- * @summary 短信登录(示例)
  * @request POST:/smsLogin
  * @secure
  */
 export const sysLoginPostSmsLogin = (data: SmsLoginBo, params: RequestParams = {}) =>
-  request<ResponseLoginVo>({
+  request<RLoginVo>({
     path: `/smsLogin`,
     method: 'POST',
     body: data,
@@ -33,7 +32,7 @@ export const sysLoginPostSmsLogin = (data: SmsLoginBo, params: RequestParams = {
     ...params,
   });
 export const sysLoginPostSmsLoginSkipErrorHandler = (data: SmsLoginBo, params: RequestParams = {}) =>
-  request<ResponseLoginVo>({
+  request<RLoginVo>({
     path: `/smsLogin`,
     method: 'POST',
     body: data,

@@ -11,14 +11,13 @@
 
 import type { RequestParams } from '@/utils';
 import { request } from '@/utils';
-import type { ResponseLoginVo } from './data-contracts';
+import type { RLoginVo } from './data-contracts';
 
 /**
- * No description
+ * @description 小程序登录(示例)
  *
  * @tags SysLoginService
  * @name sysLoginGetXcxLogin
- * @summary 小程序登录(示例)
  * @request GET:/xcxLogin
  * @secure
  */
@@ -29,7 +28,7 @@ export const sysLoginGetXcxLogin = (
   },
   params: RequestParams = {},
 ) =>
-  request<ResponseLoginVo>({
+  request<RLoginVo>({
     path: `/xcxLogin`,
     method: 'GET',
     query: query,
@@ -44,7 +43,7 @@ export const sysLoginGetXcxLoginSkipErrorHandler = (
   },
   params: RequestParams = {},
 ) =>
-  request<ResponseLoginVo>({
+  request<RLoginVo>({
     path: `/xcxLogin`,
     method: 'GET',
     query: query,

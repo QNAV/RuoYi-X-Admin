@@ -11,19 +11,18 @@
 
 import type { RequestParams } from '@/utils';
 import { request } from '@/utils';
-import type { ResponseVoid } from './data-contracts';
+import type { RVoid } from './data-contracts';
 
 /**
- * No description
+ * @description 登出方法
  *
  * @tags SysLoginService
  * @name sysLoginPostLogout
- * @summary 登出方法
  * @request POST:/logout
  * @secure
  */
 export const sysLoginPostLogout = (params: RequestParams = {}) =>
-  request<ResponseVoid>({
+  request<RVoid>({
     path: `/logout`,
     method: 'POST',
     secure: true,
@@ -31,7 +30,7 @@ export const sysLoginPostLogout = (params: RequestParams = {}) =>
     ...params,
   });
 export const sysLoginPostLogoutSkipErrorHandler = (params: RequestParams = {}) =>
-  request<ResponseVoid>({
+  request<RVoid>({
     path: `/logout`,
     method: 'POST',
     secure: true,
