@@ -36,7 +36,7 @@ export enum ContentType {
 /**
  * 后端请求响应结构体
  */
-interface ResponseStructure<D = any> {
+interface ResponseStructure<D = unknown> {
   code: number;
   msg: string;
   data?: D;
@@ -78,7 +78,7 @@ const requestCanceler = new RequestCanceler();
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_HOST,
-  timeout: 1000 * 3,
+  timeout: 1000 * 30,
   paramsSerializer: {
     indexes: null,
   },
@@ -99,19 +99,14 @@ instance.interceptors.response.use(
     return axiosResponse;
   },
   async (error) => {
+    console.error(error);
+
     if (error?.config) requestCanceler.removePendingRequest(error.config);
 
+    // 过滤掉取消请求的错误
     if (error?.code === 'ERR_CANCELED') return;
 
-    let errorMessage = '网络错误，请稍后再试';
-
-    if (typeof error === 'string') {
-      errorMessage = error;
-    } else if (error?.message) {
-      errorMessage = error.message;
-    }
-
-    message.error(errorMessage);
+    message.error('网络错误，请稍后再试');
   },
 );
 
@@ -124,6 +119,7 @@ export function request<D extends ResponseStructure>(
 export function request({ secure, path, type, query, format, body, skipErrorHandler, ...params }: FullRequestParams) {
   if (secure && !checkToken()) {
     redirectToLoginPage();
+    return;
   }
 
   let data = body;
@@ -151,17 +147,20 @@ export function request({ secure, path, type, query, format, body, skipErrorHand
       return axiosResponse;
     }
 
-    switch (axiosResponse.data.code) {
-      case 200:
-        return axiosResponse.data?.data ?? axiosResponse.data;
-      case 401:
-        requestCanceler.clearPendingRequest();
-        clearToken();
-        redirectToLoginPage('登录已过期，请重新登录');
-        break;
-      default:
-        message.error(axiosResponse.data?.msg ?? '网络错误，请稍后再试');
+    const code = axiosResponse.data?.code;
+
+    if (code === 200) {
+      return axiosResponse.data?.data ?? axiosResponse.data;
     }
+
+    if (code === 401) {
+      requestCanceler.clearPendingRequest();
+      clearToken();
+      redirectToLoginPage('登录已过期，请重新登录');
+      return;
+    }
+
+    message.error(axiosResponse.data?.msg ?? '网络错误，请稍后再试');
 
     throw axiosResponse.data;
   });
