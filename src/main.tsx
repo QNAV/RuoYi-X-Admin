@@ -3,8 +3,6 @@ import { routes } from '@/routes';
 import '@/styles/nprogress.css';
 import '@/styles/tailwind.css';
 import { checkToken, redirectToLoginPage } from '@/utils';
-import * as Sentry from '@sentry/react';
-import { BrowserTracing } from '@sentry/tracing';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { App, ConfigProvider } from 'antd';
@@ -13,28 +11,15 @@ import zhCN from 'antd/es/locale/zh_CN';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import { Provider } from 'jotai';
-import { StrictMode, useEffect } from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import {
-  createBrowserRouter,
-  createRoutesFromChildren,
-  matchRoutes,
-  RouterProvider,
-  useLocation,
-  useNavigationType,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const bootstrap = () => {
-  // 生产环境下自动跳转到 https
-  if (import.meta.env.PROD && window.location.protocol === 'http:') {
-    window.location.replace(`https:${window.location.href.substring(5)}`);
-    return;
-  }
-
-  const BASE_URL = import.meta.env.BASE_URL;
+  const basename = import.meta.env.BASE_URL;
 
   // 不存在 token 时跳转到登录页
-  const currBasename = window.location.pathname.replace(BASE_URL, '/');
+  const currBasename = window.location.pathname.replace(basename, '/');
   if (currBasename !== '/login' && !checkToken()) {
     redirectToLoginPage();
     return;
@@ -54,23 +39,7 @@ const bootstrap = () => {
     },
   });
 
-  Sentry.init({
-    dsn: 'https://fd72e8f1a1e8477db459c343537c5c91@o1364137.ingest.sentry.io/4503962906591232',
-    enabled: import.meta.env.PROD,
-    integrations: [
-      new BrowserTracing({
-        routingInstrumentation: Sentry.reactRouterV6Instrumentation(
-          useEffect,
-          useLocation,
-          useNavigationType,
-          createRoutesFromChildren,
-          matchRoutes,
-        ),
-      }),
-    ],
-    tracesSampleRate: 1.0,
-  });
-  const router = Sentry.wrapCreateBrowserRouter(createBrowserRouter)(routes, { basename: BASE_URL });
+  const router = createBrowserRouter(routes, { basename });
 
   createRoot(document.getElementById('root') as HTMLElement).render(
     <StrictMode>
