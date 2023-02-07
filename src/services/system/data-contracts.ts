@@ -1176,9 +1176,9 @@ export interface TreeLong {
   config?: TreeNodeConfig;
   weight?: object;
   /** @format int64 */
-  id?: number;
-  /** @format int64 */
   parentId?: number;
+  /** @format int64 */
+  id?: number;
   name?: object;
   empty?: boolean;
   [key: string]: any;

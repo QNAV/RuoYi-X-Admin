@@ -24,7 +24,7 @@ import type { RVoid } from './data-contracts';
 export const captchaGetSmsCaptcha = (
   query: {
     /** 用户手机号 */
-    用户手机号: string;
+    phoneNumber: string;
   },
   params: RequestParams = {},
 ) =>
@@ -39,7 +39,7 @@ export const captchaGetSmsCaptcha = (
 export const captchaGetSmsCaptchaSkipErrorHandler = (
   query: {
     /** 用户手机号 */
-    用户手机号: string;
+    phoneNumber: string;
   },
   params: RequestParams = {},
 ) =>
