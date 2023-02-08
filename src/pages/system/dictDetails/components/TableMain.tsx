@@ -8,7 +8,7 @@ import ButtonExport from '@/pages/system/dictDetails/components/ButtonExport';
 import ButtonRemove from '@/pages/system/dictDetails/components/ButtonRemove';
 import { useActionRefMainTable, useAtomCurDictType } from '@/pages/system/dictDetails/model';
 import type { SysDictDataQueryBo, SysDictDataVo } from '@/services/system/data-contracts';
-import { optionSelectUsingGet, sysDictDataPostList } from '@/services/system/System';
+import { sysDictDataPostList, sysDictTypeGetOptionSelect } from '@/services/system/System';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProFormInstance, ProTableProps } from '@ant-design/pro-components';
 import { LightFilter, ProFormSelect } from '@ant-design/pro-components';
@@ -91,7 +91,7 @@ const TableMain: FC = () => {
 
   const { data: valueEnum, run } = useRequest(
     async () => {
-      const data = await optionSelectUsingGet();
+      const data = await sysDictTypeGetOptionSelect();
       return data.reduce<Record<string, string>>((pre, cur) => {
         pre[cur.dictType] = cur.dictName;
         return pre;
