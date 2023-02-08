@@ -219,8 +219,8 @@ export interface TableDataGenTable {
   data: GenTable[];
 }
 
-/** 分页响应对象 */
-export interface TableDataInfo {
+/** 表格分页数据对象 */
+export interface TableDataInfoGenTable {
   /**
    * 消息状态码
    * @format int32
@@ -266,4 +266,28 @@ export interface RGenInfoVo {
   msg: string;
   /** 代码生成业务信息对象 */
   data: GenInfoVo;
+}
+
+/** 分页数据对象 */
+export interface TableDataGenTableColumn {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: GenTableColumn[];
+}
+
+/** 表格分页数据对象 */
+export interface TableDataInfoGenTableColumn {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataGenTableColumn;
 }

@@ -5,7 +5,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
-const ButtonDelete: FC<{ tableIds: number; isBatch?: boolean; disabled?: boolean }> = ({
+const ButtonDelete: FC<{ tableIds: number[]; isBatch?: boolean; disabled?: boolean }> = ({
   tableIds,
   isBatch = false,
   disabled = false,

@@ -1,24 +1,32 @@
-import { Access } from '@/components';
+import { BaseButtonExport } from '@/components';
+import { AccessWithState } from '@/features';
 import type { SysUserQueryBo } from '@/services/system/data-contracts';
-import { sysUserPostExport } from '@/services/system/System';
-import { DownloadOutlined } from '@ant-design/icons';
+import { sysUserPostExportSkipErrorHandler } from '@/services/system/System';
+import { download } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import type { FC } from 'react';
 
 const ButtonExport: FC<{ searchParams: SysUserQueryBo }> = ({ searchParams }) => {
-  const { isLoading, mutate } = useMutation(() => sysUserPostExport(searchParams), {
-    onSuccess: () => {
-      message.success('导出成功');
+  const { isLoading, mutate } = useMutation(
+    async () => {
+      const e = await sysUserPostExportSkipErrorHandler(searchParams, {
+        format: 'blob',
+      });
+
+      await download(e.data, `user_${new Date().getTime()}.xlsx`);
     },
-  });
+    {
+      onSuccess: () => {
+        message.success('导出成功');
+      },
+    },
+  );
 
   return (
-    <Access accessible>
-      <Button icon={<DownloadOutlined />} loading={isLoading} onClick={() => mutate()}>
-        导出
-      </Button>
-    </Access>
+    <AccessWithState accessKey="system:user:export">
+      <BaseButtonExport loading={isLoading} onClick={() => mutate()} />
+    </AccessWithState>
   );
 };
 

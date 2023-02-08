@@ -1,6 +1,6 @@
 import { EmptySimple } from '@/components';
 import { useSetAtomSelectedDeptId } from '@/pages/system/user/model';
-import { sysDeptPostTreeSelect } from '@/services/system/System';
+import { sysUserGetDeptTree } from '@/services/system/System';
 import { useRequest } from 'ahooks';
 import { Input, Spin, Tree } from 'antd';
 import type { FC } from 'react';
@@ -13,8 +13,8 @@ const TreeDept: FC = () => {
 
   const { data, loading } = useRequest(
     () =>
-      sysDeptPostTreeSelect({
-        deptName,
+      sysUserGetDeptTree({
+        deptQuery: { deptName },
       }),
     {
       refreshDeps: [deptName],
@@ -36,7 +36,7 @@ const TreeDept: FC = () => {
       {!data || data.length === 0 ? (
         <EmptySimple />
       ) : (
-        <Tree
+        <Tree<any>
           treeData={data}
           defaultExpandAll
           fieldNames={{

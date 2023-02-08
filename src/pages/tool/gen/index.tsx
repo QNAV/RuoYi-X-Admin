@@ -7,13 +7,13 @@ import ButtonPreview from '@/pages/tool/gen/components/ButtonPreview';
 import ButtonSync from '@/pages/tool/gen/components/ButtonSync';
 import ModalPreview from '@/pages/tool/gen/components/ModalPreview';
 import { useActionRefMainTable } from '@/pages/tool/gen/model';
-import type { GenTablePageQuery, GenTableRes } from '@/services/gen/data-contracts';
+import type { GenTable, GenTablePageQuery } from '@/services/gen/data-contracts';
 import { genPostList } from '@/services/gen/Tool';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
-const columns: ProColumns<GenTableRes>[] = [
+const columns: ProColumns<GenTable>[] = [
   { title: '序号', dataIndex: 'index', key: 'index', valueType: 'indexBorder' },
   { title: '表名称', dataIndex: 'tableName', key: 'tableName', valueType: 'text' },
   { title: '表描述', dataIndex: 'tableComment', key: 'tableComment', valueType: 'text' },
@@ -55,24 +55,20 @@ const columns: ProColumns<GenTableRes>[] = [
 
           <ButtonDownload tableName={entity.tableName} />
 
-          <ButtonDelete tableIds={entity.tableId!} />
+          <ButtonDelete tableIds={[entity.tableId!]} />
         </>
       );
     },
   },
 ];
 
-const tableAlertOptionRender: ProTableProps<GenTableRes, 'text'>['tableAlertOptionRender'] = ({
+const tableAlertOptionRender: ProTableProps<GenTable, 'text'>['tableAlertOptionRender'] = ({
   selectedRows,
   selectedRowKeys,
 }) => {
   return (
     <>
-      <ButtonDelete
-        tableIds={selectedRowKeys.join(',') as unknown as number}
-        isBatch
-        disabled={selectedRowKeys.length === 0}
-      />
+      <ButtonDelete tableIds={selectedRowKeys as number[]} isBatch disabled={selectedRowKeys.length === 0} />
 
       <ButtonDownload tableName={selectedRows.map(({ tableName }) => tableName).join(',')} isBatch />
     </>
@@ -84,7 +80,7 @@ const GenPage: FC = () => {
 
   return (
     <BasePageContainer>
-      <BaseProTable<GenTableRes, GenTablePageQuery>
+      <BaseProTable<GenTable, GenTablePageQuery>
         rowKey="tableId"
         actionRef={actionRef}
         tableAlertOptionRender={tableAlertOptionRender}

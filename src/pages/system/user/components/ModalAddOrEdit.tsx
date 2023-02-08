@@ -9,7 +9,7 @@ import {
 import type { SysUserAddBo } from '@/services/system/data-contracts';
 import {
   sysConfigGetConfigKeySkipErrorHandler,
-  sysDeptPostTreeSelect,
+  sysUserGetDeptTree,
   sysUserGetInfo,
   sysUserGetInfo1,
   sysUserPostAdd,
@@ -54,7 +54,7 @@ const ModalAddOrEdit: FC = () => {
     return data.msg;
   });
 
-  const { data: treeData } = useRequest(() => sysDeptPostTreeSelect({}), {});
+  const { data: treeData } = useRequest(() => sysUserGetDeptTree({ deptQuery: {} }), {});
 
   const { data: record } = useRequest(
     async () => {

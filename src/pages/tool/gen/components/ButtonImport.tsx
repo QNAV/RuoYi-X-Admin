@@ -1,6 +1,6 @@
 import { Access, BaseProTable } from '@/components';
 import { useAtomValueMainTableActions } from '@/pages/tool/gen/model';
-import type { GenTablePageQuery, GenTableRes } from '@/services/gen/data-contracts';
+import type { GenTable, GenTablePageQuery } from '@/services/gen/data-contracts';
 import { genPostDbList, genPostImportTable } from '@/services/gen/Tool';
 import { convertParams } from '@/utils';
 import { CloudUploadOutlined } from '@ant-design/icons';
@@ -11,7 +11,7 @@ import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 
-const columns: ProColumns<GenTableRes>[] = [
+const columns: ProColumns<GenTable>[] = [
   { title: '序号', dataIndex: 'index', key: 'index', valueType: 'indexBorder' },
   { title: '表名称', dataIndex: 'tableName', key: 'tableName', valueType: 'text' },
   { title: '表描述', dataIndex: 'tableComment', key: 'tableComment', valueType: 'text' },
@@ -68,7 +68,7 @@ const ButtonImport: FC = () => {
         open={open}
         onCancel={toggle}
         title="导入表结构"
-        onOk={() => mutate({ tables: selectedRowKeys.join(',') })}
+        onOk={() => mutate({ tables: selectedRowKeys })}
         width={900}
         okText="提交"
         confirmLoading={isLoading}
@@ -76,7 +76,7 @@ const ButtonImport: FC = () => {
           disabled: selectedRowKeys.length === 0,
         }}
       >
-        <BaseProTable<GenTableRes, GenTablePageQuery>
+        <BaseProTable<GenTable, GenTablePageQuery>
           ghost
           actionRef={actionRef}
           columns={columns}

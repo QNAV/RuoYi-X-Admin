@@ -7,7 +7,7 @@ import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
-  userId: number;
+  userId: number[];
   isBatch?: boolean;
   disabled?: boolean;
 }> = ({ userId, isBatch, disabled }) => {

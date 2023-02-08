@@ -349,8 +349,8 @@ export interface SysUserVo {
   admin: boolean;
 }
 
-/** 分页响应对象 */
-export interface TableDataInfo {
+/** 表格分页数据对象 */
+export interface TableDataInfoSysUserVo {
   /**
    * 消息状态码
    * @format int32
@@ -504,6 +504,30 @@ export interface SysRolePageQueryBo {
    * @format date-time
    */
   endCreateTime?: string;
+}
+
+/** 表格分页数据对象 */
+export interface TableDataInfoSysRoleVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataSysRoleVo;
+}
+
+/** 分页数据对象 */
+export interface TableDataSysRoleVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: SysRoleVo[];
 }
 
 /** 角色查询对象 */
@@ -686,6 +710,30 @@ export interface SysPostVo {
   flag: boolean;
 }
 
+/** 表格分页数据对象 */
+export interface TableDataInfoSysPostVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataSysPostVo;
+}
+
+/** 分页数据对象 */
+export interface TableDataSysPostVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: SysPostVo[];
+}
+
 /** 岗位信息查询对象 */
 export interface SysPostQueryBo {
   /** 岗位编码 */
@@ -850,6 +898,30 @@ export interface SysOssVo {
   service: string;
 }
 
+/** 表格分页数据对象 */
+export interface TableDataInfoSysOssVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataSysOssVo;
+}
+
+/** 分页数据对象 */
+export interface TableDataSysOssVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: SysOssVo[];
+}
+
 /** 对象存储配置分页查询对象 */
 export interface SysOssConfigPageQueryBo {
   /**
@@ -924,6 +996,30 @@ export interface SysOssConfigVo {
   remark?: string;
   /** 桶权限类型(0private 1public 2custom) */
   accessPolicy?: string;
+}
+
+/** 表格分页数据对象 */
+export interface TableDataInfoSysOssConfigVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataSysOssConfigVo;
+}
+
+/** 分页数据对象 */
+export interface TableDataSysOssConfigVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: SysOssConfigVo[];
 }
 
 /** 对象存储配置修改业务对象 */
@@ -1089,6 +1185,30 @@ export interface SysNoticeVo {
   status: string;
   /** 备注 */
   remark?: string;
+}
+
+/** 表格分页数据对象 */
+export interface TableDataInfoSysNoticeVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataSysNoticeVo;
+}
+
+/** 分页数据对象 */
+export interface TableDataSysNoticeVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: SysNoticeVo[];
 }
 
 /** 通知公告编辑业务对象 */
@@ -1558,6 +1678,30 @@ export interface BizLogininforVo {
   loginTime: string;
 }
 
+/** 分页数据对象 */
+export interface TableDataBizLogininforVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: BizLogininforVo[];
+}
+
+/** 表格分页数据对象 */
+export interface TableDataInfoBizLogininforVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataBizLogininforVo;
+}
+
 /** 业务用户登录记录业务查询对象 */
 export interface BizLogininforQueryBo {
   /** 用户名(也可能是手机号等) */
@@ -1710,6 +1854,30 @@ export interface SysDictTypeVo {
   remark?: string;
 }
 
+/** 表格分页数据对象 */
+export interface TableDataInfoSysDictTypeVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataSysDictTypeVo;
+}
+
+/** 分页数据对象 */
+export interface TableDataSysDictTypeVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: SysDictTypeVo[];
+}
+
 /** 字典类型查询对象 */
 export interface SysDictTypeQueryBo {
   /** 字典名称 */
@@ -1828,6 +1996,30 @@ export interface SysDictDataVo {
   status: string;
   /** 备注 */
   remark?: string;
+}
+
+/** 表格分页数据对象 */
+export interface TableDataInfoSysDictDataVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataSysDictDataVo;
+}
+
+/** 分页数据对象 */
+export interface TableDataSysDictDataVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: SysDictDataVo[];
 }
 
 /** 字典数据查询对象 */
@@ -2215,6 +2407,30 @@ export interface SysConfigVo {
   remark?: string;
 }
 
+/** 表格分页数据对象 */
+export interface TableDataInfoSysConfigVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataSysConfigVo;
+}
+
+/** 分页数据对象 */
+export interface TableDataSysConfigVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: SysConfigVo[];
+}
+
 /** 参数配置查询对象 */
 export interface SysConfigQueryBo {
   /** 参数名称 */
@@ -2349,6 +2565,83 @@ export interface SysOperLogPageQueryBo {
   endTime?: string;
 }
 
+/** 操作日志记录视图对象 */
+export interface SysOperLogVo {
+  /**
+   * 日志主键
+   * @format int64
+   */
+  operId: number;
+  /** 操作模块 */
+  title: string;
+  /**
+   * 业务类型（0其它 1新增 2修改 3删除）
+   * @format int32
+   */
+  businessType: number;
+  /** 业务类型数组 */
+  businessTypes: number[];
+  /** 请求方法 */
+  method: string;
+  /** 请求方式 */
+  requestMethod: string;
+  /**
+   * 操作类别（0其它 1后台用户 2手机端用户）
+   * @format int32
+   */
+  operatorType: number;
+  /** 操作人员 */
+  operName: string;
+  /** 部门名称 */
+  deptName?: string;
+  /** 请求url */
+  operUrl: string;
+  /** 操作地址 */
+  operIp: string;
+  /** 操作地点 */
+  operLocation?: string;
+  /** 请求参数 */
+  operParam: string;
+  /** 返回参数 */
+  jsonResult?: string;
+  /**
+   * 操作状态（0正常 1异常）
+   * @format int32
+   */
+  status: number;
+  /** 错误消息 */
+  errorMsg?: string;
+  /**
+   * 操作时间
+   * @format date-time
+   */
+  operTime: string;
+}
+
+/** 表格分页数据对象 */
+export interface TableDataInfoSysOperLogVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataSysOperLogVo;
+}
+
+/** 分页数据对象 */
+export interface TableDataSysOperLogVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: SysOperLogVo[];
+}
+
 /** 操作日志记录查询对象 */
 export interface SysOperLogQueryBo {
   /** 操作模块 */
@@ -2414,6 +2707,58 @@ export interface SysLogininforPageQueryBo {
    * @format date-time
    */
   endTime?: string;
+}
+
+/** 系统访问记录视图返回对象 */
+export interface SysLogininforVo {
+  /**
+   * 访问ID
+   * @format int64
+   */
+  infoId: number;
+  /** 用户账号 */
+  userName: string;
+  /** 登录状态 0成功 1失败 */
+  status: string;
+  /** 登录IP地址 */
+  ipaddr: string;
+  /** 登录地点 */
+  loginLocation: string;
+  /** 浏览器类型 */
+  browser: string;
+  /** 操作系统 */
+  os: string;
+  /** 提示消息 */
+  msg: string;
+  /**
+   * 访问时间
+   * @format date-time
+   */
+  loginTime: string;
+}
+
+/** 表格分页数据对象 */
+export interface TableDataInfoSysLogininforVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataSysLogininforVo;
+}
+
+/** 分页数据对象 */
+export interface TableDataSysLogininforVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: SysLogininforVo[];
 }
 
 /** 系统访问记录查询对象 */
@@ -2578,6 +2923,30 @@ export interface BizUserVo {
   loginDate: string;
   /** 备注 */
   remark?: string;
+}
+
+/** 分页数据对象 */
+export interface TableDataBizUserVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: BizUserVo[];
+}
+
+/** 表格分页数据对象 */
+export interface TableDataInfoBizUserVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataBizUserVo;
 }
 
 /** 业务用户信息业务查询对象 */
@@ -3157,6 +3526,53 @@ export interface RouterVo {
   meta?: MetaVo;
   /** 子路由 */
   children?: RouterVo[];
+}
+
+/** 当前在线会话视图对象 */
+export interface SysUserOnlineVo {
+  /** 会话编号 */
+  tokenId: string;
+  /** 部门名称 */
+  deptName?: string;
+  /** 用户名称 */
+  userName: string;
+  /** 登录IP地址 */
+  ipaddr: string;
+  /** 登录地址 */
+  loginLocation?: string;
+  /** 浏览器类型 */
+  browser: string;
+  /** 操作系统 */
+  os: string;
+  /**
+   * 登录时间
+   * @format int64
+   */
+  loginTime: number;
+}
+
+/** 表格分页数据对象 */
+export interface TableDataInfoSysUserOnlineVo {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 分页数据对象 */
+  data: TableDataSysUserOnlineVo;
+}
+
+/** 分页数据对象 */
+export interface TableDataSysUserOnlineVo {
+  /**
+   * 总记录数
+   * @format int64
+   */
+  total: number;
+  /** 列表数据 */
+  data: SysUserOnlineVo[];
 }
 
 /** 缓存监控详细信息返回对象 */

@@ -1,6 +1,7 @@
-import { Access } from '@/components';
-import { sysUserPostImportTemplate } from '@/services/system/System';
-import { UploadOutlined } from '@ant-design/icons';
+import { BaseButtonExport } from '@/components';
+import { AccessWithState } from '@/features';
+import { sysUserPostImportTemplateSkipErrorHandler } from '@/services/system/System';
+import { download } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormSwitch, ProFormUploadDragger } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
@@ -14,13 +15,14 @@ const ButtonImport: FC = () => {
 
   const [open, { toggle }] = useBoolean();
 
-  const { mutate: onDownLoad, isLoading: isDownLoadLoading } = useMutation(() => sysUserPostImportTemplate());
+  const { mutate: onDownLoad, isLoading: isDownLoadLoading } = useMutation(async () => {
+    const { data } = await sysUserPostImportTemplateSkipErrorHandler();
+    await download(data, `user_template_${new Date().getTime()}.xlsx`);
+  });
 
   return (
-    <Access accessible>
-      <Button icon={<UploadOutlined />} onClick={toggle}>
-        导入
-      </Button>
+    <AccessWithState accessKey="system:user:import">
+      <BaseButtonExport onClick={toggle} />
 
       <Modal title="导入用户" open={open} onCancel={toggle}>
         <div className="text-right">
@@ -35,7 +37,7 @@ const ButtonImport: FC = () => {
           <ProFormUploadDragger name="list" />
         </ProForm>
       </Modal>
-    </Access>
+    </AccessWithState>
   );
 };
 

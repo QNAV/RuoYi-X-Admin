@@ -5,6 +5,7 @@ export * from './Access';
 export * from './BaseButtonAdd';
 export * from './BaseButtonEdit';
 export * from './BaseButtonExport';
+export * from './BaseButtonImport';
 export * from './BaseButtonQuery';
 export * from './BaseButtonRemove';
 export * from './BasePageContainer';

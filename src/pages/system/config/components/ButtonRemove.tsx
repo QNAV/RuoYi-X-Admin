@@ -7,7 +7,7 @@ import { message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
-  configId: number;
+  configId: number[];
   batch?: boolean;
   disabled?: boolean;
 }> = ({ configId, disabled, batch }) => {

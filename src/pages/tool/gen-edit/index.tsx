@@ -1,7 +1,7 @@
 import { BasePageContainer } from '@/components';
 import DescBase from '@/pages/tool/gen-edit/components/DescBase';
 import EditableTableField from '@/pages/tool/gen-edit/components/EditableTableField';
-import type { GenTableReq } from '@/services/gen/data-contracts';
+import type { GenTable } from '@/services/gen/data-contracts';
 import { genGetInfo, genPostEdit } from '@/services/gen/Tool';
 import { ProCard } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
@@ -33,7 +33,7 @@ const GenEditPage: FC = () => {
   });
 
   const { mutateAsync, isLoading } = useMutation(
-    async (params: Partial<GenTableReq>) => {
+    async (params: Partial<GenTable>) => {
       await genPostEdit({
         tableId,
         businessName: data!.info.businessName,

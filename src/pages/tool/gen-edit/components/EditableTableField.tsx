@@ -1,5 +1,5 @@
 import { JavaTypeMap, QueryTypeMap, YesNoStatusMap } from '@/constants';
-import type { GenTableColumnRes, GenTableReq } from '@/services/gen/data-contracts';
+import type { GenTable, GenTableColumn } from '@/services/gen/data-contracts';
 import { CloseOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-components';
 import { EditableProTable } from '@ant-design/pro-components';
@@ -79,9 +79,9 @@ const columns: ProColumns[] = [
 ];
 
 const EditableTableField: FC<{
-  dataSource?: GenTableColumnRes[];
+  dataSource?: GenTableColumn[];
   loading?: boolean;
-  handleEdit: (p: Partial<GenTableReq>) => Promise<void>;
+  handleEdit: (p: Partial<GenTable>) => Promise<void>;
 }> = ({ dataSource, handleEdit, loading = false }) => {
   const [form] = Form.useForm();
 

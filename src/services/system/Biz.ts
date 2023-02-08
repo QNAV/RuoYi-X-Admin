@@ -18,7 +18,7 @@ import type {
   BizUserQueryBo,
   RBizUserVo,
   RVoid,
-  TableDataInfo,
+  TableDataInfoBizUserVo,
 } from './data-contracts';
 
 /**
@@ -59,7 +59,6 @@ export const bizUserPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
-
 /**
  * @description 查询业务用户信息列表
  *
@@ -69,7 +68,7 @@ export const bizUserPostRemoveSkipErrorHandler = (
  * @secure
  */
 export const bizUserPostList = (data: BizUserPageQueryBo, params: RequestParams = {}) =>
-  request<TableDataInfo>({
+  request<TableDataInfoBizUserVo>({
     path: `/biz/user/list`,
     method: 'POST',
     body: data,
@@ -79,7 +78,7 @@ export const bizUserPostList = (data: BizUserPageQueryBo, params: RequestParams 
     ...params,
   });
 export const bizUserPostListSkipErrorHandler = (data: BizUserPageQueryBo, params: RequestParams = {}) =>
-  request<TableDataInfo>({
+  request<TableDataInfoBizUserVo>({
     path: `/biz/user/list`,
     method: 'POST',
     body: data,
@@ -88,7 +87,6 @@ export const bizUserPostListSkipErrorHandler = (data: BizUserPageQueryBo, params
     skipErrorHandler: true,
     ...params,
   });
-
 /**
  * @description 导出业务用户信息列表
  *
@@ -117,7 +115,6 @@ export const bizUserPostExportSkipErrorHandler = (data: BizUserQueryBo, params: 
     skipErrorHandler: true,
     ...params,
   });
-
 /**
  * @description 修改业务用户信息
  *
@@ -146,7 +143,6 @@ export const bizUserPostEditSkipErrorHandler = (data: BizUserEditBo, params: Req
     skipErrorHandler: true,
     ...params,
   });
-
 /**
  * @description 新增业务用户信息
  *
@@ -175,7 +171,6 @@ export const bizUserPostAddSkipErrorHandler = (data: BizUserAddBo, params: Reque
     skipErrorHandler: true,
     ...params,
   });
-
 /**
  * @description 获取业务用户信息详细信息
  *

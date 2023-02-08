@@ -4,7 +4,7 @@ import ModalResetPwd from '@/pages/system/user/components/ModalResetPwd';
 import TableMain from '@/pages/system/user/components/TableMain';
 import type { FC } from 'react';
 
-const PageUser: FC = () => {
+const PageSystemUser: FC = () => {
   return (
     <BasePageContainer>
       <TableMain />
@@ -16,4 +16,4 @@ const PageUser: FC = () => {
   );
 };
 
-export default PageUser;
+export default PageSystemUser;

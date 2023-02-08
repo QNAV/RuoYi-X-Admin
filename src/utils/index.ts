@@ -1,5 +1,6 @@
 export * from './access';
 export * from './convert';
+export * from './download';
 export * from './lazyLoad';
 export * from './menu';
 export * from './regExp';
