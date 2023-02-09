@@ -1,4 +1,4 @@
-import { BaseButtonExport } from '@/components';
+import { BaseButtonImport } from '@/components';
 import { AccessWithState } from '@/features';
 import { sysUserPostImportTemplateSkipErrorHandler } from '@/services/system/System';
 import { download } from '@/utils';
@@ -22,7 +22,7 @@ const ButtonImport: FC = () => {
 
   return (
     <AccessWithState accessKey="system:user:import">
-      <BaseButtonExport onClick={toggle} />
+      <BaseButtonImport onClick={toggle} />
 
       <Modal title="导入用户" open={open} onCancel={toggle}>
         <div className="text-right">

@@ -1,4 +1,4 @@
-import { useQueryDict } from '@/models';
+import { useQueryDictSysNormalDisable, useQueryDictSysUserSex } from '@/models';
 import {
   useAtomValueAddOrEditModal,
   useAtomValueMainTableActions,
@@ -15,12 +15,19 @@ import {
 } from '@/services/system/System';
 import { regEmail, regPhone } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
-import { ModalForm, ProFormSelect, ProFormText, ProFormTextArea, ProFormTreeSelect } from '@ant-design/pro-components';
+import {
+  ModalForm,
+  ProFormRadio,
+  ProFormSelect,
+  ProFormText,
+  ProFormTextArea,
+  ProFormTreeSelect,
+} from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
 import { App } from 'antd';
 import type { FC } from 'react';
-import { useRef } from 'react';
+import { useRef, useTransition } from 'react';
 
 const ModalAddOrEdit: FC = () => {
   const { message } = App.useApp();
@@ -38,10 +45,10 @@ const ModalAddOrEdit: FC = () => {
     hideAddOrEditModal();
   };
 
-  const { data: dictNormalDisable } = useQueryDict('sys_normal_disable');
-  const { data: dictSex } = useQueryDict('sys_user_sex');
+  const { valueEnumSysNormalDisable, defaultValueSysNormalDisable } = useQueryDictSysNormalDisable();
+  const { valueEnumSysUserSex, defaultValueSysUserSex } = useQueryDictSysUserSex();
   const { data: dictUserInfo } = useRequest(async () => {
-    const { posts, roles } = await sysUserGetInfo({});
+    const { posts, roles } = await sysUserGetInfo();
     return {
       posts: posts.reduce((pre, cur) => pre.set(cur.postId, cur.postName), new Map()),
       roles: roles.reduce((pre, cur) => pre.set(cur.roleId, cur.roleName), new Map()),
@@ -50,16 +57,15 @@ const ModalAddOrEdit: FC = () => {
 
   const { data: initPwd } = useRequest(async () => {
     const { data } = await sysConfigGetConfigKeySkipErrorHandler({ configKey: 'sys.user.initPassword' });
-
     return data.msg;
   });
 
-  const { data: treeData } = useRequest(() => sysUserGetDeptTree({ deptQuery: {} }), {});
+  const { data: treeData } = useRequest(() => sysUserGetDeptTree({ deptQuery: {} }));
 
-  const { data: record } = useRequest(
+  const [, startTransition] = useTransition();
+  useRequest(
     async () => {
       const { postIds, roleIds, user } = await sysUserGetInfo1({ userId });
-
       return {
         ...user,
         postIds,
@@ -69,7 +75,9 @@ const ModalAddOrEdit: FC = () => {
     {
       ready: open && actionType === 'edit' && !!userId,
       onSuccess: (data) => {
-        formRef.current?.setFieldsValue(data);
+        startTransition(() => {
+          formRef.current?.setFieldsValue(data);
+        });
       },
       refreshDeps: [userId],
     },
@@ -83,7 +91,7 @@ const ModalAddOrEdit: FC = () => {
         const { roleIds = [], postIds = [], ...restValues } = values!;
         await sysUserPostAdd({ roleIds, postIds, ...restValues });
       } else {
-        await sysUserPostEdit({ ...record, ...values!, userId: userId! });
+        await sysUserPostEdit({ userId: userId!, ...values! });
       }
     },
     {
@@ -145,12 +153,18 @@ const ModalAddOrEdit: FC = () => {
         <ProFormText.Password name="password" label="用户密码" rules={[{ required: true }]} initialValue={initPwd} />
       )}
 
-      <ProFormSelect name="sex" label="用户性别" valueEnum={dictSex?.valueEnum ?? {}} />
-
       <ProFormSelect
+        name="sex"
+        label="用户性别"
+        valueEnum={valueEnumSysUserSex}
+        initialValue={defaultValueSysUserSex}
+      />
+
+      <ProFormRadio.Group
         name="status"
         label="状态"
-        valueEnum={dictNormalDisable?.valueEnum ?? {}}
+        valueEnum={valueEnumSysNormalDisable}
+        initialValue={defaultValueSysNormalDisable}
         rules={[{ required: true }]}
       />
 

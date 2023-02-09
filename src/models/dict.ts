@@ -93,3 +93,14 @@ export const useQueryDictSysCommonStatus = () => {
     valueEnumSysCommonStatus,
   };
 };
+
+// sys_user_sex
+export const useQueryDictSysUserSex = () => {
+  const { data } = useQueryDict('sys_user_sex');
+  const defaultValueSysUserSex: string | null = data?.defaultValue ?? null;
+  const valueEnumSysUserSex: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysUserSex,
+    valueEnumSysUserSex,
+  };
+};
