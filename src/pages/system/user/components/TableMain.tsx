@@ -12,6 +12,7 @@ import type { SysUserPageQueryBo, SysUserQueryBo, SysUserVo } from '@/services/s
 import { sysUserPostList } from '@/services/system/System';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
+import { ProCard } from '@ant-design/pro-components';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -63,7 +64,7 @@ const useColumns = (): ProColumns<SysUserVo>[] => {
           <>
             <ButtonEdit userId={entity.userId} />
 
-            <ButtonRemove userId={entity.userId} />
+            <ButtonRemove userIds={[entity.userId]} />
 
             <ButtonResetPwd record={entity} />
           </>
@@ -85,21 +86,15 @@ const useColumns = (): ProColumns<SysUserVo>[] => {
 const tableAlertOptionRender: ProTableProps<SysUserVo, SysUserPageQueryBo>['tableAlertOptionRender'] = ({
   selectedRows,
 }) => {
-  return (
-    <ButtonRemove
-      disabled={selectedRows.length === 0}
-      isBatch
-      userId={selectedRows.map((i) => i.userId).join(',') as unknown as number}
-    />
-  );
+  return <ButtonRemove disabled={selectedRows.length === 0} batch userIds={selectedRows.map((i) => i.userId)} />;
 };
 
 const tableRender: ProTableProps<SysUserVo, SysUserPageQueryBo>['tableRender'] = (props, defaultDom) => {
   return (
     <div className="flex gap-4">
-      <div className="bg-white p-4">
+      <ProCard className="w-80">
         <TreeDept />
-      </div>
+      </ProCard>
 
       <div className="overflow-auto w-full">{defaultDom}</div>
     </div>

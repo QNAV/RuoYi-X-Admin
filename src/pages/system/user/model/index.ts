@@ -33,10 +33,9 @@ export const useHideResetPwdModal = () => useResetAtom(atomResetPwdModal);
 export const useAtomValueResetPwdModal = () => useAtomValue(atomResetPwdModal);
 
 // 新增或编辑用户弹窗
-const atomAddOrEditModal = atomWithReset<{ open: boolean; actionType: 'add' | 'edit'; userId: number }>({
+const atomAddOrEditModal = atomWithReset<{ open: boolean; actionType: 'add' | 'edit'; userId?: number }>({
   open: false,
   actionType: 'add',
-  userId: 0,
 });
 export const useShowAddModal = () => {
   const setRecoilState = useSetAtom(atomAddOrEditModal);
@@ -44,7 +43,6 @@ export const useShowAddModal = () => {
     setRecoilState({
       open: true,
       actionType: 'add',
-      userId: 0,
     });
   };
 };

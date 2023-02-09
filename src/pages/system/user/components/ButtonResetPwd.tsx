@@ -1,4 +1,4 @@
-import { Access } from '@/components';
+import { AccessWithState } from '@/features';
 import { useShowResetPwdModal } from '@/pages/system/user/model';
 import type { SysUserVo } from '@/services/system/data-contracts';
 import { RestOutlined } from '@ant-design/icons';
@@ -11,11 +11,11 @@ const ButtonResetPwd: FC<{
   const showResetPasswordModal = useShowResetPwdModal();
 
   return (
-    <Access accessible>
+    <AccessWithState accessKey="system:user:resetPwd">
       <Button type="link" danger icon={<RestOutlined />} onClick={() => showResetPasswordModal(record)}>
         重置密码
       </Button>
-    </Access>
+    </AccessWithState>
   );
 };
 

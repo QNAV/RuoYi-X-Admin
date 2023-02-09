@@ -1,21 +1,21 @@
-import { Access } from '@/components';
+import { BaseButtonRemove } from '@/components';
+import { AccessWithState } from '@/features';
 import { useAtomValueMainTableActions } from '@/pages/system/user/model';
 import { sysUserPostRemove } from '@/services/system/System';
-import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal } from 'antd';
+import { App } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
-  userId: number[];
-  isBatch?: boolean;
+  userIds: number[];
+  batch?: boolean;
   disabled?: boolean;
-}> = ({ userId, isBatch, disabled }) => {
-  const text = isBatch ? '批量删除' : '删除';
+}> = ({ userIds, batch, disabled }) => {
+  const { message, modal } = App.useApp();
 
   const mainTableActions = useAtomValueMainTableActions();
 
-  const { mutateAsync, isLoading } = useMutation(() => sysUserPostRemove({ userIds: userId }), {
+  const { mutate, isLoading } = useMutation(sysUserPostRemove, {
     onSuccess: () => {
       mainTableActions?.reload();
       mainTableActions?.clearSelected?.();
@@ -24,10 +24,10 @@ const ButtonRemove: FC<{
   });
 
   const onRemove = () => {
-    Modal.confirm({
+    modal.confirm({
       title: '删除用户',
-      content: `确定删除用户编号为 ${userId} 的数据吗？`,
-      onOk: () => mutateAsync(),
+      content: `确定删除用户编号为 ${userIds.join(',')} 的数据吗？`,
+      onOk: () => mutate({ userIds }),
       okButtonProps: {
         loading: isLoading,
       },
@@ -35,11 +35,9 @@ const ButtonRemove: FC<{
   };
 
   return (
-    <Access accessible>
-      <Button type="link" danger disabled={disabled} icon={<DeleteOutlined />} onClick={onRemove}>
-        {text}
-      </Button>
-    </Access>
+    <AccessWithState accessKey="system:user:remove">
+      <BaseButtonRemove batch={batch} disabled={disabled} onClick={onRemove} />
+    </AccessWithState>
   );
 };
 

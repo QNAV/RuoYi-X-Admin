@@ -4,10 +4,12 @@ import type { SysUserQueryBo } from '@/services/system/data-contracts';
 import { sysUserPostExportSkipErrorHandler } from '@/services/system/System';
 import { download } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
-import { message } from 'antd';
+import { App } from 'antd';
 import type { FC } from 'react';
 
 const ButtonExport: FC<{ searchParams: SysUserQueryBo }> = ({ searchParams }) => {
+  const { message } = App.useApp();
+
   const { isLoading, mutate } = useMutation(
     async () => {
       const e = await sysUserPostExportSkipErrorHandler(searchParams, {
