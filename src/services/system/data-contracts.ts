@@ -1295,11 +1295,11 @@ export interface RListTreeLong {
 export interface TreeLong {
   config?: TreeNodeConfig;
   weight?: object;
-  /** @format int64 */
-  parentId?: number;
+  name?: object;
   /** @format int64 */
   id?: number;
-  name?: object;
+  /** @format int64 */
+  parentId?: number;
   empty?: boolean;
   [key: string]: any;
 }
