@@ -1,7 +1,7 @@
 import { useCheckAccess } from '@/hooks';
 import { useQueryDictSysNormalDisable } from '@/models';
 import { useAtomValueRoleListActions, useEditRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
-import type { SysRole, SysRoleVo } from '@/services/system/data-contracts';
+import type { SysRoleVo } from '@/services/system/data-contracts';
 import type { ProDescriptionsItemProps, RowEditableConfig } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { Divider, Form, Spin } from 'antd';
@@ -96,9 +96,9 @@ const DescRole: FC = () => {
             });
           }
         },
-        onSave: async (key, record) => {
+        onSave: async (key: any, record: any) => {
           await mutateAsync({
-            [key as keyof SysRole]: record[key as keyof SysRole],
+            [key]: record[key],
           });
         },
       }

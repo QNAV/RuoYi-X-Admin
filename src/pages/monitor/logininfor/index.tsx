@@ -59,7 +59,7 @@ const useColumns = (): ProColumns<SysLogininforVo>[] => {
       valueType: 'option',
       fixed: 'right',
       render: (dom, entity) => {
-        return <ButtonRemove infoId={entity.infoId} />;
+        return <ButtonRemove infoId={[entity.infoId]} />;
       },
     },
   ];
@@ -72,7 +72,7 @@ const tableAlertOptionRender: ProTableProps<SysLogininforVo, SysLogininforPageQu
     <ButtonRemove
       batch
       disabled={selectedRows.length === 0}
-      infoId={selectedRows.map((i) => i.infoId).join(',') as unknown as number}
+      infoId={selectedRows.map((i) => i.infoId) as unknown as number[]}
     />
   );
 };

@@ -7,7 +7,7 @@ import { Button, message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
-  postId: number;
+  postId: number[];
   isBatch?: boolean;
   disabled?: boolean;
 }> = ({ postId, isBatch, disabled }) => {
@@ -16,7 +16,7 @@ const ButtonRemove: FC<{
   const mainTableActions = useAtomValueMainTableActions();
 
   const { mutateAsync, isLoading } = useMutation(
-    async (postIds: number) => {
+    async (postIds: number[]) => {
       await sysPostPostRemove({ postIds });
     },
     {

@@ -56,7 +56,7 @@ const useColumns = (): ProColumns<SysDictDataVo>[] => {
         return (
           <>
             <ButtonEdit record={entity} />
-            <ButtonRemove dictCode={entity.dictCode} />
+            <ButtonRemove dictCode={[entity.dictCode]} />
           </>
         );
       },
@@ -64,14 +64,10 @@ const useColumns = (): ProColumns<SysDictDataVo>[] => {
   ];
 };
 
-const tableAlertOptionRender: ProTableProps<SysDictDataVo, 'text'>['tableAlertOptionRender'] = ({ selectedRows }) => {
-  return (
-    <ButtonRemove
-      disabled={selectedRows.length === 0}
-      batch
-      dictCode={selectedRows.map((i) => i.dictCode).join(',') as unknown as number}
-    />
-  );
+const tableAlertOptionRender: ProTableProps<SysDictDataVo, 'text'>['tableAlertOptionRender'] = ({
+  selectedRowKeys,
+}) => {
+  return <ButtonRemove disabled={selectedRowKeys.length === 0} batch dictCode={selectedRowKeys as number[]} />;
 };
 
 let lastDictType: string;

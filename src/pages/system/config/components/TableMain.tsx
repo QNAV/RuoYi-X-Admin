@@ -53,7 +53,7 @@ const useColumns = (): ProColumns<SysConfigVo>[] => {
         return (
           <>
             <ButtonEdit record={entity} />
-            <ButtonRemove configId={entity.configId} />
+            <ButtonRemove configId={[entity.configId]} />
           </>
         );
       },
@@ -68,7 +68,7 @@ const tableAlertOptionRender: ProTableProps<SysConfigVo, SysConfigPageQueryBo>['
     <ButtonRemove
       disabled={selectedRows.length === 0}
       batch
-      configId={selectedRows.map((i) => i.configId).join(',') as unknown as number}
+      configId={selectedRows.map((i) => i.configId) as unknown as number[]}
     />
   );
 };

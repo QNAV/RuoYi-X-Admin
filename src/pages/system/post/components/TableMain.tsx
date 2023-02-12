@@ -39,7 +39,7 @@ const useColumns = (): ProColumns<SysPostVo>[] => {
           <>
             <ButtonEdit record={entity} />
 
-            <ButtonRemove postId={entity.postId} />
+            <ButtonRemove postId={[entity.postId]} />
           </>
         );
       },
@@ -47,14 +47,8 @@ const useColumns = (): ProColumns<SysPostVo>[] => {
   ];
 };
 
-const tableAlertOptionRender: ProTableProps<SysPostVo, 'text'>['tableAlertOptionRender'] = ({ selectedRows }) => {
-  return (
-    <ButtonRemove
-      disabled={selectedRows.length === 0}
-      isBatch
-      postId={selectedRows.map((i) => i.postId).join(',') as unknown as number}
-    />
-  );
+const tableAlertOptionRender: ProTableProps<SysPostVo, 'text'>['tableAlertOptionRender'] = ({ selectedRowKeys }) => {
+  return <ButtonRemove disabled={selectedRowKeys.length === 0} isBatch postId={selectedRowKeys as number[]} />;
 };
 
 const TableMain = () => {

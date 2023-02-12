@@ -47,7 +47,7 @@ const useColumns = (): ProColumns<SysDictTypeVo>[] => {
           <>
             <ButtonQuery dictType={entity.dictType} />
             <ButtonEdit record={entity} />
-            <ButtonRemove dictId={entity.dictId} />
+            <ButtonRemove dictId={[entity.dictId]} />
           </>
         );
       },
@@ -56,15 +56,9 @@ const useColumns = (): ProColumns<SysDictTypeVo>[] => {
 };
 
 const tableAlertOptionRender: ProTableProps<SysDictTypeVo, SysDictTypeQueryBo>['tableAlertOptionRender'] = ({
-  selectedRows,
+  selectedRowKeys,
 }) => {
-  return (
-    <ButtonRemove
-      disabled={selectedRows.length === 0}
-      batch
-      dictId={selectedRows.map((i) => i.dictId).join(',') as unknown as number}
-    />
-  );
+  return <ButtonRemove disabled={selectedRowKeys.length === 0} batch dictId={selectedRowKeys as number[]} />;
 };
 
 const TableMain: FC = () => {

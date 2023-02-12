@@ -7,7 +7,7 @@ import { message, Modal } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
-  dictCode: number;
+  dictCode: number[];
   batch?: boolean;
   disabled?: boolean;
 }> = ({ dictCode, disabled, batch }) => {

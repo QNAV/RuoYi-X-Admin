@@ -57,7 +57,7 @@ const useColumns = (): ProColumns<SysOperLogVo>[] => {
       valueType: 'option',
       fixed: 'right',
       render: (dom, entity) => {
-        return <ButtonRemove operId={entity.operId} />;
+        return <ButtonRemove operId={[entity.operId]} />;
       },
     },
   ];
@@ -70,7 +70,7 @@ const tableAlertOptionRender: ProTableProps<SysOperLogVo, SysOperLogPageQueryBo>
     <ButtonRemove
       batch
       disabled={selectedRows.length === 0}
-      operId={selectedRows.map((i) => i.operId).join(',') as unknown as number}
+      operId={selectedRows.map((i) => i.operId) as unknown as number[]}
     />
   );
 };

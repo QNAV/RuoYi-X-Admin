@@ -48,7 +48,7 @@ const useColumns = (): ProColumns[] => {
         return (
           <>
             <ButtonEdit record={entity} />
-            <ButtonRemove noticeId={entity.noticeId} />
+            <ButtonRemove noticeId={[entity.noticeId]} />
           </>
         );
       },
@@ -57,15 +57,9 @@ const useColumns = (): ProColumns[] => {
 };
 
 const tableAlertOptionRender: ProTableProps<SysNoticeVo, SysNoticePageQueryBo>['tableAlertOptionRender'] = ({
-  selectedRows,
+  selectedRowKeys,
 }) => {
-  return (
-    <ButtonRemove
-      batch
-      disabled={selectedRows.length === 0}
-      noticeId={selectedRows.map((i) => i.noticeId).join(',') as unknown as number}
-    />
-  );
+  return <ButtonRemove batch disabled={selectedRowKeys.length === 0} noticeId={selectedRowKeys as number[]} />;
 };
 
 const TableMain: FC = () => {
