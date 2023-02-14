@@ -1,5 +1,5 @@
 import { BaseProTable } from '@/components';
-import { useQueryDict } from '@/models';
+import { useQueryDictSysNormalDisable } from '@/models';
 import ButtonAdd from '@/pages/system/post/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/post/components/ButtonEdit';
 import type { SearchParams } from '@/pages/system/post/components/ButtonExport';
@@ -13,14 +13,14 @@ import type { ProColumns, ProFormInstance, ProTableProps } from '@ant-design/pro
 import { useRef, useState } from 'react';
 
 const useColumns = (): ProColumns<SysPostVo>[] => {
-  const { data } = useQueryDict('sys_normal_disable');
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
   return [
     { dataIndex: 'postId', key: 'postId', title: '岗位编号', valueType: 'text', hideInSearch: true },
     { dataIndex: 'postCode', key: 'postCode', title: '岗位编码', valueType: 'text' },
     { dataIndex: 'postName', key: 'postName', title: '岗位名称', valueType: 'text' },
     { dataIndex: 'postSort', key: 'postSort', title: '显示顺序', valueType: 'text', hideInSearch: true },
-    { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: data?.valueEnum ?? {} },
+    { title: '状态', dataIndex: 'status', key: 'status', valueType: 'select', valueEnum: valueEnumSysNormalDisable },
     { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
     {
       title: '创建时间',

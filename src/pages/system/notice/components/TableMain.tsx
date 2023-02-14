@@ -1,5 +1,5 @@
 import { BaseProTable } from '@/components';
-import { useQueryDict } from '@/models';
+import { useQueryDictSysNoticeStatus, useQueryDictSysNoticeType } from '@/models';
 import ButtonAdd from '@/pages/system/notice/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/notice/components/ButtonEdit';
 import ButtonRemove from '@/pages/system/notice/components/ButtonRemove';
@@ -11,8 +11,8 @@ import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
 const useColumns = (): ProColumns[] => {
-  const { data: dictSysNoticeType } = useQueryDict('sys_notice_type');
-  const { data: dictSysNoticeStatus } = useQueryDict('sys_notice_status');
+  const { valueEnumSysNoticeType } = useQueryDictSysNoticeType();
+  const { valueEnumSysNoticeStatus } = useQueryDictSysNoticeStatus();
 
   return [
     { title: '公告编号', dataIndex: 'noticeId', key: 'noticeId', valueType: 'text', hideInSearch: true },
@@ -22,7 +22,7 @@ const useColumns = (): ProColumns[] => {
       dataIndex: 'noticeType',
       key: 'noticeType',
       valueType: 'select',
-      valueEnum: dictSysNoticeType?.valueEnum ?? {},
+      valueEnum: valueEnumSysNoticeType,
     },
     { title: '创建者', dataIndex: 'createBy', key: 'createBy', valueType: 'text' },
     {
@@ -30,7 +30,7 @@ const useColumns = (): ProColumns[] => {
       dataIndex: 'status',
       key: 'status',
       valueType: 'select',
-      valueEnum: dictSysNoticeStatus?.valueEnum ?? {},
+      valueEnum: valueEnumSysNoticeStatus,
     },
     {
       title: '创建时间',

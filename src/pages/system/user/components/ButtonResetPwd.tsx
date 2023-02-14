@@ -5,9 +5,11 @@ import { RestOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import type { FC } from 'react';
 
-const ButtonResetPwd: FC<{
+export interface ButtonResetPwdProps {
   record: SysUserVo;
-}> = ({ record }) => {
+}
+
+const ButtonResetPwd: FC<ButtonResetPwdProps> = ({ record }) => {
   const showResetPasswordModal = useShowResetPwdModal();
 
   return (

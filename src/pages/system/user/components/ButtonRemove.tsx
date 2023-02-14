@@ -6,11 +6,13 @@ import { useMutation } from '@tanstack/react-query';
 import { App } from 'antd';
 import type { FC } from 'react';
 
-const ButtonRemove: FC<{
+export interface ButtonRemoveProps {
   userIds: number[];
   batch?: boolean;
   disabled?: boolean;
-}> = ({ userIds, batch, disabled }) => {
+}
+
+const ButtonRemove: FC<ButtonRemoveProps> = ({ userIds, batch, disabled }) => {
   const { message, modal } = App.useApp();
 
   const mainTableActions = useAtomValueMainTableActions();
@@ -23,7 +25,7 @@ const ButtonRemove: FC<{
     },
   });
 
-  const onRemove = () => {
+  const handleRemove = () => {
     modal.confirm({
       title: '删除用户',
       content: `确定删除用户编号为 ${userIds.join(',')} 的数据吗？`,
@@ -36,7 +38,7 @@ const ButtonRemove: FC<{
 
   return (
     <AccessWithState accessKey="system:user:remove">
-      <BaseButtonRemove batch={batch} disabled={disabled} onClick={onRemove} />
+      <BaseButtonRemove batch={batch} disabled={disabled} onClick={handleRemove} />
     </AccessWithState>
   );
 };

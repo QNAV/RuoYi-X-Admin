@@ -7,7 +7,11 @@ import { useMutation } from '@tanstack/react-query';
 import { App } from 'antd';
 import type { FC } from 'react';
 
-const ButtonExport: FC<{ searchParams: SysUserQueryBo }> = ({ searchParams }) => {
+export interface ButtonExportProps {
+  searchParams: SysUserQueryBo;
+}
+
+const ButtonExport: FC<ButtonExportProps> = ({ searchParams }) => {
   const { message } = App.useApp();
 
   const { isLoading, mutate } = useMutation(

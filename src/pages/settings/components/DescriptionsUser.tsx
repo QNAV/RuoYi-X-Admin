@@ -1,4 +1,4 @@
-import { useQueryDict, useQueryInitialState } from '@/models';
+import { useQueryDictSysUserSex, useQueryInitialState } from '@/models';
 import type { LoginUserUpdateBo } from '@/services/system/data-contracts';
 import { sysProfilePostUpdateProfile } from '@/services/system/System';
 import { getToken, regEmail, regPhone } from '@/utils';
@@ -19,7 +19,7 @@ const columns: ProDescriptionsItemProps[] = [
 ];
 
 const useEditableColumns = (): ProDescriptionsItemProps[] => {
-  const { data } = useQueryDict('sys_user_sex');
+  const { valueEnumSysUserSex } = useQueryDictSysUserSex();
 
   return [
     {
@@ -78,7 +78,7 @@ const useEditableColumns = (): ProDescriptionsItemProps[] => {
       key: 'sex',
       title: '性别',
       valueType: 'radio',
-      valueEnum: data?.valueEnum ?? {},
+      valueEnum: valueEnumSysUserSex,
     },
   ];
 };

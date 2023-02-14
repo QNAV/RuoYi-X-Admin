@@ -3,7 +3,11 @@ import { AccessWithState } from '@/features';
 import { useShowEditModal } from '@/pages/system/user/model';
 import type { FC } from 'react';
 
-const ButtonEdit: FC<{ userId: number }> = ({ userId }) => {
+export interface ButtonEditProps {
+  userId: number;
+}
+
+const ButtonEdit: FC<ButtonEditProps> = ({ userId }) => {
   const showEditModal = useShowEditModal();
 
   return (

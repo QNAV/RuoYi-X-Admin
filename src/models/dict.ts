@@ -3,7 +3,7 @@ import { sysDictDataGetType } from '@/services/system/System';
 import { convertDict2ValueEnum } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 
-export const useQueryDict = (dictType: string) => {
+const useQueryDict = (dictType: string) => {
   return useQuery(
     ['global', 'dict', dictType],
     async () => {

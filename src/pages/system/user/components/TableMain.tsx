@@ -1,5 +1,5 @@
 import { BaseProTable } from '@/components';
-import { useQueryDict } from '@/models';
+import { useQueryDictSysNormalDisable } from '@/models';
 import ButtonAdd from '@/pages/system/user/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/user/components/ButtonEdit';
 import ButtonExport from '@/pages/system/user/components/ButtonExport';
@@ -17,7 +17,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 
 const useColumns = (): ProColumns<SysUserVo>[] => {
-  const { data } = useQueryDict('sys_normal_disable');
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
   return [
     {
@@ -42,7 +42,7 @@ const useColumns = (): ProColumns<SysUserVo>[] => {
       dataIndex: 'status',
       key: 'status',
       valueType: 'select',
-      valueEnum: data?.valueEnum ?? {},
+      valueEnum: valueEnumSysNormalDisable,
     },
     {
       title: '创建时间',

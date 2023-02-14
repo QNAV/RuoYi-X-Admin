@@ -1,4 +1,4 @@
-import { useQueryDict } from '@/models';
+import { useQueryDictSysNormalDisable } from '@/models';
 import { useAtomValueMainTableActions, useHideAddOrEditModal, useValueAddOrEditModal } from '@/pages/system/post/model';
 import type { SysPostAddBo } from '@/services/system/data-contracts';
 import { sysPostPostAdd, sysPostPostEdit } from '@/services/system/System';
@@ -23,7 +23,7 @@ const ModalAddOrEdit: FC = () => {
 
   const mainTableActions = useAtomValueMainTableActions();
 
-  const { data } = useQueryDict('sys_normal_disable');
+  const { valueEnumSysNormalDisable, defaultValueSysNormalDisable } = useQueryDictSysNormalDisable();
 
   const { mutate, isLoading } = useMutation(
     async () => {
@@ -80,8 +80,8 @@ const ModalAddOrEdit: FC = () => {
         <ProFormRadio.Group
           name="status"
           label="状态"
-          valueEnum={data?.valueEnum ?? {}}
-          initialValue={data?.defaultValue}
+          valueEnum={valueEnumSysNormalDisable}
+          initialValue={defaultValueSysNormalDisable}
         />
 
         <ProFormTextArea name="remark" label="备注" />
