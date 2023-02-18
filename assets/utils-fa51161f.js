@@ -1,0 +1,1 @@
+import{r as c}from"./jsx-runtime-06f68cbc.js";import{b as a,u}from"./react-6339a4c6.js";const m=Symbol();function b(o){const t=a(o,(s,n,e)=>{const r=typeof e=="function"?e(s(t)):e;n(t,r===m?o:r)});return t}function i(o,t){const s=u(o,t);return c.useCallback(()=>s(m),[s])}export{b as a,i as u};
