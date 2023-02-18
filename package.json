@@ -40,8 +40,8 @@
     "react-router-dom": "^6.8.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.4.3",
-    "@commitlint/config-conventional": "^17.4.3",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
     "@types/file-saver": "^2.0.5",
     "@types/lodash-es": "^4.17.6",
     "@types/nprogress": "^0.2.0",
@@ -83,7 +83,7 @@
     "vite": "^4.1.2",
     "vite-plugin-html": "^3.2.0"
   },
-  "packageManager": "pnpm@7.27.0",
+  "packageManager": "pnpm@7.27.1",
   "engines": {
     "node": "16.x",
     "pnpm": "7.x"
