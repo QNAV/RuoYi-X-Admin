@@ -100,8 +100,8 @@ export const useEditRoleDetails = (onSuccess: () => void) => {
         roleSort: roleDetailsData!.roleSort,
         status: roleDetailsData!.status,
         menuIds: deptTreeData!.selectedMenuIds,
-        menuCheckStrictly: false,
-        deptCheckStrictly: false,
+        menuCheckStrictly: 'NO',
+        deptCheckStrictly: 'NO',
         ...params,
       });
     },

@@ -55,6 +55,7 @@
     "@wangeditor/core": "^1.1.19",
     "autoprefixer": "^10.4.13",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
     "eslint": "^8.34.0",
     "eslint-config-alloy": "^4.9.0",
     "eslint-plugin-react": "^7.32.2",

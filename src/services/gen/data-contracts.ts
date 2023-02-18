@@ -88,8 +88,8 @@ export interface GenTable {
   subTableFkName?: string;
   /** 表名称 */
   className: string;
-  /** 使用的模板（crud单表操作 tree树表操作 sub主子表操作） */
-  tplCategory?: string;
+  /** 使用的模板（CRUD=单表操作 TREE=树表操作 SUB=主子表操作） */
+  tplCategory?: 'CRUD' | 'TREE' | 'SUB';
   /** 生成包路径 */
   packageName: string;
   /** 生成模块名 */
@@ -100,8 +100,8 @@ export interface GenTable {
   functionName: string;
   /** 生成作者 */
   functionAuthor: string;
-  /** 生成代码方式（0zip压缩包 1自定义路径） */
-  genType?: string;
+  /** 生成代码方式（ZIP=zip压缩包 CUSTOM=自定义路径） */
+  genType?: 'ZIP' | 'CUSTOM';
   /** 生成路径（不填默认项目路径） */
   genPath?: string;
   /** 代码生成业务字段实体对象 */
@@ -129,8 +129,8 @@ export interface GenTable {
   /** 传入参数（暂时预留） */
   params?: Record<string, string>;
   sub?: boolean;
-  tree?: boolean;
   crud?: boolean;
+  tree?: boolean;
 }
 
 /** 代码生成业务字段实体对象 */
@@ -165,30 +165,35 @@ export interface GenTableColumn {
   columnComment?: string;
   /** 列类型 */
   columnType?: string;
-  /** 列默认值 */
-  columnDefault?: string;
+  /**
+   * 列长度限制（仅限字符串类型）
+   * @format int32
+   */
+  columnMaxLength?: number;
   /** JAVA类型 */
   javaType?: string;
   /** JAVA字段名 */
   javaField: string;
-  /** 是否主键（1是） */
-  isPk?: string;
-  /** 是否自增（1是） */
-  isIncrement?: string;
-  /** 是否必填（1是） */
-  isRequired?: string;
-  /** 是否为插入字段（1是） */
-  isInsert?: string;
-  /** 是否编辑字段（1是） */
-  isEdit?: string;
-  /** 是否列表字段（1是） */
-  isList?: string;
-  /** 是否查询字段（1是） */
-  isQuery?: string;
-  /** 查询方式（EQ等于、NE不等于、GT大于、LT小于、LIKE模糊、BETWEEN范围） */
-  queryType?: string;
-  /** 显示类型（input文本框、textarea文本域、select下拉框、checkbox复选框、radio单选框、datetime日期控件、image图片上传控件、upload文件上传控件、editor富文本控件） */
-  htmlType?: string;
+  /** 是否主键（YES=是 NO=否） */
+  isPk?: 'YES' | 'NO';
+  /** 是否自增（YES=是 NO=否） */
+  isIncrement?: 'YES' | 'NO';
+  /** 是否必填（YES=是 NO=否） */
+  isRequired?: 'YES' | 'NO';
+  /** 是否为插入字段（YES=是 NO=否） */
+  isInsert?: 'YES' | 'NO';
+  /** 是否编辑字段（YES=是 NO=否） */
+  isEdit?: 'YES' | 'NO';
+  /** 是否列表字段（YES=是 NO=否） */
+  isList?: 'YES' | 'NO';
+  /** 是否VO必须返回（YES=是 NO=否） */
+  isVoRequired?: 'YES' | 'NO';
+  /** 是否查询字段（YES=是 NO=否） */
+  isQuery?: 'YES' | 'NO';
+  /** 查询方式（EQ=等于 NE=不等于 GT=大于 LT=小于 LIKE=模糊 BETWEEN=范围） */
+  queryType?: 'EQ' | 'NE' | 'GT' | 'LT' | 'LIKE' | 'BETWEEN';
+  /** 显示类型（INPUT=文本框 TEXTAREA=文本域 SELECT=下拉框 CHECKBOX=复选框 RADIO=单选框 DATETIME=日期控件 IMAGE=图片上传控件 UPLOAD=文件上传控件 EDITOR=富文本控件） */
+  htmlType?: 'INPUT' | 'TEXTAREA' | 'SELECT' | 'CHECKBOX' | 'RADIO' | 'DATETIME' | 'IMAGE' | 'UPLOAD' | 'EDITOR';
   /** 字典类型 */
   dictType?: string;
   /**
@@ -196,16 +201,17 @@ export interface GenTableColumn {
    * @format int32
    */
   sort?: number;
-  list?: boolean;
-  pk?: boolean;
-  insert?: boolean;
-  edit?: boolean;
-  usableColumn?: boolean;
-  superColumn?: boolean;
   required?: boolean;
+  list?: boolean;
+  usableColumn?: boolean;
+  insert?: boolean;
+  superColumn?: boolean;
+  pk?: boolean;
+  edit?: boolean;
+  voRequired?: boolean;
   increment?: boolean;
-  query?: boolean;
   capJavaField?: string;
+  query?: boolean;
 }
 
 /** 分页数据对象 */

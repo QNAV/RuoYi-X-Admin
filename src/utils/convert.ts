@@ -73,7 +73,7 @@ export const convertDict2ValueEnum = (dict: SysDictDataVo[]) => {
   const valueEnum: ValueEnumMap<string> = dict.reduce((pre, item) => {
     const value = item.dictValue as string;
 
-    if (item.isDefault === 'Y') {
+    if (item.isDefault === 'YES') {
       defaultValue = value;
     }
 

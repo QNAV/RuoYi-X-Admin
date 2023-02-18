@@ -27,7 +27,7 @@ const ButtonImport: FC = () => {
     const {
       data: { code, msg },
     } = await sysUserPostImportDataSkipErrorHandler(
-      { updateSupport: checked, file: 'any' },
+      { updateSupport: checked },
       {
         file: fileList[0].originFileObj as File,
       },

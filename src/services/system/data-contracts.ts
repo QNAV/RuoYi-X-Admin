@@ -217,10 +217,10 @@ export interface SysDeptVo {
   phone?: string;
   /** 邮箱 */
   email?: string;
-  /** 部门状态:0正常,1停用 */
-  status: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag: string;
+  /** 部门状态（NORMAL=正常 DISABLE=停用） */
+  status: 'NORMAL' | 'DISABLE';
+  /** 删除标志（EXIST=代表存在 DELETED=代表删除） */
+  delFlag: 'EXIST' | 'DELETED';
   /** 祖级列表 */
   ancestors?: string;
 }
@@ -255,16 +255,16 @@ export interface SysRoleVo {
    * @format int32
    */
   roleSort: number;
-  /** 数据范围（1：所有数据权限；2：自定义数据权限；3：本部门数据权限；4：本部门及以下数据权限；5：仅本人数据权限） */
-  dataScope: string;
-  /** 菜单树选择项是否关联显示（ 0：父子不互相关联显示 1：父子互相关联显示） */
-  menuCheckStrictly: boolean;
-  /** 部门树选择项是否关联显示（0：父子不互相关联显示 1：父子互相关联显示 ） */
-  deptCheckStrictly: boolean;
-  /** 角色状态（0正常 1停用） */
-  status: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag: string;
+  /** 数据范围（ALL=全部数据权限 CUSTOM=自定数据权限 DEPT=本部门数据权限 DEPT_CHILD=本部门及以下数据权限 SELF=仅本人数据权限） */
+  dataScope: 'ALL' | 'CUSTOM' | 'DEPT' | 'DEPT_CHILD' | 'SELF';
+  /** 菜单树选择项是否关联显示（NO=父子不互相关联显示 YES=父子互相关联显示） */
+  menuCheckStrictly: 'YES' | 'NO';
+  /** 部门树选择项是否关联显示（NO=父子不互相关联显示 YES=父子互相关联显示 ） */
+  deptCheckStrictly: 'YES' | 'NO';
+  /** 角色状态（NORMAL=正常 DISABLE=停用） */
+  status: 'NORMAL' | 'DISABLE';
+  /** 删除标志（EXIST=代表存在 DELETED=代表删除） */
+  delFlag: 'EXIST' | 'DELETED';
   /** 备注 */
   remark?: string;
   /** 用户是否存在此角色标识 默认不存在 */
@@ -307,22 +307,22 @@ export interface SysUserVo {
   userName: string;
   /** 用户昵称 */
   nickName: string;
-  /** 用户类型 */
-  userType: string;
+  /** 用户类型（PC=电脑端 ANDROID=安卓app端 IOS=苹果app端 WXAPP=微信小程序端 WXMP=微信公众号端 ALIPAYAPP=支付宝小程序端） */
+  userType: 'PC' | 'ANDROID' | 'IOS' | 'WXAPP' | 'WXMP' | 'ALIPAYAPP';
   /** 用户邮箱 */
   email?: string;
   /** 手机号码 */
   phoneNumber?: string;
-  /** 用户性别 */
-  sex: string;
+  /** 用户性别（UNKNOWN=未知 MAN=男 WOMAN=女） */
+  sex: 'UNKNOWN' | 'MAN' | 'WOMAN';
   /** 用户头像 */
   avatar?: string;
   /** 密码 */
   password: string;
-  /** 帐号状态（0正常 1停用） */
-  status: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag: string;
+  /** 帐号状态（NORMAL=正常 DISABLE=停用） */
+  status: 'NORMAL' | 'DISABLE';
+  /** 删除标志（EXIST=代表存在 DELETED=代表删除） */
+  delFlag: 'EXIST' | 'DELETED';
   /** 最后登录IP */
   loginIp?: string;
   /**
@@ -492,8 +492,8 @@ export interface SysRolePageQueryBo {
   roleName?: string;
   /** 角色权限 */
   roleKey?: string;
-  /** 角色状态（0正常 1停用） */
-  status?: string;
+  /** 角色状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /**
    * 开始创建时间
    * @format date-time
@@ -541,8 +541,8 @@ export interface SysRoleQueryBo {
   roleName?: string;
   /** 角色权限 */
   roleKey?: string;
-  /** 角色状态（0正常 1停用） */
-  status?: string;
+  /** 角色状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /**
    * 开始创建时间
    * @format date-time
@@ -593,16 +593,16 @@ export interface SysRole {
    * @format int32
    */
   roleSort: number;
-  /** 数据范围（1：所有数据权限；2：自定义数据权限；3：本部门数据权限；4：本部门及以下数据权限；5：仅本人数据权限） */
-  dataScope?: string;
-  /** 菜单树选择项是否关联显示（ 0：父子不互相关联显示 1：父子互相关联显示） */
-  menuCheckStrictly?: boolean;
-  /** 部门树选择项是否关联显示（0：父子不互相关联显示 1：父子互相关联显示 ） */
-  deptCheckStrictly?: boolean;
-  /** 角色状态（0正常 1停用） */
-  status: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag?: string;
+  /** 数据范围（ALL=全部数据权限 CUSTOM=自定数据权限 DEPT=本部门数据权限 DEPT_CHILD=本部门及以下数据权限 SELF=仅本人数据权限） */
+  dataScope?: 'ALL' | 'CUSTOM' | 'DEPT' | 'DEPT_CHILD' | 'SELF';
+  /** 菜单树选择项是否关联显示（NO=父子不互相关联显示 YES=父子互相关联显示） */
+  menuCheckStrictly?: 'YES' | 'NO';
+  /** 部门树选择项是否关联显示（NO=父子不互相关联显示 YES=父子互相关联显示 ） */
+  deptCheckStrictly?: 'YES' | 'NO';
+  /** 角色状态（NORMAL=正常 DISABLE=停用） */
+  status: 'NORMAL' | 'DISABLE';
+  /** 删除标志（EXIST=代表存在 DELETED=代表删除） */
+  delFlag?: 'EXIST' | 'DELETED';
   /** 备注 */
   remark?: string;
   /** 用户是否存在此角色标识 默认不存在 */
@@ -611,11 +611,6 @@ export interface SysRole {
   menuIds: number[];
   /** 部门组（数据权限） */
   deptIds?: number[];
-  /**
-   * 角色菜单权限
-   * @uniqueItems true
-   */
-  permissions?: string[];
   /** 是否管理员 */
   admin?: boolean;
 }
@@ -668,8 +663,8 @@ export interface SysPostPageQueryBo {
   postCode?: string;
   /** 岗位名称 */
   postName?: string;
-  /** 状态（0正常 1停用） */
-  status?: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
 }
 
 /** 岗位信息视图对象 */
@@ -702,8 +697,8 @@ export interface SysPostVo {
    * @format int32
    */
   postSort: number;
-  /** 状态（0正常 1停用） */
-  status: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
   /** 用户是否存在此岗位标识 默认不存在 */
@@ -740,8 +735,8 @@ export interface SysPostQueryBo {
   postCode?: string;
   /** 岗位名称 */
   postName?: string;
-  /** 状态（0正常 1停用） */
-  status?: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
 }
 
 /** 岗位信息修改业务对象 */
@@ -768,8 +763,8 @@ export interface SysPostEditBo {
    * @format int32
    */
   postSort: number;
-  /** 状态（0正常 1停用） */
-  status: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
 }
@@ -793,8 +788,8 @@ export interface SysPostAddBo {
    * @format int32
    */
   postSort: number;
-  /** 状态（0正常 1停用） */
-  status: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
 }
@@ -945,8 +940,8 @@ export interface SysOssConfigPageQueryBo {
   configKey?: string;
   /** 桶名称 */
   bucketName?: string;
-  /** 是否默认（0=是,1=否） */
-  status?: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
 }
 
 /** 对象存储配置视图对象 */
@@ -981,21 +976,21 @@ export interface SysOssConfigVo {
   /** 前缀 */
   prefix?: string;
   /** 访问站点 */
-  endpoint?: string;
+  endpoint: string;
   /** 自定义域名 */
   domain?: string;
-  /** 是否https（Y=是,N=否） */
-  isHttps: string;
+  /** 是否https（NO=否 YES=是） */
+  isHttps: 'YES' | 'NO';
   /** 域 */
   region?: string;
-  /** 状态（0=正常,1=停用） */
-  status: string;
+  /** 桶权限类型（PUBLIC=公开 PRIVATE=私有 EXCEPTION=自定义） */
+  accessPolicy: 'PUBLIC' | 'PRIVATE' | 'CUSTOM';
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status: 'NORMAL' | 'DISABLE';
   /** 扩展字段 */
   ext1?: string;
   /** 备注 */
   remark?: string;
-  /** 桶权限类型(0private 1public 2custom) */
-  accessPolicy?: string;
 }
 
 /** 表格分页数据对象 */
@@ -1063,18 +1058,18 @@ export interface SysOssConfigEditBo {
   endpoint?: string;
   /** 自定义域名 */
   domain?: string;
-  /** 是否https（Y=是,N=否） */
-  isHttps?: string;
-  /** 是否默认（0=是,1=否） */
-  status?: string;
+  /** 是否https（NO=否 YES=是） */
+  isHttps?: 'YES' | 'NO';
+  /** 桶权限类型（PUBLIC=公开 PRIVATE=私有 EXCEPTION=自定义） */
+  accessPolicy?: 'PUBLIC' | 'PRIVATE' | 'CUSTOM';
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 域 */
   region?: string;
   /** 扩展字段 */
   ext1?: string;
   /** 备注 */
   remark?: string;
-  /** 桶权限类型(0private 1public 2custom) */
-  accessPolicy: string;
 }
 
 /** 对象存储配置新增业务对象 */
@@ -1113,18 +1108,18 @@ export interface SysOssConfigAddBo {
   endpoint: string;
   /** 自定义域名 */
   domain?: string;
-  /** 是否https（Y=是,N=否） */
-  isHttps?: string;
-  /** 是否默认（0=是,1=否） */
-  status?: string;
+  /** 是否https（NO=否 YES=是） */
+  isHttps?: 'YES' | 'NO';
+  /** 桶权限类型（PUBLIC=公开 PRIVATE=私有 EXCEPTION=自定义） */
+  accessPolicy: 'PUBLIC' | 'PRIVATE' | 'CUSTOM';
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 域 */
   region?: string;
   /** 扩展字段 */
   ext1?: string;
   /** 备注 */
   remark?: string;
-  /** 桶权限类型(0private 1public 2custom) */
-  accessPolicy: string;
 }
 
 /** 通知公告分页查询对象 */
@@ -1148,8 +1143,8 @@ export interface SysNoticePageQueryBo {
   isAsc?: string;
   /** 公告标题 */
   noticeTitle?: string;
-  /** 公告类型（1通知 2公告） */
-  noticeType?: string;
+  /** 公告类型（NOTICE=通知 BULLETIN=公告） */
+  noticeType?: 'NOTICE' | 'BULLETIN';
   /** 创建者 */
   createBy?: string;
 }
@@ -1177,12 +1172,12 @@ export interface SysNoticeVo {
   noticeId: number;
   /** 公告标题 */
   noticeTitle: string;
-  /** 公告类型（1通知 2公告） */
-  noticeType: string;
+  /** 公告类型（NOTICE=通知 BULLETIN=公告） */
+  noticeType: 'NOTICE' | 'BULLETIN';
   /** 公告内容 */
   noticeContent: string;
-  /** 公告状态（0正常 1关闭） */
-  status: string;
+  /** 公告状态（NORMAL=正常 DISABLE=关闭） */
+  status: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
 }
@@ -1224,12 +1219,12 @@ export interface SysNoticeEditBo {
    * @maxLength 50
    */
   noticeTitle?: string;
-  /** 公告类型（1通知 2公告） */
-  noticeType?: string;
+  /** 公告类型（NOTICE=通知 BULLETIN=公告） */
+  noticeType?: 'NOTICE' | 'BULLETIN';
   /** 公告内容 */
   noticeContent?: string;
-  /** 公告状态（0正常 1关闭） */
-  status?: string;
+  /** 公告状态（NORMAL=正常 DISABLE=关闭） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
 }
@@ -1242,12 +1237,12 @@ export interface SysNoticeAddBo {
    * @maxLength 50
    */
   noticeTitle: string;
-  /** 公告类型（1通知 2公告） */
-  noticeType: string;
+  /** 公告类型（NOTICE=通知 BULLETIN=公告） */
+  noticeType: 'NOTICE' | 'BULLETIN';
   /** 公告内容 */
   noticeContent: string;
-  /** 公告状态（0正常 1关闭） */
-  status: string;
+  /** 公告状态（NORMAL=正常 DISABLE=关闭） */
+  status: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
 }
@@ -1273,10 +1268,10 @@ export interface SysMenuQueryBo {
   isAsc?: string;
   /** 菜单名称 */
   menuName?: string;
-  /** 显示状态（0显示 1隐藏） */
-  visible?: string;
-  /** 菜单状态（0显示 1隐藏） */
-  status?: string;
+  /** 显示状态（Y显示 N隐藏） */
+  visible?: 'YES' | 'NO';
+  /** 菜单状态（N正常 D停用） */
+  status?: 'NORMAL' | 'DISABLE';
 }
 
 /** 响应信息主体 */
@@ -1293,13 +1288,13 @@ export interface RListTreeLong {
 }
 
 export interface TreeLong {
-  config?: TreeNodeConfig;
-  weight?: object;
   name?: object;
   /** @format int64 */
   id?: number;
+  weight?: object;
   /** @format int64 */
   parentId?: number;
+  config?: TreeNodeConfig;
   empty?: boolean;
   [key: string]: any;
 }
@@ -1370,16 +1365,16 @@ export interface SysMenuVo {
   component?: string;
   /** 路由参数 */
   queryParam?: string;
-  /** 是否为外链（0是 1否） */
-  isFrame: string;
-  /** 是否缓存（0缓存 1不缓存） */
-  isCache: string;
-  /** 类型（M目录 C菜单 F按钮） */
-  menuType: string;
-  /** 显示状态（0显示 1隐藏） */
-  visible: string;
-  /** 菜单状态（0显示 1隐藏） */
-  status: string;
+  /** 是否为外链（YES=缓存 NO=不缓存） */
+  isFrame: 'YES' | 'NO';
+  /** 是否缓存（YES=缓存 NO=不缓存） */
+  isCache: 'YES' | 'NO';
+  /** 类型（DIRECTORY=目录 MENU=菜单 BUTTON=按钮） */
+  menuType: 'DIRECTORY' | 'MENU' | 'BUTTON';
+  /** 显示状态（YES=显示 NO=隐藏） */
+  visible: 'YES' | 'NO';
+  /** 菜单状态（NORMAL=正常 DISABLE=停用） */
+  status: 'NORMAL' | 'DISABLE';
   /** 权限字符串 */
   perms?: string;
   /** 菜单图标 */
@@ -1443,16 +1438,16 @@ export interface SysMenu {
   component?: string;
   /** 路由参数 */
   queryParam?: string;
-  /** 是否为外链（0是 1否） */
-  isFrame?: string;
-  /** 是否缓存（0缓存 1不缓存） */
-  isCache?: string;
-  /** 类型（M目录 C菜单 F按钮） */
-  menuType: string;
-  /** 显示状态（0显示 1隐藏） */
-  visible?: string;
-  /** 菜单状态（0显示 1隐藏） */
-  status?: string;
+  /** 是否为外链（YES=是 NO=否） */
+  isFrame?: 'YES' | 'NO';
+  /** 是否缓存（YES=缓存 NO=不缓存） */
+  isCache?: 'YES' | 'NO';
+  /** 类型（DIRECTORY=目录 MENU=菜单 BUTTON=按钮） */
+  menuType: 'DIRECTORY' | 'MENU' | 'BUTTON';
+  /** 显示状态（YES=显示 NO=隐藏） */
+  visible?: 'YES' | 'NO';
+  /** 菜单状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /**
    * 权限字符串
    * @minLength 0
@@ -1497,16 +1492,16 @@ export interface SysMenuEditBo {
   component?: string;
   /** 路由参数 */
   queryParam?: string;
-  /** 是否为外链（0是 1否） */
-  isFrame?: string;
-  /** 是否缓存（0缓存 1不缓存） */
-  isCache?: string;
-  /** 类型（M目录 C菜单 F按钮） */
-  menuType?: string;
-  /** 显示状态（0显示 1隐藏） */
-  visible?: string;
-  /** 菜单状态（0显示 1隐藏） */
-  status?: string;
+  /** 是否为外链（Y是 N否） */
+  isFrame?: 'YES' | 'NO';
+  /** 是否缓存（Y缓存 N不缓存） */
+  isCache?: 'YES' | 'NO';
+  /** 类型（D目录 M菜单 B按钮） */
+  menuType?: 'DIRECTORY' | 'MENU' | 'BUTTON';
+  /** 显示状态（Y显示 N隐藏） */
+  visible?: 'YES' | 'NO';
+  /** 菜单状态（N正常 D停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /**
    * 权限字符串
    * @minLength 1
@@ -1555,16 +1550,16 @@ export interface SysMenuAddBo {
   component?: string;
   /** 路由参数 */
   queryParam?: string;
-  /** 是否为外链（0是 1否） */
-  isFrame?: string;
-  /** 是否缓存（0缓存 1不缓存） */
-  isCache?: string;
-  /** 类型（M目录 C菜单 F按钮） */
-  menuType: string;
-  /** 显示状态（0显示 1隐藏） */
-  visible?: string;
-  /** 菜单状态（0显示 1隐藏） */
-  status?: string;
+  /** 是否为外链（Y是 N否） */
+  isFrame?: 'YES' | 'NO';
+  /** 是否缓存（Y缓存 N不缓存） */
+  isCache?: 'YES' | 'NO';
+  /** 类型（D目录 M菜单 B按钮） */
+  menuType: 'DIRECTORY' | 'MENU' | 'BUTTON';
+  /** 显示状态（Y显示 N隐藏） */
+  visible?: 'YES' | 'NO';
+  /** 菜单状态（N正常 D停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /**
    * 权限字符串
    * @minLength 0
@@ -1615,8 +1610,8 @@ export interface BizLogininforPageQueryBo {
   browser?: string;
   /** 操作系统 */
   os?: string;
-  /** 登录状态（0成功 1失败） */
-  status?: string;
+  /** 登录状态（SUCCESS=成功 FAIL=失败） */
+  status?: 'SUCCESS' | 'FAIL';
   /** 提示消息 */
   msg?: string;
   /**
@@ -1667,8 +1662,8 @@ export interface BizLogininforVo {
   browser?: string;
   /** 操作系统 */
   os?: string;
-  /** 登录状态（0成功 1失败） */
-  status: string;
+  /** 登录状态（SUCCESS=成功 FAIL=失败） */
+  status: 'SUCCESS' | 'FAIL';
   /** 提示消息 */
   msg?: string;
   /**
@@ -1714,8 +1709,8 @@ export interface BizLogininforQueryBo {
   browser?: string;
   /** 操作系统 */
   os?: string;
-  /** 登录状态（0成功 1失败） */
-  status?: string;
+  /** 登录状态（SUCCESS=成功 FAIL=失败） */
+  status?: 'SUCCESS' | 'FAIL';
   /** 提示消息 */
   msg?: string;
   /**
@@ -1752,8 +1747,8 @@ export interface BizLogininforEditBo {
   browser?: string;
   /** 操作系统 */
   os?: string;
-  /** 登录状态（0成功 1失败） */
-  status: string;
+  /** 登录状态（SUCCESS=成功 FAIL=失败） */
+  status: 'SUCCESS' | 'FAIL';
   /** 提示消息 */
   msg?: string;
   /**
@@ -1775,8 +1770,8 @@ export interface BizLogininforAddBo {
   browser?: string;
   /** 操作系统 */
   os?: string;
-  /** 登录状态（0成功 1失败） */
-  status: string;
+  /** 登录状态（SUCCESS=成功 FAIL=失败） */
+  status: 'SUCCESS' | 'FAIL';
   /** 提示消息 */
   msg?: string;
   /**
@@ -1809,8 +1804,8 @@ export interface SysDictTypePageQueryBo {
   dictName?: string;
   /** 字典类型 */
   dictType?: string;
-  /** 状态（0正常 1停用） */
-  status?: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /**
    * 开始时间
    * @format date-time
@@ -1848,8 +1843,8 @@ export interface SysDictTypeVo {
   dictName: string;
   /** 字典类型 */
   dictType: string;
-  /** 状态（0正常 1停用） */
-  status: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
 }
@@ -1884,8 +1879,8 @@ export interface SysDictTypeQueryBo {
   dictName?: string;
   /** 字典类型 */
   dictType?: string;
-  /** 状态（0正常 1停用） */
-  status?: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /**
    * 开始时间
    * @format date-time
@@ -1909,8 +1904,8 @@ export interface SysDictTypeEditBo {
   dictName?: string;
   /** 字典类型 */
   dictType?: string;
-  /** 状态（0正常 1停用） */
-  status?: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
 }
@@ -1921,8 +1916,8 @@ export interface SysDictTypeAddBo {
   dictName: string;
   /** 字典类型 */
   dictType: string;
-  /** 状态（0正常 1停用） */
-  status?: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
 }
@@ -1950,8 +1945,8 @@ export interface SysDictDataPageQueryBo {
   dictLabel?: string;
   /** 字典类型 */
   dictType?: string;
-  /** 状态（0正常 1停用） */
-  status?: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
 }
 
 /** 字典数据视图对象 */
@@ -1990,10 +1985,10 @@ export interface SysDictDataVo {
   cssClass?: string;
   /** 表格字典样式 */
   listClass?: string;
-  /** 是否默认（Y是 N否） */
-  isDefault: string;
-  /** 状态（0正常 1停用） */
-  status: string;
+  /** 是否默认（YES=是 NO=否） */
+  isDefault: 'YES' | 'NO';
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
 }
@@ -2028,8 +2023,8 @@ export interface SysDictDataQueryBo {
   dictLabel?: string;
   /** 字典类型 */
   dictType?: string;
-  /** 状态（0正常 1停用） */
-  status?: string;
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
 }
 
 /** 字典数据编辑业务对象 */
@@ -2070,10 +2065,10 @@ export interface SysDictDataEditBo {
   cssClass?: string;
   /** 表格字典样式 */
   listClass?: string;
-  /** 是否默认（Y是 N否） */
-  isDefault?: string;
-  /** 状态（0正常 1停用） */
-  status?: string;
+  /** 是否默认（YES=是 NO=否） */
+  isDefault?: 'YES' | 'NO';
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
 }
@@ -2111,10 +2106,10 @@ export interface SysDictDataAddBo {
   cssClass?: string;
   /** 表格字典样式 */
   listClass?: string;
-  /** 是否默认（Y是 N否） */
-  isDefault?: string;
-  /** 状态（0正常 1停用） */
-  status?: string;
+  /** 是否默认（YES=是 NO=否） */
+  isDefault?: 'YES' | 'NO';
+  /** 状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
 }
@@ -2133,7 +2128,7 @@ export interface SysDeptQueryBo {
    * @format int64
    */
   parentId?: number;
-  /** 部门状态:0正常,1停用 */
+  /** 部门状态（NORMAL=正常 DISABLE=停用） */
   status?: string;
 }
 
@@ -2205,10 +2200,10 @@ export interface SysDept {
    * @maxLength 50
    */
   email?: string;
-  /** 部门状态:0正常,1停用 */
-  status?: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag?: string;
+  /** 部门状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
+  /** 删除标志（EXIST=代表存在 DELETED=代表删除） */
+  delFlag?: 'EXIST' | 'DELETED';
   /** 祖级列表 */
   ancestors?: string;
 }
@@ -2245,9 +2240,9 @@ export interface SysDeptEditBo {
    * @maxLength 50
    */
   email?: string;
-  /** 部门状态:0正常,1停用 */
+  /** 部门状态（NORMAL=正常 DISABLE=停用） */
   status?: string;
-  /** 删除标志（0代表存在 2代表删除） */
+  /** 删除标志（EXIST=代表存在 DELETED=代表删除） */
   delFlag?: string;
   /** 祖级列表 */
   ancestors?: string;
@@ -2289,9 +2284,9 @@ export interface SysDeptAddBo {
    * @maxLength 50
    */
   email?: string;
-  /** 部门状态:0正常,1停用 */
+  /** 部门状态（NORMAL=正常 DISABLE=停用） */
   status?: string;
-  /** 删除标志（0代表存在 2代表删除） */
+  /** 删除标志（EXIST=代表存在 DELETED=代表删除） */
   delFlag?: string;
   /** 祖级列表 */
   ancestors?: string;
@@ -2325,14 +2320,16 @@ export interface SysConfigEditBo {
    * @maxLength 100
    */
   configKey?: string;
+  /** 参数值类型 */
+  valueType?: 'TEXT' | 'BOOLEAN' | 'DATETIME';
   /**
    * 参数键值
    * @minLength 1
    * @maxLength 500
    */
   configValue?: string;
-  /** 系统内置（Y是 N否） */
-  configType?: string;
+  /** 系统内置（YES=是 NO=否） */
+  configType?: 'YES' | 'NO';
   /** 备注 */
   remark?: string;
 }
@@ -2360,8 +2357,8 @@ export interface SysConfigPageQueryBo {
   configName?: string;
   /** 参数键名 */
   configKey?: string;
-  /** 系统内置（Y是 N否） */
-  configType?: string;
+  /** 系统内置（YES=是 NO=否） */
+  configType?: 'YES' | 'NO';
   /**
    * 开始时间
    * @format date-time
@@ -2401,8 +2398,8 @@ export interface SysConfigVo {
   configKey: string;
   /** 参数键值 */
   configValue: string;
-  /** 系统内置（Y是 N否） */
-  configType: string;
+  /** 系统内置（YES=是 NO=否） */
+  configType: 'YES' | 'NO';
   /** 备注 */
   remark?: string;
 }
@@ -2437,8 +2434,8 @@ export interface SysConfigQueryBo {
   configName?: string;
   /** 参数键名 */
   configKey?: string;
-  /** 系统内置（Y是 N否） */
-  configType?: string;
+  /** 系统内置（YES=是 NO=否） */
+  configType?: 'YES' | 'NO';
   /**
    * 开始时间
    * @format date-time
@@ -2465,14 +2462,16 @@ export interface SysConfigAddBo {
    * @maxLength 100
    */
   configKey: string;
+  /** 参数值类型 */
+  valueType: 'TEXT' | 'BOOLEAN' | 'DATETIME';
   /**
    * 参数键值
    * @minLength 1
    * @maxLength 500
    */
   configValue: string;
-  /** 系统内置（Y是 N否） */
-  configType?: string;
+  /** 系统内置（YES=是 NO=否） */
+  configType?: 'YES' | 'NO';
   /** 备注 */
   remark?: string;
 }
@@ -2515,7 +2514,7 @@ export interface UserNameRegisterBo {
   /** 唯一标识 */
   uuid: string;
   /** 用户类型 */
-  userType?: string;
+  userType?: 'PC' | 'ANDROID' | 'IOS' | 'WXAPP' | 'WXMP' | 'ALIPAYAPP';
 }
 
 /** 操作日志记录分页查询对象 */
@@ -2539,20 +2538,14 @@ export interface SysOperLogPageQueryBo {
   isAsc?: string;
   /** 操作模块 */
   title?: string;
-  /**
-   * 业务类型（0其它 1新增 2修改 3删除）
-   * @format int32
-   */
-  businessType?: number;
+  /** 业务类型（ADD=新增 MODIFY=修改 DELETE=删除 GRANT=授权 EXPORT=导出 IMPORT=导入 FORCED=强退 GENCODE=生成代码 CLEAR=清空数据 OTHER=其他） */
+  businessType?: 'ADD' | 'MODIFY' | 'DELETE' | 'GRANT' | 'EXPORT' | 'IMPORT' | 'FORCED' | 'GENCODE' | 'CLEAR' | 'OTHER';
   /** 业务类型数组 */
   businessTypes?: number[];
   /** 操作人员 */
   operName?: string;
-  /**
-   * 操作状态（0正常 1异常）
-   * @format int32
-   */
-  status?: number;
+  /** 操作状态（NORMAL=正常 EXCEPTION=异常） */
+  status?: 'NORMAL' | 'EXCEPTION';
   /**
    * 开始时间
    * @format date-time
@@ -2574,22 +2567,16 @@ export interface SysOperLogVo {
   operId: number;
   /** 操作模块 */
   title: string;
-  /**
-   * 业务类型（0其它 1新增 2修改 3删除）
-   * @format int32
-   */
-  businessType: number;
+  /** 业务类型（ADD=新增 MODIFY=修改 DELETE=删除 GRANT=授权 EXPORT=导出 IMPORT=导入 FORCED=强退 GENCODE=生成代码 CLEAR=清空数据 OTHER=其他） */
+  businessType: 'ADD' | 'MODIFY' | 'DELETE' | 'GRANT' | 'EXPORT' | 'IMPORT' | 'FORCED' | 'GENCODE' | 'CLEAR' | 'OTHER';
   /** 业务类型数组 */
   businessTypes: number[];
   /** 请求方法 */
   method: string;
   /** 请求方式 */
   requestMethod: string;
-  /**
-   * 操作类别（0其它 1后台用户 2手机端用户）
-   * @format int32
-   */
-  operatorType: number;
+  /** 操作类别（PC=电脑端 ANDROID=安卓app端 IOS=苹果app端 WXAPP=微信小程序端 WXMP=微信公众号端 ALIPAYAPP=支付宝小程序端） */
+  operatorType: 'PC' | 'ANDROID' | 'IOS' | 'WXAPP' | 'WXMP' | 'ALIPAYAPP';
   /** 操作人员 */
   operName: string;
   /** 部门名称 */
@@ -2604,11 +2591,8 @@ export interface SysOperLogVo {
   operParam: string;
   /** 返回参数 */
   jsonResult?: string;
-  /**
-   * 操作状态（0正常 1异常）
-   * @format int32
-   */
-  status: number;
+  /** 操作状态（NORMAL=正常 EXCEPTION=异常） */
+  status: 'NORMAL' | 'EXCEPTION';
   /** 错误消息 */
   errorMsg?: string;
   /**
@@ -2646,20 +2630,14 @@ export interface TableDataSysOperLogVo {
 export interface SysOperLogQueryBo {
   /** 操作模块 */
   title?: string;
-  /**
-   * 业务类型（0其它 1新增 2修改 3删除）
-   * @format int32
-   */
-  businessType?: number;
+  /** 业务类型（ADD=新增 MODIFY=修改 DELETE=删除 GRANT=授权 EXPORT=导出 IMPORT=导入 FORCED=强退 GENCODE=生成代码 CLEAR=清空数据 OTHER=其他） */
+  businessType?: 'ADD' | 'MODIFY' | 'DELETE' | 'GRANT' | 'EXPORT' | 'IMPORT' | 'FORCED' | 'GENCODE' | 'CLEAR' | 'OTHER';
   /** 业务类型数组 */
   businessTypes?: number[];
   /** 操作人员 */
   operName?: string;
-  /**
-   * 操作状态（0正常 1异常）
-   * @format int32
-   */
-  status?: number;
+  /** 操作状态（NORMAL=正常 EXCEPTION=异常） */
+  status?: 'NORMAL' | 'EXCEPTION';
   /**
    * 开始时间
    * @format date-time
@@ -2693,8 +2671,8 @@ export interface SysLogininforPageQueryBo {
   isAsc?: string;
   /** 用户账号 */
   userName?: string;
-  /** 登录状态 0成功 1失败 */
-  status?: string;
+  /** 登录状态（SUCCESS=成功 FAIL=失败） */
+  status?: 'SUCCESS' | 'FAIL';
   /** 登录IP地址 */
   ipaddr?: string;
   /**
@@ -2718,8 +2696,8 @@ export interface SysLogininforVo {
   infoId: number;
   /** 用户账号 */
   userName: string;
-  /** 登录状态 0成功 1失败 */
-  status: string;
+  /** 登录状态（SUCCESS=成功 FAIL=失败） */
+  status: 'SUCCESS' | 'FAIL';
   /** 登录IP地址 */
   ipaddr: string;
   /** 登录地点 */
@@ -2765,8 +2743,8 @@ export interface TableDataSysLogininforVo {
 export interface SysLogininforQueryBo {
   /** 用户账号 */
   userName?: string;
-  /** 登录状态 0成功 1失败 */
-  status?: string;
+  /** 登录状态（SUCCESS=成功 FAIL=失败） */
+  status?: 'SUCCESS' | 'FAIL';
   /** 登录IP地址 */
   ipaddr?: string;
   /**
@@ -2822,20 +2800,20 @@ export interface BizUserPageQueryBo {
   userName?: string;
   /** 用户昵称 */
   nickName?: string;
-  /** 用户类型（app_userAPP用户，wxapp_user微信小程序） */
-  userType?: string;
+  /** 用户类型（PC=电脑端 ANDROID=安卓app端 IOS=苹果app端 WXAPP=微信小程序端 WXMP=微信公众号端 ALIPAYAPP=支付宝小程序端） */
+  userType?: 'PC' | 'ANDROID' | 'IOS' | 'WXAPP' | 'WXMP' | 'ALIPAYAPP';
   /** 用户邮箱 */
   email?: string;
   /** 手机号码 */
   phoneNumber?: string;
-  /** 用户性别（1男 2女 0未知） */
-  sex?: string;
+  /** 用户性别（UNKNOWN=未知 MAN=男 WOMAN=女） */
+  sex?: 'UNKNOWN' | 'MAN' | 'WOMAN';
   /** 头像地址 */
   avatar?: string;
   /** 密码 */
   password?: string;
-  /** 帐号状态（0正常 1停用） */
-  status?: string;
+  /** 帐号状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 国家 */
   country?: string;
   /** 省份 */
@@ -2892,28 +2870,28 @@ export interface BizUserVo {
   userName: string;
   /** 用户昵称 */
   nickName: string;
-  /** 用户类型（app_userAPP用户，wxapp_user微信小程序） */
-  userType: string;
+  /** 用户类型（PC=电脑端 ANDROID=安卓app端 IOS=苹果app端 WXAPP=微信小程序端 WXMP=微信公众号端 ALIPAYAPP=支付宝小程序端） */
+  userType: 'PC' | 'ANDROID' | 'IOS' | 'WXAPP' | 'WXMP' | 'ALIPAYAPP';
   /** 用户邮箱 */
   email?: string;
   /** 手机号码 */
   phoneNumber?: string;
-  /** 用户性别 */
+  /** 用户性别（UNKNOWN=未知 MAN=男 WOMAN=女） */
   sex: string;
   /** 用户头像 */
   avatar?: string;
   /** 密码 */
   password?: string;
-  /** 帐号状态（0正常 1停用） */
-  status: string;
+  /** 帐号状态（NORMAL=正常 DISABLE=停用） */
+  status: 'NORMAL' | 'DISABLE';
   /** 国家 */
   country?: string;
   /** 省份 */
   province?: string;
   /** 城市 */
   city?: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag: string;
+  /** 删除标志（EXIST=代表存在 DELETED=代表删除） */
+  delFlag: 'EXIST' | 'DELETED';
   /** 最后登录IP */
   loginIp: string;
   /**
@@ -2961,20 +2939,20 @@ export interface BizUserQueryBo {
   userName?: string;
   /** 用户昵称 */
   nickName?: string;
-  /** 用户类型（app_userAPP用户，wxapp_user微信小程序） */
-  userType?: string;
+  /** 用户类型（PC=电脑端 ANDROID=安卓app端 IOS=苹果app端 WXAPP=微信小程序端 WXMP=微信公众号端 ALIPAYAPP=支付宝小程序端） */
+  userType?: 'PC' | 'ANDROID' | 'IOS' | 'WXAPP' | 'WXMP' | 'ALIPAYAPP';
   /** 用户邮箱 */
   email?: string;
   /** 手机号码 */
   phoneNumber?: string;
-  /** 用户性别（1男 2女 0未知） */
-  sex?: string;
+  /** 用户性别（UNKNOWN=未知 MAN=男 WOMAN=女） */
+  sex?: 'UNKNOWN' | 'MAN' | 'WOMAN';
   /** 头像地址 */
   avatar?: string;
   /** 密码 */
   password?: string;
-  /** 帐号状态（0正常 1停用） */
-  status?: string;
+  /** 帐号状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 国家 */
   country?: string;
   /** 省份 */
@@ -3017,28 +2995,26 @@ export interface BizUserEditBo {
   userName: string;
   /** 用户昵称 */
   nickName?: string;
-  /** 用户类型（app_userAPP用户，wxapp_user微信小程序） */
-  userType?: string;
+  /** 用户类型（PC=电脑端 ANDROID=安卓app端 IOS=苹果app端 WXAPP=微信小程序端 WXMP=微信公众号端 ALIPAYAPP=支付宝小程序端） */
+  userType?: 'PC' | 'ANDROID' | 'IOS' | 'WXAPP' | 'WXMP' | 'ALIPAYAPP';
   /** 用户邮箱 */
   email?: string;
   /** 手机号码 */
   phoneNumber: string;
-  /** 用户性别（1男 2女 0未知） */
-  sex?: string;
+  /** 用户性别（UNKNOWN=未知 MAN=男 WOMAN=女） */
+  sex?: 'UNKNOWN' | 'MAN' | 'WOMAN';
   /** 头像地址 */
   avatar?: string;
   /** 密码 */
   password?: string;
-  /** 帐号状态（0正常 1停用） */
-  status?: string;
+  /** 帐号状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 国家 */
   country?: string;
   /** 省份 */
   province?: string;
   /** 城市 */
   city?: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag?: string;
   /** 最后登录IP */
   loginIp?: string;
   /**
@@ -3064,28 +3040,26 @@ export interface BizUserAddBo {
   userName: string;
   /** 用户昵称 */
   nickName?: string;
-  /** 用户类型（app_userAPP用户，wxapp_user微信小程序） */
+  /** 用户类型（PC=电脑端 ANDROID=安卓app端 IOS=苹果app端 WXAPP=微信小程序端 WXMP=微信公众号端 ALIPAYAPP=支付宝小程序端） */
   userType?: string;
   /** 用户邮箱 */
   email?: string;
   /** 手机号码 */
   phoneNumber: string;
-  /** 用户性别（1男 2女 0未知） */
-  sex?: string;
+  /** 用户性别（UNKNOWN=未知 MAN=男 WOMAN=女） */
+  sex?: 'UNKNOWN' | 'MAN' | 'WOMAN';
   /** 头像地址 */
   avatar?: string;
   /** 密码 */
   password?: string;
-  /** 帐号状态（0正常 1停用） */
-  status?: string;
+  /** 帐号状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 国家 */
   country?: string;
   /** 省份 */
   province?: string;
   /** 城市 */
   city?: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag?: string;
   /** 最后登录IP */
   loginIp?: string;
   /**
@@ -3198,8 +3172,8 @@ export interface SysUser {
    * @maxLength 30
    */
   nickName: string;
-  /** 用户类型 */
-  userType?: string;
+  /** 用户类型（PC=电脑端 ANDROID=安卓app端 IOS=苹果app端 WXAPP=微信小程序端 WXMP=微信公众号端 ALIPAYAPP=支付宝小程序端） */
+  userType?: 'PC' | 'ANDROID' | 'IOS' | 'WXAPP' | 'WXMP' | 'ALIPAYAPP';
   /**
    * 用户邮箱
    * @minLength 0
@@ -3208,16 +3182,16 @@ export interface SysUser {
   email?: string;
   /** 手机号码 */
   phoneNumber?: string;
-  /** 用户性别 */
-  sex?: string;
+  /** 用户性别（UNKNOWN=未知 MAN=男 WOMAN=女） */
+  sex?: 'UNKNOWN' | 'MAN' | 'WOMAN';
   /** 用户头像 */
   avatar?: string;
   /** 密码 */
   password: string;
-  /** 帐号状态（0正常 1停用） */
-  status?: string;
-  /** 删除标志（0代表存在 2代表删除） */
-  delFlag?: string;
+  /** 帐号状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
+  /** 删除标志（EXIST=代表存在 DELETED=代表删除） */
+  delFlag?: 'EXIST' | 'DELETED';
   /** 最后登录IP */
   loginIp?: string;
   /**

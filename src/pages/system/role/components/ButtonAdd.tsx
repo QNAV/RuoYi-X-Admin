@@ -74,8 +74,8 @@ const ButtonAdd: FC = () => {
     await sysRolePostAdd({
       ...values,
       menuIds: [],
-      menuCheckStrictly: false,
-      deptCheckStrictly: false,
+      menuCheckStrictly: 'NO',
+      deptCheckStrictly: 'NO',
     });
 
     roleListActions?.reload();

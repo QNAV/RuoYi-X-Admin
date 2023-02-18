@@ -1,4 +1,4 @@
-import { GenType, GenTypeMap, TemplateTypeMap } from '@/constants';
+import { GenTypeMap, TemplateTypeMap } from '@/constants';
 import type { GenTable } from '@/services/gen/data-contracts';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
@@ -47,7 +47,7 @@ const DescBase: FC<{
           { title: '生成业务名', dataIndex: 'businessName', key: 'businessName', valueType: 'text' },
           { title: '生成功能名', dataIndex: 'functionName', key: 'functionName', valueType: 'text' },
           { title: '生成代码方式', dataIndex: 'genType', key: 'genType', valueType: 'select', valueEnum: GenTypeMap },
-          ...(dataSource?.genType === GenType.ZIP
+          ...(dataSource?.genType === 'ZIP'
             ? []
             : [{ title: '自定义路径', dataIndex: 'genPath', key: 'genPath', valueType: 'text' }]),
         ]}

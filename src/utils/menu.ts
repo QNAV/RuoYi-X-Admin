@@ -1,4 +1,3 @@
-import { MenuType } from '@/constants';
 import type { SysMenuVo } from '@/services/system/data-contracts';
 
 interface OptionsParentId {
@@ -26,8 +25,8 @@ export const sortByOrderNum = (data: SysMenuVo[]): SysMenuVo[] => {
     return item;
   });
 
-  const directoryAndMenuList = handleSort(newData.filter((item) => item.menuType !== MenuType.F));
-  const buttonList = handleSort(newData.filter((item) => item.menuType === MenuType.F));
+  const directoryAndMenuList = handleSort(newData.filter((item) => item.menuType !== 'BUTTON'));
+  const buttonList = handleSort(newData.filter((item) => item.menuType === 'BUTTON'));
 
   return [...directoryAndMenuList, ...buttonList];
 };
@@ -35,7 +34,7 @@ export const sortByOrderNum = (data: SysMenuVo[]): SysMenuVo[] => {
 export const getOptions = (data?: SysMenuVo[]): OptionsParentId[] => {
   const formatOptions = (items: SysMenuVo[]): OptionsParentId[] => {
     return items
-      .filter((item) => item.menuType !== MenuType.F)
+      .filter((item) => item.menuType !== 'BUTTON')
       .map(({ menuId, menuName, children }) => {
         return { menuId: menuId!, menuName, children: children ? formatOptions(children) : [] };
       });
@@ -60,7 +59,7 @@ export const getSelectedParentIds = (data: Map<number, SysMenuVo>, menuId: numbe
       findParentId(menu.parentId);
     }
 
-    if (menu.menuType !== MenuType.F) {
+    if (menu.menuType !== 'BUTTON') {
       parentIds.push(id);
     }
   };

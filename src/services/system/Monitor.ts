@@ -185,7 +185,7 @@ export const sysUserOnlinePostForceLogoutSkipErrorHandler = (
 /**
  * @description 删除系统访问记录
  *
- * @tags SysLoginService
+ * @tags SysLogininforService
  * @name sysLogininforPostRemove
  * @request POST:/monitor/logininfor/remove
  * @secure
@@ -223,7 +223,7 @@ export const sysLogininforPostRemoveSkipErrorHandler = (
 /**
  * @description 查询系统访问记录列表
  *
- * @tags SysLoginService
+ * @tags SysLogininforService
  * @name sysLogininforPostList
  * @request POST:/monitor/logininfor/list
  * @secure
@@ -251,7 +251,7 @@ export const sysLogininforPostListSkipErrorHandler = (data: SysLogininforPageQue
 /**
  * @description 导出系统访问记录列表
  *
- * @tags SysLoginService
+ * @tags SysLogininforService
  * @name sysLogininforPostExport
  * @request POST:/monitor/logininfor/export
  * @secure
@@ -279,7 +279,7 @@ export const sysLogininforPostExportSkipErrorHandler = (data: SysLogininforQuery
 /**
  * @description 清空系统访问记录
  *
- * @tags SysLoginService
+ * @tags SysLogininforService
  * @name sysLogininforPostClean
  * @request POST:/monitor/logininfor/clean
  * @secure
@@ -345,7 +345,7 @@ export const sysUserOnlineGetListSkipErrorHandler = (
 /**
  * @description 账户解锁
  *
- * @tags SysLoginService
+ * @tags SysLogininforService
  * @name unlock
  * @summary 账户解锁
  * @request GET:/monitor/logininfor/unlock/{userName}

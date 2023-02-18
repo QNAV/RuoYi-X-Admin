@@ -17,7 +17,9 @@ const titleRender: TreeProps<any>['titleRender'] = (itemData: SysDeptVo) => {
       <Space>
         {itemData.deptName}
 
-        <Tag color={itemData.status === '0' ? 'success' : 'error'}>{itemData.status === '0' ? '启用中' : '已禁用'}</Tag>
+        <Tag color={itemData.status === 'NORMAL' ? 'success' : 'error'}>
+          {itemData.status === 'NORMAL' ? '启用中' : '已禁用'}
+        </Tag>
       </Space>
     </>
   );

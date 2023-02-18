@@ -383,8 +383,6 @@ export const sysUserPostImportData = (
   query: {
     /** 是否更新已存在数据 */
     updateSupport: boolean;
-    /** 导入文件 */
-    file: any;
   },
   data: {
     /**
@@ -409,8 +407,6 @@ export const sysUserPostImportDataSkipErrorHandler = (
   query: {
     /** 是否更新已存在数据 */
     updateSupport: boolean;
-    /** 导入文件 */
-    file: any;
   },
   data: {
     /**
