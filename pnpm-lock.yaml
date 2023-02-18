@@ -11,11 +11,11 @@ dependencies:
     specifier: ^2.4.25
     version: 2.4.25
   '@tanstack/react-query':
-    specifier: ^4.24.6
-    version: 4.24.6(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^4.24.9
+    version: 4.24.9(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/react-query-devtools':
-    specifier: ^4.24.6
-    version: 4.24.6(@tanstack/react-query@4.24.6)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^4.24.9
+    version: 4.24.9(@tanstack/react-query@4.24.9)(react-dom@18.2.0)(react@18.2.0)
   '@wangeditor/editor':
     specifier: ^5.1.23
     version: 5.1.23
@@ -1818,27 +1818,27 @@ packages:
       remove-accents: 0.4.2
     dev: false
 
-  /@tanstack/query-core@4.24.6:
-    resolution: {integrity: sha512-Tfru6YTDTCpX7dKVwHp/sosw/dNjEdzrncduUjIkQxn7n7u+74HT2ZrGtwwrU6Orws4x7zp3FKRqBPWVVhpx9w==}
+  /@tanstack/query-core@4.24.9:
+    resolution: {integrity: sha512-pZQ2NpdaHzx8gPPkAPh06d6zRkjfonUzILSYBXrdHDapP2eaBbGsx5L4/dMF+fyAglFzQZdDDzZgAykbM20QVw==}
     dev: false
 
-  /@tanstack/react-query-devtools@4.24.6(@tanstack/react-query@4.24.6)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-d8CN4ZTtLkdCNi9x4Hogma0fdhlv7ckknv/RLuV4nbUciUoZEvhg1cI0+vp/1aY4W3jq9vH0BD/eUQKecgY15Q==}
+  /@tanstack/react-query-devtools@4.24.9(@tanstack/react-query@4.24.9)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-NPsVf3pLMjH/XNTT5iP1q6isEBNE4kWF/IBSbxNUt0tDWK1nS1qgWr9ySTXwimsAHOWMjHkFuUF8VBRmz+axKg==}
     peerDependencies:
-      '@tanstack/react-query': 4.24.6
+      '@tanstack/react-query': 4.24.9
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       '@tanstack/match-sorter-utils': 8.7.6
-      '@tanstack/react-query': 4.24.6(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query': 4.24.9(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       superjson: 1.12.2
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-query@4.24.6(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-pbJUVZCS4pcXS0kZiY+mVJ01ude0GrH5OXT2g9whcqSveRG/YVup/XdA9NdRpSMGkP2HxDRxxRNsTXkniWeIIA==}
+  /@tanstack/react-query@4.24.9(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-6WLwUT9mrngIinRtcZjrWOUENOuLbWvQpKmU6DZCo2iPQVA+qvv3Ji90Amme4AkUyWQ8ZSSRTnAFq8V2tj2ACg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -1849,7 +1849,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 4.24.6
+      '@tanstack/query-core': 4.24.9
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
@@ -7029,8 +7029,8 @@ packages:
       source-map-support: 0.3.3
     dev: false
 
-  /rollup@3.16.0:
-    resolution: {integrity: sha512-9wE1H5N1SJqnROpQanBGJ7lrIitwlUYGj4Va4eyf3+vNhoIHLPLag2/CUGIiq3V9lHOBJB6zTsGsPvc50oeihg==}
+  /rollup@3.17.0:
+    resolution: {integrity: sha512-0zZQ0J4p0ZtTla6l8sheDTUyNfGZQDpU5h0nPHf6xtUXIzKK70LmB2IRR0wLnzaL8a02fjmsJy+XCncbSwOpjg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -8192,7 +8192,7 @@ packages:
       less: 4.1.3
       postcss: 8.4.21
       resolve: 1.22.1
-      rollup: 3.16.0
+      rollup: 3.17.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
