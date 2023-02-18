@@ -1,7 +1,8 @@
 import { EmptySimple } from '@/components';
-import { OptionsDataScope } from '@/constants';
 import { AccessWithState } from '@/features';
+import { useQueryDictSysDataScope } from '@/models';
 import { useAtomValueRoleDetails, useQueryRoleDetails } from '@/pages/system/role/model';
+import type { SysRoleVo } from '@/services/system/data-contracts';
 import { sysRoleGetRoleDeptTreeSelect, sysRolePostDataScope } from '@/services/system/System';
 import type { TreeData } from '@/utils';
 import { filterCheckedTree, getExpandedKeys, getMenuIds } from '@/utils';
@@ -22,10 +23,12 @@ const TreeDept: FC = () => {
   const [checkAll, setCheckAll] = useState(false);
   const [indeterminate, setIndeterminate] = useState(true);
 
-  const [dataScope, setDataScope] = useState<string>();
+  const [dataScope, setDataScope] = useState<SysRoleVo['dataScope']>();
   const formRef = useRef<ProFormInstance>();
 
   const { open, roleId } = useAtomValueRoleDetails();
+
+  const { valueEnumSysDataScope } = useQueryDictSysDataScope();
 
   const { refetch } = useQueryRoleDetails(({ dataScope }) => {
     setDataScope(dataScope);
@@ -109,8 +112,8 @@ const TreeDept: FC = () => {
           <ProFormSelect
             name="dataScope"
             label="数据权限范围"
+            valueEnum={valueEnumSysDataScope}
             fieldProps={{
-              options: OptionsDataScope,
               onChange: (value) => {
                 setDataScope(value);
               },
@@ -152,7 +155,7 @@ const TreeDept: FC = () => {
         </AccessWithState>
       </header>
 
-      {dataScope === '2' && (
+      {dataScope === 'CUSTOM' && (
         <>
           <Space wrap className="my-2">
             {treeData.length > 0 && (

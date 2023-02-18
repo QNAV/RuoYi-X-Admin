@@ -17,7 +17,7 @@ const useQueryDict = (dictType: string) => {
   );
 };
 
-// sys_normal_disable
+// sys_normal_disable 系统开关
 export const useQueryDictSysNormalDisable = () => {
   const { data } = useQueryDict('sys_normal_disable');
   const defaultValueSysNormalDisable: string | null = data?.defaultValue ?? null;
@@ -39,7 +39,7 @@ export const useQueryDictSysShowHide = () => {
   };
 };
 
-// sys_yes_no
+// sys_yes_no 系统是否
 export const useQueryDictSysYesNo = () => {
   const { data } = useQueryDict('sys_yes_no');
   const defaultValueSysYesNo: string | null = data?.defaultValue ?? null;
@@ -50,7 +50,7 @@ export const useQueryDictSysYesNo = () => {
   };
 };
 
-// sys_notice_type
+// sys_notice_type 通知类型
 export const useQueryDictSysNoticeType = () => {
   const { data } = useQueryDict('sys_notice_type');
   const defaultValueSysNoticeType: string | null = data?.defaultValue ?? null;
@@ -61,7 +61,7 @@ export const useQueryDictSysNoticeType = () => {
   };
 };
 
-// sys_notice_status
+// sys_notice_status 通知状态
 export const useQueryDictSysNoticeStatus = () => {
   const { data } = useQueryDict('sys_notice_status');
   const defaultValueSysNoticeStatus: string | null = data?.defaultValue ?? null;
@@ -72,7 +72,7 @@ export const useQueryDictSysNoticeStatus = () => {
   };
 };
 
-// sys_oper_type
+// sys_oper_type 操作类型
 export const useQueryDictSysOperType = () => {
   const { data } = useQueryDict('sys_oper_type');
   const defaultValueSysOperType: string | null = data?.defaultValue ?? null;
@@ -80,17 +80,6 @@ export const useQueryDictSysOperType = () => {
   return {
     defaultValueSysOperType,
     valueEnumSysOperType,
-  };
-};
-
-// sys_common_status
-export const useQueryDictSysCommonStatus = () => {
-  const { data } = useQueryDict('sys_common_status');
-  const defaultValueSysCommonStatus: string | null = data?.defaultValue ?? null;
-  const valueEnumSysCommonStatus: ValueEnumMap<string> = data?.valueEnum ?? new Map();
-  return {
-    defaultValueSysCommonStatus,
-    valueEnumSysCommonStatus,
   };
 };
 
@@ -102,5 +91,71 @@ export const useQueryDictSysUserSex = () => {
   return {
     defaultValueSysUserSex,
     valueEnumSysUserSex,
+  };
+};
+
+// sys_menu_type 菜单类型
+export const useQueryDictSysMenuType = () => {
+  const { data } = useQueryDict('sys_menu_type');
+  const defaultValueSysMenuType: string | null = data?.defaultValue ?? null;
+  const valueEnumSysMenuType: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysMenuType,
+    valueEnumSysMenuType,
+  };
+};
+
+// sys_gen_type 生成代码方式
+export const useQueryDictSysGenType = () => {
+  const { data } = useQueryDict('sys_gen_type');
+  const defaultValueSysGenType: string | null = data?.defaultValue ?? null;
+  const valueEnumSysGenType: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysGenType,
+    valueEnumSysGenType,
+  };
+};
+
+// sys_query_type 查询方式
+export const useQueryDictSysQueryType = () => {
+  const { data } = useQueryDict('sys_query_type');
+  const defaultValueSysQueryType: string | null = data?.defaultValue ?? null;
+  const valueEnumSysQueryType: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysQueryType,
+    valueEnumSysQueryType,
+  };
+};
+
+// sys_tpl_category 生成模版类型
+export const useQueryDictSysTplCategory = () => {
+  const { data } = useQueryDict('sys_tpl_category');
+  const defaultValueSysTplCategory: string | null = data?.defaultValue ?? null;
+  const valueEnumSysTplCategory: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysTplCategory,
+    valueEnumSysTplCategory,
+  };
+};
+
+// sys_java_type JAVA类型
+export const useQueryDictSysJavaType = () => {
+  const { data } = useQueryDict('sys_java_type');
+  const defaultValueSysJavaType: string | null = data?.defaultValue ?? null;
+  const valueEnumSysJavaType: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysJavaType,
+    valueEnumSysJavaType,
+  };
+};
+
+// sys_data_scope 数据权限范围
+export const useQueryDictSysDataScope = () => {
+  const { data } = useQueryDict('sys_data_scope');
+  const defaultValueSysDataScope: string | null = data?.defaultValue ?? null;
+  const valueEnumSysDataScope: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysDataScope,
+    valueEnumSysDataScope,
   };
 };

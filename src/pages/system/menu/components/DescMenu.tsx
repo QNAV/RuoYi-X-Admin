@@ -1,7 +1,6 @@
 import { EmptySimple } from '@/components';
-import { MenuType, MenuTypeMap } from '@/constants';
 import { useCheckAccess } from '@/hooks';
-import { useQueryDictSysNormalDisable, useQueryDictSysShowHide, useQueryDictSysYesNo } from '@/models';
+import { useQueryDictSysMenuType, useQueryDictSysNormalDisable, useQueryDictSysYesNo } from '@/models';
 import { useAtomValueSelectedMenuData, useReFetchMenuList, useReFetchMenuOptions } from '@/pages/system/menu/model';
 import type { SysMenuVo } from '@/services/system/data-contracts';
 import { sysMenuGetInfo, sysMenuPostEdit } from '@/services/system/System';
@@ -15,9 +14,8 @@ import { useMemo, useState } from 'react';
 
 const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl: 2 };
 
-const useColumns = (menuType?: string): ProDescriptionsProps['columns'] => {
+const useColumns = (menuType?: SysMenuVo['menuType']): ProDescriptionsProps['columns'] => {
   const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
-  const { valueEnumSysShowHide } = useQueryDictSysShowHide();
   const { valueEnumSysYesNo } = useQueryDictSysYesNo();
 
   return useMemo(() => {
@@ -25,7 +23,7 @@ const useColumns = (menuType?: string): ProDescriptionsProps['columns'] => {
 
     if (!menuType) return [];
 
-    if (menuType !== MenuType.F) {
+    if (menuType !== 'BUTTON') {
       columns.push(
         {
           title: '状态',
@@ -39,7 +37,7 @@ const useColumns = (menuType?: string): ProDescriptionsProps['columns'] => {
           dataIndex: 'visible',
           key: 'visible',
           valueType: 'radio',
-          valueEnum: valueEnumSysShowHide,
+          valueEnum: valueEnumSysYesNo,
           tooltip: '选择否则路由将不会出现在侧边栏，但仍然可以访问',
         },
         {
@@ -67,7 +65,7 @@ const useColumns = (menuType?: string): ProDescriptionsProps['columns'] => {
       );
     }
 
-    if (menuType === MenuType.C) {
+    if (menuType === 'MENU') {
       columns.push({
         title: '路由参数',
         dataIndex: 'queryParam',
@@ -77,7 +75,7 @@ const useColumns = (menuType?: string): ProDescriptionsProps['columns'] => {
       });
     }
 
-    if (menuType !== MenuType.M) {
+    if (menuType !== 'DIRECTORY') {
       columns.push({ title: '权限标识', dataIndex: 'perms', key: 'perms', valueType: 'text', copyable: true });
     }
 
@@ -88,6 +86,8 @@ const useColumns = (menuType?: string): ProDescriptionsProps['columns'] => {
 const DescMenu: FC = () => {
   const reFetchMenuList = useReFetchMenuList();
   const reFetchMenuOptions = useReFetchMenuOptions();
+
+  const { valueEnumSysMenuType } = useQueryDictSysMenuType();
 
   const { hasSelected, selectedMenuId } = useAtomValueSelectedMenuData();
   const { data, loading, refresh } = useRequest(
@@ -151,7 +151,7 @@ const DescMenu: FC = () => {
             dataIndex: 'menuType',
             key: 'menuType',
             valueType: 'select',
-            valueEnum: MenuTypeMap,
+            valueEnum: valueEnumSysMenuType,
           },
           {
             title: '创建时间',

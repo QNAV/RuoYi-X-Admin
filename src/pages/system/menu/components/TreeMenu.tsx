@@ -1,5 +1,4 @@
 import { EmptySimple } from '@/components';
-import type { MenuType } from '@/constants';
 import { useQueryDictSysNormalDisable } from '@/models';
 import TreeMenuHeaderTitle from '@/pages/system/menu/components/TreeMenuHeaderTitle';
 import TreeMenuTitle from '@/pages/system/menu/components/TreeMenuTitle';
@@ -18,10 +17,10 @@ import { Button, Dropdown, Spin, Tree } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
-export const menuTypeColor: Record<MenuType | string, string> = {
-  M: 'blue',
-  C: 'green',
-  F: 'red',
+export const menuTypeColor: Record<SysMenuVo['menuType'], string> = {
+  DIRECTORY: 'blue',
+  MENU: 'green',
+  BUTTON: 'red',
 };
 
 const fieldNames = {

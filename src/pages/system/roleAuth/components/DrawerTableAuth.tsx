@@ -1,5 +1,5 @@
 import { BaseProTable } from '@/components';
-import { useQueryDictSysCommonStatus } from '@/models';
+import { useQueryDictSysNormalDisable } from '@/models';
 import { useActionsMainTable } from '@/pages/system/roleAuth/model';
 import { sysRolePostSelectAuthUserAll, sysRolePostUnallocatedList } from '@/services/system/System';
 import { convertParams, regEmail } from '@/utils';
@@ -33,7 +33,7 @@ const DrawerTableAuth: FC = () => {
       message.success('授权成功');
     },
   });
-  const { valueEnumSysCommonStatus, defaultValueSysCommonStatus } = useQueryDictSysCommonStatus();
+  const { valueEnumSysNormalDisable, defaultValueSysNormalDisable } = useQueryDictSysNormalDisable();
 
   return (
     <>
@@ -94,9 +94,9 @@ const DrawerTableAuth: FC = () => {
               dataIndex: 'status',
               key: 'status',
               valueType: 'select',
-              valueEnum: valueEnumSysCommonStatus,
+              valueEnum: valueEnumSysNormalDisable,
               formItemProps: {
-                initialValue: defaultValueSysCommonStatus,
+                initialValue: defaultValueSysNormalDisable,
                 required: true,
                 rules: [{ required: true, message: '请选择状态' }],
               },

@@ -1,5 +1,4 @@
-import { MenuType, MenuTypeMap } from '@/constants';
-import { useQueryDictSysNormalDisable, useQueryDictSysYesNo } from '@/models';
+import { useQueryDictSysMenuType, useQueryDictSysNormalDisable, useQueryDictSysYesNo } from '@/models';
 import {
   useAtomValueModalAdd,
   useAtomValueSelectedMenuData,
@@ -7,7 +6,7 @@ import {
   useQueryMenuOptions,
   useReFetchMenuList,
 } from '@/pages/system/menu/model';
-import type { SysMenuVo } from '@/services/system/data-contracts';
+import type { SysMenuAddBo, SysMenuVo } from '@/services/system/data-contracts';
 import { sysMenuPostAdd } from '@/services/system/System';
 import { getSelectedParentIds } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
@@ -36,6 +35,7 @@ const ModalAdd: FC = () => {
 
   const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
   const { valueEnumSysYesNo } = useQueryDictSysYesNo();
+  const { valueEnumSysMenuType } = useQueryDictSysMenuType();
 
   const { data, refetch } = useQueryMenuOptions();
   const reFetchMenuList = useReFetchMenuList();
@@ -99,10 +99,17 @@ const ModalAdd: FC = () => {
           }}
         />
 
-        <ProFormRadio.Group name="menuType" label="菜单类型" valueEnum={MenuTypeMap} rules={[{ required: true }]} />
+        <ProFormRadio.Group
+          name="menuType"
+          label="菜单类型"
+          valueEnum={valueEnumSysMenuType}
+          rules={[{ required: true }]}
+        />
 
         <ProFormDependency name={['menuType']}>
-          {({ menuType }) => {
+          {(values) => {
+            const { menuType } = values as Pick<SysMenuAddBo, 'menuType'>;
+
             if (!menuType) {
               return null;
             }
@@ -122,7 +129,7 @@ const ModalAdd: FC = () => {
                   />
                 </ProFormGroup>
 
-                {menuType !== MenuType.F && (
+                {menuType !== 'BUTTON' && (
                   <>
                     <ProFormGroup>
                       <ProFormRadio.Group
@@ -169,7 +176,7 @@ const ModalAdd: FC = () => {
                   </>
                 )}
 
-                {menuType === MenuType.C && (
+                {menuType === 'MENU' && (
                   <ProFormText
                     name="queryParam"
                     label="路由参数"
@@ -177,7 +184,7 @@ const ModalAdd: FC = () => {
                   />
                 )}
 
-                {menuType !== MenuType.M && <ProFormText name="perms" label="权限标识" />}
+                {menuType !== 'DIRECTORY' && <ProFormText name="perms" label="权限标识" />}
               </>
             );
           }}

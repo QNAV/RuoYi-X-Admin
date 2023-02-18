@@ -1,5 +1,4 @@
-import { JavaTypeMap, QueryTypeMap } from '@/constants';
-import { useQueryDictSysYesNo } from '@/models';
+import { useQueryDictSysJavaType, useQueryDictSysQueryType, useQueryDictSysYesNo } from '@/models';
 import type { GenTable, GenTableColumn } from '@/services/gen/data-contracts';
 import { CloseOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-components';
@@ -10,6 +9,8 @@ import { useState } from 'react';
 
 const useColumns = (): ProColumns[] => {
   const { valueEnumSysYesNo } = useQueryDictSysYesNo();
+  const { valueEnumSysQueryType } = useQueryDictSysQueryType();
+  const { valueEnumSysJavaType } = useQueryDictSysJavaType();
   return [
     { title: '序号', dataIndex: 'sort', valueType: 'indexBorder', editable: false },
     {
@@ -34,7 +35,7 @@ const useColumns = (): ProColumns[] => {
       dataIndex: 'javaType',
       key: 'javaType',
       valueType: 'select',
-      valueEnum: JavaTypeMap,
+      valueEnum: valueEnumSysJavaType,
     },
     { title: 'JAVA属性', dataIndex: 'javaField', key: 'javaField', valueType: 'text' },
     {
@@ -77,7 +78,7 @@ const useColumns = (): ProColumns[] => {
       dataIndex: 'queryType',
       key: 'queryType',
       valueType: 'select',
-      valueEnum: QueryTypeMap,
+      valueEnum: valueEnumSysQueryType,
     },
   ];
 };

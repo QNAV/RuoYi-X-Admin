@@ -1,5 +1,5 @@
 import { BaseProTable } from '@/components';
-import { useQueryDictSysCommonStatus } from '@/models';
+import { useQueryDictSysNormalDisable } from '@/models';
 import ButtonAuth from '@/pages/system/roleAuth/components/ButtonAuth';
 import DrawerTableAuth from '@/pages/system/roleAuth/components/DrawerTableAuth';
 import { useActionRefMainTable } from '@/pages/system/roleAuth/model';
@@ -26,7 +26,7 @@ const TableMain: FC = () => {
   const roleId = Number(params.roleId);
 
   const actionRefMainTable = useActionRefMainTable();
-  const { valueEnumSysCommonStatus, defaultValueSysCommonStatus } = useQueryDictSysCommonStatus();
+  const { valueEnumSysNormalDisable, defaultValueSysNormalDisable } = useQueryDictSysNormalDisable();
 
   return (
     <BaseProTable<SysUserVo, SysUserPageQueryBo>
@@ -60,9 +60,9 @@ const TableMain: FC = () => {
           dataIndex: 'status',
           key: 'status',
           valueType: 'select',
-          valueEnum: valueEnumSysCommonStatus,
+          valueEnum: valueEnumSysNormalDisable,
           formItemProps: {
-            initialValue: defaultValueSysCommonStatus,
+            initialValue: defaultValueSysNormalDisable,
             required: true,
             rules: [{ required: true, message: '请选择状态' }],
           },

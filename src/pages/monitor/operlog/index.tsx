@@ -1,5 +1,5 @@
 import { BasePageContainer, BaseProTable } from '@/components';
-import { useQueryDictSysCommonStatus, useQueryDictSysOperType } from '@/models';
+import { useQueryDictSysNormalDisable, useQueryDictSysOperType } from '@/models';
 import ButtonCleanUp from '@/pages/monitor/operlog/components/ButtonCleanUp';
 import ButtonExport from '@/pages/monitor/operlog/components/ButtonExport';
 import ButtonRemove from '@/pages/monitor/operlog/components/ButtonRemove';
@@ -12,7 +12,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 
 const useColumns = (): ProColumns<SysOperLogVo>[] => {
-  const { valueEnumSysCommonStatus } = useQueryDictSysCommonStatus();
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
   const { valueEnumSysOperType } = useQueryDictSysOperType();
 
   return [
@@ -40,7 +40,7 @@ const useColumns = (): ProColumns<SysOperLogVo>[] => {
       dataIndex: 'status',
       key: 'status',
       valueType: 'select',
-      valueEnum: valueEnumSysCommonStatus,
+      valueEnum: valueEnumSysNormalDisable,
     },
     { title: '操作时间', dataIndex: 'operTime', key: 'operTime', valueType: 'dateTime', hideInSearch: true },
     {

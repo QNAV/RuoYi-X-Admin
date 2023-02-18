@@ -1,5 +1,5 @@
 import { BasePageContainer, BaseProTable } from '@/components';
-import { useQueryDictSysCommonStatus } from '@/models';
+import { useQueryDictSysNormalDisable } from '@/models';
 import ButtonCleanUp from '@/pages/monitor/logininfor/components/ButtonCleanUp';
 import ButtonExport from '@/pages/monitor/logininfor/components/ButtonExport';
 import ButtonRemove from '@/pages/monitor/logininfor/components/ButtonRemove';
@@ -12,7 +12,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 
 const useColumns = (): ProColumns<SysLogininforVo>[] => {
-  const { valueEnumSysCommonStatus } = useQueryDictSysCommonStatus();
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
   return [
     // 访问编号
     { title: '访问编号', dataIndex: 'infoId', key: 'infoId', valueType: 'text', hideInSearch: true },
@@ -38,7 +38,7 @@ const useColumns = (): ProColumns<SysLogininforVo>[] => {
       dataIndex: 'status',
       key: 'status',
       valueType: 'select',
-      valueEnum: valueEnumSysCommonStatus,
+      valueEnum: valueEnumSysNormalDisable,
     },
     // 操作信息
     { title: '操作信息', dataIndex: 'msg', key: 'msg', valueType: 'text', hideInSearch: true },

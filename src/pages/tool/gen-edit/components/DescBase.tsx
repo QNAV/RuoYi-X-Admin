@@ -1,4 +1,4 @@
-import { GenTypeMap, TemplateTypeMap } from '@/constants';
+import { useQueryDictSysGenType, useQueryDictSysTplCategory } from '@/models';
 import type { GenTable } from '@/services/gen/data-contracts';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
@@ -9,6 +9,9 @@ const DescBase: FC<{
   dataSource?: GenTable;
   handleEdit: (p: Partial<GenTable>) => Promise<void>;
 }> = ({ dataSource, handleEdit }) => {
+  const { valueEnumSysGenType } = useQueryDictSysGenType();
+  const { valueEnumSysTplCategory } = useQueryDictSysTplCategory();
+
   const editable: ProDescriptionsProps['editable'] = {
     onSave: async (k, record) => {
       const key = k as keyof Omit<GenTable, 'tableId'>;
@@ -40,13 +43,19 @@ const DescBase: FC<{
             dataIndex: 'tplCategory',
             key: 'tplCategory',
             valueType: 'select',
-            valueEnum: TemplateTypeMap,
+            valueEnum: valueEnumSysTplCategory,
           },
           { title: '生成包路径', dataIndex: 'packageName', key: 'packageName', valueType: 'text' },
           { title: '生成模块名', dataIndex: 'moduleName', key: 'moduleName', valueType: 'text' },
           { title: '生成业务名', dataIndex: 'businessName', key: 'businessName', valueType: 'text' },
           { title: '生成功能名', dataIndex: 'functionName', key: 'functionName', valueType: 'text' },
-          { title: '生成代码方式', dataIndex: 'genType', key: 'genType', valueType: 'select', valueEnum: GenTypeMap },
+          {
+            title: '生成代码方式',
+            dataIndex: 'genType',
+            key: 'genType',
+            valueType: 'select',
+            valueEnum: valueEnumSysGenType,
+          },
           ...(dataSource?.genType === 'ZIP'
             ? []
             : [{ title: '自定义路径', dataIndex: 'genPath', key: 'genPath', valueType: 'text' }]),
