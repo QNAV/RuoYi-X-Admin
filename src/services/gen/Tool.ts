@@ -59,6 +59,7 @@ export const genPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询代码生成列表
  *
@@ -87,6 +88,7 @@ export const genPostListSkipErrorHandler = (data: GenTablePageQuery, params: Req
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 导入表结构（保存）
  *
@@ -125,6 +127,7 @@ export const genPostImportTableSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改保存代码生成业务
  *
@@ -153,6 +156,7 @@ export const genPostEditSkipErrorHandler = (data: GenTable, params: RequestParam
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询数据库列表
  *
@@ -181,6 +185,7 @@ export const genPostDbListSkipErrorHandler = (data: GenTablePageQuery, params: R
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 同步数据库
  *
@@ -219,6 +224,7 @@ export const genGetSynchDbSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 预览代码
  *
@@ -263,6 +269,7 @@ export const genGetPreviewSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取代码生成业务信息
  *
@@ -307,6 +314,7 @@ export const genGetInfoSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 生成代码（自定义路径）
  *
@@ -345,6 +353,7 @@ export const genGetGenCodeSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 生成代码（下载方式）
  *
@@ -383,6 +392,7 @@ export const genGetDownloadSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询数据表字段列表
  *
@@ -427,6 +437,7 @@ export const genGetColumnListSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 批量生成代码
  *

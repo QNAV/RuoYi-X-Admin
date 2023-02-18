@@ -1,4 +1,5 @@
 export * from './access';
+export * from './columns';
 export * from './convert';
 export * from './download';
 export * from './is';

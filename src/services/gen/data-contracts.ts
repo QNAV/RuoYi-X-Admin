@@ -128,9 +128,9 @@ export interface GenTable {
   parentMenuName?: string;
   /** 传入参数（暂时预留） */
   params?: Record<string, string>;
-  crud?: boolean;
   tree?: boolean;
   sub?: boolean;
+  crud?: boolean;
 }
 
 /** 代码生成业务字段实体对象 */
@@ -203,15 +203,15 @@ export interface GenTableColumn {
   sort?: number;
   required?: boolean;
   list?: boolean;
+  pk?: boolean;
   superColumn?: boolean;
-  usableColumn?: boolean;
   edit?: boolean;
   insert?: boolean;
-  pk?: boolean;
-  capJavaField?: string;
+  usableColumn?: boolean;
   query?: boolean;
-  voRequired?: boolean;
   increment?: boolean;
+  voRequired?: boolean;
+  capJavaField?: string;
 }
 
 /** 分页数据对象 */

@@ -64,6 +64,7 @@ export const sysOperLogPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询操作日志记录列表
  *
@@ -92,6 +93,7 @@ export const sysOperLogPostListSkipErrorHandler = (data: SysOperLogPageQueryBo, 
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 导出操作日志记录列表
  *
@@ -120,6 +122,7 @@ export const sysOperLogPostExportSkipErrorHandler = (data: SysOperLogQueryBo, pa
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 清空操作日志记录
  *
@@ -144,6 +147,7 @@ export const sysOperLogPostCleanSkipErrorHandler = (params: RequestParams = {}) 
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 强退用户
  *
@@ -182,6 +186,7 @@ export const sysUserOnlinePostForceLogoutSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除系统访问记录
  *
@@ -220,6 +225,7 @@ export const sysLogininforPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询系统访问记录列表
  *
@@ -248,6 +254,7 @@ export const sysLogininforPostListSkipErrorHandler = (data: SysLogininforPageQue
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 导出系统访问记录列表
  *
@@ -276,6 +283,7 @@ export const sysLogininforPostExportSkipErrorHandler = (data: SysLogininforQuery
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 清空系统访问记录
  *
@@ -300,6 +308,7 @@ export const sysLogininforPostCleanSkipErrorHandler = (params: RequestParams = {
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 在线用户列表
  *
@@ -342,6 +351,7 @@ export const sysUserOnlineGetListSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 账户解锁
  *
@@ -367,6 +377,7 @@ export const unlockSkipErrorHandler = (userName: string, params: RequestParams =
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取缓存监控详细信息
  *
@@ -391,6 +402,7 @@ export const cacheGetInfoSkipErrorHandler = (params: RequestParams = {}) =>
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取值基于缓存名与KEY
  *
@@ -415,6 +427,7 @@ export const cacheGetCacheValueSkipErrorHandler = (cacheName: string, cacheKey: 
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取缓存名称列表
  *
@@ -439,6 +452,7 @@ export const cacheGetCacheNamesSkipErrorHandler = (params: RequestParams = {}) =
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取KEYS基于缓存名
  *
@@ -463,6 +477,7 @@ export const cacheGetCacheKeysSkipErrorHandler = (cacheName: string, params: Req
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 清空缓存名
  *
@@ -487,6 +502,7 @@ export const cacheDeleteClearCacheNameSkipErrorHandler = (cacheName: string, par
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 清空缓存KEY
  *
@@ -515,6 +531,7 @@ export const cacheDeleteClearCacheKeySkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 清空所有缓存
  *

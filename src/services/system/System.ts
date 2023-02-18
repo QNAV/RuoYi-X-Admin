@@ -123,6 +123,7 @@ export const sysUserPostResetPwdSkipErrorHandler = (data: SysUserEditBo, params:
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除用户
  *
@@ -161,6 +162,7 @@ export const sysUserPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 个人信息
  *
@@ -185,6 +187,7 @@ export const sysProfileGetProfileSkipErrorHandler = (params: RequestParams = {})
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改用户
  *
@@ -213,6 +216,7 @@ export const sysProfilePostUpdateProfileSkipErrorHandler = (data: LoginUserUpdat
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 重置密码
  *
@@ -241,6 +245,7 @@ export const sysProfilePostUpdatePwdSkipErrorHandler = (data: UpdatePwdBo, param
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 头像上传
  *
@@ -291,6 +296,7 @@ export const sysProfilePostAvatarSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取用户列表
  *
@@ -319,6 +325,7 @@ export const sysUserPostListSkipErrorHandler = (data: SysUserPageQueryBo, params
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 用户授权角色
  *
@@ -347,6 +354,7 @@ export const sysUserPostInsertAuthRoleSkipErrorHandler = (data: AuthRoleAllBo, p
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 下载导入模板
  *
@@ -371,6 +379,7 @@ export const sysUserPostImportTemplateSkipErrorHandler = (params: RequestParams 
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 导入用户列表
  *
@@ -427,6 +436,7 @@ export const sysUserPostImportDataSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 导出用户列表
  *
@@ -455,6 +465,7 @@ export const sysUserPostExportSkipErrorHandler = (data: SysUserQueryBo, params: 
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改用户
  *
@@ -483,6 +494,7 @@ export const sysUserPostEditSkipErrorHandler = (data: SysUserEditBo, params: Req
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 状态修改
  *
@@ -511,6 +523,7 @@ export const sysUserPostChangeStatusSkipErrorHandler = (data: SysUserEditBo, par
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 新增用户
  *
@@ -539,6 +552,7 @@ export const sysUserPostAddSkipErrorHandler = (data: SysUserAddBo, params: Reque
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除角色
  *
@@ -577,6 +591,7 @@ export const sysRolePostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询角色信息列表
  *
@@ -605,6 +620,7 @@ export const sysRolePostListSkipErrorHandler = (data: SysRolePageQueryBo, params
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 导出角色信息列表
  *
@@ -633,6 +649,7 @@ export const sysRolePostExportSkipErrorHandler = (data: SysRoleQueryBo, params: 
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改保存角色
  *
@@ -661,6 +678,7 @@ export const sysRolePostEditSkipErrorHandler = (data: SysRole, params: RequestPa
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改保存数据权限
  *
@@ -689,6 +707,7 @@ export const sysRolePostDataScopeSkipErrorHandler = (data: SysRole, params: Requ
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 状态修改
  *
@@ -717,6 +736,7 @@ export const sysRolePostChangeStatusSkipErrorHandler = (data: SysRole, params: R
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询未分配用户角色列表
  *
@@ -745,6 +765,7 @@ export const sysRolePostUnallocatedListSkipErrorHandler = (data: SysUserPageQuer
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 批量选择用户授权
  *
@@ -773,6 +794,7 @@ export const sysRolePostSelectAuthUserAllSkipErrorHandler = (data: AuthUserAllBo
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 取消授权用户
  *
@@ -801,6 +823,7 @@ export const sysRolePostCancelAuthUserSkipErrorHandler = (data: SysUserRole, par
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 批量取消授权用户
  *
@@ -829,6 +852,7 @@ export const sysRolePostCancelAuthUserAllSkipErrorHandler = (data: AuthUserAllBo
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询已分配用户角色列表
  *
@@ -857,6 +881,7 @@ export const sysRolePostAllocatedListSkipErrorHandler = (data: SysUserPageQueryB
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 新增角色
  *
@@ -885,6 +910,7 @@ export const sysRolePostAddSkipErrorHandler = (data: SysRole, params: RequestPar
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除岗位
  *
@@ -923,6 +949,7 @@ export const sysPostPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取岗位列表
  *
@@ -951,6 +978,7 @@ export const sysPostPostListSkipErrorHandler = (data: SysPostPageQueryBo, params
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 导出岗位列表
  *
@@ -979,6 +1007,7 @@ export const sysPostPostExportSkipErrorHandler = (data: SysPostQueryBo, params: 
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改岗位
  *
@@ -1007,6 +1036,7 @@ export const sysPostPostEditSkipErrorHandler = (data: SysPostEditBo, params: Req
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 新增岗位
  *
@@ -1035,6 +1065,7 @@ export const sysPostPostAddSkipErrorHandler = (data: SysPostAddBo, params: Reque
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 上传OSS对象存储
  *
@@ -1085,6 +1116,7 @@ export const sysOssPostUploadSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除OSS对象存储
  *
@@ -1123,6 +1155,7 @@ export const sysOssPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询OSS对象存储列表
  *
@@ -1151,6 +1184,7 @@ export const sysOssPostListSkipErrorHandler = (data: SysOssPageQueryBo, params: 
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除对象存储配置
  *
@@ -1189,6 +1223,7 @@ export const sysOssConfigPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询对象存储配置列表
  *
@@ -1217,6 +1252,7 @@ export const sysOssConfigPostListSkipErrorHandler = (data: SysOssConfigPageQuery
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改对象存储配置
  *
@@ -1245,6 +1281,7 @@ export const sysOssConfigPostEditSkipErrorHandler = (data: SysOssConfigEditBo, p
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 状态修改
  *
@@ -1273,6 +1310,7 @@ export const sysOssConfigPostChangeStatusSkipErrorHandler = (data: SysOssConfigE
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 新增对象存储配置
  *
@@ -1301,6 +1339,7 @@ export const sysOssConfigPostAddSkipErrorHandler = (data: SysOssConfigAddBo, par
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除通知公告
  *
@@ -1339,6 +1378,7 @@ export const sysNoticePostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取通知公告列表
  *
@@ -1367,6 +1407,7 @@ export const sysNoticePostListSkipErrorHandler = (data: SysNoticePageQueryBo, pa
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改通知公告
  *
@@ -1395,6 +1436,7 @@ export const sysNoticePostEditSkipErrorHandler = (data: SysNoticeEditBo, params:
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 新增通知公告
  *
@@ -1423,6 +1465,7 @@ export const sysNoticePostAddSkipErrorHandler = (data: SysNoticeAddBo, params: R
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取菜单下拉树列表
  *
@@ -1451,6 +1494,7 @@ export const sysMenuPostTreeSelectSkipErrorHandler = (data: SysMenuQueryBo, para
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除菜单
  *
@@ -1495,6 +1539,7 @@ export const sysMenuPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取菜单列表
  *
@@ -1523,6 +1568,7 @@ export const sysMenuPostListSkipErrorHandler = (data: SysMenuQueryBo, params: Re
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改菜单
  *
@@ -1551,6 +1597,7 @@ export const sysMenuPostEditSkipErrorHandler = (data: SysMenuEditBo, params: Req
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 新增菜单
  *
@@ -1579,6 +1626,7 @@ export const sysMenuPostAddSkipErrorHandler = (data: SysMenuAddBo, params: Reque
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除业务用户登录记录
  *
@@ -1617,6 +1665,7 @@ export const bizLogininforPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询业务用户登录记录列表
  *
@@ -1645,6 +1694,7 @@ export const bizLogininforPostListSkipErrorHandler = (data: BizLogininforPageQue
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 导出业务用户登录记录列表
  *
@@ -1673,6 +1723,7 @@ export const bizLogininforPostExportSkipErrorHandler = (data: BizLogininforQuery
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改业务用户登录记录
  *
@@ -1701,6 +1752,7 @@ export const bizLogininforPostEditSkipErrorHandler = (data: BizLogininforEditBo,
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 新增业务用户登录记录
  *
@@ -1729,6 +1781,7 @@ export const bizLogininforPostAddSkipErrorHandler = (data: BizLogininforAddBo, p
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除字典类型
  *
@@ -1767,6 +1820,7 @@ export const sysDictTypePostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 刷新字典缓存
  *
@@ -1791,6 +1845,7 @@ export const sysDictTypePostRefreshCacheSkipErrorHandler = (params: RequestParam
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询字典类型列表
  *
@@ -1819,6 +1874,7 @@ export const sysDictTypePostListSkipErrorHandler = (data: SysDictTypePageQueryBo
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 导出字典类型列表
  *
@@ -1847,6 +1903,7 @@ export const sysDictTypePostExportSkipErrorHandler = (data: SysDictTypeQueryBo, 
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改字典类型
  *
@@ -1875,6 +1932,7 @@ export const sysDictTypePostEditSkipErrorHandler = (data: SysDictTypeEditBo, par
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 新增字典类型
  *
@@ -1903,6 +1961,7 @@ export const sysDictTypePostAddSkipErrorHandler = (data: SysDictTypeAddBo, param
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除字典类型
  *
@@ -1941,6 +2000,7 @@ export const sysDictDataPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询字典数据列表
  *
@@ -1969,6 +2029,7 @@ export const sysDictDataPostListSkipErrorHandler = (data: SysDictDataPageQueryBo
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 导出字典数据列表
  *
@@ -1997,6 +2058,7 @@ export const sysDictDataPostExportSkipErrorHandler = (data: SysDictDataQueryBo, 
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改保存字典类型
  *
@@ -2025,6 +2087,7 @@ export const sysDictDataPostEditSkipErrorHandler = (data: SysDictDataEditBo, par
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 新增字典类型
  *
@@ -2053,6 +2116,7 @@ export const sysDictDataPostAddSkipErrorHandler = (data: SysDictDataAddBo, param
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除部门
  *
@@ -2097,6 +2161,7 @@ export const sysDeptPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取部门列表
  *
@@ -2125,6 +2190,7 @@ export const sysDeptPostListSkipErrorHandler = (data: SysDeptQueryBo, params: Re
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改部门
  *
@@ -2153,6 +2219,7 @@ export const sysDeptPostEditSkipErrorHandler = (data: SysDeptEditBo, params: Req
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 新增部门
  *
@@ -2181,6 +2248,7 @@ export const sysDeptPostAddSkipErrorHandler = (data: SysDeptAddBo, params: Reque
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 根据参数键名修改参数配置
  *
@@ -2209,6 +2277,7 @@ export const sysConfigPostUpdateByKeySkipErrorHandler = (data: SysConfigEditBo, 
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 删除参数配置
  *
@@ -2247,6 +2316,7 @@ export const sysConfigPostRemoveSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 刷新参数缓存
  *
@@ -2271,6 +2341,7 @@ export const sysConfigPostRefreshCacheSkipErrorHandler = (params: RequestParams 
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取参数配置列表
  *
@@ -2299,6 +2370,7 @@ export const sysConfigPostListSkipErrorHandler = (data: SysConfigPageQueryBo, pa
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 导出参数配置列表
  *
@@ -2327,6 +2399,7 @@ export const sysConfigPostExportSkipErrorHandler = (data: SysConfigQueryBo, para
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 修改参数配置
  *
@@ -2355,6 +2428,7 @@ export const sysConfigPostEditSkipErrorHandler = (data: SysConfigEditBo, params:
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 新增参数配置
  *
@@ -2383,6 +2457,7 @@ export const sysConfigPostAddSkipErrorHandler = (data: SysConfigAddBo, params: R
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 根据用户编号获取详细信息
  *
@@ -2427,6 +2502,7 @@ export const sysUserGetInfoSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 根据用户编号获取详细信息
  *
@@ -2471,6 +2547,7 @@ export const sysUserGetInfo1SkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取部门树列表
  *
@@ -2509,6 +2586,7 @@ export const sysUserGetDeptTreeSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 根据用户编号获取授权角色
  *
@@ -2553,6 +2631,7 @@ export const sysUserGetAuthRoleSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取角色选择框列表
  *
@@ -2577,6 +2656,7 @@ export const sysRoleGetOptionSelectSkipErrorHandler = (params: RequestParams = {
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 根据角色编号获取详细信息
  *
@@ -2621,6 +2701,7 @@ export const sysRoleGetInfoSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取对应角色部门树列表
  *
@@ -2645,6 +2726,7 @@ export const sysRoleGetRoleDeptTreeSelectSkipErrorHandler = (roleId: number, par
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取岗位选择框列表
  *
@@ -2669,6 +2751,7 @@ export const sysPostGetOptionSelectSkipErrorHandler = (params: RequestParams = {
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 根据岗位编号获取详细信息
  *
@@ -2713,6 +2796,7 @@ export const sysPostGetInfoSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询OSS对象基于ID
  *
@@ -2751,6 +2835,7 @@ export const sysOssGetListByIdsSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 下载OSS对象存储
  *
@@ -2795,6 +2880,7 @@ export const sysOssGetDownloadSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取对象存储配置详细信息
  *
@@ -2839,6 +2925,7 @@ export const sysOssConfigGetInfoSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 根据通知公告编号获取详细信息
  *
@@ -2883,6 +2970,7 @@ export const sysNoticeGetInfoSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 加载对应角色菜单列表树
  *
@@ -2927,6 +3015,7 @@ export const sysMenuGetRoleMenuTreeSelectSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 根据菜单编号获取详细信息
  *
@@ -2971,6 +3060,7 @@ export const sysMenuGetInfoSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取业务用户登录记录详细信息
  *
@@ -3015,6 +3105,7 @@ export const bizLogininforGetInfoSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 获取字典选择框列表
  *
@@ -3039,6 +3130,7 @@ export const sysDictTypeGetOptionSelectSkipErrorHandler = (params: RequestParams
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询字典类型详细
  *
@@ -3083,6 +3175,7 @@ export const sysDictTypeGetInfoSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 根据字典类型查询字典数据信息
  *
@@ -3121,6 +3214,7 @@ export const sysDictDataGetTypeSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询字典数据详细
  *
@@ -3165,6 +3259,7 @@ export const sysDictDataGetInfoSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 查询部门列表（排除节点）
  *
@@ -3209,6 +3304,7 @@ export const sysDeptGetExcludeChildSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 根据部门编号获取详细信息
  *
@@ -3253,6 +3349,7 @@ export const sysDeptGetInfoSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 根据参数编号获取详细信息
  *
@@ -3297,6 +3394,7 @@ export const sysConfigGetInfoSkipErrorHandler = (
     skipErrorHandler: true,
     ...params,
   });
+
 /**
  * @description 根据参数键名查询参数值
  *
