@@ -128,9 +128,9 @@ export interface GenTable {
   parentMenuName?: string;
   /** 传入参数（暂时预留） */
   params?: Record<string, string>;
-  sub?: boolean;
   crud?: boolean;
   tree?: boolean;
+  sub?: boolean;
 }
 
 /** 代码生成业务字段实体对象 */
@@ -170,8 +170,8 @@ export interface GenTableColumn {
    * @format int32
    */
   columnMaxLength?: number;
-  /** JAVA类型 */
-  javaType?: string;
+  /** JAVA类型（Long=长整型 Integer=整型 String=字符串 Date=日期 Double=浮点数 Boolean=布尔型 BigDecimal=金额） */
+  javaType?: 'Long' | 'Integer' | 'String' | 'Date' | 'Double' | 'Boolean' | 'BigDecimal';
   /** JAVA字段名 */
   javaField: string;
   /** 是否主键（YES=是 NO=否） */
@@ -190,8 +190,8 @@ export interface GenTableColumn {
   isVoRequired?: 'YES' | 'NO';
   /** 是否查询字段（YES=是 NO=否） */
   isQuery?: 'YES' | 'NO';
-  /** 查询方式（EQ=等于 NE=不等于 GT=大于 LT=小于 LIKE=模糊 BETWEEN=范围） */
-  queryType?: 'EQ' | 'NE' | 'GT' | 'LT' | 'LIKE' | 'BETWEEN';
+  /** 查询方式（EQ=等于 NE=不等于 GT=大于 GE=大于等于 LT=小于 LE=小于等于 LIKE=模糊 BETWEEN=范围） */
+  queryType?: 'EQ' | 'NE' | 'GT' | 'GE' | 'LT' | 'LE' | 'LIKE' | 'BETWEEN';
   /** 显示类型（INPUT=文本框 TEXTAREA=文本域 SELECT=下拉框 CHECKBOX=复选框 RADIO=单选框 DATETIME=日期控件 IMAGE=图片上传控件 UPLOAD=文件上传控件 EDITOR=富文本控件） */
   htmlType?: 'INPUT' | 'TEXTAREA' | 'SELECT' | 'CHECKBOX' | 'RADIO' | 'DATETIME' | 'IMAGE' | 'UPLOAD' | 'EDITOR';
   /** 字典类型 */
@@ -203,15 +203,15 @@ export interface GenTableColumn {
   sort?: number;
   required?: boolean;
   list?: boolean;
-  usableColumn?: boolean;
-  insert?: boolean;
   superColumn?: boolean;
-  pk?: boolean;
+  usableColumn?: boolean;
   edit?: boolean;
-  voRequired?: boolean;
-  increment?: boolean;
+  insert?: boolean;
+  pk?: boolean;
   capJavaField?: string;
   query?: boolean;
+  voRequired?: boolean;
+  increment?: boolean;
 }
 
 /** 分页数据对象 */

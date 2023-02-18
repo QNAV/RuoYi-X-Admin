@@ -17,6 +17,28 @@ const useQueryDict = (dictType: string) => {
   );
 };
 
+// sys_user_sex 用户性别
+export const useQueryDictSysUserSex = () => {
+  const { data } = useQueryDict('sys_user_sex');
+  const defaultValueSysUserSex: string | null = data?.defaultValue ?? null;
+  const valueEnumSysUserSex: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysUserSex,
+    valueEnumSysUserSex,
+  };
+};
+
+// sys_show_hide 菜单状态
+export const useQueryDictSysShowHide = () => {
+  const { data } = useQueryDict('sys_show_hide');
+  const defaultValueSysShowHide: string | null = data?.defaultValue ?? null;
+  const valueEnumSysShowHide: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysShowHide,
+    valueEnumSysShowHide,
+  };
+};
+
 // sys_normal_disable 系统开关
 export const useQueryDictSysNormalDisable = () => {
   const { data } = useQueryDict('sys_normal_disable');
@@ -25,17 +47,6 @@ export const useQueryDictSysNormalDisable = () => {
   return {
     defaultValueSysNormalDisable,
     valueEnumSysNormalDisable,
-  };
-};
-
-// sys_show_hide
-export const useQueryDictSysShowHide = () => {
-  const { data } = useQueryDict('sys_show_hide');
-  const defaultValueSysShowHide: string | null = data?.defaultValue ?? null;
-  const valueEnumSysShowHide: ValueEnumMap<string> = data?.valueEnum ?? new Map();
-  return {
-    defaultValueSysShowHide,
-    valueEnumSysShowHide,
   };
 };
 
@@ -83,14 +94,25 @@ export const useQueryDictSysOperType = () => {
   };
 };
 
-// sys_user_sex
-export const useQueryDictSysUserSex = () => {
-  const { data } = useQueryDict('sys_user_sex');
-  const defaultValueSysUserSex: string | null = data?.defaultValue ?? null;
-  const valueEnumSysUserSex: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+// sys_common_result 系统结果
+export const useQueryDictSysCommonResult = () => {
+  const { data } = useQueryDict('sys_common_result');
+  const defaultValueSysCommonResult: string | null = data?.defaultValue ?? null;
+  const valueEnumSysCommonResult: ValueEnumMap<string> = data?.valueEnum ?? new Map();
   return {
-    defaultValueSysUserSex,
-    valueEnumSysUserSex,
+    defaultValueSysCommonResult,
+    valueEnumSysCommonResult,
+  };
+};
+
+// sys_data_scope 数据权限范围
+export const useQueryDictSysDataScope = () => {
+  const { data } = useQueryDict('sys_data_scope');
+  const defaultValueSysDataScope: string | null = data?.defaultValue ?? null;
+  const valueEnumSysDataScope: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysDataScope,
+    valueEnumSysDataScope,
   };
 };
 
@@ -127,6 +149,17 @@ export const useQueryDictSysQueryType = () => {
   };
 };
 
+// sys_html_type HTML类型
+export const useQueryDictSysHtmlType = () => {
+  const { data } = useQueryDict('sys_html_type');
+  const defaultValueSysHtmlType: string | null = data?.defaultValue ?? null;
+  const valueEnumSysHtmlType: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysHtmlType,
+    valueEnumSysHtmlType,
+  };
+};
+
 // sys_tpl_category 生成模版类型
 export const useQueryDictSysTplCategory = () => {
   const { data } = useQueryDict('sys_tpl_category');
@@ -146,16 +179,5 @@ export const useQueryDictSysJavaType = () => {
   return {
     defaultValueSysJavaType,
     valueEnumSysJavaType,
-  };
-};
-
-// sys_data_scope 数据权限范围
-export const useQueryDictSysDataScope = () => {
-  const { data } = useQueryDict('sys_data_scope');
-  const defaultValueSysDataScope: string | null = data?.defaultValue ?? null;
-  const valueEnumSysDataScope: ValueEnumMap<string> = data?.valueEnum ?? new Map();
-  return {
-    defaultValueSysDataScope,
-    valueEnumSysDataScope,
   };
 };

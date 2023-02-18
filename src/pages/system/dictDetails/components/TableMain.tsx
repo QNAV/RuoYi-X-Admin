@@ -1,7 +1,7 @@
 import { BaseProTable } from '@/components';
 import { ListClassMap } from '@/constants';
 import { useActivated } from '@/hooks';
-import { useQueryDictSysNormalDisable } from '@/models';
+import { useQueryDictSysNormalDisable, useQueryDictSysYesNo } from '@/models';
 import ButtonAdd from '@/pages/system/dictDetails/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/dictDetails/components/ButtonEdit';
 import ButtonExport from '@/pages/system/dictDetails/components/ButtonExport';
@@ -19,11 +19,19 @@ import { useParams } from 'react-router-dom';
 
 const useColumns = (): ProColumns<SysDictDataVo>[] => {
   const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
-
+  const { valueEnumSysYesNo } = useQueryDictSysYesNo();
   return [
     { title: '字典编码', dataIndex: 'dictCode', key: 'dictCode', valueType: 'text', hideInSearch: true },
     { title: '字典标签', dataIndex: 'dictLabel', key: 'dictLabel', valueType: 'text' },
     { title: '字典键值', dataIndex: 'dictValue', key: 'dictValue', valueType: 'text', hideInSearch: true },
+    {
+      title: '是否默认值',
+      dataIndex: 'isDefault',
+      key: 'isDefault',
+      valueType: 'radio',
+      valueEnum: valueEnumSysYesNo,
+      hideInSearch: true,
+    },
     { title: '字典排序', dataIndex: 'dictSort', key: 'dictSort', valueType: 'text', hideInSearch: true },
     {
       title: '回显样式',

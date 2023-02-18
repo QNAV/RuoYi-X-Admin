@@ -33,8 +33,8 @@ export interface SysUserEditBo {
    * @maxLength 30
    */
   nickName?: string;
-  /** 用户类型 */
-  userType?: string;
+  /** 用户类型（PC=电脑端 ANDROID=安卓app端 IOS=苹果app端 WXAPP=微信小程序端 WXMP=微信公众号端 ALIPAYAPP=支付宝小程序端） */
+  userType?: 'PC' | 'ANDROID' | 'IOS' | 'WXAPP' | 'WXMP' | 'ALIPAYAPP';
   /**
    * 用户邮箱
    * @minLength 0
@@ -43,14 +43,14 @@ export interface SysUserEditBo {
   email?: string;
   /** 手机号码 */
   phoneNumber?: string;
-  /** 用户性别 */
-  sex?: string;
+  /** 用户性别（UNKNOWN=未知 MAN=男 WOMAN=女） */
+  sex?: 'UNKNOWN' | 'MAN' | 'WOMAN';
   /** 用户头像 */
   avatar?: string;
   /** 密码 */
   password?: string;
-  /** 帐号状态（0正常 1停用） */
-  status?: string;
+  /** 帐号状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
   /** 角色组 */
@@ -160,8 +160,8 @@ export interface SysUserPageQueryBo {
   userName?: string;
   /** 手机号码 */
   phoneNumber?: string;
-  /** 帐号状态（0正常 1停用） */
-  status?: string;
+  /** 帐号状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /**
    * 开始创建时间
    * @format date-time
@@ -405,8 +405,8 @@ export interface SysUserQueryBo {
   userName?: string;
   /** 手机号码 */
   phoneNumber?: string;
-  /** 帐号状态（0正常 1停用） */
-  status?: string;
+  /** 帐号状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /**
    * 开始创建时间
    * @format date-time
@@ -438,8 +438,8 @@ export interface SysUserAddBo {
    * @maxLength 30
    */
   nickName: string;
-  /** 用户类型 */
-  userType?: string;
+  /** 用户类型（PC=电脑端 ANDROID=安卓app端 IOS=苹果app端 WXAPP=微信小程序端 WXMP=微信公众号端 ALIPAYAPP=支付宝小程序端） */
+  userType?: 'PC' | 'ANDROID' | 'IOS' | 'WXAPP' | 'WXMP' | 'ALIPAYAPP';
   /**
    * 用户邮箱
    * @minLength 0
@@ -448,14 +448,14 @@ export interface SysUserAddBo {
   email?: string;
   /** 手机号码 */
   phoneNumber?: string;
-  /** 用户性别 */
-  sex?: string;
+  /** 用户性别（UNKNOWN=未知 MAN=男 WOMAN=女） */
+  sex?: 'UNKNOWN' | 'MAN' | 'WOMAN';
   /** 用户头像 */
   avatar?: string;
   /** 密码 */
   password: string;
-  /** 帐号状态（0正常 1停用） */
-  status?: string;
+  /** 帐号状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
   /** 备注 */
   remark?: string;
   /** 角色组 */
@@ -1406,7 +1406,7 @@ export interface SysMenu {
    * @format int64
    */
   parentId?: number;
-  /** 子部门 */
+  /** 子级数据 */
   children?: SysMenu[];
   /**
    * 菜单ID
@@ -2168,7 +2168,7 @@ export interface SysDept {
    * @format int64
    */
   parentId?: number;
-  /** 子部门 */
+  /** 子级数据 */
   children?: SysDept[];
   /**
    * 部门id

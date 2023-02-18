@@ -1,6 +1,6 @@
 import { Access } from '@/components';
-import { ListClassMap } from '@/constants';
-import { useQueryDictSysNormalDisable } from '@/models';
+import { ListClass, ListClassMap } from '@/constants';
+import { useQueryDictSysNormalDisable, useQueryDictSysYesNo } from '@/models';
 import {
   DictDetailsActionType,
   dictDetailsActionTypeMap,
@@ -40,6 +40,8 @@ const ModalAddOrEdit: FC = () => {
   const actionText = dictDetailsActionTypeMap[actionType];
 
   const { dictType, dictName } = useAtomValueCurDictType();
+
+  const { valueEnumSysYesNo } = useQueryDictSysYesNo();
 
   const { defaultValueSysNormalDisable, valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
@@ -91,11 +93,13 @@ const ModalAddOrEdit: FC = () => {
 
         <ProFormText name="dictValue" label="数据键值" rules={[{ required: true }]} />
 
+        <ProFormRadio.Group name="isDefault" label="是否默认值" valueEnum={valueEnumSysYesNo} />
+
         <ProFormText name="cssClass" label="样式属性" />
 
         <ProFormDigit name="dictSort" label="显示排序" initialValue={0} />
 
-        <ProFormSelect name="listClass" label="回显样式" valueEnum={ListClassMap} initialValue="default" />
+        <ProFormSelect name="listClass" label="回显样式" valueEnum={ListClassMap} initialValue={ListClass.NONE} />
 
         <ProFormRadio.Group
           name="status"
