@@ -142,7 +142,7 @@ const ModalAdd: FC = () => {
 
                       <ProFormRadio.Group
                         name="visible"
-                        label="菜单是否隐藏"
+                        label="菜单是否显示"
                         valueEnum={valueEnumSysYesNo}
                         required
                         tooltip="选择否则路由将不会出现在侧边栏，但仍然可以访问"
