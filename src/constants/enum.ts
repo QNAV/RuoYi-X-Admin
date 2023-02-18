@@ -12,27 +12,17 @@ export type ValueEnumMap<K> = Map<K, { text: string; status?: DictStatus }>;
  */
 export enum MenuType {
   // 目录
-  M = 'M',
+  M = 'DIRECTORY',
   // 菜单
-  C = 'C',
+  C = 'MENU',
   // 按钮
-  F = 'F',
+  F = 'BUTTON',
 }
 export const MenuTypeMap = {
   [MenuType.M]: { text: '目录' },
   [MenuType.C]: { text: '菜单' },
   [MenuType.F]: { text: '按钮' },
 };
-
-// 是/否
-export enum YesNoStatus {
-  YES = '0',
-  NO = '1',
-}
-export const YesNoStatusMap: ValueEnumMap<YesNoStatus> = new Map([
-  [YesNoStatus.YES, { text: '是', status: DictStatus.SUCCESS }],
-  [YesNoStatus.NO, { text: '否', status: DictStatus.ERROR }],
-]);
 
 // JAVA类型
 export enum JavaType {
@@ -56,9 +46,9 @@ export const JavaTypeMap: ValueEnumMap<JavaType> = new Map([
 
 // 生成模版类型
 export enum TemplateType {
-  CRUD = 'crud',
-  TREE = 'tree',
-  SUB = 'sub',
+  CRUD = 'CRUD',
+  TREE = 'TREE',
+  SUB = 'SUB',
 }
 export const TemplateTypeMap: ValueEnumMap<TemplateType> = new Map([
   [TemplateType.CRUD, { text: '单表（增删改查）' }],
@@ -71,11 +61,11 @@ export enum QueryType {
   EQ = 'EQ',
   NE = 'NE',
   GT = 'GT',
-  GE = 'GE',
   LT = 'LT',
-  LE = 'LE',
   LIKE = 'LIKE',
   BETWEEN = 'BETWEEN',
+  GE = 'GE',
+  LE = 'LE',
 }
 export const QueryTypeMap: ValueEnumMap<QueryType> = new Map([
   [QueryType.EQ, { text: '=' }],
@@ -90,8 +80,8 @@ export const QueryTypeMap: ValueEnumMap<QueryType> = new Map([
 
 // 生成代码方式
 export enum GenType {
-  ZIP = '0',
-  CUSTOM = '1',
+  ZIP = 'ZIP',
+  CUSTOM = 'CUSTOM',
 }
 export const GenTypeMap: ValueEnumMap<GenType> = new Map([
   [GenType.ZIP, { text: 'zip压缩包' }],

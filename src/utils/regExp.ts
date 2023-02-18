@@ -6,3 +6,6 @@ export const regPassword = /^\w{6,20}$/;
 
 // 邮箱正则表达式
 export const regEmail = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+
+// http(s)://开头的url
+export const regUrl = /^https?:\/\/.+/;

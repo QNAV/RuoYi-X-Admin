@@ -1,5 +1,5 @@
-import { MenuType, MenuTypeMap, YesNoStatus, YesNoStatusMap } from '@/constants';
-import { useQueryDictSysNormalDisable, useQueryDictSysShowHide } from '@/models';
+import { MenuType, MenuTypeMap } from '@/constants';
+import { useQueryDictSysNormalDisable, useQueryDictSysYesNo } from '@/models';
 import {
   useAtomValueModalAdd,
   useAtomValueSelectedMenuData,
@@ -34,8 +34,8 @@ const ModalAdd: FC = () => {
 
   const { selectedMenuId } = useAtomValueSelectedMenuData();
 
-  const { valueEnumSysNormalDisable, defaultValueSysNormalDisable } = useQueryDictSysNormalDisable();
-  const { valueEnumSysShowHide, defaultValueSysShowHide } = useQueryDictSysShowHide();
+  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
+  const { valueEnumSysYesNo } = useQueryDictSysYesNo();
 
   const { data, refetch } = useQueryMenuOptions();
   const reFetchMenuList = useReFetchMenuList();
@@ -131,24 +131,21 @@ const ModalAdd: FC = () => {
                         label="菜单状态"
                         required
                         valueEnum={valueEnumSysNormalDisable}
-                        initialValue={defaultValueSysNormalDisable}
                       />
 
                       <ProFormRadio.Group
                         name="visible"
-                        label="菜单是否显示"
-                        valueEnum={valueEnumSysShowHide}
+                        label="菜单是否隐藏"
+                        valueEnum={valueEnumSysYesNo}
                         required
-                        initialValue={defaultValueSysShowHide}
                         tooltip="选择否则路由将不会出现在侧边栏，但仍然可以访问"
                       />
 
                       <ProFormRadio.Group
                         name="isFrame"
                         label="是否外链"
-                        valueEnum={YesNoStatusMap}
+                        valueEnum={valueEnumSysYesNo}
                         required
-                        initialValue={YesNoStatus.NO}
                         tooltip="选择是外链则路由地址需要以`http(s)://`开头"
                       />
                     </ProFormGroup>

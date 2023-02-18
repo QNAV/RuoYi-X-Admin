@@ -1,22 +1,22 @@
 export const OptionsDataScope = [
   {
-    value: '1',
+    value: 'ALL',
     label: '全部数据权限',
   },
   {
-    value: '2',
+    value: 'CUSTOM',
     label: '自定数据权限',
   },
   {
-    value: '3',
+    value: 'DEPT',
     label: '本部门数据权限',
   },
   {
-    value: '4',
+    value: 'DEPT_CHILD',
     label: '本部门及以下数据权限',
   },
   {
-    value: '5',
+    value: 'SELF',
     label: '仅本人数据权限',
   },
 ];

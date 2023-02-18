@@ -1,4 +1,5 @@
-import { JavaTypeMap, QueryTypeMap, YesNoStatusMap } from '@/constants';
+import { JavaTypeMap, QueryTypeMap } from '@/constants';
+import { useQueryDictSysYesNo } from '@/models';
 import type { GenTable, GenTableColumn } from '@/services/gen/data-contracts';
 import { CloseOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-components';
@@ -7,76 +8,79 @@ import { Button, Form } from 'antd';
 import type { FC, Key } from 'react';
 import { useState } from 'react';
 
-const columns: ProColumns[] = [
-  { title: '序号', dataIndex: 'sort', valueType: 'indexBorder', editable: false },
-  {
-    title: '字段名称',
-    dataIndex: 'columnName',
-    key: 'columnName',
-    valueType: 'text',
-    editable: false,
-    ellipsis: true,
-  },
-  { title: '字段描述', dataIndex: 'columnComment', key: 'columnComment', valueType: 'text' },
-  {
-    title: '物理类型',
-    dataIndex: 'columnType',
-    key: 'columnType',
-    valueType: 'text',
-    editable: false,
-    ellipsis: true,
-  },
-  {
-    title: 'JAVA类型',
-    dataIndex: 'javaType',
-    key: 'javaType',
-    valueType: 'select',
-    valueEnum: JavaTypeMap,
-  },
-  { title: 'JAVA属性', dataIndex: 'javaField', key: 'javaField', valueType: 'text' },
-  {
-    title: '插入',
-    dataIndex: 'isInsert',
-    key: 'isInsert',
-    valueType: 'radioButton',
-    valueEnum: YesNoStatusMap,
-  },
-  {
-    title: '编辑',
-    dataIndex: 'isEdit',
-    key: 'isEdit',
-    valueType: 'radioButton',
-    valueEnum: YesNoStatusMap,
-  },
-  {
-    title: '列表',
-    dataIndex: 'isList',
-    key: 'isList',
-    valueType: 'radioButton',
-    valueEnum: YesNoStatusMap,
-  },
-  {
-    title: '查询',
-    dataIndex: 'isQuery',
-    key: 'isQuery',
-    valueType: 'radioButton',
-    valueEnum: YesNoStatusMap,
-  },
-  {
-    title: '必填',
-    dataIndex: 'isRequired',
-    key: 'isRequired',
-    valueType: 'radioButton',
-    valueEnum: YesNoStatusMap,
-  },
-  {
-    title: '查询方式',
-    dataIndex: 'queryType',
-    key: 'queryType',
-    valueType: 'select',
-    valueEnum: QueryTypeMap,
-  },
-];
+const useColumns = (): ProColumns[] => {
+  const { valueEnumSysYesNo } = useQueryDictSysYesNo();
+  return [
+    { title: '序号', dataIndex: 'sort', valueType: 'indexBorder', editable: false },
+    {
+      title: '字段名称',
+      dataIndex: 'columnName',
+      key: 'columnName',
+      valueType: 'text',
+      editable: false,
+      ellipsis: true,
+    },
+    { title: '字段描述', dataIndex: 'columnComment', key: 'columnComment', valueType: 'text' },
+    {
+      title: '物理类型',
+      dataIndex: 'columnType',
+      key: 'columnType',
+      valueType: 'text',
+      editable: false,
+      ellipsis: true,
+    },
+    {
+      title: 'JAVA类型',
+      dataIndex: 'javaType',
+      key: 'javaType',
+      valueType: 'select',
+      valueEnum: JavaTypeMap,
+    },
+    { title: 'JAVA属性', dataIndex: 'javaField', key: 'javaField', valueType: 'text' },
+    {
+      title: '插入',
+      dataIndex: 'isInsert',
+      key: 'isInsert',
+      valueType: 'radioButton',
+      valueEnum: valueEnumSysYesNo,
+    },
+    {
+      title: '编辑',
+      dataIndex: 'isEdit',
+      key: 'isEdit',
+      valueType: 'radioButton',
+      valueEnum: valueEnumSysYesNo,
+    },
+    {
+      title: '列表',
+      dataIndex: 'isList',
+      key: 'isList',
+      valueType: 'radioButton',
+      valueEnum: valueEnumSysYesNo,
+    },
+    {
+      title: '查询',
+      dataIndex: 'isQuery',
+      key: 'isQuery',
+      valueType: 'radioButton',
+      valueEnum: valueEnumSysYesNo,
+    },
+    {
+      title: '必填',
+      dataIndex: 'isRequired',
+      key: 'isRequired',
+      valueType: 'radioButton',
+      valueEnum: valueEnumSysYesNo,
+    },
+    {
+      title: '查询方式',
+      dataIndex: 'queryType',
+      key: 'queryType',
+      valueType: 'select',
+      valueEnum: QueryTypeMap,
+    },
+  ];
+};
 
 const EditableTableField: FC<{
   dataSource?: GenTableColumn[];
@@ -87,6 +91,8 @@ const EditableTableField: FC<{
 
   const [editableKeys, setEditableRowKeys] = useState<Key[]>([]);
   const isEditing = editableKeys?.length > 0;
+
+  const columns = useColumns();
 
   return (
     <EditableProTable

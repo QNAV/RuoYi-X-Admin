@@ -1,7 +1,7 @@
 import { EmptySimple } from '@/components';
-import { MenuType, MenuTypeMap, YesNoStatusMap } from '@/constants';
+import { MenuType, MenuTypeMap } from '@/constants';
 import { useCheckAccess } from '@/hooks';
-import { useQueryDictSysNormalDisable, useQueryDictSysShowHide } from '@/models';
+import { useQueryDictSysNormalDisable, useQueryDictSysShowHide, useQueryDictSysYesNo } from '@/models';
 import { useAtomValueSelectedMenuData, useReFetchMenuList, useReFetchMenuOptions } from '@/pages/system/menu/model';
 import type { SysMenuVo } from '@/services/system/data-contracts';
 import { sysMenuGetInfo, sysMenuPostEdit } from '@/services/system/System';
@@ -18,6 +18,7 @@ const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl:
 const useColumns = (menuType?: string): ProDescriptionsProps['columns'] => {
   const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
   const { valueEnumSysShowHide } = useQueryDictSysShowHide();
+  const { valueEnumSysYesNo } = useQueryDictSysYesNo();
 
   return useMemo(() => {
     const columns: ProDescriptionsProps['columns'] = [];
@@ -46,7 +47,7 @@ const useColumns = (menuType?: string): ProDescriptionsProps['columns'] => {
           dataIndex: 'isFrame',
           key: 'isFrame',
           valueType: 'radio',
-          valueEnum: YesNoStatusMap,
+          valueEnum: valueEnumSysYesNo,
           tooltip: '选择是外链则路由地址需要以`http(s)://`开头',
         },
         {
