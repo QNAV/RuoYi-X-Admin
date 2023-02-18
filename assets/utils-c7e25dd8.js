@@ -1,0 +1,1 @@
+import{Q as a,aj as c,r as u}from"./index-536fe76b.js";const m=Symbol();function f(o){const t=a(o,(s,n,e)=>{const r=typeof e=="function"?e(s(t)):e;n(t,r===m?o:r)});return t}function x(o,t){const s=c(o,t);return u.useCallback(()=>s(m),[s])}export{f as a,x as u};
