@@ -102,6 +102,10 @@ export const layoutRoutes: RouteObject[] = [
             path: 'cache',
             element: lazyLoad('monitor/cache'),
           },
+          {
+            path: 'cache-list',
+            element: lazyLoad('monitor/cacheList'),
+          },
         ],
       },
       {
