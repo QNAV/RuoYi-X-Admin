@@ -16,11 +16,12 @@ export const noticeActionTypeTextMap = {
   [NoticeActionType.Add]: '新增',
   [NoticeActionType.Edit]: '编辑',
 };
-const atomAddOrEditModal = atomWithReset<{
+export interface AtomAddOrEditModal {
   open: boolean;
   actionType: NoticeActionType;
   record?: SysNoticeVo;
-}>({
+}
+const atomAddOrEditModal = atomWithReset<AtomAddOrEditModal>({
   open: false,
   actionType: NoticeActionType.Add,
 });
