@@ -8,11 +8,13 @@ import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormDigit, ProFormRadio, ProFormText, ProFormTreeSelect } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useBoolean } from 'ahooks';
-import { message, Modal } from 'antd';
+import { App, Modal } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
 
 const ButtonAdd: FC = () => {
+  const { message } = App.useApp();
+
   const formRef = useRef<ProFormInstance<SysDeptAddBo>>();
 
   const [open, { toggle }] = useBoolean();

@@ -1,13 +1,24 @@
 import { BaseButtonExport } from '@/components';
 import { AccessWithState } from '@/features';
 import type { SysDictDataQueryBo } from '@/services/system/data-contracts';
-import { sysDictDataPostExport } from '@/services/system/System';
+import { sysDictDataPostExportSkipErrorHandler } from '@/services/system/System';
+import { download } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
-import { message } from 'antd';
+import { App } from 'antd';
 import type { FC } from 'react';
 
+const handleExport = async (searchParams: SysDictDataQueryBo) => {
+  const { data } = await sysDictDataPostExportSkipErrorHandler(searchParams, {
+    format: 'blob',
+  });
+
+  await download(data, `dict_${new Date().getTime()}.xlsx`);
+};
+
 const ButtonExport: FC<{ searchParams: SysDictDataQueryBo }> = ({ searchParams }) => {
-  const { isLoading, mutate } = useMutation(sysDictDataPostExport, {
+  const { message } = App.useApp();
+
+  const { isLoading, mutate } = useMutation(handleExport, {
     onSuccess: () => {
       message.success('导出成功');
     },

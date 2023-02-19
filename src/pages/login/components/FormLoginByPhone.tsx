@@ -1,10 +1,12 @@
 import { regPhone } from '@/utils';
 import { LockOutlined, MobileOutlined } from '@ant-design/icons';
 import { ProFormCaptcha, ProFormText } from '@ant-design/pro-components';
-import { message } from 'antd';
+import { App } from 'antd';
 import type { FC } from 'react';
 
 const FormLoginByPhone: FC = () => {
+  const { message } = App.useApp();
+
   return (
     <>
       <ProFormText

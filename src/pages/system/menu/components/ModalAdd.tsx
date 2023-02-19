@@ -21,11 +21,13 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
-import { message, Modal } from 'antd';
+import { App, Modal } from 'antd';
 import type { FC } from 'react';
 import { startTransition, useEffect, useRef } from 'react';
 
 const ModalAdd: FC = () => {
+  const { message } = App.useApp();
+
   const formRef = useRef<ProFormInstance>();
 
   const hideModalAdd = useHideModalAdd();

@@ -11,12 +11,14 @@ import type { SysDictTypeAddBo } from '@/services/system/data-contracts';
 import { sysDictTypePostAdd, sysDictTypePostEdit } from '@/services/system/System';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormRadio, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
-import { message } from 'antd';
+import { App } from 'antd';
 import type { FC } from 'react';
 import { startTransition, useEffect, useRef } from 'react';
 
 const ModalAddOrEdit: FC = () => {
   const formRef = useRef<ProFormInstance>();
+
+  const { message } = App.useApp();
 
   const mainTableActions = useAtomValueMainTableActions();
 

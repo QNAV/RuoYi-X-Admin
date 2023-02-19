@@ -9,7 +9,7 @@ import { sysLoginPostSmsLogin } from '@/services/system/SmsLogin';
 import { setToken, StorageType } from '@/utils';
 import { LoginFormPage, ProFormCheckbox } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
-import { message, Tabs } from 'antd';
+import { App, Tabs } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -46,6 +46,8 @@ const PageLogin: FC = () => {
 
     await handleLoginSuccess(autoLogin, token);
   };
+
+  const { message } = App.useApp();
 
   const loginByUsername = async (autoLogin: boolean, data: UserNameLoginBo) => {
     if (!getCaptchaImageRes) {

@@ -8,7 +8,7 @@ import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
-import { Divider, Form, message, Spin } from 'antd';
+import { App, Divider, Form, Spin } from 'antd';
 import type { FC } from 'react';
 import { useMemo, useState } from 'react';
 
@@ -99,6 +99,8 @@ const DescMenu: FC = () => {
       refreshDeps: [selectedMenuId],
     },
   );
+
+  const { message } = App.useApp();
 
   const { mutateAsync } = useMutation(sysMenuPostEdit, {
     onSuccess: async () => {

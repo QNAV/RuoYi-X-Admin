@@ -1,14 +1,24 @@
 import { BaseButtonExport } from '@/components';
 import { AccessWithState } from '@/features';
 import type { SysOperLogQueryBo } from '@/services/system/data-contracts';
-import { sysOperLogPostExport } from '@/services/system/Monitor';
+import { sysOperLogPostExportSkipErrorHandler } from '@/services/system/Monitor';
+import { download } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
-import { message } from 'antd';
+import { App } from 'antd';
 import type { FC } from 'react';
 
-// TODO 导出
+const handleExport = async (searchParams: SysOperLogQueryBo) => {
+  const { data } = await sysOperLogPostExportSkipErrorHandler(searchParams, {
+    format: 'blob',
+  });
+
+  await download(data, `operlog_${new Date().getTime()}.xlsx`);
+};
+
 const ButtonExport: FC<{ searchParams: SysOperLogQueryBo }> = ({ searchParams }) => {
-  const { isLoading, mutate } = useMutation(sysOperLogPostExport, {
+  const { message } = App.useApp();
+
+  const { isLoading, mutate } = useMutation(handleExport, {
     onSuccess: () => {
       message.success('导出成功');
     },

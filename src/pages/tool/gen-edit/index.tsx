@@ -6,7 +6,7 @@ import { genGetInfo, genPostEdit } from '@/services/gen/Tool';
 import { ProCard } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import { App } from 'antd';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -24,6 +24,8 @@ const TabName = {
 const GenEditPage: FC = () => {
   const params = useParams();
   const tableId = Number(params?.tableId ?? '0') as number;
+
+  const { message } = App.useApp();
 
   const [tab, setTab] = useState<TabKey>(TabKey.BASE_INFO);
 

@@ -2,7 +2,7 @@ import { Access } from '@/components';
 import { genGetBatchGenCode } from '@/services/gen/Tool';
 import { CloudDownloadOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message } from 'antd';
+import { App, Button } from 'antd';
 import { saveAs } from 'file-saver';
 import type { FC } from 'react';
 
@@ -12,6 +12,8 @@ const ButtonDownload: FC<{
   disabled?: boolean;
 }> = ({ tableName, isBatch = false, disabled = false }) => {
   const text = isBatch ? '批量下载' : '下载';
+
+  const { message } = App.useApp();
 
   const { isLoading, mutate } = useMutation(
     async () => {

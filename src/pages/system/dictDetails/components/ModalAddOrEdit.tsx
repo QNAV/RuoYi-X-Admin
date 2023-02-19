@@ -20,12 +20,14 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { Button, message } from 'antd';
+import { App, Button } from 'antd';
 import type { FC } from 'react';
 import { startTransition, useEffect, useRef } from 'react';
 
 const ModalAddOrEdit: FC = () => {
   const formRef = useRef<ProFormInstance>();
+
+  const { message } = App.useApp();
 
   const mainTableActions = useAtomValueMainTableActions();
 

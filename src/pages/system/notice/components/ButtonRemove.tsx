@@ -3,7 +3,7 @@ import { AccessWithState } from '@/features';
 import { useAtomValueMainTableActions } from '@/pages/system/notice/model';
 import { sysNoticePostRemove } from '@/services/system/System';
 import { useMutation } from '@tanstack/react-query';
-import { message, Modal } from 'antd';
+import { App } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
@@ -12,6 +12,8 @@ const ButtonRemove: FC<{
   disabled?: boolean;
 }> = ({ noticeIds, disabled, batch }) => {
   const mainTableActions = useAtomValueMainTableActions();
+
+  const { message, modal } = App.useApp();
 
   const { mutate, isLoading } = useMutation(sysNoticePostRemove, {
     onSuccess: () => {
@@ -22,7 +24,7 @@ const ButtonRemove: FC<{
   });
 
   const handleRemove = () => {
-    Modal.confirm({
+    modal.confirm({
       title: '操作确认',
       content: `确定删除公告编号为 ${noticeIds.join(',')} 的公告通知吗？`,
       onOk: () => mutate({ noticeIds }),

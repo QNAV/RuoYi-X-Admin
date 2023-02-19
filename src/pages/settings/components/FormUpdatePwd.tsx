@@ -5,7 +5,7 @@ import { regPassword } from '@/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormText } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message } from 'antd';
+import { App, Button } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
 
@@ -13,6 +13,8 @@ const FormUpdatePwd: FC = () => {
   const formRef = useRef<ProFormInstance<UpdatePwdBo>>();
 
   const logout = useLogout();
+
+  const { message } = App.useApp();
 
   const { mutate, isLoading } = useMutation(
     async () => {

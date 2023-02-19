@@ -2,10 +2,12 @@ import { Access } from '@/components';
 import { genGetSynchDb } from '@/services/gen/Tool';
 import { CloudSyncOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message } from 'antd';
+import { App, Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonSync: FC<{ tableName: string }> = ({ tableName }) => {
+  const { message } = App.useApp();
+
   const { isLoading, mutate } = useMutation(
     async () => {
       await genGetSynchDb({ tableName });

@@ -11,7 +11,7 @@ import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormSelect } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
-import { Button, Checkbox, message, Space, Spin, Tree } from 'antd';
+import { App, Button, Checkbox, Space, Spin, Tree } from 'antd';
 import type { FC, Key } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -22,6 +22,8 @@ const TreeDept: FC = () => {
   const [treeData, setTreeData] = useState<TreeData[]>([]);
   const [checkAll, setCheckAll] = useState(false);
   const [indeterminate, setIndeterminate] = useState(true);
+
+  const { message } = App.useApp();
 
   const [dataScope, setDataScope] = useState<SysRoleVo['dataScope']>();
   const formRef = useRef<ProFormInstance>();

@@ -3,17 +3,19 @@ import { AccessWithState } from '@/features';
 import { useAtomValueMainTableActions } from '@/pages/system/config/model';
 import { sysConfigPostRemove } from '@/services/system/System';
 import { useMutation } from '@tanstack/react-query';
-import { message, Modal } from 'antd';
+import { App } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
-  configId: number[];
+  configIds: number[];
   batch?: boolean;
   disabled?: boolean;
-}> = ({ configId, disabled, batch }) => {
+}> = ({ configIds, disabled, batch }) => {
+  const { modal, message } = App.useApp();
+
   const mainTableActions = useAtomValueMainTableActions();
 
-  const { mutateAsync, isLoading } = useMutation(sysConfigPostRemove, {
+  const { mutate, isLoading } = useMutation(sysConfigPostRemove, {
     onSuccess: () => {
       mainTableActions?.reload();
       mainTableActions?.clearSelected?.();
@@ -21,11 +23,11 @@ const ButtonRemove: FC<{
     },
   });
 
-  const onRemove = () => {
-    Modal.confirm({
+  const handleRemove = () => {
+    modal.confirm({
       title: '操作确认',
-      content: `确定删除参数编号为 ${configId} 的参数吗？`,
-      onOk: () => mutateAsync({ configIds: configId }),
+      content: `确定删除参数编号为 ${configIds.join(',')} 的参数吗？`,
+      onOk: () => mutate({ configIds }),
       okButtonProps: {
         loading: isLoading,
       },
@@ -34,7 +36,7 @@ const ButtonRemove: FC<{
 
   return (
     <AccessWithState accessKey="system:config:remove">
-      <BaseButtonRemove batch={batch} disabled={disabled} onClick={onRemove} />
+      <BaseButtonRemove batch={batch} disabled={disabled} onClick={handleRemove} />
     </AccessWithState>
   );
 };

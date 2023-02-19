@@ -35,7 +35,6 @@ export const useShowAddModal = () => {
     });
   };
 };
-
 export const useShowEditModal = () => {
   const setAtom = useSetAtom(atomAddOrEditModal);
   return (record: SysConfigVo) => {

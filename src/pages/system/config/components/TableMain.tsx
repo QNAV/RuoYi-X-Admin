@@ -1,93 +1,48 @@
 import { BaseProTable } from '@/components';
-import { useQueryDictSysYesNo } from '@/models';
 import ButtonAdd from '@/pages/system/config/components/ButtonAdd';
-import ButtonEdit from '@/pages/system/config/components/ButtonEdit';
 import ButtonExport from '@/pages/system/config/components/ButtonExport';
 import ButtonRefresh from '@/pages/system/config/components/ButtonRefresh';
 import ButtonRemove from '@/pages/system/config/components/ButtonRemove';
 import { useActionRefMainTable } from '@/pages/system/config/model';
+import { useTableColumns } from '@/pages/system/config/model/columns';
 import type { SysConfigPageQueryBo, SysConfigVo } from '@/services/system/data-contracts';
 import { sysConfigPostList } from '@/services/system/System';
 import { convertParams } from '@/utils';
-import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
+import type { ProTableProps } from '@ant-design/pro-components';
+import { isArray } from 'lodash-es';
 import type { FC } from 'react';
 import { useState } from 'react';
 
-const useColumns = (): ProColumns<SysConfigVo>[] => {
-  const { valueEnumSysYesNo } = useQueryDictSysYesNo();
-
-  return [
-    { title: '参数主键', dataIndex: 'configId', key: 'configId', valueType: 'text', hideInSearch: true },
-    { title: '参数名称', dataIndex: 'configName', key: 'configName', valueType: 'text' },
-    { title: '参数键名', dataIndex: 'configKey', key: 'configKey', valueType: 'text' },
-    { title: '参数键值', dataIndex: 'configValue', key: 'configValue', valueType: 'text', hideInSearch: true },
-    {
-      title: '系统内置',
-      dataIndex: 'configType',
-      key: 'configType',
-      valueType: 'select',
-      valueEnum: valueEnumSysYesNo,
-    },
-    { title: '备注', dataIndex: 'remark', key: 'remark', valueType: 'textarea', hideInSearch: true },
-    {
-      title: '创建时间',
-      dataIndex: 'createTime',
-      key: 'createTime',
-      valueType: 'dateTime',
-      editable: false,
-      hideInSearch: true,
-      sorter: true,
-    },
-    {
-      title: '创建时间',
-      dataIndex: 'createTimeRange',
-      key: 'createTimeRange',
-      valueType: 'dateTimeRange',
-      hideInTable: true,
-    },
-    {
-      title: '操作',
-      valueType: 'option',
-      fixed: 'right',
-      render: (dom, entity) => {
-        return (
-          <>
-            <ButtonEdit record={entity} />
-            <ButtonRemove configId={[entity.configId]} />
-          </>
-        );
-      },
-    },
-  ];
-};
-
 const tableAlertOptionRender: ProTableProps<SysConfigVo, SysConfigPageQueryBo>['tableAlertOptionRender'] = ({
-  selectedRows,
+  selectedRowKeys,
 }) => {
-  return (
-    <ButtonRemove
-      disabled={selectedRows.length === 0}
-      batch
-      configId={selectedRows.map((i) => i.configId) as unknown as number[]}
-    />
-  );
+  return <ButtonRemove disabled={selectedRowKeys.length === 0} batch configIds={selectedRowKeys as number[]} />;
 };
 
 const TableMain: FC = () => {
   const actionRef = useActionRefMainTable();
 
-  const columns = useColumns();
+  const columns = useTableColumns();
 
   const [searchParams, setSearchParams] = useState<SysConfigPageQueryBo>({});
 
   return (
-    <BaseProTable<SysConfigVo, SysConfigPageQueryBo>
+    <BaseProTable<
+      SysConfigVo,
+      SysConfigPageQueryBo & {
+        createTimeRange?: [string, string];
+      }
+    >
       rowKey="configId"
       actionRef={actionRef}
       columns={columns}
       tableAlertOptionRender={tableAlertOptionRender}
       request={async (...p) => {
-        const params = convertParams(...p);
+        const { createTimeRange, ...params } = convertParams(...p);
+        if (isArray(createTimeRange)) {
+          params.beginTime = createTimeRange[0];
+          params.endTime = createTimeRange[1];
+        }
         setSearchParams(params);
         return await sysConfigPostList(params);
       }}

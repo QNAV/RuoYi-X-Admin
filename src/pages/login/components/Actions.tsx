@@ -1,8 +1,9 @@
 import { WechatOutlined } from '@ant-design/icons';
-import { Divider, message } from 'antd';
+import { App, Divider } from 'antd';
 import type { FC } from 'react';
 
 const Actions: FC = () => {
+  const { message } = App.useApp();
   return (
     <div className="flex flex-col justify-center items-center">
       <Divider plain>

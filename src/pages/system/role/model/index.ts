@@ -5,7 +5,7 @@ import type { TreeData } from '@/utils';
 import { filterCheckedTree, getExpandedKeys, getMenuIds } from '@/utils';
 import type { ActionType } from '@ant-design/pro-components';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { message } from 'antd';
+import { App } from 'antd';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { atomWithReset, useResetAtom } from 'jotai/utils';
 import { useEffect } from 'react';
@@ -90,6 +90,8 @@ export const useQueryRoleTree = (onSuccess: (selectedTreeData: TreeData[]) => vo
 
 export const useEditRoleDetails = (onSuccess: () => void) => {
   const queryClient = useQueryClient();
+
+  const { message } = App.useApp();
 
   return useMutation(
     async (params: Partial<SysRole>) => {

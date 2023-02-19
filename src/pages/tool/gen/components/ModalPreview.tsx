@@ -3,7 +3,7 @@ import { useAtomValuePreviewModal, useHidePreviewModal } from '@/pages/tool/gen/
 import { genGetPreview } from '@/services/gen/Tool';
 import { CopyOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
-import { Button, message, Modal, Spin, Tabs } from 'antd';
+import { App, Button, Modal, Spin, Tabs } from 'antd';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import type { FC } from 'react';
@@ -12,6 +12,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 const ModalPreview: FC = () => {
   const onCancel = useHidePreviewModal();
   const { open, previewId } = useAtomValuePreviewModal();
+
+  const { message } = App.useApp();
 
   const { data, loading } = useRequest(
     async () => {

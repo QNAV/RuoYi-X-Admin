@@ -5,12 +5,14 @@ import { sysPostPostAdd, sysPostPostEdit } from '@/services/system/System';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormDigit, ProFormRadio, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
-import { message, Modal } from 'antd';
+import { App, Modal } from 'antd';
 import type { FC } from 'react';
 import { useEffect, useRef } from 'react';
 
 const ModalAddOrEdit: FC = () => {
   const formRef = useRef<ProFormInstance<SysPostAddBo>>();
+
+  const { message } = App.useApp();
 
   const { open, actionType, record } = useValueAddOrEditModal();
   const hideAddOrEditModal = useHideAddOrEditModal();

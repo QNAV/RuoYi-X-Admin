@@ -3,7 +3,7 @@ import { AccessWithState } from '@/features';
 import { useAtomValueRoleDetails, useAtomValueRoleListActions, useHideRoleDetails } from '@/pages/system/role/model';
 import { sysRolePostRemove } from '@/services/system/System';
 import { useMutation } from '@tanstack/react-query';
-import { message, Modal } from 'antd';
+import { App } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC = () => {
@@ -11,6 +11,8 @@ const ButtonRemove: FC = () => {
 
   const hideRoleDetails = useHideRoleDetails();
   const { roleId, open } = useAtomValueRoleDetails();
+
+  const { message, modal } = App.useApp();
 
   const { isLoading, mutateAsync } = useMutation(sysRolePostRemove, {
     onSuccess: () => {
@@ -22,7 +24,7 @@ const ButtonRemove: FC = () => {
   });
 
   const handleDel = () =>
-    Modal.confirm({
+    modal.confirm({
       title: '操作确认',
       content: `确定删除角色编号为 ${roleId} 的角色吗？`,
       onOk: () => mutateAsync({ roleIds: [roleId!] }),

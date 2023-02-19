@@ -6,7 +6,7 @@ import { CameraOutlined } from '@ant-design/icons';
 import type { ProDescriptionsItemProps, RowEditableConfig } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
-import { Avatar, Col, Divider, message, Row, Upload } from 'antd';
+import { App, Avatar, Col, Divider, Row, Upload } from 'antd';
 import type { FC } from 'react';
 
 const uploadAvatarPath = `${import.meta.env.VITE_API_HOST}/api/sys/profile/update-avatar`;
@@ -87,6 +87,8 @@ const DescriptionsUser: FC = () => {
   const { data: initialState, refetch } = useQueryInitialState();
 
   const editableColumns = useEditableColumns();
+
+  const { message } = App.useApp();
 
   const { mutate, mutateAsync } = useMutation(sysProfilePostUpdateProfile, {
     onSuccess: () => {

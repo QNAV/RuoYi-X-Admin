@@ -2,7 +2,7 @@ import type { SysMenuQueryBo, SysMenuVo } from '@/services/system/data-contracts
 import { sysMenuPostList, sysMenuPostRemove } from '@/services/system/System';
 import { getOptions, parseSimpleTreeData, sortByOrderNum } from '@/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { message, Modal, Typography } from 'antd';
+import { App, Typography } from 'antd';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { atomWithReset, useResetAtom } from 'jotai/utils';
 
@@ -100,6 +100,8 @@ export const useDeleteMenu = () => {
   const reFetchMenuOptions = useReFetchMenuOptions();
   const resetSelectedMenuData = useResetSelectedMenuData();
 
+  const { message, modal } = App.useApp();
+
   const { mutateAsync, isLoading } = useMutation(
     async (menuId: number) => {
       await sysMenuPostRemove({ menuId });
@@ -116,7 +118,7 @@ export const useDeleteMenu = () => {
   );
 
   return (params: { menuId: number; menuName: string }) => {
-    Modal.confirm({
+    modal.confirm({
       title: '操作确认',
       content: (
         <>

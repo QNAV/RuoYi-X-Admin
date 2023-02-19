@@ -2,14 +2,16 @@ import { AccessWithState } from '@/features';
 import { useAtomValueMainTableActions } from '@/pages/monitor/operlog/model';
 import { sysOperLogPostClean } from '@/services/system/Monitor';
 import { DeleteOutlined } from '@ant-design/icons';
-import { Button, message, Modal } from 'antd';
+import { App, Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonCleanUp: FC = () => {
   const mainTableActions = useAtomValueMainTableActions();
 
+  const { message, modal } = App.useApp();
+
   const handleCleanUp = () => {
-    Modal.confirm({
+    modal.confirm({
       title: '操作确认',
       content: '确认清空操作日志吗？',
       onOk: async () => {

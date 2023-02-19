@@ -3,7 +3,7 @@ import { useAtomValueMainTableActions } from '@/pages/monitor/online/model';
 import { sysUserOnlinePostForceLogout } from '@/services/system/Monitor';
 import { rootKey } from '@/utils';
 import { DeleteOutlined } from '@ant-design/icons';
-import { Button, message, Modal } from 'antd';
+import { App, Button } from 'antd';
 import type { FC } from 'react';
 
 interface ButtonForceLogoutProps {
@@ -16,8 +16,10 @@ interface ButtonForceLogoutProps {
 const ButtonForceLogout: FC<ButtonForceLogoutProps> = ({ userName, tokenId, batch = false, disabled }) => {
   const mainTableActions = useAtomValueMainTableActions();
 
+  const { message, modal } = App.useApp();
+
   const handleForceLogout = () => {
-    Modal.confirm({
+    modal.confirm({
       title: '操作确认',
       content: `确定强退用户 ${userName} 吗？`,
       onOk: async () => {

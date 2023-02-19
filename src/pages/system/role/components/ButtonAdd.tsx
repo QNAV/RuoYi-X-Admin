@@ -6,7 +6,7 @@ import type { SysRole } from '@/services/system/data-contracts';
 import { sysRolePostAdd } from '@/services/system/System';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { BetaSchemaForm } from '@ant-design/pro-components';
-import { message } from 'antd';
+import { App } from 'antd';
 import type { FC } from 'react';
 import { useRef } from 'react';
 
@@ -16,6 +16,8 @@ const ButtonAdd: FC = () => {
   const roleListActions = useAtomValueRoleListActions();
 
   const formColumns = useFormColumns();
+
+  const { message } = App.useApp();
 
   const handleFinish = async (values: SysRole) => {
     await sysRolePostAdd({

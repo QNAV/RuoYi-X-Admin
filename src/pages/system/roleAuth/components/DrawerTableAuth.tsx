@@ -7,7 +7,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useBoolean } from 'ahooks';
-import { Button, Drawer, message } from 'antd';
+import { App, Button, Drawer } from 'antd';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -23,6 +23,8 @@ const DrawerTableAuth: FC = () => {
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
 
   const actionsMainTable = useActionsMainTable();
+
+  const { message } = App.useApp();
 
   const { isLoading, mutate } = useMutation(() => sysRolePostSelectAuthUserAll({ roleId, userIds: selectedKeys }), {
     onSuccess: () => {

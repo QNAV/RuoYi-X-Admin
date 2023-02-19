@@ -7,7 +7,7 @@ import { CloudUploadOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useBoolean } from 'ahooks';
-import { Button, message, Modal } from 'antd';
+import { App, Button, Modal } from 'antd';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 
@@ -48,6 +48,8 @@ const ButtonImport: FC = () => {
   const [open, { toggle }] = useBoolean();
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
+
+  const { message } = App.useApp();
 
   const { mutate, isLoading } = useMutation(genPostImportTable, {
     onSuccess: () => {

@@ -3,7 +3,7 @@ import { AccessWithState } from '@/features';
 import { useAtomValueMainTableActions } from '@/pages/system/dict/model';
 import { sysDictTypePostRemove } from '@/services/system/System';
 import { useMutation } from '@tanstack/react-query';
-import { message, Modal } from 'antd';
+import { App } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
@@ -11,6 +11,8 @@ const ButtonRemove: FC<{
   batch?: boolean;
   disabled?: boolean;
 }> = ({ dictId, disabled, batch }) => {
+  const { message, modal } = App.useApp();
+
   const mainTableActions = useAtomValueMainTableActions();
 
   const { mutateAsync, isLoading } = useMutation(sysDictTypePostRemove, {
@@ -22,7 +24,7 @@ const ButtonRemove: FC<{
   });
 
   const onRemove = () => {
-    Modal.confirm({
+    modal.confirm({
       title: '操作确认',
       content: `确定删除字典编号为 ${dictId} 的字典吗？`,
       onOk: () => mutateAsync({ dictIds: dictId }),

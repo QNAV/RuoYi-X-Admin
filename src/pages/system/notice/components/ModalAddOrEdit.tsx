@@ -10,11 +10,13 @@ import type { SysNoticeAddBo } from '@/services/system/data-contracts';
 import { sysNoticePostAdd, sysNoticePostEdit } from '@/services/system/System';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { BetaSchemaForm } from '@ant-design/pro-components';
-import { message } from 'antd';
+import { App } from 'antd';
 import { startTransition, useEffect, useRef } from 'react';
 
 const ModalAddOrEdit = () => {
   const formRef = useRef<ProFormInstance>();
+
+  const { message } = App.useApp();
 
   const mainTableActions = useAtomValueMainTableActions();
 

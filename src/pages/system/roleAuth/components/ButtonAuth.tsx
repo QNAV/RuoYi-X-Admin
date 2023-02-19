@@ -3,7 +3,7 @@ import { useActionsMainTable } from '@/pages/system/roleAuth/model';
 import { sysRolePostCancelAuthUser, sysRolePostSelectAuthUserAll } from '@/services/system/System';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal, Typography } from 'antd';
+import { App, Button, Typography } from 'antd';
 import type { FC } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -19,6 +19,8 @@ const ButtonAuth: FC<{
   const roleId = Number(params.roleId);
 
   const actionsMainTable = useActionsMainTable();
+
+  const { message, modal } = App.useApp();
 
   const { mutateAsync, isLoading } = useMutation(
     async () => {
@@ -38,7 +40,7 @@ const ButtonAuth: FC<{
   );
 
   const onRemove = () => {
-    Modal.confirm({
+    modal.confirm({
       title: '取消授权',
       content: (
         <>

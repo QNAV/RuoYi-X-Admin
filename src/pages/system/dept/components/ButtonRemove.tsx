@@ -7,7 +7,7 @@ import {
   useReFetchDeptOptions,
 } from '@/pages/system/dept/model';
 import { sysDeptPostRemove } from '@/services/system/System';
-import { message, Modal, Typography } from 'antd';
+import { App, Typography } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC = () => {
@@ -17,8 +17,10 @@ const ButtonRemove: FC = () => {
   const reFetchDeptList = useReFetchDeptList();
   const reFetchDeptOptions = useReFetchDeptOptions();
 
+  const { message, modal } = App.useApp();
+
   const handleRemove = () => {
-    Modal.confirm({
+    modal.confirm({
       title: '删除确认',
       content: (
         <>

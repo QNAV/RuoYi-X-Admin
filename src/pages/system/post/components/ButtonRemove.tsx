@@ -3,7 +3,7 @@ import { useAtomValueMainTableActions } from '@/pages/system/post/model';
 import { sysPostPostRemove } from '@/services/system/System';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal } from 'antd';
+import { App, Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRemove: FC<{
@@ -14,6 +14,8 @@ const ButtonRemove: FC<{
   const text = isBatch ? '批量删除' : '删除';
 
   const mainTableActions = useAtomValueMainTableActions();
+
+  const { message, modal } = App.useApp();
 
   const { mutateAsync, isLoading } = useMutation(
     async (postIds: number[]) => {
@@ -29,7 +31,7 @@ const ButtonRemove: FC<{
   );
 
   const onRemove = () => {
-    Modal.confirm({
+    modal.confirm({
       title: '删除岗位',
       content: `确定删除岗位编号为 ${postId} 的岗位吗？`,
       onOk: async () => mutateAsync(postId),

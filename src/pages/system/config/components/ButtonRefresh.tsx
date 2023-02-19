@@ -1,11 +1,13 @@
 import { sysConfigPostRefreshCache } from '@/services/system/System';
 import { ReloadOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
-import { Button, message, Modal } from 'antd';
+import { App, Button } from 'antd';
 import type { FC } from 'react';
 
 const ButtonRefresh: FC = () => {
-  const { isLoading, mutateAsync } = useMutation(sysConfigPostRefreshCache, {
+  const { message, modal } = App.useApp();
+
+  const { isLoading, mutate } = useMutation(sysConfigPostRefreshCache, {
     onSuccess: () => {
       message.success('刷新成功');
     },
@@ -16,10 +18,10 @@ const ButtonRefresh: FC = () => {
       danger
       icon={<ReloadOutlined />}
       onClick={() => {
-        Modal.confirm({
+        modal.confirm({
           title: '操作确认',
           content: '确定刷新缓存吗？',
-          onOk: () => mutateAsync({}),
+          onOk: () => mutate({}),
           okButtonProps: {
             loading: isLoading,
           },
