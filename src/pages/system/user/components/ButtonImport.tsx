@@ -10,11 +10,40 @@ import { useMutation } from '@tanstack/react-query';
 import { useBoolean } from 'ahooks';
 import type { UploadFile } from 'antd';
 import { App, Button, Checkbox, Modal, Upload } from 'antd';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import type { FC } from 'react';
 import { useState } from 'react';
 
 const { Dragger } = Upload;
+
+const handleDownLoadTemplate = async () => {
+  const { data } = await sysUserPostImportTemplateSkipErrorHandler({
+    format: 'blob',
+  });
+
+  await download(data, `user_template_${new Date().getTime()}.xlsx`);
+};
+
+interface HandleUploadProps {
+  updateSupport: boolean;
+  file: File;
+}
+
+const handleUploadTemplate = async ({ updateSupport, file }: HandleUploadProps) => {
+  const {
+    data: { code, msg },
+  } = await sysUserPostImportDataSkipErrorHandler(
+    { updateSupport },
+    {
+      file,
+    },
+  );
+
+  if (code !== 200) {
+    return Promise.reject(new Error(msg));
+  }
+
+  return msg;
+};
 
 const ButtonImport: FC = () => {
   const [open, { toggle }] = useBoolean();
@@ -23,37 +52,21 @@ const ButtonImport: FC = () => {
 
   const { message, modal } = App.useApp();
 
-  const { mutate: handleUpload, isLoading: isUploadLoading } = useMutation(async () => {
-    const {
-      data: { code, msg },
-    } = await sysUserPostImportDataSkipErrorHandler(
-      { updateSupport: checked },
-      {
-        file: fileList[0].originFileObj as File,
-      },
-    );
+  const { mutate: handleUpload, isLoading: isUploadLoading } = useMutation(handleUploadTemplate, {
+    onSuccess: (msg) => {
+      toggle();
 
-    if (code !== 200) {
-      message.error(msg);
-      return;
-    }
-
-    toggle();
-
-    modal.info({
-      title: '导入结果',
-      content: msg,
-    });
+      modal.info({
+        title: '导入结果',
+        content: msg,
+      });
+    },
+    onError: () => {
+      message.error('导入失败');
+    },
   });
 
-  const { mutate: handleDownLoad, isLoading: isDownLoadLoading } = useMutation(async () => {
-    const { data } = await sysUserPostImportTemplateSkipErrorHandler();
-    await download(data, `user_template_${new Date().getTime()}.xlsx`);
-  });
-
-  const onCheckboxChange = (e: CheckboxChangeEvent) => {
-    setChecked(e.target.checked);
-  };
+  const { mutate: handleDownLoad, isLoading: isDownLoadLoading } = useMutation(handleDownLoadTemplate);
 
   return (
     <AccessWithState accessKey="system:user:import">
@@ -63,7 +76,12 @@ const ButtonImport: FC = () => {
         title="导入用户"
         open={open}
         onCancel={toggle}
-        onOk={() => handleUpload()}
+        onOk={() =>
+          handleUpload({
+            updateSupport: checked,
+            file: fileList[0].originFileObj as File,
+          })
+        }
         okButtonProps={{
           loading: isUploadLoading,
         }}
@@ -83,7 +101,12 @@ const ButtonImport: FC = () => {
         </Dragger>
 
         <div className="flex flex-col items-center pt-2">
-          <Checkbox checked={checked} onChange={onCheckboxChange}>
+          <Checkbox
+            checked={checked}
+            onChange={(e) => {
+              setChecked(e.target.checked);
+            }}
+          >
             是否更新已经存在的用户数据
           </Checkbox>
 

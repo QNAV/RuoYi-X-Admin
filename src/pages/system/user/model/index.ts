@@ -4,6 +4,8 @@ import type { ActionType } from '@ant-design/pro-components';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { atomWithReset, useResetAtom } from 'jotai/utils';
 
+export * from './columns';
+
 const atomMainTableActions = atom<ActionType | undefined>(undefined);
 export const useAtomValueMainTableActions = () => useAtomValue(atomMainTableActions);
 export const useActionRefMainTable = () => useInitActionType(atomMainTableActions);
@@ -14,10 +16,11 @@ export const useAtomValueSelectedDeptId = () => useAtomValue(atomSelectedDeptId)
 export const useSetAtomSelectedDeptId = () => useSetAtom(atomSelectedDeptId);
 
 // 重置密码弹窗
-const atomResetPwdModal = atomWithReset<{
+interface AtomResetPwdModal {
   open: boolean;
   record?: SysUserVo;
-}>({
+}
+const atomResetPwdModal = atomWithReset<AtomResetPwdModal>({
   open: false,
 });
 export const useShowResetPwdModal = () => {
@@ -33,7 +36,12 @@ export const useHideResetPwdModal = () => useResetAtom(atomResetPwdModal);
 export const useAtomValueResetPwdModal = () => useAtomValue(atomResetPwdModal);
 
 // 新增或编辑用户弹窗
-const atomAddOrEditModal = atomWithReset<{ open: boolean; actionType: 'add' | 'edit'; userId?: number }>({
+interface AtomAddOrEditModal {
+  open: boolean;
+  actionType: 'add' | 'edit';
+  userId?: number;
+}
+const atomAddOrEditModal = atomWithReset<AtomAddOrEditModal>({
   open: false,
   actionType: 'add',
 });

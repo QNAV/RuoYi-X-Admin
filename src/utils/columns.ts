@@ -9,12 +9,14 @@ import type {
 import { merge } from 'lodash-es';
 import type { Key, ReactNode } from 'react';
 
+export type ValueEnum = ProSchemaValueEnumObj | ProSchemaValueEnumMap;
+
 export interface ColumnItemCommonConfig {
   key?: string;
   dataIndex: string | number | Key[];
   title?: ReactNode;
   order?: number;
-  valueEnum?: ProSchemaValueEnumObj | ProSchemaValueEnumMap;
+  valueEnum?: ValueEnum;
   hideInTable?: boolean;
   hideInSearch?: boolean;
   hideInDescriptions?: boolean;

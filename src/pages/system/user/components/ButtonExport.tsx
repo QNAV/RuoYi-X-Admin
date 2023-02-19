@@ -11,27 +11,26 @@ export interface ButtonExportProps {
   searchParams: SysUserQueryBo;
 }
 
+const handleExport = async (searchParams: SysUserQueryBo) => {
+  const { data } = await sysUserPostExportSkipErrorHandler(searchParams, {
+    format: 'blob',
+  });
+
+  await download(data, `user_${new Date().getTime()}.xlsx`);
+};
+
 const ButtonExport: FC<ButtonExportProps> = ({ searchParams }) => {
   const { message } = App.useApp();
 
-  const { isLoading, mutate } = useMutation(
-    async () => {
-      const e = await sysUserPostExportSkipErrorHandler(searchParams, {
-        format: 'blob',
-      });
-
-      await download(e.data, `user_${new Date().getTime()}.xlsx`);
+  const { isLoading, mutate } = useMutation(handleExport, {
+    onSuccess: () => {
+      message.success('导出成功');
     },
-    {
-      onSuccess: () => {
-        message.success('导出成功');
-      },
-    },
-  );
+  });
 
   return (
     <AccessWithState accessKey="system:user:export">
-      <BaseButtonExport loading={isLoading} onClick={() => mutate()} />
+      <BaseButtonExport loading={isLoading} onClick={() => mutate(searchParams)} />
     </AccessWithState>
   );
 };
