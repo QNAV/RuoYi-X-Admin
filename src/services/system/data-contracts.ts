@@ -1288,13 +1288,13 @@ export interface RListTreeLong {
 }
 
 export interface TreeLong {
-  name?: object;
-  /** @format int64 */
-  id?: number;
+  config?: TreeNodeConfig;
   weight?: object;
   /** @format int64 */
   parentId?: number;
-  config?: TreeNodeConfig;
+  /** @format int64 */
+  id?: number;
+  name?: object;
   empty?: boolean;
   [key: string]: any;
 }
@@ -1602,23 +1602,8 @@ export interface BizLogininforPageQueryBo {
   isAsc?: string;
   /** 用户名(也可能是手机号等) */
   userName?: string;
-  /** 登录IP地址 */
-  ipaddr?: string;
-  /** 登录地点 */
-  loginLocation?: string;
-  /** 浏览器类型 */
-  browser?: string;
-  /** 操作系统 */
-  os?: string;
   /** 登录状态（SUCCESS=成功 FAIL=失败） */
   status?: 'SUCCESS' | 'FAIL';
-  /** 提示消息 */
-  msg?: string;
-  /**
-   * 访问时间
-   * @format date-time
-   */
-  loginTime?: string;
   /**
    * 创建开始时间
    * @format date-time
@@ -1633,20 +1618,6 @@ export interface BizLogininforPageQueryBo {
 
 /** 业务用户登录记录视图对象 */
 export interface BizLogininforVo {
-  /** 创建者 */
-  createBy: string;
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createTime: string;
-  /** 更新者 */
-  updateBy?: string;
-  /**
-   * 更新时间
-   * @format date-time
-   */
-  updateTime?: string;
   /**
    * 访问ID
    * @format int64
@@ -1701,23 +1672,8 @@ export interface TableDataInfoBizLogininforVo {
 export interface BizLogininforQueryBo {
   /** 用户名(也可能是手机号等) */
   userName?: string;
-  /** 登录IP地址 */
-  ipaddr?: string;
-  /** 登录地点 */
-  loginLocation?: string;
-  /** 浏览器类型 */
-  browser?: string;
-  /** 操作系统 */
-  os?: string;
   /** 登录状态（SUCCESS=成功 FAIL=失败） */
   status?: 'SUCCESS' | 'FAIL';
-  /** 提示消息 */
-  msg?: string;
-  /**
-   * 访问时间
-   * @format date-time
-   */
-  loginTime?: string;
   /**
    * 创建开始时间
    * @format date-time

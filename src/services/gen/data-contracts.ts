@@ -128,8 +128,8 @@ export interface GenTable {
   parentMenuName?: string;
   /** 传入参数（暂时预留） */
   params?: Record<string, string>;
-  tree?: boolean;
   sub?: boolean;
+  tree?: boolean;
   crud?: boolean;
 }
 
@@ -201,15 +201,15 @@ export interface GenTableColumn {
    * @format int32
    */
   sort?: number;
-  required?: boolean;
   list?: boolean;
+  required?: boolean;
   pk?: boolean;
-  superColumn?: boolean;
-  edit?: boolean;
   insert?: boolean;
+  edit?: boolean;
   usableColumn?: boolean;
-  query?: boolean;
+  superColumn?: boolean;
   increment?: boolean;
+  query?: boolean;
   voRequired?: boolean;
   capJavaField?: string;
 }
