@@ -33,31 +33,6 @@ const defaultTableProps: ProTableProps<Record<string, any>, Record<string, any>>
     density: true,
   },
   defaultSize: 'small',
-  beforeSearchSubmit: (params) => {
-    const { createDateTimeRange, dateTimeRange, ...rest } = params;
-
-    let createTimeParams = {};
-    if (createDateTimeRange) {
-      createTimeParams = {
-        beginCreateTime: createDateTimeRange[0],
-        endCreateTime: createDateTimeRange[1],
-      };
-    }
-
-    let dateTimeParams = {};
-    if (dateTimeRange) {
-      dateTimeParams = {
-        beginTime: dateTimeRange[0],
-        endTime: dateTimeRange[1],
-      };
-    }
-
-    return {
-      ...rest,
-      ...createTimeParams,
-      ...dateTimeParams,
-    };
-  },
   tableAlertRender: ({ selectedRowKeys, onCleanSelected }) => {
     return <BaseTableAlert selectedNum={selectedRowKeys.length} onCleanSelected={onCleanSelected} />;
   },

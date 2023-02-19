@@ -10,13 +10,14 @@ import { sysUserPostList } from '@/services/system/System';
 import { convertParams } from '@/utils';
 import type { ProTableProps } from '@ant-design/pro-components';
 import { ProCard } from '@ant-design/pro-components';
+import { isArray } from 'lodash-es';
 import type { FC } from 'react';
 import { useState } from 'react';
 
 const tableAlertOptionRender: ProTableProps<SysUserVo, SysUserPageQueryBo>['tableAlertOptionRender'] = ({
-  selectedRows,
+  selectedRowKeys,
 }) => {
-  return <ButtonRemove disabled={selectedRows.length === 0} batch userIds={selectedRows.map((i) => i.userId)} />;
+  return <ButtonRemove disabled={selectedRowKeys.length === 0} batch userIds={selectedRowKeys as number[]} />;
 };
 
 const tableRender: ProTableProps<SysUserVo, SysUserPageQueryBo>['tableRender'] = (props, defaultDom) => {
@@ -42,13 +43,22 @@ const TableMain: FC = () => {
   const params = selectedDeptId > 0 ? { deptId: selectedDeptId } : {};
 
   return (
-    <BaseProTable<SysUserVo, SysUserPageQueryBo>
+    <BaseProTable<
+      SysUserVo,
+      SysUserPageQueryBo & {
+        createTimeRange?: [string, string];
+      }
+    >
       rowKey="userId"
       actionRef={actionRef}
       columns={columns}
       params={params}
       request={async (...p) => {
-        const params = convertParams(...p);
+        const { createTimeRange, ...params } = convertParams(...p);
+        if (isArray(createTimeRange)) {
+          params.beginCreateTime = createTimeRange[0];
+          params.endCreateTime = createTimeRange[1];
+        }
         setSearchParams(params);
         return await sysUserPostList(params);
       }}

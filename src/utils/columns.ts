@@ -39,7 +39,7 @@ type GenColumnItem = <RecordType = any, ValueType = 'text'>(
 ];
 
 export const genColumnItem: GenColumnItem = ({ table = {}, descriptions = {}, form = {}, ...common }) => {
-  return [merge(common, table), merge(common, descriptions), merge(common, form)];
+  return [merge({}, common, table), merge({}, common, descriptions), merge({}, common, form)];
 };
 
 export const mergeColumnItem = <T extends Record<string, any>>(column: T, newColumn: T): T => {

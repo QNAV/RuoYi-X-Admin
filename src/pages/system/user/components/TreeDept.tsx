@@ -18,20 +18,12 @@ const TreeDept: FC = () => {
       }),
     {
       refreshDeps: [deptName],
-      debounceWait: 500,
     },
   );
 
   return (
     <Spin spinning={loading}>
-      <Input.Search
-        allowClear
-        placeholder="请输入部门名称"
-        className="mb-3"
-        onSearch={(e) => {
-          setDeptName(e);
-        }}
-      />
+      <Input.Search allowClear placeholder="请输入部门名称" className="mb-3" onSearch={(e) => setDeptName(e)} />
 
       {!data || data.length === 0 ? (
         <EmptySimple />

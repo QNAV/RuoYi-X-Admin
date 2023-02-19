@@ -43,6 +43,9 @@ const [ColumnItemTableNickName, , ColumnItemFormNickName] = genColumnItem({
     valueType: 'text',
     hideInSearch: true,
   },
+  form: {
+    valueType: 'text',
+  },
 });
 
 // dept deptName 部门名称
@@ -75,6 +78,7 @@ const [ColumnItemTablePhoneNumber, , ColumnItemFormPhoneNumber] = genColumnItem(
 });
 
 // status 状态
+const initialValueStatus: SysUserAddBo['status'] = 'NORMAL';
 const useColumnItemStatus = () => {
   const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
 
@@ -86,7 +90,8 @@ const useColumnItemStatus = () => {
       valueType: 'select',
     },
     form: {
-      valueType: 'select',
+      initialValue: initialValueStatus,
+      valueType: 'radio',
     },
   });
 };
@@ -98,6 +103,17 @@ const [ColumnItemTableCreateTime] = genColumnItem({
   table: {
     valueType: 'dateTime',
     hideInSearch: true,
+    sorter: true,
+  },
+});
+
+// createTimeRange 创建时间
+const [ColumnItemTableCreateTimeRange] = genColumnItem({
+  title: '创建时间',
+  dataIndex: 'createTimeRange',
+  table: {
+    valueType: 'dateTimeRange',
+    hideInTable: true,
   },
 });
 
@@ -155,6 +171,7 @@ const [, , ColumnItemFormEmail] = genColumnItem({
 });
 
 // sex 用户性别
+const initialValueSex: SysUserAddBo['sex'] = 'UNKNOWN';
 const useColumnItemSex = () => {
   const { valueEnumSysUserSex } = useQueryDictSysUserSex();
 
@@ -163,7 +180,8 @@ const useColumnItemSex = () => {
     dataIndex: 'sex',
     valueEnum: valueEnumSysUserSex,
     form: {
-      valueType: 'select',
+      valueType: 'radio',
+      initialValue: initialValueSex,
     },
   });
 };
@@ -238,6 +256,7 @@ export const useTableColumns = (): ProColumns<SysUserVo>[] => {
     ColumnItemTablePhoneNumber,
     ColumnItemTableStatus,
     ColumnItemTableCreateTime,
+    ColumnItemTableCreateTimeRange,
     {
       title: '操作',
       valueType: 'option',
@@ -257,7 +276,7 @@ export const useTableColumns = (): ProColumns<SysUserVo>[] => {
         );
       },
       fixed: 'right',
-      width: 300,
+      width: 260,
     },
   ];
 };

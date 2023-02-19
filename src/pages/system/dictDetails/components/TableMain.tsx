@@ -1,6 +1,5 @@
 import { BaseProTable } from '@/components';
 import { ListClassMap } from '@/constants';
-import { useActivated } from '@/hooks';
 import { useQueryDictSysNormalDisable, useQueryDictSysYesNo } from '@/models';
 import ButtonAdd from '@/pages/system/dictDetails/components/ButtonAdd';
 import ButtonEdit from '@/pages/system/dictDetails/components/ButtonEdit';
@@ -14,8 +13,8 @@ import type { ProColumns, ProFormInstance, ProTableProps } from '@ant-design/pro
 import { LightFilter, ProFormSelect } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
 import type { FC } from 'react';
-import { startTransition, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { startTransition, useEffect, useRef, useState } from 'react';
+import { useMatch, useParams } from 'react-router-dom';
 
 const useColumns = (): ProColumns<SysDictDataVo>[] => {
   const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
@@ -80,10 +79,13 @@ const tableAlertOptionRender: ProTableProps<SysDictDataVo, 'text'>['tableAlertOp
 
 let lastDictType: string;
 
+const path = '/system/dict/:dictType';
+
 const TableMain: FC = () => {
   const params = useParams<{ dictType: string }>();
 
   const [searchParams, setSearchParams] = useState<SysDictDataQueryBo>({});
+  const match = useMatch(path);
 
   const actionRef = useActionRefMainTable();
 
@@ -118,7 +120,7 @@ const TableMain: FC = () => {
     },
   );
 
-  useActivated(() => {
+  useEffect(() => {
     if (params.dictType === undefined || params.dictType === lastDictType) {
       return;
     }
@@ -126,7 +128,7 @@ const TableMain: FC = () => {
     lastDictType = params.dictType;
 
     run();
-  });
+  }, [match]);
 
   return (
     <BaseProTable<SysDictDataVo, SysDictDataQueryBo>
