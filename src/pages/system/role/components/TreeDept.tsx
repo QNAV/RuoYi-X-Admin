@@ -37,7 +37,7 @@ const TreeDept: FC = () => {
 
   const { loading, refresh, data } = useRequest(
     async () => {
-      const { depts, checkedKeys } = (await sysRoleGetRoleDeptTreeSelect(roleId)) as unknown as {
+      const { depts, checkedKeys } = (await sysRoleGetRoleDeptTreeSelect(roleId!)) as unknown as {
         depts: TreeData[];
         checkedKeys: number[];
       };

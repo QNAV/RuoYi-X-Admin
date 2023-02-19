@@ -16,9 +16,12 @@ export const useAtomValueRoleListActions = () => useAtomValue(atomRoleListAction
 export const useActionRefRoleList = () => useInitActionType(atomRoleListActions);
 
 // 角色详情
-const atomRoleDetails = atomWithReset({
+interface AtomRoleDetails {
+  open: boolean;
+  roleId?: number;
+}
+const atomRoleDetails = atomWithReset<AtomRoleDetails>({
   open: false,
-  roleId: 0,
 });
 export const useHideRoleDetails = () => useResetAtom(atomRoleDetails);
 export const useShowRoleDetails = () => {
@@ -34,13 +37,13 @@ const queryKey = [namespace, 'details'];
 export const useQueryRoleDetails = (onSuccess: (details: SysRoleVo) => void) => {
   const { roleId } = useAtomValueRoleDetails();
 
-  const query = useQuery(queryKey, () => sysRoleGetInfo({ roleId }), {
+  const query = useQuery(queryKey, () => sysRoleGetInfo({ roleId: roleId! }), {
     onSuccess,
     enabled: false,
   });
 
   useEffect(() => {
-    if (roleId > 0) {
+    if (roleId) {
       query.refetch();
     }
   }, [roleId]);
@@ -55,7 +58,7 @@ export const useQueryRoleTree = (onSuccess: (selectedTreeData: TreeData[]) => vo
   const query = useQuery(
     queryTreeKey,
     async () => {
-      const { menus, checkedKeys } = (await sysMenuGetRoleMenuTreeSelect({ roleId })) as unknown as {
+      const { menus, checkedKeys } = (await sysMenuGetRoleMenuTreeSelect({ roleId: roleId! })) as unknown as {
         menus: TreeData[];
         checkedKeys: number[];
       };
@@ -77,7 +80,7 @@ export const useQueryRoleTree = (onSuccess: (selectedTreeData: TreeData[]) => vo
   );
 
   useEffect(() => {
-    if (roleId > 0) {
+    if (roleId) {
       query.refetch();
     }
   }, [roleId]);

@@ -14,11 +14,10 @@ const ButtonAssignUser: FC = () => {
     <AccessWithState accessKey="system:user:edit">
       <Button
         type="primary"
-        ghost
         onClick={() =>
           navigate(
             generatePath('/system/role-auth/:roleId', {
-              roleId: roleId.toString(),
+              roleId: roleId!.toString(),
             }),
           )
         }

@@ -3,6 +3,7 @@ import type {
   ProDescriptionsItemProps,
   ProFieldRequestData,
   ProFormColumnsType,
+  ProListMeta,
   ProSchemaValueEnumMap,
   ProSchemaValueEnumObj,
 } from '@ant-design/pro-components';
@@ -28,6 +29,7 @@ export interface ColumnItem<RecordType, ValueType> extends ColumnItemCommonConfi
   table?: ProColumns<RecordType, ValueType>;
   descriptions?: ProDescriptionsItemProps<RecordType, ValueType>;
   form?: ProFormColumnsType<RecordType, ValueType>;
+  meta?: ProListMeta<RecordType>;
 }
 
 type GenColumnItem = <RecordType = any, ValueType = 'text'>(
@@ -36,10 +38,11 @@ type GenColumnItem = <RecordType = any, ValueType = 'text'>(
   ProColumns<RecordType, ValueType>,
   ProDescriptionsItemProps<RecordType, ValueType>,
   ProFormColumnsType<RecordType, ValueType>,
+  ProListMeta<RecordType>,
 ];
 
-export const genColumnItem: GenColumnItem = ({ table = {}, descriptions = {}, form = {}, ...common }) => {
-  return [merge({}, common, table), merge({}, common, descriptions), merge({}, common, form)];
+export const genColumnItem: GenColumnItem = ({ table = {}, descriptions = {}, form = {}, meta, ...common }) => {
+  return [merge({}, common, table), merge({}, common, descriptions), merge({}, common, form), merge({}, common, meta)];
 };
 
 export const mergeColumnItem = <T extends Record<string, any>>(column: T, newColumn: T): T => {
