@@ -141,7 +141,7 @@ const useColumnItemPassword = (useInitialValue = false) => {
 
 // deptId 归属部门
 const useColumnItemDeptId = () => {
-  const { data: treeData = [] } = useRequest(() => sysUserGetDeptTree({ deptQuery: {} }));
+  const { data: treeData = [] } = useRequest(() => sysUserGetDeptTree({}));
 
   return genColumnItem({
     title: '归属部门',

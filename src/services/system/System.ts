@@ -496,6 +496,35 @@ export const sysUserPostEditSkipErrorHandler = (data: SysUserEditBo, params: Req
   });
 
 /**
+ * @description 获取部门树列表
+ *
+ * @tags SysUserService
+ * @name sysUserGetDeptTree
+ * @request POST:/system/user/deptTree
+ * @secure
+ */
+export const sysUserGetDeptTree = (data: SysDeptQueryBo, params: RequestParams = {}) =>
+  request<RListTreeLong>({
+    path: `/system/user/deptTree`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: false,
+    ...params,
+  });
+export const sysUserGetDeptTreeSkipErrorHandler = (data: SysDeptQueryBo, params: RequestParams = {}) =>
+  request<RListTreeLong>({
+    path: `/system/user/deptTree`,
+    method: 'POST',
+    body: data,
+    secure: true,
+    type: ContentType.Json,
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
  * @description 状态修改
  *
  * @tags SysUserService
@@ -2541,45 +2570,6 @@ export const sysUserGetInfo1SkipErrorHandler = (
 ) =>
   request<RUserDetailVo>({
     path: `/system/user/`,
-    method: 'GET',
-    query: query,
-    secure: true,
-    skipErrorHandler: true,
-    ...params,
-  });
-
-/**
- * @description 获取部门树列表
- *
- * @tags SysUserService
- * @name sysUserGetDeptTree
- * @request GET:/system/user/deptTree
- * @secure
- */
-export const sysUserGetDeptTree = (
-  query: {
-    /** 部门查询对象 */
-    deptQuery: SysDeptQueryBo;
-  },
-  params: RequestParams = {},
-) =>
-  request<RListTreeLong>({
-    path: `/system/user/deptTree`,
-    method: 'GET',
-    query: query,
-    secure: true,
-    skipErrorHandler: false,
-    ...params,
-  });
-export const sysUserGetDeptTreeSkipErrorHandler = (
-  query: {
-    /** 部门查询对象 */
-    deptQuery: SysDeptQueryBo;
-  },
-  params: RequestParams = {},
-) =>
-  request<RListTreeLong>({
-    path: `/system/user/deptTree`,
     method: 'GET',
     query: query,
     secure: true,

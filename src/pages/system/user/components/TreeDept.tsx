@@ -14,7 +14,7 @@ const TreeDept: FC = () => {
   const { data, loading } = useRequest(
     () =>
       sysUserGetDeptTree({
-        deptQuery: { deptName },
+        deptName,
       }),
     {
       refreshDeps: [deptName],

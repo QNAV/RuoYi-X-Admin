@@ -419,6 +419,59 @@ export interface SysUserQueryBo {
   endCreateTime?: string;
 }
 
+/** 部门查询对象 */
+export interface SysDeptQueryBo {
+  /**
+   * 部门id
+   * @format int64
+   */
+  deptId?: number;
+  /** 部门名称 */
+  deptName?: string;
+  /**
+   * 父菜单ID
+   * @format int64
+   */
+  parentId?: number;
+  /** 部门状态（NORMAL=正常 DISABLE=停用） */
+  status?: 'NORMAL' | 'DISABLE';
+}
+
+/** 响应信息主体 */
+export interface RListTreeLong {
+  /**
+   * 消息状态码
+   * @format int32
+   */
+  code: number;
+  /** 消息内容 */
+  msg: string;
+  /** 数据对象 */
+  data: TreeLong[];
+}
+
+export interface TreeLong {
+  config?: TreeNodeConfig;
+  weight?: object;
+  /** @format int64 */
+  parentId?: number;
+  /** @format int64 */
+  id?: number;
+  name?: object;
+  empty?: boolean;
+  [key: string]: any;
+}
+
+export interface TreeNodeConfig {
+  idKey?: string;
+  parentIdKey?: string;
+  weightKey?: string;
+  nameKey?: string;
+  childrenKey?: string;
+  /** @format int32 */
+  deep?: number;
+}
+
 /** 用户信息新增业务对象 */
 export interface SysUserAddBo {
   /**
@@ -1275,41 +1328,6 @@ export interface SysMenuQueryBo {
 }
 
 /** 响应信息主体 */
-export interface RListTreeLong {
-  /**
-   * 消息状态码
-   * @format int32
-   */
-  code: number;
-  /** 消息内容 */
-  msg: string;
-  /** 数据对象 */
-  data: TreeLong[];
-}
-
-export interface TreeLong {
-  config?: TreeNodeConfig;
-  weight?: object;
-  /** @format int64 */
-  parentId?: number;
-  /** @format int64 */
-  id?: number;
-  name?: object;
-  empty?: boolean;
-  [key: string]: any;
-}
-
-export interface TreeNodeConfig {
-  idKey?: string;
-  parentIdKey?: string;
-  weightKey?: string;
-  nameKey?: string;
-  childrenKey?: string;
-  /** @format int32 */
-  deep?: number;
-}
-
-/** 响应信息主体 */
 export interface RListSysMenuVo {
   /**
    * 消息状态码
@@ -1602,8 +1620,8 @@ export interface BizLogininforPageQueryBo {
   isAsc?: string;
   /** 用户名(也可能是手机号等) */
   userName?: string;
-  /** 登录状态（SUCCESS=成功 FAIL=失败） */
-  status?: 'SUCCESS' | 'FAIL';
+  /** 登录状态（LOGINOK=登录成功 LOGINFAIL=登录失败 LOGOUT=注销登录 REGISTER=注册） */
+  status?: 'LOGINOK' | 'LOGINFAIL' | 'LOGOUT' | 'REGISTER';
   /**
    * 创建开始时间
    * @format date-time
@@ -1633,7 +1651,7 @@ export interface BizLogininforVo {
   browser?: string;
   /** 操作系统 */
   os?: string;
-  /** 登录状态（SUCCESS=成功 FAIL=失败） */
+  /** 登录状态（LOGINOK=登录成功 LOGINFAIL=登录失败 LOGOUT=注销登录 REGISTER=注册） */
   status: 'SUCCESS' | 'FAIL';
   /** 提示消息 */
   msg?: string;
@@ -1672,8 +1690,8 @@ export interface TableDataInfoBizLogininforVo {
 export interface BizLogininforQueryBo {
   /** 用户名(也可能是手机号等) */
   userName?: string;
-  /** 登录状态（SUCCESS=成功 FAIL=失败） */
-  status?: 'SUCCESS' | 'FAIL';
+  /** 登录状态（LOGINOK=登录成功 LOGINFAIL=登录失败 LOGOUT=注销登录 REGISTER=注册） */
+  status?: 'LOGINOK' | 'LOGINFAIL' | 'LOGOUT' | 'REGISTER';
   /**
    * 创建开始时间
    * @format date-time
@@ -1703,8 +1721,8 @@ export interface BizLogininforEditBo {
   browser?: string;
   /** 操作系统 */
   os?: string;
-  /** 登录状态（SUCCESS=成功 FAIL=失败） */
-  status: 'SUCCESS' | 'FAIL';
+  /** 登录状态（LOGINOK=登录成功 LOGINFAIL=登录失败 LOGOUT=注销登录 REGISTER=注册） */
+  status: 'LOGINOK' | 'LOGINFAIL' | 'LOGOUT' | 'REGISTER';
   /** 提示消息 */
   msg?: string;
   /**
@@ -1726,8 +1744,8 @@ export interface BizLogininforAddBo {
   browser?: string;
   /** 操作系统 */
   os?: string;
-  /** 登录状态（SUCCESS=成功 FAIL=失败） */
-  status: 'SUCCESS' | 'FAIL';
+  /** 登录状态（LOGINOK=登录成功 LOGINFAIL=登录失败 LOGOUT=注销登录 REGISTER=注册） */
+  status: 'LOGINOK' | 'LOGINFAIL' | 'LOGOUT' | 'REGISTER';
   /** 提示消息 */
   msg?: string;
   /**
@@ -2070,24 +2088,6 @@ export interface SysDictDataAddBo {
   remark?: string;
 }
 
-/** 部门查询对象 */
-export interface SysDeptQueryBo {
-  /**
-   * 部门id
-   * @format int64
-   */
-  deptId?: number;
-  /** 部门名称 */
-  deptName?: string;
-  /**
-   * 父菜单ID
-   * @format int64
-   */
-  parentId?: number;
-  /** 部门状态（NORMAL=正常 DISABLE=停用） */
-  status?: string;
-}
-
 /** 响应信息主体 */
 export interface RListSysDeptVo {
   /**
@@ -2197,9 +2197,9 @@ export interface SysDeptEditBo {
    */
   email?: string;
   /** 部门状态（NORMAL=正常 DISABLE=停用） */
-  status?: string;
+  status?: 'NORMAL' | 'DISABLE';
   /** 删除标志（EXIST=代表存在 DELETED=代表删除） */
-  delFlag?: string;
+  delFlag?: 'EXIST' | 'DELETED';
   /** 祖级列表 */
   ancestors?: string;
   /** 父菜单名称 */
@@ -2241,9 +2241,9 @@ export interface SysDeptAddBo {
    */
   email?: string;
   /** 部门状态（NORMAL=正常 DISABLE=停用） */
-  status?: string;
+  status?: 'NORMAL' | 'DISABLE';
   /** 删除标志（EXIST=代表存在 DELETED=代表删除） */
-  delFlag?: string;
+  delFlag?: 'EXIST' | 'DELETED';
   /** 祖级列表 */
   ancestors?: string;
   /** 父菜单名称 */
@@ -2627,8 +2627,8 @@ export interface SysLogininforPageQueryBo {
   isAsc?: string;
   /** 用户账号 */
   userName?: string;
-  /** 登录状态（SUCCESS=成功 FAIL=失败） */
-  status?: 'SUCCESS' | 'FAIL';
+  /** 登录状态（LOGINOK=登录成功 LOGINFAIL=登录失败 LOGOUT=注销登录 REGISTER=注册） */
+  status?: 'LOGINOK' | 'LOGINFAIL' | 'LOGOUT' | 'REGISTER';
   /** 登录IP地址 */
   ipaddr?: string;
   /**
@@ -2652,7 +2652,7 @@ export interface SysLogininforVo {
   infoId: number;
   /** 用户账号 */
   userName: string;
-  /** 登录状态（SUCCESS=成功 FAIL=失败） */
+  /** 登录状态（LOGINOK=登录成功 LOGINFAIL=登录失败 LOGOUT=注销登录 REGISTER=注册） */
   status: 'SUCCESS' | 'FAIL';
   /** 登录IP地址 */
   ipaddr: string;
@@ -2699,8 +2699,8 @@ export interface TableDataSysLogininforVo {
 export interface SysLogininforQueryBo {
   /** 用户账号 */
   userName?: string;
-  /** 登录状态（SUCCESS=成功 FAIL=失败） */
-  status?: 'SUCCESS' | 'FAIL';
+  /** 登录状态（LOGINOK=登录成功 LOGINFAIL=登录失败 LOGOUT=注销登录 REGISTER=注册） */
+  status?: 'LOGINOK' | 'LOGINFAIL' | 'LOGOUT' | 'REGISTER';
   /** 登录IP地址 */
   ipaddr?: string;
   /**

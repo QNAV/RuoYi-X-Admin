@@ -25,7 +25,7 @@ const ButtonRemove: FC = () => {
     Modal.confirm({
       title: '操作确认',
       content: `确定删除角色编号为 ${roleId} 的角色吗？`,
-      onOk: () => mutateAsync({ roleIds: [roleId] }),
+      onOk: () => mutateAsync({ roleIds: [roleId!] }),
       okButtonProps: { loading: isLoading },
     });
 
