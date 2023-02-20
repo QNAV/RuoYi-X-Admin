@@ -1,1 +1,0 @@
-import{$ as a,am as c,r as u}from"./index-fe009615.js";const r=Symbol();function f(o){const t=a(o,(s,n,e)=>{const m=typeof e=="function"?e(s(t)):e;n(t,m===r?o:m)});return t}function x(o,t){const s=c(o,t);return u.useCallback(()=>s(r),[s])}export{f as a,x as u};
