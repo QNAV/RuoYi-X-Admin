@@ -181,3 +181,14 @@ export const useQueryDictSysJavaType = () => {
     valueEnumSysJavaType,
   };
 };
+
+// sys_access_policy 桶权限类型
+export const useQueryDictSysAccessPolicy = () => {
+  const { data } = useQueryDict('sys_access_policy');
+  const defaultValueSysAccessPolicy: string | null = data?.defaultValue ?? null;
+  const valueEnumSysAccessPolicy: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysAccessPolicy,
+    valueEnumSysAccessPolicy,
+  };
+};

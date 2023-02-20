@@ -1,4 +1,5 @@
 import { BaseProTable } from '@/components';
+import ButtonToConfigPage from '@/pages/system/oss/components/ButtonToConfigPage';
 import ModalFormUpdate from '@/pages/system/oss/components/ModalFormUpdate';
 import { useActionRefMainTable } from '@/pages/system/oss/model';
 import type { SysOssPageQueryBo, SysOssVo } from '@/services/system/data-contracts';
@@ -65,7 +66,7 @@ const TableMain: FC = () => {
       columns={columns}
       request={(...p) => sysOssPostList(convertParams(...p))}
       toolbar={{
-        actions: [<ModalFormUpdate key="ModalFormUpdate" />],
+        actions: [<ModalFormUpdate key="ModalFormUpdate" />, <ButtonToConfigPage key="ButtonToConfigPage" />],
       }}
     />
   );

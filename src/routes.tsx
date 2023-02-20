@@ -89,6 +89,10 @@ export const layoutRoutes: RouteObject[] = [
             path: 'oss',
             element: lazyLoad('system/oss'),
           },
+          {
+            path: 'oss-config',
+            element: lazyLoad('system/ossConfig'),
+          },
         ],
       },
       {
