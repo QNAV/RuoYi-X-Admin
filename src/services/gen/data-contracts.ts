@@ -202,15 +202,15 @@ export interface GenTableColumn {
    */
   sort?: number;
   list?: boolean;
+  required?: boolean;
   pk?: boolean;
   insert?: boolean;
   edit?: boolean;
   usableColumn?: boolean;
   superColumn?: boolean;
-  required?: boolean;
-  capJavaField?: string;
   voRequired?: boolean;
   increment?: boolean;
+  capJavaField?: string;
   query?: boolean;
 }
 

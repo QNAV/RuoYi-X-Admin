@@ -90,7 +90,7 @@ export interface LoginUserUpdateBo {
   /** 手机号码 */
   phoneNumber?: string;
   /** 用户性别 */
-  sex?: string;
+  sex?: 'UNKNOWN' | 'MAN' | 'WOMAN';
   /** 用户头像 */
   avatar?: string;
 }
@@ -454,9 +454,9 @@ export interface TreeLong {
   config?: TreeNodeConfig;
   weight?: object;
   /** @format int64 */
-  parentId?: number;
-  /** @format int64 */
   id?: number;
+  /** @format int64 */
+  parentId?: number;
   name?: object;
   empty?: boolean;
   [key: string]: any;
@@ -2833,7 +2833,7 @@ export interface BizUserVo {
   /** 手机号码 */
   phoneNumber?: string;
   /** 用户性别（UNKNOWN=未知 MAN=男 WOMAN=女） */
-  sex: string;
+  sex: 'UNKNOWN' | 'MAN' | 'WOMAN';
   /** 用户头像 */
   avatar?: string;
   /** 密码 */
