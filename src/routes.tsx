@@ -95,6 +95,10 @@ export const layoutRoutes: RouteObject[] = [
         path: 'monitor',
         children: [
           {
+            path: 'admin',
+            element: lazyLoad('monitor/admin'),
+          },
+          {
             path: 'online',
             element: lazyLoad('monitor/online'),
           },
@@ -105,6 +109,10 @@ export const layoutRoutes: RouteObject[] = [
           {
             path: 'cache-list',
             element: lazyLoad('monitor/cacheList'),
+          },
+          {
+            path: 'xxl-job',
+            element: lazyLoad('monitor/xxlJob'),
           },
         ],
       },
