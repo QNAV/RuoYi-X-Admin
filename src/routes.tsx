@@ -132,6 +132,10 @@ export const layoutRoutes: RouteObject[] = [
             path: 'gen-edit/:tableId',
             element: lazyLoad('tool/gen-edit'),
           },
+          {
+            path: 'swagger',
+            element: lazyLoad('tool/swagger'),
+          },
         ],
       },
       {

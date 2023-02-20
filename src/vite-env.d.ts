@@ -5,6 +5,7 @@ interface ImportMetaEnv {
   readonly VITE_TOKEN_KEY: string;
   readonly VITE_APP_MONITRO_ADMIN: string;
   readonly VITE_APP_XXL_JOB_ADMIN: string;
+  readonly VITE_APP_SWAGGER: string;
 }
 
 interface ImportMeta {
