@@ -9,7 +9,12 @@ export const PageIframe: FC<PageIframeProps> = ({ src }) => {
   return (
     <BasePageContainer>
       {/* eslint-disable-next-line react/iframe-missing-sandbox */}
-      <iframe src={src} className="border-0" style={{ width: '100%', height: 'calc(100vh - 80px)' }} />
+      <iframe
+        src={src}
+        className="border-0"
+        style={{ width: '100%', height: 'calc(100vh - 80px)' }}
+        sandbox="allow-scripts allow-forms allow-pointer-lock allow-popups allow-same-origin allow-top-navigation"
+      />
     </BasePageContainer>
   );
 };
