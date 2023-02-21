@@ -203,3 +203,14 @@ export const useQueryDictSysLoginStatus = () => {
     valueEnumSysLoginStatus,
   };
 };
+
+// sys_oper_status 操作状态
+export const useQueryDictSysOperStatus = () => {
+  const { data } = useQueryDict('sys_oper_status');
+  const defaultValueSysOperStatus: string | null = data?.defaultValue ?? null;
+  const valueEnumSysOperStatus: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysOperStatus,
+    valueEnumSysOperStatus,
+  };
+};
