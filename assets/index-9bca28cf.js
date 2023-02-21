@@ -1,0 +1,1 @@
+import{j as t,B as i,R as s,S as c}from"./index-9b04425e.js";globalThis.jotaiAtomCache=globalThis.jotaiAtomCache||{cache:new Map,get(e,a){return this.cache.has(e)?this.cache.get(e):(this.cache.set(e,a),a)}};const o=()=>t(i,{children:t(s,{icon:t(c,{}),title:"Hi，欢迎回来!"})});export{o as default};
