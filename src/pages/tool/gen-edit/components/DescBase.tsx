@@ -1,3 +1,4 @@
+import { useCheckAccess } from '@/hooks';
 import { useQueryDictSysGenType, useQueryDictSysTplCategory } from '@/models';
 import type { GenTable } from '@/services/gen/data-contracts';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
@@ -12,13 +13,17 @@ const DescBase: FC<{
   const { valueEnumSysGenType } = useQueryDictSysGenType();
   const { valueEnumSysTplCategory } = useQueryDictSysTplCategory();
 
-  const editable: ProDescriptionsProps['editable'] = {
-    onSave: async (k, record) => {
-      const key = k as keyof Omit<GenTable, 'tableId'>;
+  const checkAccess = useCheckAccess();
 
-      await handleEdit({ [key]: record[key] });
-    },
-  };
+  const editable: ProDescriptionsProps['editable'] = checkAccess('tool:gen:edit')
+    ? {
+        onSave: async (k, record) => {
+          const key = k as keyof Omit<GenTable, 'tableId'>;
+
+          await handleEdit({ [key]: record[key] });
+        },
+      }
+    : undefined;
 
   return (
     <>

@@ -1,6 +1,5 @@
-import { Access } from '@/components';
-import { EditOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { BaseButtonEdit } from '@/components';
+import { AccessWithState } from '@/features';
 import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,11 +7,9 @@ const ButtonEdit: FC<{ tableId: number }> = ({ tableId }) => {
   const navigate = useNavigate();
 
   return (
-    <Access accessible>
-      <Button type="link" icon={<EditOutlined />} onClick={() => navigate(`/tool/gen-edit/${tableId}`)}>
-        编辑
-      </Button>
-    </Access>
+    <AccessWithState accessKey="tool:gen:edit">
+      <BaseButtonEdit onClick={() => navigate(`/tool/gen-edit/${tableId}`)} />
+    </AccessWithState>
   );
 };
 

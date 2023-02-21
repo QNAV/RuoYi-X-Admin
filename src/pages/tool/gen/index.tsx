@@ -68,9 +68,13 @@ const tableAlertOptionRender: ProTableProps<GenTable, 'text'>['tableAlertOptionR
 }) => {
   return (
     <>
-      <ButtonDelete tableIds={selectedRowKeys as number[]} isBatch disabled={selectedRowKeys.length === 0} />
+      <ButtonDelete tableIds={selectedRowKeys as number[]} batch disabled={selectedRowKeys.length === 0} />
 
-      <ButtonDownload tableName={selectedRows.map(({ tableName }) => tableName).join(',')} isBatch />
+      <ButtonDownload
+        tableName={selectedRows.map(({ tableName }) => tableName).join(',')}
+        batch
+        disabled={selectedRowKeys.length === 0}
+      />
     </>
   );
 };

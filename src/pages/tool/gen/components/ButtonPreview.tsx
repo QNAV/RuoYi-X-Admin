@@ -1,4 +1,4 @@
-import { Access } from '@/components';
+import { AccessWithState } from '@/features';
 import { useShowPreviewModal } from '@/pages/tool/gen/model';
 import { CodeOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
@@ -8,11 +8,11 @@ const ButtonPreview: FC<{ tableId: number }> = ({ tableId }) => {
   const showPreviewModal = useShowPreviewModal();
 
   return (
-    <Access accessible>
+    <AccessWithState accessKey="tool:gen:preview">
       <Button onClick={() => showPreviewModal(tableId)} type="link" icon={<CodeOutlined />}>
         预览
       </Button>
-    </Access>
+    </AccessWithState>
   );
 };
 

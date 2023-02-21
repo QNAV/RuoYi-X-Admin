@@ -7,9 +7,12 @@ const atomMainTableActions = atom<ActionType | undefined>(undefined);
 export const useActionRefMainTable = () => useInitActionType(atomMainTableActions);
 export const useAtomValueMainTableActions = () => useAtomValue(atomMainTableActions);
 
-const atomSelectedTableId = atomWithReset({
+export interface AtomSelectedTableId {
+  open: boolean;
+  previewId?: number;
+}
+const atomSelectedTableId = atomWithReset<AtomSelectedTableId>({
   open: false,
-  previewId: 0,
 });
 export const useAtomValuePreviewModal = () => useAtomValue(atomSelectedTableId);
 export const useShowPreviewModal = () => {

@@ -1,3 +1,4 @@
+import { AccessWithState } from '@/features';
 import { useQueryDictSysJavaType, useQueryDictSysQueryType, useQueryDictSysYesNo } from '@/models';
 import type { GenTable, GenTableColumn } from '@/services/gen/data-contracts';
 import { CloseOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
@@ -124,16 +125,17 @@ const EditableTableField: FC<{
               </Button>,
             ]
           : [
-              <Button
-                icon={<EditOutlined />}
-                type="primary"
-                key="edit"
-                onClick={() => {
-                  setEditableRowKeys(dataSource!.map((item) => item.columnId!.toString()));
-                }}
-              >
-                编辑
-              </Button>,
+              <AccessWithState key="edit" accessKey="tool:gen:edit">
+                <Button
+                  icon={<EditOutlined />}
+                  type="primary"
+                  onClick={() => {
+                    setEditableRowKeys(dataSource!.map((item) => item.columnId!.toString()));
+                  }}
+                >
+                  编辑
+                </Button>
+              </AccessWithState>,
             ],
       }}
       rowKey="columnId"

@@ -17,7 +17,7 @@ const ModalPreview: FC = () => {
 
   const { data, loading } = useRequest(
     async () => {
-      const data = await genGetPreview({ tableId: previewId });
+      const data = await genGetPreview({ tableId: previewId! });
 
       return Object.keys(data).map((key) => ({
         key,
@@ -26,7 +26,7 @@ const ModalPreview: FC = () => {
       }));
     },
     {
-      ready: open,
+      ready: open && !!previewId,
       refreshDeps: [previewId],
     },
   );

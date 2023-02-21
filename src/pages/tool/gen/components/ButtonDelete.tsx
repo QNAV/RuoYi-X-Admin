@@ -1,40 +1,44 @@
-import { Access } from '@/components';
+import { BaseButtonRemove } from '@/components';
+import { AccessWithState } from '@/features';
 import { useAtomValueMainTableActions } from '@/pages/tool/gen/model';
 import { genPostRemove } from '@/services/gen/Tool';
-import { DeleteOutlined } from '@ant-design/icons';
-import { App, Button } from 'antd';
+import { useMutation } from '@tanstack/react-query';
+import { App } from 'antd';
 import type { FC } from 'react';
 
-const ButtonDelete: FC<{ tableIds: number[]; isBatch?: boolean; disabled?: boolean }> = ({
+const ButtonDelete: FC<{ tableIds: number[]; batch?: boolean; disabled?: boolean }> = ({
   tableIds,
-  isBatch = false,
+  batch = false,
   disabled = false,
 }) => {
   const { message, modal } = App.useApp();
 
-  const text = isBatch ? '批量删除' : '删除';
-
   const tableActions = useAtomValueMainTableActions();
+
+  const { mutate, isLoading } = useMutation(genPostRemove, {
+    onSuccess: () => {
+      tableActions?.reload();
+      tableActions?.clearSelected?.();
+
+      message.success('删除成功');
+    },
+  });
 
   const handleDelete = () => {
     modal.confirm({
       title: '删除代码',
-      content: `确定删除 表ID ${tableIds} 生成的代码吗？`,
-      onOk: async () => {
-        await genPostRemove({ tableIds });
-        tableActions?.reload();
-        tableActions?.clearSelected?.();
-        message.success('删除成功');
+      content: `确定删除 表ID ${tableIds.join(',')} 生成的代码吗？`,
+      okButtonProps: {
+        loading: isLoading,
       },
+      onOk: () => mutate({ tableIds }),
     });
   };
 
   return (
-    <Access accessible>
-      <Button danger icon={<DeleteOutlined />} type="link" onClick={handleDelete} disabled={disabled}>
-        {text}
-      </Button>
-    </Access>
+    <AccessWithState accessKey="tool:gen:remove">
+      <BaseButtonRemove batch={batch} disabled={disabled} onClick={handleDelete} />
+    </AccessWithState>
   );
 };
 
