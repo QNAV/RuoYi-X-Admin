@@ -7,76 +7,73 @@ import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
 import type { FC } from 'react';
 
-const useColumns = (): ProColumns<SysUserOnlineVo>[] => {
-  return [
-    { title: '序号', dataIndex: 'index', key: 'index', valueType: 'indexBorder' },
-    {
-      title: '会话编号',
-      dataIndex: 'tokenId',
-      key: 'tokenId',
-      valueType: 'text',
-      hideInSearch: true,
-      ellipsis: true,
-      copyable: true,
+const columns: ProColumns<SysUserOnlineVo>[] = [
+  { title: '序号', dataIndex: 'index', key: 'index', valueType: 'indexBorder' },
+  {
+    title: '会话编号',
+    dataIndex: 'tokenId',
+    key: 'tokenId',
+    valueType: 'text',
+    hideInSearch: true,
+    ellipsis: true,
+    copyable: true,
+  },
+  {
+    title: '用户名称',
+    dataIndex: 'userName',
+    key: 'userName',
+    valueType: 'text',
+  },
+  {
+    title: '部门名称',
+    dataIndex: 'deptName',
+    key: 'deptName',
+    valueType: 'text',
+    hideInSearch: true,
+  },
+  {
+    title: '主机地址',
+    dataIndex: 'ipaddr',
+    key: 'ipaddr',
+    valueType: 'text',
+  },
+  {
+    title: '登录地点',
+    dataIndex: 'loginLocation',
+    key: 'loginLocation',
+    valueType: 'text',
+    hideInSearch: true,
+  },
+  {
+    title: '浏览器',
+    dataIndex: 'browser',
+    key: 'browser',
+    valueType: 'text',
+    hideInSearch: true,
+  },
+  {
+    title: '操作系统',
+    dataIndex: 'os',
+    key: 'os',
+    valueType: 'text',
+    hideInSearch: true,
+  },
+  {
+    title: '登录时间',
+    dataIndex: 'loginTime',
+    key: 'loginTime',
+    valueType: 'dateTime',
+    hideInSearch: true,
+    sorter: true,
+  },
+  {
+    title: '操作',
+    valueType: 'option',
+    render: (dom, entity) => {
+      return <ButtonForceLogout tokenId={entity.tokenId} userName={entity.userName} />;
     },
-    {
-      title: '用户名称',
-      dataIndex: 'userName',
-      key: 'userName',
-      valueType: 'text',
-    },
-    {
-      title: '部门名称',
-      dataIndex: 'deptName',
-      key: 'deptName',
-      valueType: 'text',
-      hideInSearch: true,
-    },
-    {
-      title: '主机地址',
-      dataIndex: 'ipaddr',
-      key: 'ipaddr',
-      valueType: 'text',
-    },
-    {
-      title: '登录地点',
-      dataIndex: 'loginLocation',
-      key: 'loginLocation',
-      valueType: 'text',
-      hideInSearch: true,
-    },
-    {
-      title: '浏览器',
-      dataIndex: 'browser',
-      key: 'browser',
-      valueType: 'text',
-      hideInSearch: true,
-    },
-    {
-      title: '操作系统',
-      dataIndex: 'os',
-      key: 'os',
-      valueType: 'text',
-      hideInSearch: true,
-    },
-    {
-      title: '登录时间',
-      dataIndex: 'loginTime',
-      key: 'loginTime',
-      valueType: 'dateTime',
-      hideInSearch: true,
-      sorter: true,
-    },
-    {
-      title: '操作',
-      valueType: 'option',
-      fixed: 'right',
-      render: (dom, entity) => {
-        return <ButtonForceLogout tokenId={entity.tokenId} userName={entity.userName} />;
-      },
-    },
-  ];
-};
+  },
+];
 
 interface Params {
   ipaddr?: string;
@@ -96,15 +93,12 @@ const tableAlertOptionRender: ProTableProps<SysUserOnlineVo, Params>['tableAlert
 
 const PageOnline: FC = () => {
   const actionRefMainTable = useActionRefMainTable();
-  const columns = useColumns();
 
   return (
     <BasePageContainer>
       <BaseProTable<SysUserOnlineVo, Params>
         rowKey="tokenId"
-        scroll={{
-          x: '105%',
-        }}
+        scroll={{}}
         actionRef={actionRefMainTable}
         columns={columns}
         request={(...p) => sysUserOnlineGetList(convertParams(...p))}
