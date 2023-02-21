@@ -1,3 +1,4 @@
+import { AccessWithState } from '@/features';
 import { sysOssPostUploadSkipErrorHandler } from '@/services/system/System';
 import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
@@ -21,7 +22,7 @@ const handleUploadFile = async (file: File) => {
   return msg;
 };
 
-const ModalFormUpdate: FC = () => {
+const ButtonUploadFile: FC = () => {
   const [open, { toggle }] = useBoolean();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
@@ -42,7 +43,7 @@ const ModalFormUpdate: FC = () => {
   });
 
   return (
-    <>
+    <AccessWithState accessKey="system:oss:upload">
       <Button type="primary" icon={<UploadOutlined />} onClick={toggle}>
         上传文件
       </Button>
@@ -72,8 +73,8 @@ const ModalFormUpdate: FC = () => {
           <p className="ant-upload-text">请上传大小不超过5MB格式为doc/xls/ppt/txt/pdf的文件</p>
         </Dragger>
       </Modal>
-    </>
+    </AccessWithState>
   );
 };
 
-export default ModalFormUpdate;
+export default ButtonUploadFile;

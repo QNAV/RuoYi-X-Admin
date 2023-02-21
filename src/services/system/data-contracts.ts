@@ -454,9 +454,9 @@ export interface TreeLong {
   config?: TreeNodeConfig;
   weight?: object;
   /** @format int64 */
-  id?: number;
-  /** @format int64 */
   parentId?: number;
+  /** @format int64 */
+  id?: number;
   name?: object;
   empty?: boolean;
   [key: string]: any;
@@ -1652,7 +1652,7 @@ export interface BizLogininforVo {
   /** 操作系统 */
   os?: string;
   /** 登录状态（LOGINOK=登录成功 LOGINFAIL=登录失败 LOGOUT=注销登录 REGISTER=注册） */
-  status: 'SUCCESS' | 'FAIL';
+  status: 'LOGINOK' | 'LOGINFAIL' | 'LOGOUT' | 'REGISTER';
   /** 提示消息 */
   msg?: string;
   /**
@@ -2653,7 +2653,7 @@ export interface SysLogininforVo {
   /** 用户账号 */
   userName: string;
   /** 登录状态（LOGINOK=登录成功 LOGINFAIL=登录失败 LOGOUT=注销登录 REGISTER=注册） */
-  status: 'SUCCESS' | 'FAIL';
+  status: 'LOGINOK' | 'LOGINFAIL' | 'LOGOUT' | 'REGISTER';
   /** 登录IP地址 */
   ipaddr: string;
   /** 登录地点 */

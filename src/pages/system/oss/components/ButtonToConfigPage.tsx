@@ -10,6 +10,7 @@ const ButtonToConfigPage: FC = () => {
     <Button
       icon={<ControlOutlined />}
       type="primary"
+      ghost
       onClick={() => {
         navigate('/system/oss-config');
       }}
