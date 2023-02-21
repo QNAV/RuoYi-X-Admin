@@ -12,12 +12,7 @@ const { Dragger } = Upload;
 const handleUploadFile = async (file: File) => {
   const {
     data: { code, msg },
-  } = await sysOssPostUploadSkipErrorHandler(
-    { file: '' },
-    {
-      file,
-    },
-  );
+  } = await sysOssPostUploadSkipErrorHandler({ file });
 
   if (code !== 200) {
     return Promise.reject(new Error(msg));
