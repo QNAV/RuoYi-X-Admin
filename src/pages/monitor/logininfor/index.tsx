@@ -1,5 +1,5 @@
 import { BasePageContainer, BaseProTable } from '@/components';
-import { useQueryDictSysNormalDisable } from '@/models';
+import { useQueryDictSysLoginStatus } from '@/models';
 import ButtonCleanUp from '@/pages/monitor/logininfor/components/ButtonCleanUp';
 import ButtonExport from '@/pages/monitor/logininfor/components/ButtonExport';
 import ButtonRemove from '@/pages/monitor/logininfor/components/ButtonRemove';
@@ -8,11 +8,12 @@ import type { SysLogininforPageQueryBo, SysLogininforVo } from '@/services/syste
 import { sysLogininforPostList } from '@/services/system/Monitor';
 import { convertParams } from '@/utils';
 import type { ProColumns, ProTableProps } from '@ant-design/pro-components';
+import { isArray } from 'lodash-es';
 import type { FC } from 'react';
 import { useState } from 'react';
 
 const useColumns = (): ProColumns<SysLogininforVo>[] => {
-  const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
+  const { valueEnumSysLoginStatus } = useQueryDictSysLoginStatus();
   return [
     // 访问编号
     { title: '访问编号', dataIndex: 'infoId', key: 'infoId', valueType: 'text', hideInSearch: true },
@@ -38,7 +39,7 @@ const useColumns = (): ProColumns<SysLogininforVo>[] => {
       dataIndex: 'status',
       key: 'status',
       valueType: 'select',
-      valueEnum: valueEnumSysNormalDisable,
+      valueEnum: valueEnumSysLoginStatus,
     },
     // 操作信息
     { title: '操作信息', dataIndex: 'msg', key: 'msg', valueType: 'text', hideInSearch: true },
@@ -59,22 +60,16 @@ const useColumns = (): ProColumns<SysLogininforVo>[] => {
       valueType: 'option',
       fixed: 'right',
       render: (dom, entity) => {
-        return <ButtonRemove infoId={[entity.infoId]} />;
+        return <ButtonRemove infoIds={[entity.infoId]} />;
       },
     },
   ];
 };
 
 const tableAlertOptionRender: ProTableProps<SysLogininforVo, SysLogininforPageQueryBo>['tableAlertOptionRender'] = ({
-  selectedRows,
+  selectedRowKeys,
 }) => {
-  return (
-    <ButtonRemove
-      batch
-      disabled={selectedRows.length === 0}
-      infoId={selectedRows.map((i) => i.infoId) as unknown as number[]}
-    />
-  );
+  return <ButtonRemove batch disabled={selectedRowKeys.length === 0} infoIds={selectedRowKeys as number[]} />;
 };
 
 const PageLoginInfo: FC = () => {
@@ -91,7 +86,11 @@ const PageLoginInfo: FC = () => {
         actionRef={actionRef}
         columns={columns}
         request={async (...p) => {
-          const params = convertParams(...p);
+          const { dateTimeRange, ...params } = convertParams(...p);
+          if (isArray(dateTimeRange)) {
+            params.beginTime = dateTimeRange[0];
+            params.endTime = dateTimeRange[1];
+          }
           setSearchParams(params);
           return await sysLogininforPostList(params);
         }}

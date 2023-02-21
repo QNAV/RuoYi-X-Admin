@@ -192,3 +192,14 @@ export const useQueryDictSysAccessPolicy = () => {
     valueEnumSysAccessPolicy,
   };
 };
+
+// sys_login_status 登录状态
+export const useQueryDictSysLoginStatus = () => {
+  const { data } = useQueryDict('sys_login_status');
+  const defaultValueSysLoginStatus: string | null = data?.defaultValue ?? null;
+  const valueEnumSysLoginStatus: ValueEnumMap<string> = data?.valueEnum ?? new Map();
+  return {
+    defaultValueSysLoginStatus,
+    valueEnumSysLoginStatus,
+  };
+};
