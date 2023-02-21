@@ -1,1 +1,0 @@
-import{j as e,K as c}from"./index-186fd45b.js";globalThis.jotaiAtomCache=globalThis.jotaiAtomCache||{cache:new Map,get(t,a){return this.cache.has(t)?this.cache.get(t):(this.cache.set(t,a),a)}};const s="https://test-ryx-admin-api.p.quicknav.cn/doc.html",o=()=>e(c,{src:s});export{o as default};
