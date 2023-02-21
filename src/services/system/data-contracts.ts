@@ -1036,7 +1036,7 @@ export interface SysOssConfigVo {
   isHttps: 'YES' | 'NO';
   /** 域 */
   region?: string;
-  /** 桶权限类型（PUBLIC=公开 PRIVATE=私有 EXCEPTION=自定义） */
+  /** 桶权限类型（PUBLIC=公开 PRIVATE=私有 CUSTOM=自定义） */
   accessPolicy: 'PUBLIC' | 'PRIVATE' | 'CUSTOM';
   /** 状态（NORMAL=正常 DISABLE=停用） */
   status: 'NORMAL' | 'DISABLE';
@@ -1113,7 +1113,7 @@ export interface SysOssConfigEditBo {
   domain?: string;
   /** 是否https（NO=否 YES=是） */
   isHttps?: 'YES' | 'NO';
-  /** 桶权限类型（PUBLIC=公开 PRIVATE=私有 EXCEPTION=自定义） */
+  /** 桶权限类型（PUBLIC=公开 PRIVATE=私有 CUSTOM=自定义） */
   accessPolicy?: 'PUBLIC' | 'PRIVATE' | 'CUSTOM';
   /** 状态（NORMAL=正常 DISABLE=停用） */
   status?: 'NORMAL' | 'DISABLE';
@@ -1163,7 +1163,7 @@ export interface SysOssConfigAddBo {
   domain?: string;
   /** 是否https（NO=否 YES=是） */
   isHttps?: 'YES' | 'NO';
-  /** 桶权限类型（PUBLIC=公开 PRIVATE=私有 EXCEPTION=自定义） */
+  /** 桶权限类型（PUBLIC=公开 PRIVATE=私有 CUSTOM=自定义） */
   accessPolicy: 'PUBLIC' | 'PRIVATE' | 'CUSTOM';
   /** 状态（NORMAL=正常 DISABLE=停用） */
   status?: 'NORMAL' | 'DISABLE';

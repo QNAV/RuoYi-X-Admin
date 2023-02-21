@@ -1104,10 +1104,6 @@ export const sysPostPostAddSkipErrorHandler = (data: SysPostAddBo, params: Reque
  * @secure
  */
 export const sysOssPostUpload = (
-  query: {
-    /** 文件 */
-    file: any;
-  },
   data: {
     /** @format binary */
     file: File;
@@ -1117,7 +1113,6 @@ export const sysOssPostUpload = (
   request<ROssUploadVo>({
     path: `/system/oss/upload`,
     method: 'POST',
-    query: query,
     body: data,
     secure: true,
     type: ContentType.FormData,
@@ -1125,10 +1120,6 @@ export const sysOssPostUpload = (
     ...params,
   });
 export const sysOssPostUploadSkipErrorHandler = (
-  query: {
-    /** 文件 */
-    file: any;
-  },
   data: {
     /** @format binary */
     file: File;
@@ -1138,7 +1129,6 @@ export const sysOssPostUploadSkipErrorHandler = (
   request<ROssUploadVo>({
     path: `/system/oss/upload`,
     method: 'POST',
-    query: query,
     body: data,
     secure: true,
     type: ContentType.FormData,
