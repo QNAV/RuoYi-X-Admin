@@ -3,7 +3,7 @@ import {
   descriptionsColumns,
   useCacheKeyTableColumns,
   useCacheNameTableColumns,
-} from '@/pages/monitor/cacheList/model/columns';
+} from '@/pages/monitor/cacheList/model';
 import type { SysCache } from '@/services/system/data-contracts';
 import {
   cacheDeleteClearCacheAll,
@@ -13,11 +13,11 @@ import {
   cacheGetCacheNames,
   cacheGetCacheValue,
 } from '@/services/system/Monitor';
-import { ReloadOutlined } from '@ant-design/icons';
+import { ClearOutlined, ReloadOutlined } from '@ant-design/icons';
 import { ProCard, ProDescriptions } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
-import { App, Button } from 'antd';
+import { App, Button, Spin } from 'antd';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -45,12 +45,16 @@ const PageCacheList: FC = () => {
     },
   );
 
-  const { data: cacheRecord, mutate: mutateValuesData } = useRequest(() => cacheGetCacheValue(cacheName!, cacheKey!), {
+  const {
+    data: cacheValues,
+    mutate: mutateValuesData,
+    loading: isLoadingValues,
+  } = useRequest(() => cacheGetCacheValue(cacheName!, cacheKey!), {
     ready: !!cacheKey,
     refreshDeps: [cacheKey],
   });
 
-  const { mutate: mutateNames, isLoading: isLoadingName } = useMutation(async (name: string) => {
+  const { mutate: mutateNames, isLoading: isLoadingNames } = useMutation(async (name: string) => {
     await cacheDeleteClearCacheName(name);
     if (name === cacheName) {
       mutateCacheKeysData([]);
@@ -88,7 +92,7 @@ const PageCacheList: FC = () => {
               type="text"
               icon={<ReloadOutlined />}
               onClick={refreshCacheNames}
-              loading={isLoadingName}
+              loading={isLoadingNames}
             />,
           ]}
         >
@@ -146,15 +150,15 @@ const PageCacheList: FC = () => {
             <Button
               key="Button"
               type="text"
-              icon={<ReloadOutlined />}
+              icon={<ClearOutlined />}
               onClick={() => mutateValues()}
               loading={isLoadingValue}
-            >
-              清理全部
-            </Button>,
+            />,
           ]}
         >
-          <ProDescriptions column={1} columns={descriptionsColumns} dataSource={cacheRecord} />
+          <Spin spinning={isLoadingValues}>
+            <ProDescriptions column={1} columns={descriptionsColumns} dataSource={cacheValues} />
+          </Spin>
         </ProCard>
       </ProCard>
     </BasePageContainer>
