@@ -1,6 +1,6 @@
 import { Gauge } from '@antv/g2plot';
 import type { FC } from 'react';
-import { startTransition, useEffect, useRef } from 'react';
+import { useEffect, useRef, useTransition } from 'react';
 
 const ticks = [0, 1 / 3, 2 / 3, 1];
 const color = ['#30BF78', '#FAAD14', '#F4664A'];
@@ -10,9 +10,12 @@ const PieUsedMemory: FC<{
 }> = ({ data = 0 }) => {
   const gaugeRef = useRef<Gauge>();
 
-  startTransition(() => {
-    gaugeRef.current?.changeData(data / 1000);
-  });
+  const [, startTransition] = useTransition();
+  useEffect(() => {
+    startTransition(() => {
+      gaugeRef.current?.changeData(data / 1000);
+    });
+  }, [data]);
 
   useEffect(() => {
     if (!gaugeRef.current) {
