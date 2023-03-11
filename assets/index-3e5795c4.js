@@ -1,1 +1,0 @@
-import{e as a,b as t,j as P,P as d,_ as i}from"./index-cde0b745.js";var l=["fieldProps","proFieldProps"],F=function(r,e){var o=r.fieldProps,p=r.proFieldProps,s=t(r,l);return P(d,i({ref:e,valueType:"textarea",fieldProps:o,proFieldProps:p},s))};const m=a.forwardRef(F);export{m as P};
