@@ -42,5 +42,16 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            antd: ['antd'],
+            '@icon-park/react': ['@icon-park/react'],
+            '@wangeditor/editor': ['@wangeditor/editor', '@wangeditor/editor-for-react'],
+          },
+        },
+      },
+    },
   };
 });
