@@ -1,7 +1,8 @@
-import { IconAntd } from '@/components';
+import { IconPark } from '@/components';
 import type { RouterVo } from '@/services/system/data-contracts';
 import { isHttpUrl } from '@/utils/is';
 import type { MenuDataItem } from '@ant-design/pro-components';
+import type { IconType } from '@icon-park/react/es/all';
 
 const genFullPath = (path: string, parentPath: string) => {
   if (isHttpUrl(path)) {
@@ -29,7 +30,7 @@ export const convertUserRoutesToMenus = (userRoutes: RouterVo[] = [], parentPath
       path: fullPath,
       name: meta?.title ?? path,
       hideInMenu: hidden,
-      icon: <IconAntd name={meta?.icon} />,
+      icon: <IconPark type={meta?.icon as IconType} />,
       link: meta?.link,
       children,
     });

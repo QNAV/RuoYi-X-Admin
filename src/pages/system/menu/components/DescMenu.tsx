@@ -1,22 +1,32 @@
-import { EmptySimple } from '@/components';
+import { EmptySimple, IconPark } from '@/components';
 import { useCheckAccess } from '@/hooks';
 import { useQueryDictSysMenuType, useQueryDictSysNormalDisable, useQueryDictSysYesNo } from '@/models';
-import { useAtomValueSelectedMenuData, useReFetchMenuList, useReFetchMenuOptions } from '@/pages/system/menu/model';
+import {
+  useAtomValueSelectedMenuData,
+  useReFetchMenuList,
+  useReFetchMenuOptions,
+  useShowDrawerSelectIcon,
+} from '@/pages/system/menu/model';
 import type { SysMenuVo } from '@/services/system/data-contracts';
 import { sysMenuGetInfo, sysMenuPostEdit } from '@/services/system/System';
+import { EditOutlined } from '@ant-design/icons';
 import type { ProDescriptionsProps } from '@ant-design/pro-components';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useMutation } from '@tanstack/react-query';
 import { useRequest } from 'ahooks';
-import { App, Divider, Form, Spin } from 'antd';
+import { App, Divider, Form, Space, Spin } from 'antd';
 import type { FC } from 'react';
 import { useMemo, useState } from 'react';
 
 const column: ProDescriptionsProps['column'] = { xs: 1, sm: 1, md: 1, lg: 1, xl: 2 };
 
-const useColumns = (menuType?: SysMenuVo['menuType']): ProDescriptionsProps['columns'] => {
+const useColumns = (
+  menuType?: SysMenuVo['menuType'],
+  onSelected?: (icon: string) => void,
+): ProDescriptionsProps['columns'] => {
   const { valueEnumSysNormalDisable } = useQueryDictSysNormalDisable();
   const { valueEnumSysYesNo } = useQueryDictSysYesNo();
+  const showDrawerSelectIcon = useShowDrawerSelectIcon();
 
   return useMemo(() => {
     const columns: ProDescriptionsProps['columns'] = [];
@@ -53,7 +63,16 @@ const useColumns = (menuType?: SysMenuVo['menuType']): ProDescriptionsProps['col
           dataIndex: 'icon',
           key: 'icon',
           valueType: 'text',
-          tooltip: 'https://ant.design/components/icon-cn/',
+          editable: false,
+          tooltip: 'https://iconpark.oceanengine.com',
+          render: (dom, entity) => {
+            return (
+              <Space>
+                <IconPark type={entity.icon} size={24} />
+                <EditOutlined className="cursor-pointer" onClick={() => showDrawerSelectIcon(onSelected)} />
+              </Space>
+            );
+          },
         },
         {
           title: '路由地址',
@@ -109,7 +128,19 @@ const DescMenu: FC = () => {
     },
   });
 
-  const columns = useColumns(data?.menuType);
+  const columns = useColumns(data?.menuType, async (icon: string) => {
+    if (!data) return;
+
+    const { menuType, orderNum, menuName, menuId } = data;
+
+    await mutateAsync({
+      menuId,
+      menuType,
+      orderNum,
+      menuName,
+      icon,
+    });
+  });
 
   const checkAccess = useCheckAccess();
 

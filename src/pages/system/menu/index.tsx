@@ -2,6 +2,7 @@ import { BasePageContainer } from '@/components';
 import ButtonAdd from '@/pages/system/menu/components/ButtonAdd';
 import ButtonRemove from '@/pages/system/menu/components/ButtonRemove';
 import DescMenu from '@/pages/system/menu/components/DescMenu';
+import DrawerIcons from '@/pages/system/menu/components/DrawerIcons';
 import ModalAdd from '@/pages/system/menu/components/ModalAdd';
 import TreeMenu from '@/pages/system/menu/components/TreeMenu';
 import { ProCard } from '@ant-design/pro-components';
@@ -44,6 +45,8 @@ const PageMenu: FC = () => {
       </ProCard>
 
       <ModalAdd />
+
+      <DrawerIcons />
     </BasePageContainer>
   );
 };

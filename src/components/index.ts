@@ -14,6 +14,6 @@ export * from './BaseTableAlert';
 export * from './ButtonExpand';
 export * from './ButtonGroupEdit';
 export * from './EmptySimple';
-export * from './IconAntd';
+export * from './IconPark';
 export * from './LoadingProgress';
 export * from './RouteError';

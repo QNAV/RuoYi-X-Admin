@@ -1,4 +1,3 @@
-import { IconAntd } from '@/components';
 import { menuTypeColor } from '@/pages/system/menu/components/TreeMenu';
 import type { SysMenuVo } from '@/services/system/data-contracts';
 import { CopyOutlined } from '@ant-design/icons';
@@ -10,8 +9,6 @@ const TreeMenuTitle: TreeProps<SysMenuVo>['titleRender'] = (item) => {
   return (
     <>
       <Tag color="rgb(148 163 184)">{item.orderNum}</Tag>
-
-      {item?.icon && <IconAntd name={item.icon} className="mr-1" />}
 
       <Tag color={menuTypeColor[item.menuType]} style={{ margin: '0 0 2px 0' }}>
         {item.menuName}

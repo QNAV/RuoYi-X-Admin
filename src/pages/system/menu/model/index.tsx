@@ -31,6 +31,26 @@ export const useShowModalAdd = () => {
 };
 export const useAtomValueModalAdd = () => useAtomValue(atomModalAdd);
 
+// 选择菜单图标Drawer
+export interface AtomDrawerSelectIcon {
+  open: boolean;
+  onSelected?: (icon: string) => void;
+}
+const atomDrawerSelectIcon = atomWithReset<AtomDrawerSelectIcon>({
+  open: false,
+  onSelected: undefined,
+});
+export const useHideDrawerSelectIcon = () => useResetAtom(atomDrawerSelectIcon);
+export const useShowDrawerSelectIcon = () => {
+  const setRecoilState = useSetAtom(atomDrawerSelectIcon);
+  return (onSelected: AtomDrawerSelectIcon['onSelected']) =>
+    setRecoilState({
+      open: true,
+      onSelected,
+    });
+};
+export const useAtomValueDrawerSelectIcon = () => useAtomValue(atomDrawerSelectIcon);
+
 // 查询菜单列表
 const queryMenuListKey = [namespace, 'list'];
 export const useQueryMenuList = (params: SysMenuQueryBo = {}, onSuccess: (parentIds: number[]) => void) => {
