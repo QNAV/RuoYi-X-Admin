@@ -80,7 +80,7 @@
     "swagger-typescript-api": "^12.0.3",
     "tailwindcss": "^3.2.7",
     "tsx": "^3.12.3",
-    "typescript": "^4.9.5",
+    "typescript": "^5.0.2",
     "vite": "^4.1.4",
     "vite-plugin-html": "^3.2.0"
   },
