@@ -47,8 +47,10 @@ export default defineConfig(({ mode }) => {
         output: {
           manualChunks: {
             antd: ['antd'],
-            '@icon-park/react': ['@icon-park/react'],
-            '@wangeditor/editor': ['@wangeditor/editor', '@wangeditor/editor-for-react'],
+            antdProComponents: ['@ant-design/pro-components'],
+            iconPark: ['@icon-park/react'],
+            wangEditor: ['@wangeditor/editor', '@wangeditor/editor-for-react'],
+            highlight: ['highlight.js'],
           },
         },
       },
