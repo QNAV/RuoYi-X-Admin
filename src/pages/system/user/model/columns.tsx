@@ -260,7 +260,7 @@ export const useTableColumns = (): ProColumns<SysUserVo>[] => {
     {
       title: '操作',
       valueType: 'option',
-      render: (dom, entity) => {
+      render: (_dom, entity) => {
         if (entity.userId === 1) {
           return null;
         }

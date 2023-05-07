@@ -57,7 +57,7 @@ const useColumns = (): ProColumns<SysOperLogVo>[] => {
       key: 'option',
       valueType: 'option',
       fixed: 'right',
-      render: (dom, entity) => {
+      render: (_dom, entity) => {
         return <ButtonRemove operIds={[entity.operId]} />;
       },
     },

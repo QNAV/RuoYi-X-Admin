@@ -12,7 +12,7 @@ type Filter = Record<string, Key[] | null>;
  */
 export const convertSortParams = (params: Sort) => {
   return Object.keys(params).reduce(
-    (pre, key) => ({
+    (_pre, key) => ({
       orderByColumn: key,
       isAsc: params[key] === 'ascend' ? 'asc' : 'desc',
     }),

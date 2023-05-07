@@ -20,7 +20,7 @@ const tableAlertOptionRender: ProTableProps<SysUserVo, SysUserPageQueryBo>['tabl
   return <ButtonRemove disabled={selectedRowKeys.length === 0} batch userIds={selectedRowKeys as number[]} />;
 };
 
-const tableRender: ProTableProps<SysUserVo, SysUserPageQueryBo>['tableRender'] = (props, defaultDom) => {
+const tableRender: ProTableProps<SysUserVo, SysUserPageQueryBo>['tableRender'] = (_props, defaultDom) => {
   return (
     <div className="flex gap-4">
       <ProCard className="w-80">

@@ -120,7 +120,7 @@ export const useTableColumns = (): ProColumns<SysNoticeVo>[] => {
     {
       title: '操作',
       valueType: 'option',
-      render: (dom, entity) => {
+      render: (_dom, entity) => {
         return (
           <>
             <ButtonEdit record={entity} />

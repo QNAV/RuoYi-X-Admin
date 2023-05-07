@@ -77,7 +77,7 @@ const columns: ProDescriptionsItemProps[] = [
     dataIndex: 'instantaneous_input_kbps',
     title: '网络入口/出口',
     valueType: 'text',
-    renderText: (text, record) =>
+    renderText: (_text, record) =>
       `${record?.instantaneous_input_kbps ?? 0}kps/${record?.instantaneous_output_kbps ?? 0}kps`,
   },
 ];

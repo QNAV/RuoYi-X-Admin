@@ -25,7 +25,7 @@ const TreeMenuTitle: TreeProps<SysMenuVo>['titleRender'] = (item) => {
             >
               <CopyToClipboard
                 text={item.perms}
-                onCopy={async (text, result) => {
+                onCopy={async (_text, result) => {
                   if (result) {
                     message.success('复制成功');
                   }

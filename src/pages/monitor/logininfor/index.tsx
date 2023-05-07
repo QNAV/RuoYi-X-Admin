@@ -59,7 +59,7 @@ const useColumns = (): ProColumns<SysLogininforVo>[] => {
       key: 'option',
       valueType: 'option',
       fixed: 'right',
-      render: (dom, entity) => {
+      render: (_dom, entity) => {
         return <ButtonRemove infoIds={[entity.infoId]} />;
       },
     },

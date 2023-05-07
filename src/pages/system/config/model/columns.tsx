@@ -145,7 +145,7 @@ export const useTableColumns = (): ProColumns<SysConfigVo>[] => {
       title: '操作',
       valueType: 'option',
       fixed: 'right',
-      render: (dom, entity) => {
+      render: (_dom, entity) => {
         return (
           <>
             <ButtonEdit record={entity} />

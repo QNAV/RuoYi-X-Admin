@@ -44,7 +44,7 @@ const columns: ProColumns<GenTable>[] = [
   {
     title: '操作',
     valueType: 'option',
-    render: (dom, entity) => {
+    render: (_dom, entity) => {
       return (
         <>
           <ButtonPreview tableId={entity.tableId!} />

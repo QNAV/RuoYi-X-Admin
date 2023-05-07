@@ -59,7 +59,7 @@ const useColumns = (): ProColumns<SysDictDataVo>[] => {
     {
       title: '操作',
       valueType: 'option',
-      render: (dom, entity: SysDictDataVo) => {
+      render: (_dom, entity: SysDictDataVo) => {
         return (
           <>
             <ButtonEdit record={entity} />

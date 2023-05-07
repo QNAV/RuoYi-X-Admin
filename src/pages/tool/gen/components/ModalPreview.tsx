@@ -53,7 +53,7 @@ const ModalPreview: FC = () => {
                     <div className="relative">
                       <CopyToClipboard
                         text={content}
-                        onCopy={(text, result) => {
+                        onCopy={(_text, result) => {
                           if (result) {
                             message.success('复制成功');
                           }

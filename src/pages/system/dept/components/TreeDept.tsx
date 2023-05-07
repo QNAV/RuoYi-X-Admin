@@ -74,7 +74,7 @@ const TreeDept: FC = () => {
               title: 'deptName',
               key: 'deptId',
             }}
-            onSelect={(selectedKeys, { selected, node: { key } }) => {
+            onSelect={(_selectedKeys, { selected, node: { key } }) => {
               if (!selected) return;
 
               showDeptDetails(key, data!.map.get(key)!.deptName);

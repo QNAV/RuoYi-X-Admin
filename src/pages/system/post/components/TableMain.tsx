@@ -34,7 +34,7 @@ const useColumns = (): ProColumns<SysPostVo>[] => {
     {
       title: '操作',
       valueType: 'option',
-      render: (dom, entity: SysPostVo) => {
+      render: (_dom, entity: SysPostVo) => {
         return (
           <>
             <ButtonEdit record={entity} />

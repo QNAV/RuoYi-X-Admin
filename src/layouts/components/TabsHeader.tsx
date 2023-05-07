@@ -75,7 +75,7 @@ const TabsHeader: FC<HeaderTabsProps> = ({ currRouteSettings, refreshElementByKe
     navigate(url);
   };
 
-  const handelRemoveLeftTabs = (targetKey: string, currActiveKeyIndex: number, url: string) => {
+  const handelRemoveLeftTabs = (_targetKey: string, currActiveKeyIndex: number, url: string) => {
     setItems((e) => {
       const removeKeys = e.filter((i, index) => i.closable && index < currActiveKeyIndex).map((i) => i.key);
 
@@ -89,7 +89,7 @@ const TabsHeader: FC<HeaderTabsProps> = ({ currRouteSettings, refreshElementByKe
     navigate(url);
   };
 
-  const handelRemoveRightTabs = (targetKey: string, currActiveKeyIndex: number, url: string) => {
+  const handelRemoveRightTabs = (_targetKey: string, currActiveKeyIndex: number, url: string) => {
     setItems((e) => {
       const removeKeys = e.filter((i, index) => i.closable && index > currActiveKeyIndex).map((i) => i.key);
 

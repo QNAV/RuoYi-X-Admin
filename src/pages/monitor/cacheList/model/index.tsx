@@ -62,7 +62,7 @@ export const useCacheNameTableColumns = (onDelete: (cacheName: string) => void):
       title: '操作',
       valueType: 'option',
       width: 50,
-      render: (dom, entity) => {
+      render: (_dom, entity) => {
         return (
           <Button
             type="text"
@@ -88,7 +88,7 @@ export const useCacheKeyTableColumns = (onDelete: (cacheKey: string) => void): P
       title: '操作',
       valueType: 'option',
       width: 50,
-      render: (dom, entity) => {
+      render: (_dom, entity) => {
         return (
           <Button
             type="text"

@@ -65,7 +65,7 @@ const useColumns = (
           valueType: 'text',
           editable: false,
           tooltip: 'https://iconpark.oceanengine.com',
-          render: (dom, entity) => {
+          render: (_dom, entity) => {
             return (
               <Space>
                 <IconPark type={entity.icon} size={24} />

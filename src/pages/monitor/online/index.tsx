@@ -69,7 +69,7 @@ const columns: ProColumns<SysUserOnlineVo>[] = [
   {
     title: '操作',
     valueType: 'option',
-    render: (dom, entity) => {
+    render: (_dom, entity) => {
       return <ButtonForceLogout tokenId={entity.tokenId} userName={entity.userName} />;
     },
   },

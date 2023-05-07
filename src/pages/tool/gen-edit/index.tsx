@@ -75,8 +75,8 @@ const GenEditPage: FC = () => {
             },
           ],
           activeKey: tab,
-          onChange: (key) => {
-            setTab(key as TabKey);
+          onChange: (key: TabKey) => {
+            setTab(key);
           },
         }}
       />
