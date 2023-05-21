@@ -1,1 +1,0 @@
-import{r as c}from"./antd-32711b0a.js";import{e as a,F as u}from"./index-bb49039a.js";const m=Symbol();function i(o){const t=a(o,(s,n,e)=>{const r=typeof e=="function"?e(s(t)):e;n(t,r===m?o:r)});return t}function p(o,t){const s=u(o,t);return c.useCallback(()=>s(m),[s])}export{i as a,p as u};

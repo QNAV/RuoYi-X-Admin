@@ -1,1 +1,0 @@
-import{j as h}from"./antdProComponents-4ea99293.js";import"./antd-32711b0a.js";globalThis.jotaiAtomCache=globalThis.jotaiAtomCache||{cache:new Map,get(t,e){return this.cache.has(t)?this.cache.get(t):(this.cache.set(t,e),e)}};function c(){return h.jsx("h1",{children:"TODO"})}export{c as default};
