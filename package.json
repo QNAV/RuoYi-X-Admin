@@ -16,7 +16,7 @@
     "vis": "tsc --extendedDiagnostics && cross-env vis=1 vite build"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.1.0",
+    "@ant-design/icons": "^5.1.4",
     "@ant-design/pro-components": "2.4.16",
     "@antv/g2plot": "^2.4.31",
     "@icon-park/react": "^1.4.2",
