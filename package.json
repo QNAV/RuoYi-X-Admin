@@ -71,7 +71,7 @@
     "prettier-plugin-packagejson": "^2.4.4",
     "rollup-plugin-visualizer": "^5.9.2",
     "standard-version": "^9.5.0",
-    "stylelint": "^15.9.0",
+    "stylelint": "^15.10.0",
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-recess-order": "^4.2.0",
     "stylelint-config-recommended-less": "^1.0.4",
