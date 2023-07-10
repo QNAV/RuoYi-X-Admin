@@ -113,8 +113,8 @@ devDependencies:
     specifier: ^5.61.0
     version: 5.61.0(eslint@8.44.0)(typescript@5.1.6)
   '@vitejs/plugin-react':
-    specifier: ^4.0.1
-    version: 4.0.1(vite@4.3.9)
+    specifier: ^4.0.3
+    version: 4.0.3(vite@4.3.9)
   autoprefixer:
     specifier: ^10.4.14
     version: 10.4.14(postcss@8.4.24)
@@ -2058,8 +2058,8 @@ packages:
       nanoid: 3.3.6
     dev: false
 
-  /@vitejs/plugin-react@4.0.1(vite@4.3.9):
-    resolution: {integrity: sha512-g25lL98essfeSj43HJ0o4DMp0325XK0ITkxpgChzJU/CyemgyChtlxfnRbjfwxDGCTRxTiXtQAsdebQXKMRSOA==}
+  /@vitejs/plugin-react@4.0.3(vite@4.3.9):
+    resolution: {integrity: sha512-pwXDog5nwwvSIzwrvYYmA2Ljcd/ZNlcsSG2Q9CNDBwnsd55UGAyr2doXtB5j+2uymRCnCfExlznzzSFbBRcoCg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.2.0
