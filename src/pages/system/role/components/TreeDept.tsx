@@ -111,7 +111,7 @@ const TreeDept: FC = () => {
     <>
       <header className="flex justify-between items-start flex-wrap">
         <ProForm formRef={formRef} submitter={false} layout="horizontal">
-          <ProFormSelect
+          <ProFormSelect<SysRoleVo['dataScope']>
             name="dataScope"
             label="数据权限范围"
             valueEnum={valueEnumSysDataScope}

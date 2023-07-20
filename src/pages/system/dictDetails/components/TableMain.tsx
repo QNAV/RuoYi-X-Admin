@@ -148,7 +148,7 @@ const TableMain: FC = () => {
       }}
       headerTitle={
         <LightFilter formRef={formRef}>
-          <ProFormSelect
+          <ProFormSelect<string>
             name="dictType"
             valueEnum={valueEnum ?? {}}
             allowClear={false}
