@@ -137,8 +137,8 @@ devDependencies:
     specifier: ^8.0.3
     version: 8.0.3
   less:
-    specifier: ^4.1.3
-    version: 4.1.3
+    specifier: ^4.2.0
+    version: 4.2.0
   lint-staged:
     specifier: ^13.2.3
     version: 13.2.3
@@ -198,7 +198,7 @@ devDependencies:
     version: 5.1.6
   vite:
     specifier: ^4.4.8
-    version: 4.4.8(@types/node@20.4.6)(less@4.1.3)
+    version: 4.4.8(@types/node@20.4.6)(less@4.2.0)
   vite-plugin-html:
     specifier: ^3.2.0
     version: 3.2.0(vite@4.4.8)
@@ -2269,7 +2269,7 @@ packages:
       '@babel/plugin-transform-react-jsx-self': 7.22.5(@babel/core@7.22.9)
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.9)
       react-refresh: 0.14.0
-      vite: 4.4.8(@types/node@20.4.6)(less@4.1.3)
+      vite: 4.4.8(@types/node@20.4.6)(less@4.2.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5227,8 +5227,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /less@4.1.3:
-    resolution: {integrity: sha512-w16Xk/Ta9Hhyei0Gpz9m7VS8F28nieJaL/VyShID7cYvP6IL5oHeL6p4TXSDJqZE/lNv0oJ2pGVjJsRkfwm5FA==}
+  /less@4.2.0:
+    resolution: {integrity: sha512-P3b3HJDBtSzsXUl0im2L7gTO5Ubg8mEN6G8qoTS77iXxXX4Hvu4Qj540PZDvQ8V6DmX6iXo98k7Md0Cm1PrLaA==}
     engines: {node: '>=6'}
     hasBin: true
     dependencies:
@@ -8521,10 +8521,10 @@ packages:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 4.4.8(@types/node@20.4.6)(less@4.1.3)
+      vite: 4.4.8(@types/node@20.4.6)(less@4.2.0)
     dev: true
 
-  /vite@4.4.8(@types/node@20.4.6)(less@4.1.3):
+  /vite@4.4.8(@types/node@20.4.6)(less@4.2.0):
     resolution: {integrity: sha512-LONawOUUjxQridNWGQlNizfKH89qPigK36XhMI7COMGztz8KNY0JHim7/xDd71CZwGT4HtSRgI7Hy+RlhG0Gvg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -8554,7 +8554,7 @@ packages:
     dependencies:
       '@types/node': 20.4.6
       esbuild: 0.18.17
-      less: 4.1.3
+      less: 4.2.0
       postcss: 8.4.27
       rollup: 3.27.1
     optionalDependencies:
