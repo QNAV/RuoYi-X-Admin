@@ -70,7 +70,7 @@ export interface RVoid {
   /** 消息内容 */
   msg: string;
   /** 数据对象 */
-  data: object;
+  data: Record<string, any>;
 }
 
 /** 已登录用户信息更新业务对象 */
@@ -452,12 +452,12 @@ export interface RListTreeLong {
 
 export interface TreeLong {
   config?: TreeNodeConfig;
-  weight?: object;
+  weight?: Record<string, any>;
   /** @format int64 */
   parentId?: number;
   /** @format int64 */
   id?: number;
-  name?: object;
+  name?: Record<string, any>;
   empty?: boolean;
   [key: string]: any;
 }
@@ -3218,7 +3218,7 @@ export interface RMapStringObject {
   /** 消息内容 */
   msg: string;
   /** 数据对象 */
-  data: Record<string, object>;
+  data: Record<string, any>;
 }
 
 /** 响应信息主体 */
@@ -3508,11 +3508,11 @@ export interface TableDataSysUserOnlineVo {
 /** 缓存监控详细信息返回对象 */
 export interface CacheInfoVo {
   /** 缓存服务器原始配置信息 */
-  info?: Record<string, string>;
+  info?: Record<string, any>;
   /** 数据库大小 */
   dbSize?: string;
   /** redis命令统计 */
-  commandStats?: Record<string, string>[];
+  commandStats?: Record<string, any>[];
 }
 
 /** 响应信息主体 */

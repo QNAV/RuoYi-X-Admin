@@ -19,7 +19,7 @@ export interface RVoid {
   /** 消息内容 */
   msg: string;
   /** 数据对象 */
-  data: object;
+  data: Record<string, any>;
 }
 
 /** 代码生成分页查询对象 */
@@ -127,10 +127,10 @@ export interface GenTable {
   /** 上级菜单名称字段 */
   parentMenuName?: string;
   /** 传入参数（暂时预留） */
-  params?: Record<string, string>;
-  crud?: boolean;
-  sub?: boolean;
+  params?: Record<string, any>;
   tree?: boolean;
+  sub?: boolean;
+  crud?: boolean;
 }
 
 /** 代码生成业务字段实体对象 */
@@ -202,16 +202,16 @@ export interface GenTableColumn {
    */
   sort?: number;
   list?: boolean;
-  capJavaField?: string;
-  required?: boolean;
   pk?: boolean;
   insert?: boolean;
   edit?: boolean;
   usableColumn?: boolean;
   superColumn?: boolean;
+  capJavaField?: string;
+  required?: boolean;
   query?: boolean;
-  voRequired?: boolean;
   increment?: boolean;
+  voRequired?: boolean;
 }
 
 /** 分页数据对象 */
@@ -248,7 +248,7 @@ export interface RMapStringString {
   /** 消息内容 */
   msg: string;
   /** 数据对象 */
-  data: Record<string, string>;
+  data: Record<string, any>;
 }
 
 /** 代码生成业务信息对象 */
