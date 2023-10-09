@@ -75,7 +75,7 @@ const DescDept: FC = () => {
           setEditableKeys(keys as string[]);
 
           if (keys.length > 0) {
-            const [key] = keys;
+            const [key] = keys as string[];
             form.setFieldsValue({
               [key]: editableRows[key as keyof typeof editableRows],
             });
